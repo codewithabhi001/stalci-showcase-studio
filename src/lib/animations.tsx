@@ -81,10 +81,17 @@ export function useStaggerReveal(
       duration = 0.8,
       ease = "power3.out",
       start = "top 85%",
-      childSelector = ":scope > *",
+      childSelector,
     } = options;
 
-    const children = el.querySelectorAll(childSelector);
+    let children: Element[] | NodeListOf<Element>;
+    if (childSelector) {
+      // Prepend :scope if selector starts with >
+      const sel = childSelector.startsWith(">") ? `:scope ${childSelector}` : childSelector;
+      children = el.querySelectorAll(sel);
+    } else {
+      children = Array.from(el.children);
+    }
 
     gsap.fromTo(
       children,
