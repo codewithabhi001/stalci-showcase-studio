@@ -16,7 +16,7 @@ export function Process() {
   const lineRef = useLineReveal();
 
   return (
-    <section id="process" className="relative py-24 sm:py-32 mesh-gradient-light overflow-hidden">
+    <section id="process" className="relative bg-background py-24 sm:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading

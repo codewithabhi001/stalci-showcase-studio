@@ -20,7 +20,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="surface-ink mesh-gradient-dark relative isolate overflow-hidden py-24 sm:py-32">
+    <section id="contact" className="surface-ink relative isolate overflow-hidden py-24 sm:py-32">
       <div className="absolute inset-0 grid-lines opacity-50" aria-hidden />
       <div
         className="pointer-events-none absolute -bottom-40 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full blur-3xl animate-pulse-glow"
@@ -56,7 +56,7 @@ export function Contact() {
 
         <div 
           ref={formRevealRef}
-          className="relative rounded-3xl glass-dark gradient-border p-7 sm:p-9"
+          className="relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 sm:p-9"
         >
           <AnimatePresence mode="wait">
             {sent ? (

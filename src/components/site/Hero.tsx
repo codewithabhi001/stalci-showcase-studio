@@ -114,7 +114,7 @@ export function Hero() {
             <motion.div
               key={p.title}
               whileHover={{ y: -5 }}
-              className="glass-dark group flex flex-col items-center gap-3 rounded-2xl border border-white/10 px-6 py-8 text-center shadow-lg transition-all hover:border-copper/30 hover:bg-white/5"
+              className="group flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-ink-soft/90 px-6 py-8 text-center shadow-lg transition-all hover:border-copper/30 hover:bg-ink-soft"
             >
               <div className="mb-2 rounded-full bg-white/5 p-3 transition-colors group-hover:bg-copper/10">
                 <p.icon className="h-6 w-6 text-copper transition-transform group-hover:scale-110" strokeWidth={1.5} />

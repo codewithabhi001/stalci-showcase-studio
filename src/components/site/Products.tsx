@@ -41,7 +41,7 @@ function ProductCard({ p }: { p: typeof products[0] }) {
     <motion.article
       initial="rest"
       whileHover="hover"
-      className="card-lift glass gradient-border group relative flex flex-col overflow-hidden rounded-3xl p-8 sm:p-10 md:p-12"
+      className="card-lift group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-8 sm:p-10 md:p-12"
     >
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
         <div className="flex min-w-0 items-center gap-5">
@@ -91,7 +91,7 @@ export function Products() {
   const lineRef = useLineReveal();
 
   return (
-    <section id="products" className="mesh-gradient-light relative py-24 sm:py-32">
+    <section id="products" className="bg-background relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div ref={headingRef}>
           <SectionHeading

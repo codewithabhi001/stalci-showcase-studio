@@ -19,7 +19,7 @@ export function WhyStalci() {
   const gridRef = useStaggerReveal();
 
   return (
-    <section className="surface-ink mesh-gradient-dark relative isolate overflow-hidden py-24 sm:py-32">
+    <section className="surface-ink relative isolate overflow-hidden py-24 sm:py-32">
       {/* Grid lines overlay */}
       <div className="absolute inset-0 grid-lines opacity-50 pointer-events-none" aria-hidden />
 

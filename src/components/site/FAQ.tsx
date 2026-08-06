@@ -46,7 +46,7 @@ export function FAQ() {
   const staggerRef = useStaggerReveal({ staggerChildren: 0.1 });
 
   return (
-    <section id="faq" className="relative bg-background py-24 sm:py-32 mesh-gradient-light overflow-hidden">
+    <section id="faq" className="relative bg-background py-24 sm:py-32 overflow-hidden">
       <div className="mx-auto max-w-3xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
@@ -56,8 +56,8 @@ export function FAQ() {
           />
         </div>
 
-        <div className="mt-16 rounded-3xl p-6 sm:p-10 gradient-border glass-dark shadow-2xl relative">
-          <div className="absolute inset-0 bg-surface-ink/50 backdrop-blur-md rounded-3xl -z-10" />
+        <div className="mt-16 rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-2xl relative">
+
           
           <div ref={staggerRef}>
             <Accordion 

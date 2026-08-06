@@ -36,7 +36,7 @@ export function Industries() {
   const gridRef = useStaggerReveal({ staggerChildren: 0.1 });
 
   return (
-    <section id="industries" className="relative py-24 sm:py-32 mesh-gradient-light overflow-hidden">
+    <section id="industries" className="relative bg-background py-24 sm:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
@@ -55,7 +55,7 @@ export function Industries() {
             {industries.map((i) => (
               <motion.div
                 key={i.name}
-                className="group relative bg-background/80 p-7 transition-colors duration-500 hover:bg-ink/5 gradient-border glass-dark"
+                className="group relative bg-card p-7 transition-colors duration-500 hover:bg-secondary"
                 whileHover="hover"
               >
                 {/* Subtle hover glow background effect */}

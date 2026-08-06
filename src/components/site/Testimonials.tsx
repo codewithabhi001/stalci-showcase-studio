@@ -30,7 +30,7 @@ export function Testimonials() {
 
   return (
     <section className="relative overflow-hidden bg-secondary/60 py-24 sm:py-32">
-      <div className="absolute inset-0 mesh-gradient-dark opacity-40 pointer-events-none" />
+
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div ref={headerRef}>
           <SectionHeading
@@ -44,7 +44,7 @@ export function Testimonials() {
           {testimonials.map((t) => (
             <figure
               key={t.name}
-              className="perspective-hover glass gradient-border flex flex-col rounded-3xl p-8"
+              className="perspective-hover flex flex-col rounded-3xl border border-border bg-card p-8"
             >
               <motion.div
                 whileHover={{ scale: 1.15, rotate: -5 }}

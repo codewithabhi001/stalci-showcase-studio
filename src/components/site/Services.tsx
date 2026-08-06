@@ -67,7 +67,7 @@ export function Services() {
   const staggerRef = useStaggerReveal();
 
   return (
-    <section id="services" className="mesh-gradient-light py-24 sm:py-32">
+    <section id="services" className="bg-background py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="What we do"
@@ -87,7 +87,7 @@ export function Services() {
                 key={s.title}
                 whileHover={{ y: -8 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className={`card-lift group relative flex flex-col overflow-hidden rounded-2xl glass gradient-border p-6 sm:p-8 ${
+                className={`card-lift group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8 ${
                   isLarge ? "lg:col-span-2" : "lg:col-span-1"
                 }`}
               >
