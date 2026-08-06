@@ -7,30 +7,30 @@ const products = [
   {
     icon: Boxes,
     name: "StalciOps",
-    tag: "Cloud platform",
-    copy: "Unified infrastructure control plane with cost insight, IaC templates and one-click environments.",
-    features: ["Multi-cloud provisioning", "Cost anomaly alerts", "Environment cloning"],
+    tag: "Cloud Orchestration",
+    copy: "Enterprise-grade infrastructure control plane enabling seamless multi-cloud governance, automated IaC deployments, and granular cost analytics.",
+    features: ["Global Cloud Provisioning", "Predictive Cost Intelligence", "Zero-Touch Environments"],
   },
   {
     icon: Bot,
     name: "Stalci AI Studio",
-    tag: "AI product",
-    copy: "Build, evaluate and deploy LLM assistants on your own data with guardrails and audit trails.",
-    features: ["RAG pipelines", "Prompt versioning", "Eval dashboards"],
+    tag: "Cognitive Intelligence",
+    copy: "Architect, govern, and deploy bespoke LLM ecosystems on proprietary data pipelines with stringent security guardrails and compliance auditing.",
+    features: ["Advanced RAG Architecture", "Deterministic Prompting", "Enterprise AI Observability"],
   },
   {
     icon: LineChart,
     name: "Stalci Insight",
-    tag: "Analytics",
-    copy: "Warehouse-native analytics with modelled metrics, alerting and embedded dashboards.",
-    features: ["Semantic layer", "Realtime metrics", "Embedded BI"],
+    tag: "Data Fabric",
+    copy: "Next-generation warehouse-native analytics platform delivering scalable semantic modeling, real-time alerting, and frictionless embedded BI.",
+    features: ["Unified Semantic Layer", "Mission-Critical Telemetry", "Embedded Analytics"],
   },
   {
     icon: Lock,
     name: "Stalci Shield",
-    tag: "Security",
-    copy: "Continuous posture monitoring, vulnerability scanning and compliance evidence collection.",
-    features: ["Continuous VAPT", "Policy as code", "SOC 2 evidence"],
+    tag: "Cyber Resilience",
+    copy: "Automated continuous posture management and proactive threat intelligence, ensuring airtight compliance and unyielding infrastructure security.",
+    features: ["Autonomous VAPT", "Policy-as-Code Governance", "Continuous Compliance Validation"],
   },
 ];
 
@@ -95,9 +95,9 @@ export function Products() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div ref={headingRef}>
           <SectionHeading
-            eyebrow="Products"
-            title="Software we own, run and license"
-            subtitle="Beyond services, STALCI builds its own platforms — the same engineering standard, available as a product."
+            eyebrow="Proprietary Ecosystem"
+            title="Mission-Critical Enterprise Platforms"
+            subtitle="Accelerating digital transformation with STALCI's proprietary, scalable architectures—delivering unmatched engineering rigor as licensed solutions."
           />
         </div>
 

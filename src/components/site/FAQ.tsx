@@ -14,28 +14,28 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    q: "What engagement models do you offer?",
-    a: "Fixed-scope projects, dedicated engineering pods and staff augmentation. Most clients start with a discovery sprint and then scale into a dedicated pod.",
+    q: "How does STALCI ensure project success and mitigate risks?",
+    a: "We employ a rigorous, milestone-driven agile methodology. Every engagement begins with a comprehensive technical audit and discovery phase. We assign dedicated, cross-functional pods led by senior architects, ensuring transparent communication, continuous integration, and proactive risk management throughout the product lifecycle.",
   },
   {
-    q: "How quickly can a team start?",
-    a: "A standard pod of 3–5 specialists is typically staffed within two weeks. Discovery sprints can begin in a matter of days.",
+    q: "What is your typical onboarding process for a new enterprise client?",
+    a: "Our onboarding is designed to be seamless and non-disruptive. Within the first two weeks, we conduct deep-dive workshops with your stakeholders, establish secure communication channels, integrate with your existing CI/CD pipelines, and define clear SLAs and KPIs. A dedicated Delivery Manager ensures alignment from day one.",
   },
   {
-    q: "Do you sign NDAs and handle IP transfer?",
-    a: "Yes. NDAs are signed before discovery and all intellectual property, source code and infrastructure ownership transfers to you.",
+    q: "Do you provide post-deployment support and maintenance?",
+    a: "Absolutely. We offer comprehensive, SLA-backed managed services. This includes 24/7 proactive monitoring, rapid incident response, continuous security patching, and scheduled performance optimizations to ensure your digital assets remain resilient and scale effortlessly as your user base grows.",
   },
   {
-    q: "How do you handle security and compliance?",
-    a: "Security reviews, dependency scanning and secrets management are built into delivery. We support SOC 2, ISO 27001, HIPAA and GDPR programmes.",
+    q: "How does STALCI handle data security and compliance?",
+    a: "Security is embedded into our engineering DNA. We follow DevSecOps practices with automated vulnerability scanning, penetration testing, and strict access controls. Our infrastructure designs are compliant with global standards including SOC 2 Type II, ISO 27001, GDPR, and HIPAA, ensuring your enterprise data is unequivocally protected.",
   },
   {
-    q: "Can you take over an existing codebase?",
-    a: "Regularly. We start with a technical audit covering architecture, test coverage, security and cost, then present a prioritised remediation roadmap.",
+    q: "Can STALCI integrate with our legacy on-premise systems?",
+    a: "Yes. Our engineering teams specialize in complex digital transformations. We routinely build secure middleware, design robust APIs, and implement hybrid-cloud architectures that allow modern applications to seamlessly and securely communicate with legacy mainframes and on-premise databases without business disruption.",
   },
   {
-    q: "What happens after launch?",
-    a: "SLA-backed managed support with 24/7 monitoring, incident response, continuous delivery and a quarterly optimisation roadmap.",
+    q: "What intellectual property (IP) rights do we retain?",
+    a: "Our standard engagement model is work-for-hire. Upon project completion and settlement, you retain 100% exclusive ownership of all intellectual property, source code, design assets, and infrastructure configurations created during the engagement. We ensure full IP transfer with zero vendor lock-in.",
   },
 ];
 
@@ -52,7 +52,7 @@ export function FAQ() {
           <SectionHeading
             eyebrow="FAQ"
             title="Questions, answered"
-            subtitle="Everything teams usually ask before the first call."
+            subtitle="Everything enterprise teams usually ask before the first technical discovery call."
           />
         </div>
 
@@ -81,7 +81,7 @@ export function FAQ() {
                   >
                     <AccordionItem 
                       value={f.q} 
-                      className="border border-white/5 rounded-2xl bg-white/5 px-5 sm:px-6 overflow-hidden transition-colors hover:bg-white/10"
+                      className="border border-border rounded-2xl bg-secondary/30 px-5 sm:px-6 overflow-hidden transition-colors hover:bg-secondary/50"
                     >
                       {/* Animated Copper Accent Line */}
                       <motion.div 
@@ -96,7 +96,7 @@ export function FAQ() {
                           <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-copper/20 to-copper/5 border border-copper/20 text-xs sm:text-sm font-bold text-copper mr-2 sm:mr-4 shadow-[0_0_15px_rgba(216,155,91,0.15)] group-hover:shadow-[0_0_20px_rgba(216,155,91,0.3)] transition-shadow">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-base sm:text-lg font-semibold text-white/90 group-hover:text-white transition-colors underline-sweep">
+                          <span className="text-base sm:text-lg font-semibold text-ink group-hover:text-copper transition-colors underline-sweep">
                             {f.q}
                           </span>
                         </div>
@@ -117,7 +117,7 @@ export function FAQ() {
                                 opacity: { duration: 0.3, delay: isOpen ? 0.1 : 0 }
                               }}
                             >
-                              <div className="pb-6 pl-14 sm:pl-18 pr-4 text-sm sm:text-base leading-relaxed text-on-ink-muted">
+                              <div className="pb-6 pl-14 sm:pl-18 pr-4 text-sm sm:text-base leading-relaxed text-ink-soft">
                                 {f.a}
                               </div>
                             </motion.div>

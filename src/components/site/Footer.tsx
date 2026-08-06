@@ -1,6 +1,7 @@
 import { Linkedin, Twitter, Github, Globe } from "lucide-react";
 import { Wordmark } from "./Brand";
 import { motion } from "framer-motion";
+import { Link } from '@tanstack/react-router';
 import { useScrollReveal, useStaggerReveal, useParallax } from "@/lib/animations";
 
 const columns = [
@@ -96,12 +97,12 @@ export function Footer() {
             © {new Date().getFullYear()} STALCI. All rights reserved.
           </p>
           <div className="flex shrink-0 gap-5 text-xs text-on-ink-muted">
-            <a href="#top" className="hover:text-copper underline-sweep">
+            <Link to="/privacy-policy" className="hover:text-copper underline-sweep">
               Privacy
-            </a>
-            <a href="#top" className="hover:text-copper underline-sweep">
+            </Link>
+            <Link to="/terms" className="hover:text-copper underline-sweep">
               Terms
-            </a>
+            </Link>
           </div>
         </div>
       </div>

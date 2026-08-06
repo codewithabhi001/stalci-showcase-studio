@@ -15,51 +15,51 @@ import { motion } from "framer-motion";
 const services = [
   {
     icon: Code2,
-    title: "Custom Software Development",
-    copy: "Web platforms, internal tools and enterprise systems engineered to your exact workflow.",
-    points: ["Product architecture", "Web app engineering", "API & integrations"],
+    title: "Enterprise Software Engineering",
+    copy: "Bespoke digital platforms, robust internal applications and systems engineered for mission-critical workflows.",
+    points: ["Enterprise architecture", "Full-stack engineering", "API & microservices"],
   },
   {
     icon: Smartphone,
-    title: "Mobile App Development",
-    copy: "Native and cross-platform apps with offline-first performance and clean UX.",
-    points: ["iOS & Android", "React Native / Flutter", "App store delivery"],
+    title: "Enterprise Mobility Solutions",
+    copy: "Native and cross-platform mobility solutions delivering robust performance and intuitive enterprise UI/UX.",
+    points: ["iOS & Android", "React Native / Flutter", "MDM & secure delivery"],
   },
   {
     icon: Cloud,
-    title: "Cloud & DevOps",
-    copy: "Cloud migration, infrastructure as code and CI/CD pipelines that ship daily.",
-    points: ["AWS · Azure · GCP", "Kubernetes & Docker", "Observability & SRE"],
+    title: "Cloud Infrastructure & DevOps",
+    copy: "Cloud migrations, infrastructure-as-code and resilient CI/CD pipelines enabling continuous enterprise delivery.",
+    points: ["AWS · Azure · GCP", "Kubernetes & Cloud-native", "Enterprise SRE"],
   },
   {
     icon: BrainCircuit,
-    title: "AI & Machine Learning",
-    copy: "LLM applications, RAG systems, computer vision and predictive models in production.",
-    points: ["LLM & agent systems", "MLOps pipelines", "Vision & NLP"],
+    title: "AI & Cognitive Services",
+    copy: "Enterprise generative AI, RAG architectures, and advanced predictive models securely deployed to production.",
+    points: ["Enterprise LLMs", "MLOps & governance", "Computer vision & NLP"],
   },
   {
     icon: ShieldCheck,
-    title: "Cyber Security",
-    copy: "Penetration testing, hardening and compliance for a safer, audit-ready stack.",
-    points: ["VAPT & audits", "Zero-trust identity", "ISO / SOC 2 readiness"],
+    title: "Cybersecurity & Compliance",
+    copy: "Advanced threat mitigation, zero-trust architectures, and robust compliance strategies for a fortified enterprise stack.",
+    points: ["Red teaming & audits", "Zero-trust identity", "ISO / SOC 2 compliance"],
   },
   {
     icon: Database,
-    title: "Data Engineering & Analytics",
-    copy: "Warehouses, streaming pipelines and dashboards that turn raw data into decisions.",
-    points: ["ETL / ELT pipelines", "Warehouse modelling", "BI dashboards"],
+    title: "Data Architecture & Intelligence",
+    copy: "Modern data architectures, scalable processing pipelines, and BI dashboards that drive enterprise decision intelligence.",
+    points: ["Enterprise ETL / ELT", "Data lakehouse modelling", "Advanced BI analytics"],
   },
   {
     icon: Workflow,
-    title: "Enterprise Automation",
-    copy: "Workflow automation, RPA and system integration that removes manual overhead.",
-    points: ["Process automation", "ERP / CRM integration", "Workflow orchestration"],
+    title: "Intelligent Automation",
+    copy: "Workflow automation, RPA, and complex system integrations that optimize enterprise operational efficiency.",
+    points: ["Process automation (RPA)", "Enterprise system integration", "Workflow orchestration"],
   },
   {
     icon: LifeBuoy,
-    title: "Managed IT & Support",
-    copy: "24/7 monitoring, maintenance and dedicated engineering pods that scale with you.",
-    points: ["24/7 monitoring", "Dedicated squads", "SLA-backed support"],
+    title: "Managed IT Services",
+    copy: "Proactive IT service management, rigorous monitoring, and dedicated engineering pods driving continuous agility.",
+    points: ["24/7 proactive NOC/SOC", "Dedicated delivery pods", "Strict SLA adherence"],
   },
 ];
 
@@ -71,8 +71,8 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="What we do"
-          title="End-to-end IT services under one roof"
-          subtitle="Eight core practices, one delivery standard. Combine them into a full product team or plug a single specialism into your existing setup."
+          title="Comprehensive Enterprise IT Solutions"
+          subtitle="Eight specialized IT practices, unified by enterprise-grade delivery standards. Seamlessly integrate our capabilities as a managed service or augment your existing architecture with deep domain expertise."
         />
 
         <div 

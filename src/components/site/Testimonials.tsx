@@ -6,21 +6,21 @@ import { motion } from "framer-motion";
 const testimonials = [
   {
     quote:
-      "STALCI rebuilt our core lending platform in six months. Throughput tripled and our audit findings dropped to zero.",
+      "STALCI engineered a scalable, mission-critical lending architecture in six months. System throughput accelerated by 300% with absolutely zero audit discrepancies, ensuring uncompromised compliance.",
     name: "Amara Osei",
-    role: "CTO, Meridian Finance",
+    role: "Chief Technology Officer, Meridian Finance",
   },
   {
     quote:
-      "The AI team shipped a production RAG assistant on our clinical data with the governance our board required.",
+      "The STALCI AI division deployed a production-grade RAG engine atop our clinical data lakes, achieving exceptional performance while satisfying our stringent board-level data governance mandates.",
     name: "Daniel Reyes",
-    role: "VP Engineering, CareLoop Health",
+    role: "VP of Engineering, CareLoop Health",
   },
   {
     quote:
-      "Their cloud pod cut our AWS bill by 38% while improving deploy frequency from monthly to daily.",
+      "Their elite cloud transformation pod optimized our AWS infrastructure, reducing total cost of ownership by 38% and accelerating deployment frequency from monthly cycles to continuous daily delivery.",
     name: "Priya Nair",
-    role: "Head of Platform, Loomex Retail",
+    role: "Head of Platform Architecture, Loomex Retail",
   },
 ];
 
@@ -34,9 +34,9 @@ export function Testimonials() {
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div ref={headerRef}>
           <SectionHeading
-            eyebrow="Client stories"
-            title="Trusted on business-critical systems"
-            subtitle="Long engagements, measurable outcomes and teams that stay through scale."
+            eyebrow="Client Success"
+            title="Trusted For Mission-Critical Systems"
+            subtitle="Strategic partnerships, highly measurable outcomes, and elite engineering teams driving your digital transformation."
           />
         </div>
 

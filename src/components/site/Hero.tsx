@@ -4,11 +4,11 @@ import mark from "@/assets/stalci-mark.png";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 
 const pillars = [
-  { icon: Code2, title: "IT Services", copy: "Custom software development" },
-  { icon: Cloud, title: "Cloud & AI", copy: "Cloud solutions & AI products" },
-  { icon: ShieldCheck, title: "Cyber Security", copy: "Secure systems for a safer future" },
-  { icon: Box, title: "Products", copy: "Digital platforms & SaaS" },
-  { icon: Cpu, title: "Data & Engineering", copy: "Pipelines, analytics, platforms" },
+  { icon: Code2, title: "IT Services", copy: "Bespoke software & scalable architectures" },
+  { icon: Cloud, title: "Cloud & AI", copy: "Cloud-native infrastructures & cognitive AI" },
+  { icon: ShieldCheck, title: "Cyber Security", copy: "Zero-trust architectures & threat mitigation" },
+  { icon: Box, title: "Products", copy: "Mission-critical SaaS & digital platforms" },
+  { icon: Cpu, title: "Data & Engineering", copy: "Enterprise data pipelines & predictive analytics" },
 ];
 
 export function Hero() {
@@ -70,17 +70,15 @@ export function Hero() {
         {/* Tagline & Copy */}
         <div ref={textRef} className="mt-8 flex flex-col items-center">
           <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[0.7rem] font-semibold tracking-[0.34em] text-on-ink-muted sm:text-xs">
-            <span>CREATE</span>
+            <span>ARCHITECT</span>
             <span className="text-copper">•</span>
-            <span className="text-copper">INNOVATE</span>
+            <span className="text-copper">TRANSFORM</span>
             <span className="text-copper">•</span>
-            <span>EMPOWER</span>
+            <span>SCALE</span>
           </p>
 
           <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-on-ink-muted sm:text-lg">
-            STALCI is a global technology company delivering IT services, digital solutions and
-            engineered products that empower businesses to move faster, scale safely and build what
-            comes next.
+            STALCI is a premier enterprise IT consulting partner, delivering mission-critical digital transformations, agile engineering, and scalable architectures that empower global organizations to innovate faster and secure their digital future.
           </p>
         </div>
 
@@ -93,7 +91,7 @@ export function Hero() {
             className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-ink shadow-[0_0_30px_-5px_rgba(216,155,91,0.5)] transition-shadow hover:shadow-[0_0_40px_-5px_rgba(216,155,91,0.7)] sm:w-auto"
             style={{ background: "var(--gradient-copper)" }}
           >
-            Start your project
+            Initiate Transformation
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </motion.a>
           <motion.a
@@ -102,7 +100,7 @@ export function Hero() {
             href="#services"
             className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-semibold text-on-ink transition-colors hover:bg-white/5 hover:border-copper/60 hover:text-copper sm:w-auto"
           >
-            Explore capabilities
+            Explore Enterprise Capabilities
           </motion.a>
         </div>
       </div>

@@ -30,13 +30,12 @@ export function Contact() {
 
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2 lg:px-8">
         <div ref={staggerRef}>
-          <p className="eyebrow text-copper">Contact</p>
+          <p className="eyebrow text-copper">Engage STALCI</p>
           <h2 className="mt-3 text-3xl font-semibold text-on-ink sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">
-            Let's build something worth scaling.
+            Architect Your Digital Transformation.
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-on-ink-muted">
-            Tell us about your product, platform or migration. You'll hear back from a senior engineer
-            within one business day — not a sales queue.
+            Detail your enterprise initiative, platform architecture, or cloud migration. A Principal Solutions Architect will connect with you within one business day to discuss strategic alignment.
           </p>
 
           <ul className="mt-10 space-y-5">
@@ -68,9 +67,9 @@ export function Contact() {
                 className="flex h-full flex-col items-center justify-center gap-4 py-12 text-center"
               >
                 <CheckCircle2 className="h-12 w-12 text-copper animate-pulse-glow" strokeWidth={1.4} />
-                <h3 className="text-xl font-semibold text-on-ink">Thanks — message received</h3>
+                <h3 className="text-xl font-semibold text-on-ink">Inquiry Received</h3>
                 <p className="max-w-sm text-sm text-on-ink-muted">
-                  A STALCI engineer will get back to you within one business day.
+                  A STALCI Principal Architect will contact you within one business day.
                 </p>
               </motion.div>
             ) : (
@@ -127,7 +126,7 @@ export function Contact() {
                     </motion.div>
                   </div>
                 </div>
-                <TextareaField label="Project details" name="message" placeholder="What are you building?" />
+                <TextareaField label="Project details" name="message" placeholder="Describe your enterprise initiative..." />
                 
                 <div className="pt-7">
                   <motion.button
@@ -137,7 +136,7 @@ export function Contact() {
                     className="inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-ink transition-colors"
                     style={{ background: "var(--gradient-copper)" }}
                   >
-                    Send enquiry
+                    Initiate Consultation
                     <Send className="h-4 w-4" />
                   </motion.button>
                 </div>

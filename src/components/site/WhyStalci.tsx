@@ -6,12 +6,12 @@ import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 import { motion } from "framer-motion";
 
 const reasons = [
-  { icon: Rocket, title: "Senior-only teams", copy: "No juniors billed as experts — every pod is led by 8+ year engineers." },
-  { icon: Timer, title: "Fast time to value", copy: "First working increment inside 3 weeks, every single engagement." },
-  { icon: Globe2, title: "Global delivery", copy: "Overlapping timezone coverage across EMEA, APAC and the Americas." },
-  { icon: Layers, title: "Full-stack ownership", copy: "Design, build, secure and operate — one accountable partner." },
-  { icon: Handshake, title: "Transparent pricing", copy: "Fixed-scope or T&M with weekly burn reporting. No hidden lines." },
-  { icon: CheckCircle2, title: "Production quality", copy: "Automated testing, security review and observability as standard." },
+  { icon: Rocket, title: "Elite Engineering Pods", copy: "Exclusively staffed by seasoned architects and senior engineers to guarantee exceptional execution and technical maturity." },
+  { icon: Timer, title: "Accelerated Value Realization", copy: "Rapid, deterministic deployment of operational increments, ensuring swift ROI across all strategic engagements." },
+  { icon: Globe2, title: "Global Capability & Scale", copy: "Seamless, distributed delivery across global timezones enabling continuous, round-the-clock operational momentum." },
+  { icon: Layers, title: "End-to-End Accountability", copy: "Comprehensive full-stack ownership—from initial architecture to sustained operations—providing a singular locus of accountability." },
+  { icon: Handshake, title: "Commercial Transparency", copy: "Predictable engagement models with meticulous, real-time burn reporting and uncompromising financial clarity." },
+  { icon: CheckCircle2, title: "Unyielding Quality Standards", copy: "Mission-critical reliability fortified by rigorous automated testing, continuous security validation, and proactive telemetry." },
 ];
 
 export function WhyStalci() {
@@ -30,9 +30,9 @@ export function WhyStalci() {
         <div ref={headerRef as any}>
           <SectionHeading
             tone="dark"
-            eyebrow="Why STALCI"
-            title="A technology partner, not a vendor"
-            subtitle="Short, unique and memorable — and built to stay with you long after launch."
+            eyebrow="The STALCI Advantage"
+            title="Strategic Transformation Partners"
+            subtitle="Transcending traditional vendor models to forge enduring alliances that drive enterprise agility and sustainable innovation."
           />
         </div>
 

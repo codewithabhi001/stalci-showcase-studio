@@ -4,18 +4,18 @@ import { useScrollReveal, useStaggerReveal, useParallax, useCountUp } from "@/li
 import { motion } from "framer-motion";
 
 const values = [
-  { icon: Lightbulb, title: "Innovation", copy: "We prototype fast and ship ideas that move the needle." },
-  { icon: Award, title: "Excellence", copy: "Engineering quality held to an uncompromising standard." },
-  { icon: ShieldCheck, title: "Integrity", copy: "Transparent delivery, honest timelines, zero surprises." },
-  { icon: Users, title: "Collaboration", copy: "We embed with your team as one accountable unit." },
-  { icon: Globe2, title: "Impact", copy: "Technology measured by the outcomes it creates." },
+  { icon: Lightbulb, title: "Innovation", copy: "We architect scalable solutions that drive enterprise digital transformation." },
+  { icon: Award, title: "Excellence", copy: "Uncompromising engineering quality for mission-critical IT systems." },
+  { icon: ShieldCheck, title: "Integrity", copy: "Transparent IT governance, strict compliance, and predictable delivery." },
+  { icon: Users, title: "Collaboration", copy: "Seamlessly embedding within your enterprise as a dedicated agile unit." },
+  { icon: Globe2, title: "Impact", copy: "Strategic technology initiatives measured by tangible business outcomes." },
 ];
 
 const stats = [
-  { value: "120+", label: "Projects delivered" },
-  { value: "18", label: "Countries served" },
-  { value: "60+", label: "Engineers & designers" },
-  { value: "99.9%", label: "Platform uptime" },
+  { value: "120+", label: "Enterprise deployments" },
+  { value: "18", label: "Global markets served" },
+  { value: "60+", label: "Elite IT consultants" },
+  { value: "99.9%", label: "Mission-critical uptime" },
 ];
 
 function StatItem({ stat }: { stat: { value: string; label: string } }) {
@@ -60,13 +60,11 @@ export function About() {
             <SectionHeading
               align="left"
               eyebrow="About STALCI"
-              title="We build the technology backbone modern businesses run on."
-              subtitle="We combine creativity, engineering and strategy to build software that makes an impact — from the first architecture diagram to global rollout and long-term support."
+              title="Architecting the technological foundation for modern enterprise agility."
+              subtitle="We synergize enterprise architecture, elite engineering, and strategic IT consulting to deliver mission-critical solutions—from initial blueprinting to global deployment and continuous optimization."
             />
             <p className="mt-8 text-base leading-relaxed text-muted-foreground">
-              Our teams work across custom software, cloud platforms, artificial intelligence,
-              cybersecurity and data engineering. Every engagement is delivered by senior specialists
-              with a clear roadmap, measurable milestones and production-grade quality gates.
+              Our cross-functional practices specialize in enterprise software engineering, scalable cloud infrastructures, advanced AI integrations, robust cybersecurity, and scalable data architectures. Every engagement is executed by domain experts utilizing agile methodologies, rigorous governance, and enterprise-grade quality assurance.
             </p>
 
             <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4 shadow-lg shadow-black/5">

@@ -17,18 +17,18 @@ import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 import { motion } from "framer-motion";
 
 const industries = [
-  { icon: Banknote, name: "Fintech & Banking", copy: "Payments, lending platforms, KYC and risk engines." },
-  { icon: HeartPulse, name: "Healthcare", copy: "HIPAA-ready portals, telehealth and clinical data systems." },
-  { icon: ShoppingBag, name: "Retail & E-commerce", copy: "Headless storefronts, OMS and personalisation." },
-  { icon: GraduationCap, name: "Education", copy: "LMS platforms, assessment engines and student apps." },
-  { icon: Factory, name: "Manufacturing", copy: "IIoT dashboards, MES integration and predictive upkeep." },
-  { icon: Truck, name: "Logistics & Supply Chain", copy: "Fleet tracking, routing and warehouse automation." },
-  { icon: Building2, name: "Real Estate & PropTech", copy: "Listing platforms, CRM and property analytics." },
-  { icon: Plane, name: "Travel & Hospitality", copy: "Booking engines, PMS integration and loyalty." },
-  { icon: Radio, name: "Media & Telecom", copy: "Streaming backends, OSS/BSS and subscriber portals." },
-  { icon: Gamepad2, name: "Gaming & Entertainment", copy: "Realtime backends, matchmaking and live ops." },
-  { icon: Zap, name: "Energy & Utilities", copy: "Grid monitoring, metering and sustainability reporting." },
-  { icon: Landmark, name: "Government & Public", copy: "Citizen services, secure portals and e-governance." },
+  { icon: Banknote, name: "Fintech & Banking", copy: "High-throughput payment gateways, core lending architectures, KYC automation, and AI-driven risk engines." },
+  { icon: HeartPulse, name: "Healthcare & Life Sciences", copy: "HIPAA-compliant data fabrics, scalable telehealth infrastructures, and clinical informatics systems." },
+  { icon: ShoppingBag, name: "Retail & Consumer Goods", copy: "Omnichannel headless commerce, intelligent OMS, and real-time hyper-personalization engines." },
+  { icon: GraduationCap, name: "EdTech & Education", copy: "Enterprise LMS architectures, adaptive assessment engines, and scalable student success platforms." },
+  { icon: Factory, name: "Manufacturing & Industry 4.0", copy: "IIoT telemetry dashboards, legacy MES integrations, and predictive maintenance via machine learning." },
+  { icon: Truck, name: "Logistics & Supply Chain", copy: "Global fleet telematics, algorithmic routing optimization, and automated warehouse ecosystems." },
+  { icon: Building2, name: "Real Estate & PropTech", copy: "High-availability listing syndication, enterprise CRM integrations, and predictive property analytics." },
+  { icon: Plane, name: "Travel & Hospitality", copy: "High-concurrency booking engines, seamless PMS integrations, and scalable loyalty management platforms." },
+  { icon: Radio, name: "Media & Telecommunications", copy: "Ultra-low latency streaming architectures, modern OSS/BSS layers, and highly resilient subscriber portals." },
+  { icon: Gamepad2, name: "Gaming & Interactive", copy: "Scalable real-time backend services, low-latency matchmaking algorithms, and robust live ops infrastructure." },
+  { icon: Zap, name: "Energy & Utilities", copy: "Smart grid telemetry, automated metering infrastructures, and compliant sustainability reporting fabrics." },
+  { icon: Landmark, name: "Government & Public Sector", copy: "Secure citizen service portals, highly available e-governance solutions, and compliant data enclaves." },
 ];
 
 export function Industries() {
@@ -40,9 +40,9 @@ export function Industries() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
-            eyebrow="Industries"
-            title="Domain depth across twelve sectors"
-            subtitle="We bring pattern knowledge, compliance awareness and reference architectures from every industry we serve."
+            eyebrow="Industry Expertise"
+            title="Enterprise Domain Depth Across Core Sectors"
+            subtitle="We leverage cross-industry design patterns, stringent compliance frameworks, and robust reference architectures to accelerate your digital transformation."
           />
         </div>
 

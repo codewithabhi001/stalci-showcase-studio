@@ -3,11 +3,11 @@ import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal, useLineReveal } from "@/lib/animations";
 
 const steps = [
-  { n: "01", title: "Discover", copy: "Workshops, technical audit and success metrics defined before a line of code." },
-  { n: "02", title: "Architect", copy: "System design, stack selection, security model and a costed delivery roadmap." },
-  { n: "03", title: "Build", copy: "Two-week sprints, demo every iteration, automated tests and code review gates." },
-  { n: "04", title: "Launch", copy: "Hardening, load testing, staged rollout and full observability from day one." },
-  { n: "05", title: "Scale", copy: "SLA support, continuous delivery and a quarterly optimisation roadmap." },
+  { n: "01", title: "Strategic Discovery", copy: "Comprehensive technical audits and executive workshops to define precise success metrics and alignment prior to implementation." },
+  { n: "02", title: "Enterprise Architecture", copy: "Rigorous system design, robust security modeling, and scalable stack selection formalized into a deterministic delivery roadmap." },
+  { n: "03", title: "Agile Engineering", copy: "Iterative development cycles with continuous integration, automated quality gates, and stringent peer-reviewed deployment standards." },
+  { n: "04", title: "Hardened Deployment", copy: "Enterprise-grade hardening, advanced load simulation, and meticulously staged rollouts with day-one comprehensive observability." },
+  { n: "05", title: "Sustainable Scaling", copy: "Ongoing strategic optimization, continuous delivery pipelines, and proactive SLA-backed support for resilient operations." },
 ];
 
 export function Process() {
@@ -20,9 +20,9 @@ export function Process() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
-            eyebrow="How we work"
-            title="A delivery process built for certainty"
-            subtitle="Five stages, fixed rituals and visible progress — so you always know what is shipping next."
+            eyebrow="Delivery Methodology"
+            title="Engineered for Uncompromising Certainty"
+            subtitle="A definitive five-stage framework ensuring transparent governance, risk mitigation, and continuous value realization at enterprise scale."
           />
         </div>
 
