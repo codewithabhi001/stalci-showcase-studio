@@ -6,7 +6,6 @@ import { Services } from "@/components/site/Services";
 import { Industries } from "@/components/site/Industries";
 import { TechStack } from "@/components/site/TechStack";
 import { Products } from "@/components/site/Products";
-import { BrandAssets } from "@/components/site/BrandAssets";
 import { Process } from "@/components/site/Process";
 import { WhyStalci } from "@/components/site/WhyStalci";
 import { Testimonials } from "@/components/site/Testimonials";
@@ -18,7 +17,8 @@ const title = "STALCI — Global IT Services, Cloud, AI & Cyber Security";
 const description =
   "STALCI is a global technology company delivering custom software, mobile, cloud, AI, data and cyber security services across 12 industries.";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(
+  {
   head: () => ({
     meta: [
       { title },
@@ -43,7 +43,6 @@ function Index() {
         <Industries />
         <TechStack />
         <Products />
-        <BrandAssets />
         <Process />
         <WhyStalci />
         <Testimonials />

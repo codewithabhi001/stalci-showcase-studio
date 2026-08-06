@@ -109,13 +109,27 @@
   --shadow-glow: 0 0 80px -10px oklch(0.73 0.101 62 / 0.45);
 }
 
+/* ─── Lenis smooth scroll ─── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 
   body {
@@ -134,6 +148,7 @@
   }
 }
 
+/* ─── Brand utilities ─── */
 @utility text-copper-gradient {
   background: var(--gradient-copper);
   -webkit-background-clip: text;
@@ -180,6 +195,78 @@
   text-transform: uppercase;
 }
 
+/* ─── Glassmorphism ─── */
+@utility glass {
+  background: oklch(1 0 0 / 0.04);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid oklch(1 0 0 / 0.08);
+}
+
+@utility glass-dark {
+  background: oklch(0 0 0 / 0.3);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid oklch(1 0 0 / 0.1);
+}
+
+/* ─── Gradient border ─── */
+@utility gradient-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, oklch(0.73 0.101 62 / 0.6), oklch(0.58 0.099 55 / 0.1), oklch(0.73 0.101 62 / 0.6));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ─── Glow pulse ─── */
+@utility glow-copper {
+  box-shadow: 0 0 40px -8px oklch(0.73 0.101 62 / 0.3);
+}
+
+/* ─── Marquee animation ─── */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@utility animate-marquee-left {
+  animation: marquee-left 40s linear infinite;
+}
+
+@utility animate-marquee-right {
+  animation: marquee-right 40s linear infinite;
+}
+
+/* ─── Rotate gradient border ─── */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@utility animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* ─── Shine sweep ─── */
 @keyframes shine-sweep {
   0% {
     transform: translateX(-120%) rotate(12deg);
@@ -210,6 +297,27 @@
   }
 }
 
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px -4px oklch(0.73 0.101 62 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px -4px oklch(0.73 0.101 62 / 0.6);
+  }
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.1); }
+  50% { transform: translate(-10px, -40px) scale(0.95); }
+  75% { transform: translate(-30px, -10px) scale(1.05); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 @utility animate-shine {
   animation: shine-sweep 4.5s ease-in-out infinite;
 }
@@ -220,4 +328,77 @@
 
 @utility animate-rise {
   animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@utility animate-float-orb {
+  animation: float-orb 12s ease-in-out infinite;
+}
+
+@utility animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+/* ─── Noise texture overlay ─── */
+@utility noise-overlay {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+}
+
+/* ─── Tilt perspective on hover ─── */
+@utility perspective-hover {
+  perspective: 1000px;
+  & > * {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover > * {
+    transform: rotateX(2deg) rotateY(-2deg) translateZ(10px);
+  }
+}
+
+/* ─── Underline sweep ─── */
+@utility underline-sweep {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: var(--gradient-copper);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ─── Section divider mesh ─── */
+@utility mesh-gradient-light {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 80%, oklch(0.73 0.101 62 / 0.06), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, oklch(0.58 0.099 55 / 0.05), transparent 60%),
+    var(--color-background);
+}
+
+@utility mesh-gradient-dark {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 80%, oklch(0.73 0.101 62 / 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, oklch(0.58 0.099 55 / 0.08), transparent 60%),
+    var(--gradient-ink);
 }

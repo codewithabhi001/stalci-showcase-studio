@@ -1,5 +1,7 @@
 import { ArrowUpRight, Boxes, Bot, LineChart, Lock } from "lucide-react";
+import { motion } from "framer-motion";
 import { SectionHeading } from "./Brand";
+import { useScrollReveal, useStaggerReveal, useLineReveal } from "@/lib/animations";
 
 const products = [
   {
@@ -32,48 +34,84 @@ const products = [
   },
 ];
 
-export function Products() {
+function ProductCard({ p }: { p: typeof products[0] }) {
+  const tagsRef = useStaggerReveal({ yOffset: 15, staggerDelay: 0.1 });
+  
   return (
-    <section id="products" className="bg-background py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHeading
-          eyebrow="Products"
-          title="Software we own, run and license"
-          subtitle="Beyond services, STALCI builds its own platforms — the same engineering standard, available as a product."
-        />
+    <motion.article
+      initial="rest"
+      whileHover="hover"
+      className="card-lift glass gradient-border group relative flex flex-col overflow-hidden rounded-3xl p-8 sm:p-10 md:p-12"
+    >
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+        <div className="flex min-w-0 items-center gap-5">
+          <span className="animate-pulse-glow relative z-10 inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-ink">
+            <p.icon className="h-7 w-7 text-copper" strokeWidth={1.4} />
+          </span>
+          <div className="min-w-0">
+            <h3 className="truncate text-xl sm:text-2xl font-semibold">{p.name}</h3>
+            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-copper-deep">{p.tag}</p>
+          </div>
+        </div>
+        
+        <motion.div
+          variants={{
+            rest: { rotate: 0, scale: 1 },
+            hover: { rotate: 45, scale: 1.15 }
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="relative z-10 mt-1 cursor-pointer"
+        >
+          <ArrowUpRight className="h-6 w-6 shrink-0 text-muted-foreground transition-colors group-hover:text-copper" />
+        </motion.div>
+      </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {products.map((p) => (
-            <article
-              key={p.name}
-              className="card-lift group relative overflow-hidden rounded-3xl border border-border bg-card p-7 sm:p-9"
+      <p className="relative z-10 mt-8 max-w-sm text-sm sm:text-base leading-relaxed text-muted-foreground">
+        {p.copy}
+      </p>
+
+      <div className="mt-auto pt-10">
+        <ul ref={tagsRef} className="relative z-10 flex flex-wrap gap-2">
+          {p.features.map((f) => (
+            <li
+              key={f}
+              className="rounded-full border border-border/50 bg-secondary/60 px-4 py-2 text-xs font-medium text-secondary-foreground backdrop-blur-sm"
             >
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
-                <div className="flex min-w-0 items-center gap-4">
-                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-ink">
-                    <p.icon className="h-6 w-6 text-copper" strokeWidth={1.4} />
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="truncate text-xl font-semibold">{p.name}</h3>
-                    <p className="text-xs uppercase tracking-[0.18em] text-copper-deep">{p.tag}</p>
-                  </div>
-                </div>
-                <ArrowUpRight className="h-5 w-5 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-1 group-hover:text-copper" />
-              </div>
+              {f}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.article>
+  );
+}
 
-              <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
+export function Products() {
+  const headingRef = useScrollReveal({ yOffset: 30 });
+  const lineRef = useLineReveal();
 
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {p.features.map((f) => (
-                  <li
-                    key={f}
-                    className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-medium text-secondary-foreground"
-                  >
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </article>
+  return (
+    <section id="products" className="mesh-gradient-light relative py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div ref={headingRef}>
+          <SectionHeading
+            eyebrow="Products"
+            title="Software we own, run and license"
+            subtitle="Beyond services, STALCI builds its own platforms — the same engineering standard, available as a product."
+          />
+        </div>
+
+        {/* Subtle gradient line separator */}
+        <div className="relative mt-12 mb-14 h-px w-full overflow-hidden bg-border/30">
+          <div 
+            ref={lineRef}
+            className="absolute inset-y-0 left-0 h-full w-full origin-left bg-gradient-to-r from-transparent via-copper to-transparent opacity-60"
+          />
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+          {products.map((p) => (
+            <ProductCard key={p.name} p={p} />
           ))}
         </div>
       </div>

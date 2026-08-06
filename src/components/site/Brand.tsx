@@ -1,4 +1,5 @@
 import mark from "@/assets/stalci-mark.png";
+import { useLineReveal } from "@/lib/animations";
 
 export function Wordmark({ className = "", markSize = 28 }: { className?: string; markSize?: number }) {
   return (
@@ -29,6 +30,8 @@ export function SectionHeading({
   align?: "center" | "left";
   tone?: "light" | "dark";
 }) {
+  const lineRef = useLineReveal();
+
   return (
     <div
       className={
@@ -49,6 +52,7 @@ export function SectionHeading({
         </p>
       ) : null}
       <div
+        ref={lineRef}
         className={
           "mt-6 h-px w-16 bg-copper " + (align === "center" ? "mx-auto" : "")
         }

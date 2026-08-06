@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { useScrollReveal } from "@/lib/animations";
 import { SectionHeading } from "./Brand";
 
 type Tech = { name: string; slug: string };
@@ -89,44 +91,79 @@ const groups: { label: string; items: Tech[] }[] = [
 ];
 
 export function TechStack() {
+  const headerRef = useScrollReveal();
+
   return (
-    <section id="stack" className="bg-secondary/60 py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHeading
-          eyebrow="Technology"
-          title="The full STALCI engineering stack"
-          subtitle="Battle-tested tools across frontend, mobile, backend, data, AI, cloud and security — chosen per project, never by default."
-        />
+    <section id="stack" className="mesh-gradient-dark surface-ink relative overflow-hidden py-24 sm:py-32">
+      <div className="grid-lines absolute inset-0 opacity-20 pointer-events-none" />
+      
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div ref={headerRef} className="mb-14">
+          <SectionHeading
+            eyebrow="Technology"
+            title="The full STALCI engineering stack"
+            subtitle="Battle-tested tools across frontend, mobile, backend, data, AI, cloud and security — chosen per project, never by default."
+            tone="dark"
+          />
+        </div>
 
-        <div className="mt-14 space-y-10">
-          {groups.map((g) => (
-            <div key={g.label} className="rounded-3xl border border-border bg-card p-6 sm:p-8">
-              <div className="flex items-center gap-4">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-copper-deep">{g.label}</h3>
-                <span className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground">{g.items.length} tools</span>
-              </div>
+        <div className="space-y-12">
+          {groups.map((g, idx) => {
+            // First row (idx=0, odd) scrolls left, second row (idx=1, even) scrolls right
+            const isOddRow = idx % 2 === 0;
+            const marqueeClass = isOddRow ? "animate-marquee-left" : "animate-marquee-right";
 
-              <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                {g.items.map((t) => (
-                  <li
-                    key={g.label + t.name}
-                    className="card-lift flex items-center gap-3 rounded-xl border border-border bg-background px-3.5 py-3"
+            return (
+              <div key={g.label} className="flex flex-col gap-4">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-copper-deep px-5 lg:px-0">
+                  {g.label}
+                </h3>
+
+                <div className="group overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+                  <div
+                    className={`flex gap-4 marquee-track group-hover:[animation-play-state:paused] ${marqueeClass}`}
+                    style={{ width: "max-content" }}
                   >
-                    <img
-                      src={`https://cdn.simpleicons.org/${t.slug}`}
-                      alt={`${t.name} logo`}
-                      width={22}
-                      height={22}
-                      loading="lazy"
-                      className="h-[22px] w-[22px] shrink-0 object-contain"
-                    />
-                    <span className="min-w-0 truncate text-sm font-medium">{t.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                    {/* Render items twice for seamless loop */}
+                    {g.items.map((t, i) => (
+                      <motion.div
+                        key={`orig-${g.label}-${t.name}-${i}`}
+                        whileHover={{ scale: 1.08, y: -4 }}
+                        className="glass gradient-border flex items-center gap-3 rounded-xl px-5 py-3.5 cursor-pointer"
+                      >
+                        <img
+                          src={`https://cdn.simpleicons.org/${t.slug}`}
+                          alt={`${t.name} logo`}
+                          width={24}
+                          height={24}
+                          loading="lazy"
+                          className="h-[24px] w-[24px] shrink-0 object-contain"
+                        />
+                        <span className="min-w-0 truncate text-sm font-medium text-white">{t.name}</span>
+                      </motion.div>
+                    ))}
+                    {g.items.map((t, i) => (
+                      <motion.div
+                        key={`dup-${g.label}-${t.name}-${i}`}
+                        whileHover={{ scale: 1.08, y: -4 }}
+                        className="glass gradient-border flex items-center gap-3 rounded-xl px-5 py-3.5 cursor-pointer"
+                      >
+                        <img
+                          src={`https://cdn.simpleicons.org/${t.slug}`}
+                          alt={`${t.name} logo`}
+                          width={24}
+                          height={24}
+                          loading="lazy"
+                          className="h-[24px] w-[24px] shrink-0 object-contain"
+                        />
+                        <span className="min-w-0 truncate text-sm font-medium text-white">{t.name}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

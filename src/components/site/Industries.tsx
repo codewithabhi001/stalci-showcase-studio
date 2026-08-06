@@ -13,6 +13,8 @@ import {
   Landmark,
 } from "lucide-react";
 import { SectionHeading } from "./Brand";
+import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 const industries = [
   { icon: Banknote, name: "Fintech & Banking", copy: "Payments, lending platforms, KYC and risk engines." },
@@ -30,29 +32,56 @@ const industries = [
 ];
 
 export function Industries() {
-  return (
-    <section id="industries" className="bg-background py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <SectionHeading
-          eyebrow="Industries"
-          title="Domain depth across twelve sectors"
-          subtitle="We bring pattern knowledge, compliance awareness and reference architectures from every industry we serve."
-        />
+  const headingRef = useScrollReveal();
+  const gridRef = useStaggerReveal({ staggerChildren: 0.1 });
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {industries.map((i) => (
-            <div key={i.name} className="group bg-card p-7 transition-colors hover:bg-secondary">
-              <div className="flex items-start gap-4">
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-background transition-colors group-hover:border-copper/60">
-                  <i.icon className="h-5 w-5 text-copper-deep" strokeWidth={1.5} />
-                </span>
-                <div className="min-w-0">
-                  <h3 className="text-base font-semibold">{i.name}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{i.copy}</p>
+  return (
+    <section id="industries" className="relative py-24 sm:py-32 mesh-gradient-light overflow-hidden">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
+        <div ref={headingRef}>
+          <SectionHeading
+            eyebrow="Industries"
+            title="Domain depth across twelve sectors"
+            subtitle="We bring pattern knowledge, compliance awareness and reference architectures from every industry we serve."
+          />
+        </div>
+
+        {/* Animated Gradient Border Outer Container */}
+        <div className="mt-14 p-[1px] rounded-3xl bg-gradient-to-br from-copper/40 via-border to-copper/40 animate-gradient-shift background-animate">
+          <div
+            ref={gridRef}
+            className="grid gap-px overflow-hidden rounded-3xl bg-border/50 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {industries.map((i) => (
+              <motion.div
+                key={i.name}
+                className="group relative bg-background/80 p-7 transition-colors duration-500 hover:bg-ink/5 gradient-border glass-dark"
+                whileHover="hover"
+              >
+                {/* Subtle hover glow background effect */}
+                <div className="absolute inset-0 bg-copper/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100 mix-blend-overlay" />
+                
+                <div className="relative z-10 flex items-start gap-4">
+                  <motion.span
+                    className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border/50 bg-background/50 backdrop-blur-sm transition-colors group-hover:border-copper/60 shadow-sm"
+                    variants={{
+                      hover: {
+                        scale: 1.05,
+                        boxShadow: "0 0 15px rgba(216, 155, 91, 0.4)",
+                        transition: { type: "spring", stiffness: 300, damping: 20 }
+                      }
+                    }}
+                  >
+                    <i.icon className="h-5 w-5 text-copper transition-colors duration-300 group-hover:text-copper-deep" strokeWidth={1.5} />
+                  </motion.span>
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold group-hover:text-copper transition-colors duration-300">{i.name}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300">{i.copy}</p>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
