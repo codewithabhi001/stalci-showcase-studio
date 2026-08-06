@@ -44,7 +44,7 @@ export function Hero() {
             STALCI
           </h1>
           <span
-            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 animate-shine bg-gradient-to-r from-transparent via-white/45 to-transparent"
+            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 animate-shine bg-gradient-to-r from-transparent via-white/40 to-transparent blur-md mix-blend-overlay"
             aria-hidden
           />
         </div>
