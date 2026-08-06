@@ -1,24 +1,56 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Nav } from "@/components/site/Nav";
+import { Hero } from "@/components/site/Hero";
+import { About } from "@/components/site/About";
+import { Services } from "@/components/site/Services";
+import { Industries } from "@/components/site/Industries";
+import { TechStack } from "@/components/site/TechStack";
+import { Products } from "@/components/site/Products";
+import { BrandAssets } from "@/components/site/BrandAssets";
+import { Process } from "@/components/site/Process";
+import { WhyStalci } from "@/components/site/WhyStalci";
+import { Testimonials } from "@/components/site/Testimonials";
+import { FAQ } from "@/components/site/FAQ";
+import { Contact } from "@/components/site/Contact";
+import { Footer } from "@/components/site/Footer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "STALCI — Global IT Services, Cloud, AI & Cyber Security";
+const description =
+  "STALCI is a global technology company delivering custom software, mobile, cloud, AI, data and cyber security services across 12 industries.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <Nav />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Industries />
+        <TechStack />
+        <Products />
+        <BrandAssets />
+        <Process />
+        <WhyStalci />
+        <Testimonials />
+        <FAQ />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }
