@@ -16,7 +16,7 @@ const typography = [
 
 export function BrandAssets() {
   return (
-    <section id="brand" className="bg-secondary/60 py-24 sm:py-32">
+    <section id="brand" className="bg-secondary/60 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="Brand system"

@@ -94,7 +94,7 @@ export function TechStack() {
   const headerRef = useScrollReveal();
 
   return (
-    <section id="stack" className="surface-ink relative overflow-hidden py-24 sm:py-32">
+    <section id="stack" className="surface-ink relative overflow-hidden py-20 sm:py-24">
       <div className="grid-lines absolute inset-0 opacity-20 pointer-events-none" />
       
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
