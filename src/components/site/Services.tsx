@@ -1,150 +1,40 @@
-import {
-  Code2,
-  Smartphone,
-  Cloud,
-  BrainCircuit,
-  ShieldCheck,
-  Database,
-  Workflow,
-  LifeBuoy,
-} from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { motion } from "framer-motion";
-
-const services = [
-  {
-    icon: Code2,
-    title: "Enterprise Software Engineering",
-    copy: "Bespoke digital platforms, robust internal applications and systems engineered for mission-critical workflows.",
-    points: ["Enterprise architecture", "Full-stack engineering", "API & microservices"],
-  },
-  {
-    icon: Smartphone,
-    title: "Enterprise Mobility Solutions",
-    copy: "Native and cross-platform mobility solutions delivering robust performance and intuitive enterprise UI/UX.",
-    points: ["iOS & Android", "React Native / Flutter", "MDM & secure delivery"],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Infrastructure & DevOps",
-    copy: "Cloud migrations, infrastructure-as-code and resilient CI/CD pipelines enabling continuous enterprise delivery.",
-    points: ["AWS · Azure · GCP", "Kubernetes & Cloud-native", "Enterprise SRE"],
-  },
-  {
-    icon: BrainCircuit,
-    title: "AI & Cognitive Services",
-    copy: "Enterprise generative AI, RAG architectures, and advanced predictive models securely deployed to production.",
-    points: ["Enterprise LLMs", "MLOps & governance", "Computer vision & NLP"],
-  },
-  {
-    icon: ShieldCheck,
-    title: "Cybersecurity & Compliance",
-    copy: "Advanced threat mitigation, zero-trust architectures, and robust compliance strategies for a fortified enterprise stack.",
-    points: ["Red teaming & audits", "Zero-trust identity", "ISO / SOC 2 compliance"],
-  },
-  {
-    icon: Database,
-    title: "Data Architecture & Intelligence",
-    copy: "Modern data architectures, scalable processing pipelines, and BI dashboards that drive enterprise decision intelligence.",
-    points: ["Enterprise ETL / ELT", "Data lakehouse modelling", "Advanced BI analytics"],
-  },
-  {
-    icon: Workflow,
-    title: "Intelligent Automation",
-    copy: "Workflow automation, RPA, and complex system integrations that optimize enterprise operational efficiency.",
-    points: ["Process automation (RPA)", "Enterprise system integration", "Workflow orchestration"],
-  },
-  {
-    icon: LifeBuoy,
-    title: "Managed IT Services",
-    copy: "Proactive IT service management, rigorous monitoring, and dedicated engineering pods driving continuous agility.",
-    points: ["24/7 proactive NOC/SOC", "Dedicated delivery pods", "Strict SLA adherence"],
-  },
-];
+import { services } from "@/lib/site-data";
 
 export function Services() {
-  const staggerRef = useStaggerReveal();
+  const staggerRef = useStaggerReveal({ stagger: 0.06, y: 30 });
 
   return (
-    <section id="services" className="bg-background py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <section id="services" className="bg-background py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="What we do"
-          title="Comprehensive Enterprise IT Solutions"
-          subtitle="Eight specialized IT practices, unified by enterprise-grade delivery standards. Seamlessly integrate our capabilities as a managed service or augment your existing architecture with deep domain expertise."
+          title="IT services, end to end"
+          subtitle="Eight practices under one delivery standard. Engage a single team or an entire programme."
         />
 
-        <div 
-          ref={staggerRef as any}
-          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {services.map((s, index) => {
-            const isLarge = index === 0 || index === 1;
-            
-            return (
-              <motion.article
-                key={s.title}
-                whileHover={{ y: -8 }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className={`card-lift group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8 ${
-                  isLarge ? "lg:col-span-2" : "lg:col-span-1"
-                }`}
-              >
-                <span
-                  className="absolute inset-x-0 top-0 h-1 scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100"
-                  style={{ background: "var(--gradient-copper)" }}
-                />
-                
-                <div className="relative mb-6 inline-flex self-start">
-                   <motion.div
-                     animate={{
-                       scale: [1, 1.2, 1],
-                       opacity: [0.3, 0.6, 0.3],
-                     }}
-                     transition={{
-                       duration: 3,
-                       repeat: Infinity,
-                       ease: "easeInOut"
-                     }}
-                     className="absolute -inset-2 rounded-full bg-copper/20 blur-md"
-                   />
-                   <div className="relative inline-flex h-12 w-12 items-center justify-center rounded-xl bg-ink ring-1 ring-copper/30">
-                     <s.icon className="h-6 w-6 text-copper" strokeWidth={1.5} />
-                   </div>
-                </div>
-
-                <div className={`flex flex-col flex-1 ${isLarge ? "sm:flex-row sm:gap-8 sm:items-start" : ""}`}>
-                  <div className={`${isLarge ? "sm:w-1/2" : ""}`}>
-                    <h3 className="text-xl font-bold leading-snug text-ink">{s.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">{s.copy}</p>
-                  </div>
-                  
-                  <div className={`mt-6 ${isLarge ? "sm:mt-0 sm:w-1/2 sm:pl-8 sm:border-l sm:border-copper/10" : ""}`}>
-                    <ul className={`space-y-3 ${!isLarge ? "border-t border-copper/10 pt-5 mt-5" : ""}`}>
-                      {s.points.map((p) => (
-                        <motion.li 
-                          key={p} 
-                          initial="initial"
-                          whileHover="hover"
-                          className="flex items-start gap-3 text-sm text-ink-soft font-medium cursor-default"
-                        >
-                          <motion.span 
-                            variants={{
-                              initial: { scale: 1 },
-                              hover: { scale: 1.5, opacity: 0.8 }
-                            }}
-                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-copper"
-                          />
-                          {p}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
+        <div ref={staggerRef} className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <Link
+              key={s.slug}
+              to="/services/$slug"
+              params={{ slug: s.slug }}
+              className="group flex flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-copper/50 hover:shadow-[0_18px_40px_-24px_rgba(0,0,0,0.35)]"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent">
+                <s.icon className="h-5 w-5 text-copper-deep" strokeWidth={1.6} />
+              </span>
+              <h3 className="mt-5 text-base font-semibold leading-snug">{s.title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{s.summary}</p>
+              <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-copper-deep">
+                Learn more
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
