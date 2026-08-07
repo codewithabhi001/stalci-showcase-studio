@@ -29,7 +29,7 @@ export function Testimonials() {
   const staggerRef = useStaggerReveal();
 
   return (
-    <section className="relative overflow-hidden bg-secondary/60 py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-secondary/60 py-20 sm:py-24">
 
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div ref={headerRef}>

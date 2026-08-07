@@ -46,7 +46,7 @@ export function FAQ() {
   const staggerRef = useStaggerReveal({ staggerChildren: 0.1 });
 
   return (
-    <section id="faq" className="relative bg-background py-24 sm:py-32 overflow-hidden">
+    <section id="faq" className="relative bg-background py-20 sm:py-24 overflow-hidden">
       <div className="mx-auto max-w-3xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading

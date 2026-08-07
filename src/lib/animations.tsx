@@ -13,9 +13,12 @@ export function useScrollReveal(
     delay?: number;
     ease?: string;
     start?: string;
+    distance?: number;
+    yOffset?: number;
+    direction?: "up" | "down" | "left" | "right";
   } = {}
 ) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -31,9 +34,14 @@ export function useScrollReveal(
       start = "top 85%",
     } = options;
 
+    const yv = options.distance ?? options.yOffset ?? y;
+    const dir = options.direction ?? "up";
+    const yStart = dir === "down" ? -yv : dir === "up" ? yv : 0;
+    const xStart = dir === "left" ? yv : dir === "right" ? -yv : x;
+
     gsap.fromTo(
       el,
-      { y, x, opacity },
+      { y: yStart, x: xStart, opacity },
       {
         y: 0,
         x: 0,
@@ -62,14 +70,19 @@ export function useScrollReveal(
 export function useStaggerReveal(
   options: {
     stagger?: number;
+    staggerChildren?: number;
+    staggerDelay?: number;
     y?: number;
+    yOffset?: number;
+    distance?: number;
+    delay?: number;
     duration?: number;
     ease?: string;
     start?: string;
     childSelector?: string;
   } = {}
 ) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -83,6 +96,9 @@ export function useStaggerReveal(
       start = "top 85%",
       childSelector,
     } = options;
+    const staggerAmt = options.staggerChildren ?? options.staggerDelay ?? stagger;
+    const yAmt = options.yOffset ?? options.distance ?? y;
+    const delayAmt = options.delay ?? 0;
 
     let children: Element[] | NodeListOf<Element>;
     if (childSelector) {
@@ -95,12 +111,13 @@ export function useStaggerReveal(
 
     gsap.fromTo(
       children,
-      { y, opacity: 0 },
+      { y: yAmt, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration,
-        stagger,
+        delay: delayAmt,
+        stagger: staggerAmt,
         ease,
         scrollTrigger: {
           trigger: el,
@@ -121,7 +138,7 @@ export function useStaggerReveal(
 }
 
 export function useParallax(speed = 0.3) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -152,7 +169,7 @@ export function useCountUp(
   end: number,
   options: { duration?: number; start?: string; suffix?: string } = {}
 ) {
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -186,7 +203,7 @@ export function useCountUp(
 }
 
 export function useLineReveal() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const el = ref.current;

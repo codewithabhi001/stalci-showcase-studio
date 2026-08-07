@@ -3,11 +3,11 @@ import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal, useLineReveal } from "@/lib/animations";
 
 const steps = [
-  { n: "01", title: "Strategic Discovery", copy: "Comprehensive technical audits and executive workshops to define precise success metrics and alignment prior to implementation." },
-  { n: "02", title: "Enterprise Architecture", copy: "Rigorous system design, robust security modeling, and scalable stack selection formalized into a deterministic delivery roadmap." },
-  { n: "03", title: "Agile Engineering", copy: "Iterative development cycles with continuous integration, automated quality gates, and stringent peer-reviewed deployment standards." },
-  { n: "04", title: "Hardened Deployment", copy: "Enterprise-grade hardening, advanced load simulation, and meticulously staged rollouts with day-one comprehensive observability." },
-  { n: "05", title: "Sustainable Scaling", copy: "Ongoing strategic optimization, continuous delivery pipelines, and proactive SLA-backed support for resilient operations." },
+  { n: "01", title: "Strategic Discovery", copy: "Audits and workshops to agree scope, risks and success metrics." },
+  { n: "02", title: "Enterprise Architecture", copy: "System design, security modelling and stack choices, written into a roadmap." },
+  { n: "03", title: "Agile Engineering", copy: "Two-week increments with automated tests, review and continuous integration." },
+  { n: "04", title: "Hardened Deployment", copy: "Load testing, hardening and staged rollout with observability from day one." },
+  { n: "05", title: "Sustainable Scaling", copy: "SLA-backed support, cost tuning and a standing improvement backlog." },
 ];
 
 export function Process() {
@@ -16,13 +16,13 @@ export function Process() {
   const lineRef = useLineReveal();
 
   return (
-    <section id="process" className="relative bg-background py-24 sm:py-32 overflow-hidden">
+    <section id="process" className="relative bg-background py-20 sm:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
-            eyebrow="Delivery Methodology"
-            title="Engineered for Uncompromising Certainty"
-            subtitle="A definitive five-stage framework ensuring transparent governance, risk mitigation, and continuous value realization at enterprise scale."
+            eyebrow="Process"
+            title="How we deliver"
+            subtitle="Five stages, transparent governance, and value shipped in every sprint."
           />
         </div>
 
@@ -60,7 +60,7 @@ export function Process() {
                 </div>
                 
                 <div className="card-lift gradient-border surface-ink h-full rounded-2xl p-6 relative">
-                  <h3 className="text-xl font-semibold text-[var(--on-ink)]">{s.title}</h3>
+                  <h3 className="text-base font-semibold text-[var(--on-ink)]">{s.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-[var(--on-ink-muted)]">{s.copy}</p>
                 </div>
               </motion.li>

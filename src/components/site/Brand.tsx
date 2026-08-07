@@ -40,11 +40,11 @@ export function SectionHeading({
       }
     >
       <p className="eyebrow text-copper">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-semibold sm:text-4xl md:text-[2.75rem] md:leading-[1.1]">{title}</h2>
+      <h2 className="mt-3 text-2xl font-semibold leading-tight sm:text-3xl md:text-[2.25rem]">{title}</h2>
       {subtitle ? (
         <p
           className={
-            "mt-4 text-base leading-relaxed " +
+            "mt-4 text-sm leading-relaxed sm:text-base " +
             (tone === "dark" ? "text-on-ink-muted" : "text-muted-foreground")
           }
         >

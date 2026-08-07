@@ -53,7 +53,7 @@ export function About() {
   const parallaxRef = useParallax(0.03) as any;
 
   return (
-    <section id="about" className="bg-background py-24 sm:py-32 relative">
+    <section id="about" className="bg-background py-20 sm:py-24 relative">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div className="grid items-start gap-14 lg:grid-cols-2">
           <div ref={textRevealRef}>
