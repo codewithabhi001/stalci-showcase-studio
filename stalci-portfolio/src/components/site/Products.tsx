@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { products as staticProducts } from "@/lib/site-data";
+import { products as staticProducts, type DetailEntry } from "@/lib/site-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "@/lib/api";
 import { mapProduct } from "@/lib/api-mapper";
@@ -16,7 +16,7 @@ export function Products() {
   });
 
   // Map backend products, falling back to static products if API is empty/loading
-  const products = apiProducts && apiProducts.length > 0
+  const products: DetailEntry[] = apiProducts && apiProducts.length > 0
     ? apiProducts.map(mapProduct)
     : staticProducts;
 

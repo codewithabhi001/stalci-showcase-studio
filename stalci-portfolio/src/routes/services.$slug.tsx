@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DetailPage } from "@/components/site/DetailPage";
-import { services as staticServices, findEntry } from "@/lib/site-data";
+import { services as staticServices, findEntry, type DetailEntry } from "@/lib/site-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchServices } from "@/lib/api";
 import { mapService } from "@/lib/api-mapper";
@@ -33,7 +33,7 @@ function ServiceDetail() {
     queryFn: fetchServices,
   });
 
-  const services = apiServices && apiServices.length > 0
+  const services: DetailEntry[] = apiServices && apiServices.length > 0
     ? apiServices.map(mapService)
     : staticServices;
 

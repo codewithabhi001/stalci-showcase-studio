@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { services as staticServices } from "@/lib/site-data";
+import { services as staticServices, type DetailEntry } from "@/lib/site-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchServices } from "@/lib/api";
 import { mapService } from "@/lib/api-mapper";
@@ -16,7 +16,7 @@ export function Services() {
   });
 
   // Map backend services, falling back to static services if API is empty/loading
-  const services = apiServices && apiServices.length > 0
+  const services: DetailEntry[] = apiServices && apiServices.length > 0
     ? apiServices.map(mapService)
     : staticServices;
 

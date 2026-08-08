@@ -38,7 +38,7 @@ export function Testimonials() {
     queryFn: fetchTestimonials,
   });
 
-  const testimonials = apiTestimonials && apiTestimonials.length > 0
+  const testimonials: { quote: string; name: string; role: string; rating: number }[] = apiTestimonials && apiTestimonials.length > 0
     ? apiTestimonials.map((t: any) => ({
         quote: t.quote,
         name: t.clientName,

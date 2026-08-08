@@ -1,7 +1,7 @@
-import { services as staticServices, products as staticProducts, industries as staticIndustries } from "./site-data";
+import { services as staticServices, products as staticProducts, industries as staticIndustries, type DetailEntry } from "./site-data";
 import { Cpu, Bot, Settings } from "lucide-react";
 
-export function mapService(apiService: any) {
+export function mapService(apiService: any): DetailEntry {
   const staticMatch = staticServices.find((s) => s.slug === apiService.slug);
   return {
     slug: apiService.slug,
@@ -17,7 +17,7 @@ export function mapService(apiService: any) {
   };
 }
 
-export function mapProduct(apiProduct: any) {
+export function mapProduct(apiProduct: any): DetailEntry {
   const staticMatch = staticProducts.find((p) => p.slug === apiProduct.slug);
   return {
     slug: apiProduct.slug,
@@ -33,7 +33,7 @@ export function mapProduct(apiProduct: any) {
   };
 }
 
-export function mapIndustry(apiIndustry: any) {
+export function mapIndustry(apiIndustry: any): DetailEntry {
   const staticMatch = staticIndustries.find((i) => i.slug === apiIndustry.slug);
   return {
     slug: apiIndustry.slug,

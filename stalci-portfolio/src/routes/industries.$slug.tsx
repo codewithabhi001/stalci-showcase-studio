@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DetailPage } from "@/components/site/DetailPage";
-import { industries as staticIndustries, findEntry } from "@/lib/site-data";
+import { industries as staticIndustries, findEntry, type DetailEntry } from "@/lib/site-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchIndustries } from "@/lib/api";
 import { mapIndustry } from "@/lib/api-mapper";
@@ -33,7 +33,7 @@ function IndustryDetail() {
     queryFn: fetchIndustries,
   });
 
-  const industries = apiIndustries && apiIndustries.length > 0
+  const industries: DetailEntry[] = apiIndustries && apiIndustries.length > 0
     ? apiIndustries.map(mapIndustry)
     : staticIndustries;
 

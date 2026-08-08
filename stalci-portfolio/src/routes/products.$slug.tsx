@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DetailPage } from "@/components/site/DetailPage";
-import { products as staticProducts, findEntry } from "@/lib/site-data";
+import { products as staticProducts, findEntry, type DetailEntry } from "@/lib/site-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "@/lib/api";
 import { mapProduct } from "@/lib/api-mapper";
@@ -33,7 +33,7 @@ function ProductDetail() {
     queryFn: fetchProducts,
   });
 
-  const products = apiProducts && apiProducts.length > 0
+  const products: DetailEntry[] = apiProducts && apiProducts.length > 0
     ? apiProducts.map(mapProduct)
     : staticProducts;
 

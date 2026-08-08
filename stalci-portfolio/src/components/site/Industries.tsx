@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { industries as staticIndustries } from "@/lib/site-data";
+import { industries as staticIndustries, type DetailEntry } from "@/lib/site-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchIndustries } from "@/lib/api";
 import { mapIndustry } from "@/lib/api-mapper";
@@ -16,7 +16,7 @@ export function Industries() {
   });
 
   // Map backend industries, falling back to static industries if API is empty/loading
-  const industries = apiIndustries && apiIndustries.length > 0
+  const industries: DetailEntry[] = apiIndustries && apiIndustries.length > 0
     ? apiIndustries.map(mapIndustry)
     : staticIndustries;
 

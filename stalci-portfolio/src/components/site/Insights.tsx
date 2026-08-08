@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal } from "@/lib/animations";
-import { posts as staticPosts } from "@/lib/blog-data";
+import { posts as staticPosts, type Post } from "@/lib/blog-data";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBlogs } from "@/lib/api";
 
@@ -14,13 +14,16 @@ export function Insights() {
     queryFn: fetchBlogs,
   });
 
-  const blogs = apiBlogs && apiBlogs.length > 0
+  const blogs: Post[] = apiBlogs && apiBlogs.length > 0
     ? apiBlogs.map((b: any) => ({
         slug: b.slug,
         title: b.title,
         excerpt: b.excerpt || "",
-        category: "Engineering",
+        category: "Engineering" as const,
         readingTime: `${Math.max(3, Math.ceil((b.content || "").split(/\s+/).length / 200))} min read`,
+        date: b.publishedAt || b.createdAt || "",
+        author: b.author || "STALCI Engineering",
+        body: (b.content || "").split("\n\n").filter(Boolean),
       }))
     : staticPosts;
 
