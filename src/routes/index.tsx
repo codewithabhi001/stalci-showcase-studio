@@ -10,6 +10,7 @@ import { Process } from "@/components/site/Process";
 import { WhyStalci } from "@/components/site/WhyStalci";
 import { Testimonials } from "@/components/site/Testimonials";
 import { FAQ } from "@/components/site/FAQ";
+import { Insights } from "@/components/site/Insights";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 
@@ -46,6 +47,7 @@ function Index() {
         <Process />
         <WhyStalci />
         <Testimonials />
+        <Insights />
         <FAQ />
         <Contact />
       </main>
