@@ -15,36 +15,58 @@ export default function SettingsPage() {
   });
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>Site Configuration</h1>
-      <p style={{ color: "rgba(255,255,255,0.4)" }}>Manage global settings for your Stalci portfolio.</p>
+    <div className="space-y-6 animate-fade-up">
+      <div>
+        <h1 className="text-3xl font-semibold text-ink-black" style={{ fontFamily: "var(--font-display)" }}>Site Configuration</h1>
+        <p className="mt-2 text-warm-stone">Manage global settings and variables dynamically loaded in your Stalci portfolio.</p>
+      </div>
 
-      <div className="rounded-2xl p-6" style={{ background: "rgba(0,0,0,0.3)", backdropFilter: "blur(24px)", border: "1px solid rgba(255,255,255,0.08)" }}>
+      <div className="bg-paper-white rounded-[20px] p-6 border border-mist-gray" style={{ boxShadow: "var(--shadow-card)" }}>
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "var(--copper)", borderTopColor: "transparent" }} />
+            <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "var(--color-copper)" }} />
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-1 divide-y divide-mist-gray/40">
             {configs.map((c: any) => (
-              <div key={c.key} className="flex items-center justify-between py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>{c.key}</p>
+              <div key={c.key} className="flex items-center justify-between py-5 first:pt-0 last:pb-0">
+                <div className="space-y-1">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-driftwood">{c.key}</p>
                   {editKey === c.key ? (
-                    <input autoFocus value={editValue} onChange={(e) => setEditValue(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: "rgba(255,255,255,0.05)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }} />
+                    <input
+                      autoFocus
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      className="px-4 py-2 rounded-2xl text-sm border border-bone outline-none focus:border-copper bg-white text-ink-black min-w-[280px]"
+                    />
                   ) : (
-                    <p className="text-sm" style={{ color: "rgba(255,255,255,0.8)" }}>{c.value}</p>
+                    <p className="text-sm text-ironwood font-medium">{c.value}</p>
                   )}
                 </div>
                 {editKey === c.key ? (
                   <div className="flex gap-2">
-                    <button onClick={() => updateMut.mutate({ key: c.key, value: editValue })} className="px-4 py-2 rounded-lg text-xs font-semibold" style={{ background: "var(--gradient-copper)", color: "var(--ink)" }}>
+                    <button
+                      onClick={() => updateMut.mutate({ key: c.key, value: editValue })}
+                      disabled={updateMut.isPending}
+                      className="px-4 py-2 rounded-2xl text-xs font-semibold text-white hover:brightness-110 active:scale-[0.98] transition-all"
+                      style={{ background: "var(--color-copper)" }}
+                    >
                       {updateMut.isPending ? "..." : "Save"}
                     </button>
-                    <button onClick={() => setEditKey(null)} className="px-4 py-2 rounded-lg text-xs" style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)" }}>Cancel</button>
+                    <button
+                      onClick={() => setEditKey(null)}
+                      className="px-4 py-2 rounded-2xl text-xs font-semibold text-warm-stone border border-mist-gray hover:bg-cream-canvas transition-colors"
+                    >
+                      Cancel
+                    </button>
                   </div>
                 ) : (
-                  <button onClick={() => { setEditKey(c.key); setEditValue(c.value); }} className="text-xs transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}>Edit</button>
+                  <button
+                    onClick={() => { setEditKey(c.key); setEditValue(c.value); }}
+                    className="text-xs font-semibold text-warm-stone hover:text-copper transition-colors"
+                  >
+                    Edit
+                  </button>
                 )}
               </div>
             ))}

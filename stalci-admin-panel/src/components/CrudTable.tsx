@@ -60,11 +60,17 @@ export default function CrudTable({ title, queryKey, data, columns, isLoading, o
   };
 
   return (
-    <div className="space-y-6 animate-rise">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>{title}</h1>
+        <h1 className="text-3xl font-semibold text-ink-black" style={{ fontFamily: "var(--font-display)" }}>
+          {title}
+        </h1>
         {onCreate && (
-          <button onClick={openCreate} className="px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105" style={{ background: "var(--gradient-copper)", color: "var(--ink)" }}>
+          <button
+            onClick={openCreate}
+            className="px-5 py-3 rounded-2xl font-semibold text-sm text-white hover:brightness-110 active:scale-[0.98] transition-all shadow-sm"
+            style={{ background: "var(--color-copper)" }}
+          >
             + Add New
           </button>
         )}
@@ -72,74 +78,146 @@ export default function CrudTable({ title, queryKey, data, columns, isLoading, o
 
       {/* Modal Form */}
       {showForm && formFields && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowForm(false)}>
-          <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-full max-w-lg rounded-2xl p-8 space-y-5" style={{ background: "var(--ink-soft)", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <h2 className="text-xl font-bold" style={{ fontFamily: "var(--font-display)" }}>{editItem ? "Edit" : "Create"} {title.replace(" Management", "")}</h2>
-            {formFields.map((f) => (
-              <div key={f.key}>
-                <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>{f.label}</label>
-                {f.type === "textarea" ? (
-                  <textarea value={formData[f.key] || ""} onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })} className="w-full rounded-xl px-4 py-3 text-sm outline-none focus:ring-2" style={{ background: "rgba(255,255,255,0.05)", color: "white", borderColor: "rgba(255,255,255,0.1)", border: "1px solid", ringColor: "var(--copper)" }} rows={4} />
-                ) : f.type === "select" ? (
-                  <select value={formData[f.key] || ""} onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })} className="w-full rounded-xl px-4 py-3 text-sm outline-none" style={{ background: "rgba(255,255,255,0.05)", color: "white", border: "1px solid rgba(255,255,255,0.1)" }}>
-                    <option value="">Select...</option>
-                    {f.options?.map((o) => <option key={o} value={o}>{o}</option>)}
-                  </select>
-                ) : f.type === "number" ? (
-                  <input type="number" step="any" value={formData[f.key] || ""} onChange={(e) => setFormData({ ...formData, [f.key]: parseFloat(e.target.value) })} className="w-full rounded-xl px-4 py-3 text-sm outline-none" style={{ background: "rgba(255,255,255,0.05)", color: "white", border: "1px solid rgba(255,255,255,0.1)" }} />
-                ) : f.type === "checkbox" ? (
-                  <input type="checkbox" checked={!!formData[f.key]} onChange={(e) => setFormData({ ...formData, [f.key]: e.target.checked })} className="w-5 h-5 rounded" />
-                ) : (
-                  <input type={f.type || "text"} value={formData[f.key] || ""} onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })} className="w-full rounded-xl px-4 py-3 text-sm outline-none" style={{ background: "rgba(255,255,255,0.05)", color: "white", border: "1px solid rgba(255,255,255,0.1)" }} />
-                )}
-              </div>
-            ))}
-            <div className="flex gap-3 pt-2">
-              <button type="submit" disabled={createMut.isPending || updateMut.isPending} className="flex-1 py-3 rounded-xl font-semibold text-sm transition-all" style={{ background: "var(--gradient-copper)", color: "var(--ink)" }}>
+        <div className="fixed inset-0 bg-ink-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowForm(false)}>
+          <form
+            onSubmit={handleSubmit}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-lg bg-paper-white rounded-[20px] p-8 space-y-6 shadow-2xl border border-mist-gray"
+            style={{ boxShadow: "var(--shadow-modal)" }}
+          >
+            <h2 className="text-xl font-semibold text-ink-black" style={{ fontFamily: "var(--font-display)" }}>
+              {editItem ? "Edit" : "Create"} {title.replace(" Management", "")}
+            </h2>
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+              {formFields.map((f) => (
+                <div key={f.key}>
+                  <label className="block text-[11px] font-bold uppercase tracking-[0.15em] mb-2 text-driftwood">
+                    {f.label}
+                  </label>
+                  {f.type === "textarea" ? (
+                    <textarea
+                      value={formData[f.key] || ""}
+                      onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                      className="w-full rounded-2xl px-4 py-3 text-sm outline-none border border-bone focus:border-copper transition-colors"
+                      rows={4}
+                    />
+                  ) : f.type === "select" ? (
+                    <select
+                      value={formData[f.key] || ""}
+                      onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                      className="w-full rounded-2xl px-4 py-3 text-sm outline-none border border-bone focus:border-copper transition-colors bg-white"
+                    >
+                      <option value="">Select...</option>
+                      {f.options?.map((o) => (
+                        <option key={o} value={o}>
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                  ) : f.type === "number" ? (
+                    <input
+                      type="number"
+                      step="any"
+                      value={formData[f.key] || ""}
+                      onChange={(e) => setFormData({ ...formData, [f.key]: parseFloat(e.target.value) })}
+                      className="w-full rounded-2xl px-4 py-3 text-sm outline-none border border-bone focus:border-copper transition-colors"
+                    />
+                  ) : f.type === "checkbox" ? (
+                    <div className="flex items-center gap-2 py-2">
+                      <input
+                        type="checkbox"
+                        checked={!!formData[f.key]}
+                        onChange={(e) => setFormData({ ...formData, [f.key]: e.target.checked })}
+                        className="w-5 h-5 rounded border-bone text-copper focus:ring-copper"
+                      />
+                      <span className="text-sm text-warm-stone font-medium">Yes, active / published</span>
+                    </div>
+                  ) : (
+                    <input
+                      type={f.type || "text"}
+                      value={formData[f.key] || ""}
+                      onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                      className="w-full rounded-2xl px-4 py-3 text-sm outline-none border border-bone focus:border-copper transition-colors"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-3 pt-2 border-t border-mist-gray">
+              <button
+                type="submit"
+                disabled={createMut.isPending || updateMut.isPending}
+                className="flex-1 py-3.5 rounded-2xl font-semibold text-sm text-white hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-60"
+                style={{ background: "var(--color-copper)" }}
+              >
                 {createMut.isPending || updateMut.isPending ? "Saving..." : editItem ? "Update" : "Create"}
               </button>
-              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-3 rounded-xl font-semibold text-sm" style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.6)" }}>Cancel</button>
+              <button
+                type="button"
+                onClick={() => setShowForm(false)}
+                className="px-6 py-3.5 rounded-2xl font-semibold text-sm text-warm-stone border border-mist-gray hover:bg-cream-canvas transition-colors"
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* Table */}
-      <div className="rounded-2xl p-6 overflow-hidden" style={{ background: "rgba(0,0,0,0.3)", backdropFilter: "blur(24px)", border: "1px solid rgba(255,255,255,0.08)" }}>
+      {/* Table Surface */}
+      <div className="bg-paper-white rounded-[20px] p-6 border border-mist-gray" style={{ boxShadow: "var(--shadow-card)" }}>
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "var(--copper)", borderTopColor: "transparent" }} />
+            <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "var(--color-copper)" }} />
           </div>
         ) : data.length === 0 ? (
-          <p className="text-center py-16" style={{ color: "rgba(255,255,255,0.3)" }}>No records found. Click "Add New" to create one.</p>
+          <p className="text-center py-16 text-driftwood">No records found. Click "Add New" to create one.</p>
         ) : (
-          <table className="w-full text-left">
-            <thead>
-              <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-                {columns.map((c) => (
-                  <th key={c.key} className="pb-3 pr-4 text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>{c.label}</th>
-                ))}
-                <th className="pb-3 text-right text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.35)" }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item: any) => (
-                <tr key={item.id} className="group transition-colors" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }} onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.03)")} onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-mist-gray">
                   {columns.map((c) => (
-                    <td key={c.key} className="py-4 pr-4 text-sm" style={{ color: "rgba(255,255,255,0.8)" }}>
-                      {c.render ? c.render(item[c.key], item) : String(item[c.key] ?? "—")}
-                    </td>
+                    <th key={c.key} className="pb-4 pr-4 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-driftwood">
+                      {c.label}
+                    </th>
                   ))}
-                  <td className="py-4 text-right space-x-3">
-                    {onUpdate && formFields && (
-                      <button onClick={() => openEdit(item)} className="text-sm transition-colors" style={{ color: "rgba(255,255,255,0.4)" }} onMouseEnter={(e) => (e.currentTarget.style.color = "var(--copper)")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}>Edit</button>
-                    )}
-                    <button onClick={() => { if (confirm("Delete this item?")) deleteMut.mutate(item.id); }} className="text-sm transition-colors" style={{ color: "rgba(255,255,255,0.3)" }} onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}>Delete</button>
-                  </td>
+                  <th className="pb-4 text-right text-[0.68rem] font-bold uppercase tracking-[0.2em] text-driftwood">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-mist-gray/40">
+                {data.map((item: any) => (
+                  <tr key={item.id} className="group hover:bg-cream-canvas/50 transition-colors">
+                    {columns.map((c) => (
+                      <td key={c.key} className="py-4 pr-4 text-sm text-ironwood font-medium">
+                        {c.render ? c.render(item[c.key], item) : String(item[c.key] ?? "—")}
+                      </td>
+                    ))}
+                    <td className="py-4 text-right space-x-4">
+                      {onUpdate && formFields && (
+                        <button
+                          onClick={() => openEdit(item)}
+                          className="text-xs font-semibold text-warm-stone hover:text-copper transition-colors"
+                        >
+                          Edit
+                        </button>
+                      )}
+                      <button
+                        onClick={() => {
+                          if (confirm("Delete this item?")) deleteMut.mutate(item.id);
+                        }}
+                        className="text-xs font-semibold text-warm-stone hover:text-red-600 transition-colors"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

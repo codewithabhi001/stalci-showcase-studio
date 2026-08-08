@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useScrollReveal } from "@/lib/animations";
 import { SectionHeading } from "./Brand";
 import { TechIcon } from "./TechIcon";
-import mark from "@/assets/stalci-mark.png";
+const mark = "/stalci-mark.png";
 
 type Tech = { name: string; slug: string };
 

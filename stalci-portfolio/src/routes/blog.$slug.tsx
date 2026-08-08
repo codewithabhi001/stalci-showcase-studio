@@ -1,14 +1,32 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { getPost, posts } from "@/lib/blog-data";
+import { getPost, posts as staticPosts } from "@/lib/blog-data";
 import { ArrowLeft } from "lucide-react";
+import { fetchBlogBySlug, fetchBlogs } from "@/lib/api";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = getPost(params.slug);
-    if (!post) throw notFound();
-    return { post };
+  loader: async ({ params }) => {
+    try {
+      const post = await fetchBlogBySlug(params.slug);
+      return {
+        post: {
+          slug: post.slug,
+          title: post.title,
+          excerpt: post.excerpt || "",
+          category: "Engineering",
+          date: post.publishedAt || post.createdAt,
+          readingTime: `${Math.max(3, Math.ceil((post.content || "").split(/\s+/).length / 200))} min read`,
+          author: post.author || "STALCI Engineering",
+          body: (post.content || "").split("\n\n").filter(Boolean),
+        }
+      };
+    } catch {
+      // Fallback to static post if backend fails or is offline
+      const post = getPost(params.slug);
+      if (!post) throw notFound();
+      return { post };
+    }
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -49,7 +67,9 @@ function PostNotFound() {
 
 function BlogPost() {
   const { post } = Route.useLoaderData();
-  const related = posts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  
+  // Try to load posts from static list for sidebar, or map dynamically
+  const related = staticPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-background">

@@ -2,10 +2,23 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { services } from "@/lib/site-data";
+import { services as staticServices } from "@/lib/site-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/lib/api";
+import { mapService } from "@/lib/api-mapper";
 
 export function Services() {
   const staggerRef = useStaggerReveal({ stagger: 0.06, y: 30 });
+
+  const { data: apiServices } = useQuery({
+    queryKey: ["services"],
+    queryFn: fetchServices,
+  });
+
+  // Map backend services, falling back to static services if API is empty/loading
+  const services = apiServices && apiServices.length > 0
+    ? apiServices.map(mapService)
+    : staticServices;
 
   return (
     <section id="services" className="bg-background py-20 sm:py-24">

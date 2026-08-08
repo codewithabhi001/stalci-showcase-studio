@@ -2,10 +2,23 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { industries } from "@/lib/site-data";
+import { industries as staticIndustries } from "@/lib/site-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchIndustries } from "@/lib/api";
+import { mapIndustry } from "@/lib/api-mapper";
 
 export function Industries() {
   const gridRef = useStaggerReveal({ stagger: 0.05, y: 24 });
+
+  const { data: apiIndustries } = useQuery({
+    queryKey: ["industries"],
+    queryFn: fetchIndustries,
+  });
+
+  // Map backend industries, falling back to static industries if API is empty/loading
+  const industries = apiIndustries && apiIndustries.length > 0
+    ? apiIndustries.map(mapIndustry)
+    : staticIndustries;
 
   return (
     <section id="industries" className="border-y border-border bg-muted/40 py-20 sm:py-24">

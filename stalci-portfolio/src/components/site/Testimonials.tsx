@@ -2,25 +2,30 @@ import { Quote, Star } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTestimonials } from "@/lib/api";
 
-const testimonials = [
+const staticTestimonials = [
   {
     quote:
       "STALCI engineered a scalable, mission-critical lending architecture in six months. System throughput accelerated by 300% with absolutely zero audit discrepancies, ensuring uncompromised compliance.",
     name: "Amara Osei",
     role: "Chief Technology Officer, Meridian Finance",
+    rating: 5,
   },
   {
     quote:
       "The STALCI AI division deployed a production-grade RAG engine atop our clinical data lakes, achieving exceptional performance while satisfying our stringent board-level data governance mandates.",
     name: "Daniel Reyes",
     role: "VP of Engineering, CareLoop Health",
+    rating: 5,
   },
   {
     quote:
       "Their elite cloud transformation pod optimized our AWS infrastructure, reducing total cost of ownership by 38% and accelerating deployment frequency from monthly cycles to continuous daily delivery.",
     name: "Priya Nair",
     role: "Head of Platform Architecture, Loomex Retail",
+    rating: 5,
   },
 ];
 
@@ -28,9 +33,22 @@ export function Testimonials() {
   const headerRef = useScrollReveal();
   const staggerRef = useStaggerReveal();
 
+  const { data: apiTestimonials } = useQuery({
+    queryKey: ["testimonials"],
+    queryFn: fetchTestimonials,
+  });
+
+  const testimonials = apiTestimonials && apiTestimonials.length > 0
+    ? apiTestimonials.map((t: any) => ({
+        quote: t.quote,
+        name: t.clientName,
+        role: t.company || "Client",
+        rating: t.rating || 5,
+      }))
+    : staticTestimonials;
+
   return (
     <section className="relative overflow-hidden bg-secondary/60 py-20 sm:py-24">
-
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div ref={headerRef}>
           <SectionHeading
@@ -59,7 +77,7 @@ export function Testimonials() {
               </blockquote>
               
               <div className="mt-6 flex gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
+                {Array.from({ length: t.rating }).map((_, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.5, rotate: -15 }}

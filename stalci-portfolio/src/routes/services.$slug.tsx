@@ -1,10 +1,13 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DetailPage } from "@/components/site/DetailPage";
-import { services, findEntry } from "@/lib/site-data";
+import { services as staticServices, findEntry } from "@/lib/site-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/lib/api";
+import { mapService } from "@/lib/api-mapper";
 
 export const Route = createFileRoute("/services/$slug")({
   head: ({ params }) => {
-    const entry = findEntry(services, params.slug);
+    const entry = findEntry(staticServices, params.slug);
     const title = entry ? `${entry.title} — STALCI IT Services` : "Service — STALCI";
     const description = entry?.summary ?? "Enterprise IT services by STALCI.";
     return {
@@ -24,7 +27,17 @@ export const Route = createFileRoute("/services/$slug")({
 
 function ServiceDetail() {
   const { slug } = Route.useParams();
-  const entry = findEntry(services, slug);
+  
+  const { data: apiServices } = useQuery({
+    queryKey: ["services"],
+    queryFn: fetchServices,
+  });
+
+  const services = apiServices && apiServices.length > 0
+    ? apiServices.map(mapService)
+    : staticServices;
+
+  const entry = services.find((s) => s.slug === slug);
   if (!entry) throw notFound();
 
   return (

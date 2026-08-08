@@ -1,10 +1,13 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DetailPage } from "@/components/site/DetailPage";
-import { industries, findEntry } from "@/lib/site-data";
+import { industries as staticIndustries, findEntry } from "@/lib/site-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchIndustries } from "@/lib/api";
+import { mapIndustry } from "@/lib/api-mapper";
 
 export const Route = createFileRoute("/industries/$slug")({
   head: ({ params }) => {
-    const entry = findEntry(industries, params.slug);
+    const entry = findEntry(staticIndustries, params.slug);
     const title = entry ? `${entry.title} — STALCI Industry Expertise` : "Industry — STALCI";
     const description = entry?.summary ?? "Industry expertise by STALCI.";
     return {
@@ -24,7 +27,17 @@ export const Route = createFileRoute("/industries/$slug")({
 
 function IndustryDetail() {
   const { slug } = Route.useParams();
-  const entry = findEntry(industries, slug);
+
+  const { data: apiIndustries } = useQuery({
+    queryKey: ["industries"],
+    queryFn: fetchIndustries,
+  });
+
+  const industries = apiIndustries && apiIndustries.length > 0
+    ? apiIndustries.map(mapIndustry)
+    : staticIndustries;
+
+  const entry = industries.find((s) => s.slug === slug);
   if (!entry) throw notFound();
 
   return (

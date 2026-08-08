@@ -1,5 +1,5 @@
 import { SectionHeading } from "./Brand";
-import mark from "@/assets/stalci-mark.png";
+const mark = "/stalci-mark.png";
 
 const palette = [
   { hex: "#0B0D10", name: "Obsidian" },

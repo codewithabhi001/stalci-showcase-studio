@@ -2,10 +2,23 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useStaggerReveal } from "@/lib/animations";
-import { products } from "@/lib/site-data";
+import { products as staticProducts } from "@/lib/site-data";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProducts } from "@/lib/api";
+import { mapProduct } from "@/lib/api-mapper";
 
 export function Products() {
   const gridRef = useStaggerReveal({ stagger: 0.08, y: 30 });
+
+  const { data: apiProducts } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+
+  // Map backend products, falling back to static products if API is empty/loading
+  const products = apiProducts && apiProducts.length > 0
+    ? apiProducts.map(mapProduct)
+    : staticProducts;
 
   return (
     <section id="products" className="bg-background py-20 sm:py-24">

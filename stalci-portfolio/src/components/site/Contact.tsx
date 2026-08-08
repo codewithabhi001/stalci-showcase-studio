@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStaggerReveal, useScrollReveal } from "@/lib/animations";
+import { submitInquiry } from "@/lib/api";
 
 const details = [
   { icon: Mail, label: "Email", value: "hello@stalci.com" },
@@ -11,12 +12,35 @@ const details = [
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const staggerRef = useStaggerReveal();
   const formRevealRef = useScrollReveal();
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    setSubmitting(true);
+    setError("");
+
+    const fd = new FormData(e.currentTarget);
+    const name = fd.get("name") as string;
+    const email = fd.get("email") as string;
+    const company = fd.get("company") as string;
+    const service = fd.get("service") as string;
+    const details = fd.get("message") as string;
+
+    try {
+      await submitInquiry({
+        name,
+        email,
+        message: `Company: ${company} | Service Interest: ${service} | Message: ${details}`,
+      });
+      setSent(true);
+    } catch (err: any) {
+      setError(err.message || "Failed to submit inquiry. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -81,6 +105,11 @@ export function Contact() {
                 onSubmit={onSubmit} 
                 className="space-y-0"
               >
+                {error && (
+                  <div className="mb-4 px-4 py-2.5 rounded-xl text-xs bg-red-900/20 text-red-400 border border-red-900/40">
+                    {error}
+                  </div>
+                )}
                 <div className="grid gap-x-5 gap-y-0 sm:grid-cols-2">
                   <Field label="Full name" name="name" placeholder="Jane Doe" />
                   <Field label="Work email" name="email" type="email" placeholder="jane@company.com" />
@@ -131,12 +160,13 @@ export function Contact() {
                 <div className="pt-7">
                   <motion.button
                     type="submit"
+                    disabled={submitting}
                     whileHover={{ scale: 1.02, boxShadow: "0 0 20px -5px var(--copper)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-ink transition-colors"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-ink transition-colors disabled:opacity-50"
                     style={{ background: "var(--gradient-copper)" }}
                   >
-                    Initiate Consultation
+                    {submitting ? "Initiating..." : "Initiate Consultation"}
                     <Send className="h-4 w-4" />
                   </motion.button>
                 </div>

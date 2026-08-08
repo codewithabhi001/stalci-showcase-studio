@@ -1,5 +1,5 @@
-import mark from "@/assets/stalci-mark.png";
 import { useLineReveal } from "@/lib/animations";
+const mark = "/stalci-mark.png";
 
 export function Wordmark({ className = "", markSize = 28 }: { className?: string; markSize?: number }) {
   return (
