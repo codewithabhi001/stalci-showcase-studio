@@ -26,7 +26,7 @@ export default function LoginPage() {
       {/* Background glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl" style={{ background: "var(--copper)" }} />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-10 blur-3xl" style={{ background: "var(--copper-soft)" }} />
-      
+
       <form onSubmit={handleLogin} className="relative z-10 w-full max-w-md p-10 rounded-3xl space-y-8" style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(40px)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 25px 60px -15px rgba(0,0,0,0.5)" }}>
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold" style={{ fontFamily: "var(--font-display)", background: "var(--gradient-copper)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>

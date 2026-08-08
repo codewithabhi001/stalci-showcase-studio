@@ -1,10 +1,5 @@
+"use client";
 import Providers from "../providers";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Stalci Admin Panel",
-  description: "Manage your Stalci Showcase Studio portfolio",
-};
 
 const navSections = [
   {
