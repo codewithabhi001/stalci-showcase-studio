@@ -9,8 +9,10 @@ const links = [
   { label: "Industries", href: "/#industries" },
   { label: "Tech Stack", href: "/#stack" },
   { label: "Products", href: "/#products" },
-  { label: "Process", href: "/#process" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/careers" },
 ];
+
 
 export function Nav({ solid = false }: { solid?: boolean }) {
   const [scrolled, setScrolled] = useState(solid);
