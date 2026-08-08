@@ -79,7 +79,7 @@ function BlogPost() {
           <div className="mt-8 h-px w-full bg-border" />
 
           <div className="mt-8 space-y-5">
-            {post.body.map((para, i) => (
+            {post.body.map((para: string, i: number) => (
               <p key={i} className="text-[0.95rem] leading-relaxed text-ink-soft">
                 {para}
               </p>
