@@ -173,8 +173,8 @@ function Cluster() {
         >
           {ring.items.map((t, i) => {
             const angle = (i / ring.items.length) * Math.PI * 2;
-            const x = 50 + ring.radius * Math.cos(angle);
-            const y = 50 + ring.radius * Math.sin(angle);
+            const x = (50 + ring.radius * Math.cos(angle)).toFixed(3);
+            const y = (50 + ring.radius * Math.sin(angle)).toFixed(3);
             return (
               <div
                 key={`${ri}-${t.name}`}
