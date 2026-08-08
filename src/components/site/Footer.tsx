@@ -22,9 +22,20 @@ const columns = [
   },
   {
     title: "Company",
-    links: ["About", "Process", "Products", "Brand system", "FAQ", "Contact"],
+    links: ["About", "Process", "Products", "Blog", "Careers", "Contact"],
   },
 ];
+
+const linkHref: Record<string, string> = {
+  Blog: "/blog",
+  Careers: "/careers",
+  About: "/#about",
+  Process: "/#process",
+  Products: "/#products",
+  Contact: "/#contact",
+  FAQ: "/#faq",
+};
+
 
 const socials = [Linkedin, Twitter, Github, Globe];
 
@@ -76,7 +87,7 @@ export function Footer() {
                   {c.links.map((l) => (
                     <li key={l}>
                       <a
-                        href="#top"
+                        href={linkHref[l] ?? "/#services"}
                         className="text-sm text-on-ink-muted transition-colors hover:text-copper underline-sweep inline-block"
                       >
                         {l}

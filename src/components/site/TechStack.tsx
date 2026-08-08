@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/lib/animations";
 import { SectionHeading } from "./Brand";
+import { TechIcon } from "./TechIcon";
+import mark from "@/assets/stalci-mark.png";
 
 type Tech = { name: string; slug: string };
 
@@ -80,7 +82,6 @@ const groups: { label: string; items: Tech[] }[] = [
     items: [
       { name: "Auth0", slug: "auth0" },
       { name: "Vault", slug: "vault" },
-      { name: "Cloudflare Zero Trust", slug: "cloudflare" },
       { name: "Sentry", slug: "sentry" },
       { name: "Jira", slug: "jira" },
       { name: "Figma", slug: "figma" },
@@ -90,15 +91,123 @@ const groups: { label: string; items: Tech[] }[] = [
   },
 ];
 
+// Circular cluster rings — inner to outer
+const rings: { radius: number; duration: number; reverse?: boolean; items: Tech[] }[] = [
+  {
+    radius: 30,
+    duration: 44,
+    items: [
+      { name: "React", slug: "react" },
+      { name: "TypeScript", slug: "typescript" },
+      { name: "Node.js", slug: "nodedotjs" },
+      { name: "Python", slug: "python" },
+      { name: "Go", slug: "go" },
+      { name: "PostgreSQL", slug: "postgresql" },
+    ],
+  },
+  {
+    radius: 42,
+    duration: 62,
+    reverse: true,
+    items: [
+      { name: "Next.js", slug: "nextdotjs" },
+      { name: "Flutter", slug: "flutter" },
+      { name: "Kubernetes", slug: "kubernetes" },
+      { name: "Docker", slug: "docker" },
+      { name: "TensorFlow", slug: "tensorflow" },
+      { name: "PyTorch", slug: "pytorch" },
+      { name: "Kafka", slug: "apachekafka" },
+      { name: "Redis", slug: "redis" },
+      { name: "Rust", slug: "rust" },
+    ],
+  },
+  {
+    radius: 50,
+    duration: 80,
+    items: [
+      { name: "Cloudflare", slug: "cloudflare" },
+      { name: "Google Cloud", slug: "googlecloud" },
+      { name: "Terraform", slug: "terraform" },
+      { name: "LangChain", slug: "langchain" },
+      { name: "Hugging Face", slug: "huggingface" },
+      { name: "Snowflake", slug: "snowflake" },
+      { name: "Vault", slug: "vault" },
+      { name: "Auth0", slug: "auth0" },
+      { name: "Sentry", slug: "sentry" },
+      { name: "Grafana", slug: "grafana" },
+      { name: "Figma", slug: "figma" },
+      { name: "Stripe", slug: "stripe" },
+    ],
+  },
+];
+
+function Cluster() {
+  return (
+    <div
+      className="relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[30rem]"
+      aria-hidden
+    >
+      {/* concentric guides */}
+      {[60, 84, 100].map((p) => (
+        <div
+          key={p}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
+          style={{ width: `${p}%`, height: `${p}%` }}
+        />
+      ))}
+
+      {/* copper core glow */}
+      <div className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-copper/20 blur-3xl" />
+
+      <div className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-copper/30 bg-ink-soft sm:h-24 sm:w-24">
+        <img src={mark} alt="" width={40} height={40} className="h-9 w-9 object-contain sm:h-11 sm:w-11" />
+      </div>
+
+      {rings.map((ring, ri) => (
+        <div
+          key={ri}
+          className="absolute inset-0"
+          style={{
+            animation: `spin-slow ${ring.duration}s linear infinite${ring.reverse ? " reverse" : ""}`,
+          }}
+        >
+          {ring.items.map((t, i) => {
+            const angle = (i / ring.items.length) * Math.PI * 2;
+            const x = (50 + ring.radius * Math.cos(angle)).toFixed(3);
+            const y = (50 + ring.radius * Math.sin(angle)).toFixed(3);
+            return (
+              <div
+                key={`${ri}-${t.name}`}
+                className="absolute -translate-x-1/2 -translate-y-1/2"
+                style={{ left: `${x}%`, top: `${y}%` }}
+                title={t.name}
+              >
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-ink-soft/90 shadow-lg backdrop-blur sm:h-11 sm:w-11"
+                  style={{
+                    animation: `spin-slow ${ring.duration}s linear infinite${ring.reverse ? "" : " reverse"}`,
+                  }}
+                >
+                  <TechIcon name={t.name} slug={t.slug} size={20} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function TechStack() {
   const headerRef = useScrollReveal();
 
   return (
     <section id="stack" className="surface-ink relative overflow-hidden py-20 sm:py-24">
-      <div className="grid-lines absolute inset-0 opacity-20 pointer-events-none" />
-      
+      <div className="grid-lines pointer-events-none absolute inset-0 opacity-20" />
+
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div ref={headerRef} className="mb-14">
+        <div ref={headerRef} className="mb-12">
           <SectionHeading
             eyebrow="Technology"
             title="The full STALCI engineering stack"
@@ -107,63 +216,31 @@ export function TechStack() {
           />
         </div>
 
-        <div className="space-y-12">
-          {groups.map((g, idx) => {
-            // First row (idx=0, odd) scrolls left, second row (idx=1, even) scrolls right
-            const isOddRow = idx % 2 === 0;
-            const marqueeClass = isOddRow ? "animate-marquee-left" : "animate-marquee-right";
+        <Cluster />
 
-            return (
-              <div key={g.label} className="flex flex-col gap-4">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-copper-deep px-5 lg:px-0">
-                  {g.label}
-                </h3>
-
-                <div className="group overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-                  <div
-                    className={`flex gap-4 marquee-track group-hover:[animation-play-state:paused] ${marqueeClass}`}
-                    style={{ width: "max-content" }}
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {groups.map((g) => (
+            <div
+              key={g.label}
+              className="rounded-2xl border border-white/10 bg-ink-soft/60 p-5"
+            >
+              <h3 className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-copper">
+                {g.label}
+              </h3>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {g.items.map((t) => (
+                  <motion.span
+                    key={`${g.label}-${t.name}`}
+                    whileHover={{ y: -2 }}
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-ink px-3 py-2 text-xs font-medium text-on-ink"
                   >
-                    {/* Render items twice for seamless loop */}
-                    {g.items.map((t, i) => (
-                      <motion.div
-                        key={`orig-${g.label}-${t.name}-${i}`}
-                        whileHover={{ scale: 1.08, y: -4 }}
-                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-ink-soft px-5 py-3.5 cursor-pointer"
-                      >
-                        <img
-                          src={`https://cdn.simpleicons.org/${t.slug}`}
-                          alt={`${t.name} logo`}
-                          width={24}
-                          height={24}
-                          loading="lazy"
-                          className="h-[24px] w-[24px] shrink-0 object-contain"
-                        />
-                        <span className="min-w-0 truncate text-sm font-medium text-white">{t.name}</span>
-                      </motion.div>
-                    ))}
-                    {g.items.map((t, i) => (
-                      <motion.div
-                        key={`dup-${g.label}-${t.name}-${i}`}
-                        whileHover={{ scale: 1.08, y: -4 }}
-                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-ink-soft px-5 py-3.5 cursor-pointer"
-                      >
-                        <img
-                          src={`https://cdn.simpleicons.org/${t.slug}`}
-                          alt={`${t.name} logo`}
-                          width={24}
-                          height={24}
-                          loading="lazy"
-                          className="h-[24px] w-[24px] shrink-0 object-contain"
-                        />
-                        <span className="min-w-0 truncate text-sm font-medium text-white">{t.name}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
+                    <TechIcon name={t.name} slug={t.slug} size={16} />
+                    {t.name}
+                  </motion.span>
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -56,7 +56,7 @@ export function FAQ() {
           />
         </div>
 
-        <div className="mt-16 rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-2xl relative">
+        <div className="mt-12 rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-2xl relative">
 
           
           <div ref={staggerRef}>
@@ -96,7 +96,7 @@ export function FAQ() {
                           <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-copper/20 to-copper/5 border border-copper/20 text-xs sm:text-sm font-bold text-copper mr-2 sm:mr-4 shadow-[0_0_15px_rgba(216,155,91,0.15)] group-hover:shadow-[0_0_20px_rgba(216,155,91,0.3)] transition-shadow">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-base sm:text-lg font-semibold text-ink group-hover:text-copper transition-colors underline-sweep">
+                          <span className="text-sm sm:text-[0.95rem] font-semibold text-ink group-hover:text-copper transition-colors underline-sweep">
                             {f.q}
                           </span>
                         </div>
@@ -117,7 +117,7 @@ export function FAQ() {
                                 opacity: { duration: 0.3, delay: isOpen ? 0.1 : 0 }
                               }}
                             >
-                              <div className="pb-6 pl-14 sm:pl-18 pr-4 text-sm sm:text-base leading-relaxed text-ink-soft">
+                              <div className="pb-6 pl-14 sm:pl-18 pr-4 text-sm leading-relaxed text-ink-soft">
                                 {f.a}
                               </div>
                             </motion.div>
