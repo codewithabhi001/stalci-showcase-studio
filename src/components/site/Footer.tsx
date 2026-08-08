@@ -87,7 +87,7 @@ export function Footer() {
                   {c.links.map((l) => (
                     <li key={l}>
                       <a
-                        href="#top"
+                        href={linkHref[l] ?? "/#services"}
                         className="text-sm text-on-ink-muted transition-colors hover:text-copper underline-sweep inline-block"
                       >
                         {l}
