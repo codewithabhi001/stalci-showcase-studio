@@ -12,7 +12,7 @@ export function TableSkeleton({ rows = 6, cols = 4 }: { rows?: number; cols?: nu
       {Array.from({ length: rows }).map((_, r) => (
         <div key={r} className="grid items-center gap-4 px-5 py-4" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0,1fr)) 80px` }}>
           {Array.from({ length: cols }).map((_, c) => (
-            <Skeleton key={c} className="h-3.5" style={undefined} />
+            <Skeleton key={c} className="h-3.5" />
           ))}
           <Skeleton className="ml-auto h-3.5 w-16" />
         </div>
