@@ -17,7 +17,7 @@ export default function JobsAdmin() {
       columns={[
         { key: "title", label: "Position" },
         { key: "location", label: "Location" },
-        { key: "type", label: "Type", render: (v: string) => <Badge tone="accent">{v}</Badge> },
+        { key: "type", label: "Type", render: (v: string) => <Badge tone="copper">{v}</Badge> },
         { key: "isActive", label: "Status", render: (v: boolean) => <Badge tone={v ? "success" : "danger"}>{v ? "Active" : "Closed"}</Badge> },
         { key: "applications", label: "Applicants", render: (_: any, row: any) => <span>{row.applications?.length || 0}</span> },
       ]}
