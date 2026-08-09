@@ -1,6 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import CrudTable from "@/components/CrudTable";
+import { Badge } from "@/components/ui/badge";
 import { fetchJobs, createJob, updateJob, deleteJob } from "@/lib/api";
 
 export default function JobsAdmin() {
@@ -8,15 +9,16 @@ export default function JobsAdmin() {
 
   return (
     <CrudTable
-      title="Jobs Management"
+      title="Jobs & Applicants"
+      description="Publish open roles and monitor applicant volume."
       queryKey="jobs"
       data={data}
       isLoading={isLoading}
       columns={[
         { key: "title", label: "Position" },
         { key: "location", label: "Location" },
-        { key: "type", label: "Type", render: (v: string) => <span className="px-2 py-1 text-xs rounded-full" style={{ background: "rgba(216,155,91,0.1)", color: "var(--copper-soft)" }}>{v}</span> },
-        { key: "isActive", label: "Status", render: (v: boolean) => <span className="px-2 py-1 text-xs rounded-full" style={{ background: v ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)", color: v ? "#22c55e" : "#ef4444" }}>{v ? "Active" : "Closed"}</span> },
+        { key: "type", label: "Type", render: (v: string) => <Badge tone="accent">{v}</Badge> },
+        { key: "isActive", label: "Status", render: (v: boolean) => <Badge tone={v ? "success" : "danger"}>{v ? "Active" : "Closed"}</Badge> },
         { key: "applications", label: "Applicants", render: (_: any, row: any) => <span>{row.applications?.length || 0}</span> },
       ]}
       formFields={[
