@@ -31,21 +31,28 @@ export function Industries() {
 
         <div
           ref={gridRef}
-          className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {industries.map((i) => (
             <Link
               key={i.slug}
               to="/industries/$slug"
               params={{ slug: i.slug }}
-              className="group flex flex-col bg-card p-6 transition-colors hover:bg-accent/40"
+              className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-copper/40 hover:shadow-sm"
             >
-              <i.icon className="h-5 w-5 text-copper-deep" strokeWidth={1.6} />
-              <h3 className="mt-4 flex items-center gap-1.5 text-sm font-semibold">
-                {i.title}
-                <ArrowUpRight className="h-3.5 w-3.5 text-copper opacity-0 transition-opacity group-hover:opacity-100" />
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{i.summary}</p>
+              <div>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent/60 group-hover:bg-accent transition-colors">
+                  <i.icon className="h-4.5 w-4.5 text-copper-deep" strokeWidth={1.6} />
+                </span>
+                <h3 className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-ink group-hover:text-copper transition-colors">
+                  {i.title}
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{i.summary}</p>
+              </div>
+              <span className="mt-4 inline-flex items-center gap-1 text-[11px] font-semibold text-copper-deep opacity-0 group-hover:opacity-100 transition-all duration-300">
+                View sectors
+                <ArrowUpRight className="h-3 w-3" />
+              </span>
             </Link>
           ))}
         </div>

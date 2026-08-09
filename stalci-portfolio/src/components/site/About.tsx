@@ -38,8 +38,8 @@ function StatItem({ stat }: { stat: { value: string; label: string } }) {
   const ref = useCountUp(end, { suffix }) as any;
 
   return (
-    <div className="bg-card px-5 py-6">
-      <dt ref={ref} className="text-2xl font-semibold text-copper-deep">
+    <div className="bg-card/55 backdrop-blur-sm border border-border/50 rounded-2xl px-5 py-6 shadow-sm hover:border-copper/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+      <dt ref={ref} className="text-2xl font-bold text-copper-deep">
         0{suffix}
       </dt>
       <dd className="mt-1 text-xs leading-snug text-muted-foreground">{stat.label}</dd>
@@ -67,7 +67,7 @@ export function About() {
               Our cross-functional practices specialize in enterprise software engineering, scalable cloud infrastructures, advanced AI integrations, robust cybersecurity, and scalable data architectures. Every engagement is executed by domain experts utilizing agile methodologies, rigorous governance, and enterprise-grade quality assurance.
             </p>
 
-            <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4 shadow-lg shadow-black/5">
+            <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
               {stats.map((s) => (
                 <StatItem key={s.label} stat={s} />
               ))}
@@ -80,8 +80,8 @@ export function About() {
                 <div
                   key={v.title}
                   className={
-                    "gradient-border card-lift rounded-2xl bg-card p-6 " +
-                    (i === 4 ? "sm:col-span-2" : "")
+                    "gradient-border card-lift rounded-2xl bg-card p-6 border border-border/80 shadow-sm " +
+                    (i === 0 || i === 3 || i === 4 ? "sm:col-span-2" : "sm:col-span-1")
                   }
                 >
                   <motion.span

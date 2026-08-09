@@ -16,32 +16,14 @@ const stats = [
 ];
 
 function Monogram() {
-  const [state, setState] = useState<"loading" | "ready" | "error">("loading");
-
-  if (state === "error") {
-    return (
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-copper/40 bg-copper/10 font-display text-2xl font-bold text-copper sm:h-20 sm:w-20">
-        S
-      </div>
-    );
-  }
-
   return (
-    <div className="relative h-16 w-16 sm:h-20 sm:w-20">
-      {state === "loading" ? (
-        <div className="absolute inset-0 animate-pulse rounded-2xl bg-white/10" aria-hidden />
-      ) : null}
+    <div className="relative h-16 w-16 sm:h-20 sm:w-20 flex items-center justify-center">
       <img
         src="/stalci-mark.png"
         alt="STALCI monogram"
         width={96}
         height={96}
-        onLoad={() => setState("ready")}
-        onError={() => setState("error")}
-        className={
-          "h-full w-full object-contain drop-shadow-[0_0_24px_rgba(216,155,91,0.45)] transition-opacity duration-500 " +
-          (state === "ready" ? "opacity-100" : "opacity-0")
-        }
+        className="h-full w-full object-contain drop-shadow-[0_0_24px_rgba(216,155,91,0.45)]"
       />
     </div>
   );
@@ -51,18 +33,13 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-ink py-24"
+      className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden py-24"
     >
-      <div className="hero-glow absolute inset-0 -z-30" aria-hidden />
-      <div className="grid-lines absolute inset-0 -z-20 opacity-[0.35]" aria-hidden />
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 50% 40% at 50% 45%, transparent 40%, oklch(0.16 0.008 250 / 0.85) 100%)",
-        }}
-        aria-hidden
+      <div 
+        className="absolute inset-0 -z-30 bg-[url('/hero-bg.jpg')] bg-cover bg-center bg-no-repeat" 
+        aria-hidden 
       />
+      <div className="grid-lines absolute inset-0 -z-20 opacity-[0.35]" aria-hidden />
       <div
         className="animate-float-orb absolute left-1/2 top-[38%] -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-copper/15 blur-[120px]"
         aria-hidden
@@ -134,11 +111,16 @@ export function Hero() {
         >
           <a
             href="#contact"
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.03] sm:w-auto"
+            className="group relative overflow-hidden inline-flex w-full items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.03] sm:w-auto"
             style={{ background: "var(--gradient-copper)" }}
           >
-            Start a project
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            {/* shine element */}
+            <span className="absolute inset-0 block w-full h-full bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12 translate-x-[-120%] group-hover:animate-shine pointer-events-none" />
+            
+            <span className="relative z-10 flex items-center gap-2">
+              Start a project
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
           </a>
           <a
             href="#services"
@@ -148,23 +130,28 @@ export function Hero() {
           </a>
         </motion.div>
 
-        <motion.dl
+        <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.58 }}
-          className="mt-10 grid w-full max-w-2xl grid-cols-2 gap-x-6 gap-y-5 border-t border-white/10 pt-6 sm:grid-cols-4"
+          className="mt-16 w-full max-w-3xl rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-md relative overflow-hidden"
         >
-          {stats.map((s) => (
-            <div key={s.label}>
-              <dt className="font-display text-xl font-semibold text-copper sm:text-2xl">
-                {s.value}
-              </dt>
-              <dd className="mt-1 text-[0.7rem] uppercase tracking-[0.14em] text-on-ink-muted">
-                {s.label}
-              </dd>
-            </div>
-          ))}
-        </motion.dl>
+          {/* subtle background glow */}
+          <div className="absolute inset-0 bg-gradient-to-r from-copper/5 via-transparent to-copper/5 pointer-events-none" />
+          
+          <dl className="relative z-10 grid grid-cols-2 gap-y-6 sm:grid-cols-4 sm:divide-x divide-white/10">
+            {stats.map((s) => (
+              <div key={s.label} className="px-4 text-center group/stat cursor-default">
+                <dt className="font-display text-2xl font-bold text-copper sm:text-3xl tracking-tight transition-transform duration-300 group-hover/stat:scale-105">
+                  {s.value}
+                </dt>
+                <dd className="mt-1.5 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-on-ink-muted transition-colors duration-300 group-hover/stat:text-copper/80">
+                  {s.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </motion.div>
       </div>
 
       <motion.div
