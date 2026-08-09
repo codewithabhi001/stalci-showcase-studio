@@ -1,90 +1,134 @@
 @import "tailwindcss";
 
 /* ─── Stalci Admin Design System ───
-   Harvest-inspired warm light mode using Stalci's Copper/Ink palette
-   Copper replaces Harvest Orange as the single chromatic accent
+   Premium SaaS console. Neutral warm-slate surfaces + a single copper accent.
 */
 
 @theme inline {
-  /* Brand Colors — Stalci Copper Palette */
-  --color-copper: #D89B5B;
-  --color-copper-soft: #E8B97A;
-  --color-copper-deep: #B07A3A;
-  --color-copper-glow: #f5dfc0;
+  /* Accent */
+  --color-copper: #c17f42;
+  --color-copper-soft: #e0a86a;
+  --color-copper-deep: #96602c;
+  --color-copper-wash: #fdf3e8;
 
-  /* Harvest-style Warm Neutrals */
-  --color-cream-canvas: #fff8f1;
-  --color-paper-white: #ffffff;
-  --color-ink-black: #1d1e1c;
-  --color-warm-stone: #615f5c;
-  --color-driftwood: #8e8b87;
-  --color-ironwood: #4a4a47;
-  --color-ash: #777571;
-  --color-bone: #c0bbb6;
-  --color-smoke: #a5a19c;
-  --color-mist-gray: #d9d9d9;
-  --color-parchment: #e3d6c5;
+  /* Surfaces & neutrals */
+  --color-canvas: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #fafafa;
+  --color-line: #e8e8ea;
+  --color-line-strong: #d8d8dc;
+  --color-ink: #17181b;
+  --color-ink-2: #45474d;
+  --color-muted: #7c7f87;
+  --color-faint: #a5a8b0;
 
-  /* Typography */
+  /* Semantic */
+  --color-success: #15803d;
+  --color-success-wash: #eefaf1;
+  --color-warn: #b45309;
+  --color-warn-wash: #fef6e7;
+  --color-danger: #dc2626;
+  --color-danger-wash: #fef2f2;
+  --color-info: #1d4ed8;
+  --color-info-wash: #eff4ff;
+
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 }
 
 :root {
-  --shadow-sm: 0px 1px 4px 0px rgba(0, 0, 0, 0.08);
-  --shadow-card: 0px 2px 12px 0px rgba(180, 140, 80, 0.08);
-  --shadow-warm: 6px 4px 24px 0px rgba(216, 155, 91, 0.15);
-  --shadow-modal: 0px 25px 60px -15px rgba(0, 0, 0, 0.15);
+  --shadow-xs: 0 1px 2px rgba(16, 18, 22, 0.05);
+  --shadow-card: 0 1px 2px rgba(16, 18, 22, 0.04), 0 8px 24px -16px rgba(16, 18, 22, 0.18);
+  --shadow-pop: 0 12px 32px -12px rgba(16, 18, 22, 0.2), 0 2px 8px rgba(16, 18, 22, 0.06);
+  --shadow-modal: 0 32px 80px -24px rgba(16, 18, 22, 0.32);
+  --radius: 14px;
 }
 
-* {
-  border-color: var(--color-mist-gray);
-}
+* { border-color: var(--color-line); }
+
+html, body { height: 100%; }
 
 body {
-  background-color: var(--color-cream-canvas);
-  color: var(--color-ink-black);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  letter-spacing: 0.015em;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 {
-  letter-spacing: -0.01em;
-}
+h1, h2, h3, h4 { letter-spacing: -0.018em; }
 
-/* ─── Smooth transitions ─── */
-a, button {
-  transition: all 0.2s ease;
-}
-
-/* ─── Scrollbar styling ─── */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-bone); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-driftwood); }
+::-webkit-scrollbar-thumb { background: var(--color-line-strong); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-faint); }
 
-/* ─── Focus ring ─── */
 :focus-visible {
   outline: 2px solid var(--color-copper);
   outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ─── Utilities ─── */
+.eyebrow {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.field {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-surface);
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field::placeholder { color: var(--color-faint); }
+.field:focus {
+  border-color: var(--color-copper);
+  box-shadow: 0 0 0 3px rgba(193, 127, 66, 0.15);
 }
 
 /* ─── Animation ─── */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slide-in-right { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+@keyframes slide-up-sm { from { opacity: 0; transform: translateY(6px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
+.animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-in { animation: fade-in 0.3s ease both; }
+.animate-slide-in-right { animation: slide-in-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-pop { animation: slide-up-sm 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #eeeef1;
+  border-radius: 8px;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  animation: shimmer 1.4s infinite;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.animate-fade-up {
-  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.4s ease both;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

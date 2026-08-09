@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Lock, Mail, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,60 +16,108 @@ export default function LoginPage() {
       document.cookie = "stalci_admin=authenticated; path=/; max-age=86400";
       window.location.href = "/";
     } else {
-      setError("Invalid credentials. Try admin@stalci.com / stalci2026");
+      setError("Invalid credentials. Please check your email and password.");
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: "#fff8f1" }}>
-      {/* Decorative warm gradient wash */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-[120px]" style={{ background: "#D89B5B" }} />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]" style={{ background: "#E8B97A" }} />
+    <div className="grid min-h-screen lg:grid-cols-2">
+      {/* Brand panel */}
+      <div className="relative hidden flex-col justify-between overflow-hidden p-12 lg:flex" style={{ background: "#17181b" }}>
+        <div
+          className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full opacity-25 blur-[130px]"
+          style={{ background: "#c17f42" }}
+        />
+        <div className="relative flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-copper text-sm font-bold text-white">S</span>
+          <span className="text-[15px] font-semibold tracking-tight text-white">Stalci Console</span>
+        </div>
+        <div className="relative max-w-md">
+          <h2 className="text-[34px] font-semibold leading-[1.15] tracking-tight text-white">
+            The control room for your entire portfolio.
+          </h2>
+          <p className="mt-4 text-[14.5px] leading-relaxed text-white/55">
+            Publish content, track client inquiries, manage hiring and invoicing — all from one premium workspace.
+          </p>
+        </div>
+        <p className="relative text-[12.5px] text-white/35">© {new Date().getFullYear()} Stalci. Internal use only.</p>
       </div>
 
-      <form onSubmit={handleLogin} className="relative z-10 w-full max-w-[420px] bg-white rounded-[20px] p-10 space-y-8" style={{ boxShadow: "0px 25px 60px -15px rgba(0,0,0,0.1), 0px 2px 12px 0px rgba(180,140,80,0.08)" }}>
-        <div className="text-center space-y-3">
-          <h1 className="text-[40px] font-medium leading-tight" style={{ fontFamily: "'Playfair Display', serif", color: "#1d1e1c" }}>
-            Stalci <span style={{ color: "#D89B5B" }}>Studio</span>
-          </h1>
-          <p className="text-[15px]" style={{ color: "#8e8b87" }}>Sign in to manage your portfolio</p>
-        </div>
-
-        {error && (
-          <div className="px-4 py-3 rounded-2xl text-[13px]" style={{ background: "rgba(220,38,38,0.06)", color: "#dc2626", border: "1px solid rgba(220,38,38,0.12)" }}>
-            {error}
+      {/* Form panel */}
+      <div className="flex items-center justify-center bg-canvas px-5 py-14">
+        <form onSubmit={handleLogin} className="card w-full max-w-[400px] p-8">
+          <div className="lg:hidden">
+            <span className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-[11px] bg-copper text-sm font-bold text-white">
+              S
+            </span>
           </div>
-        )}
+          <h1 className="text-[22px] font-semibold tracking-tight text-ink">Sign in</h1>
+          <p className="mt-1.5 text-[13px] text-muted">Use your Stalci administrator account to continue.</p>
 
-        <div className="space-y-5">
-          <div>
-            <label className="block text-[13px] font-semibold mb-2" style={{ color: "#4a4a47" }}>Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@stalci.com" required
-              className="w-full px-5 py-3.5 rounded-2xl text-[15px] outline-none transition-all"
-              style={{ background: "white", color: "#1d1e1c", border: "1px solid #c0bbb6" }}
-              onFocus={(e) => { e.currentTarget.style.borderColor = "#D89B5B"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(216,155,91,0.15)"; }}
-              onBlur={(e) => { e.currentTarget.style.borderColor = "#c0bbb6"; e.currentTarget.style.boxShadow = "none"; }}
-            />
-          </div>
-          <div>
-            <label className="block text-[13px] font-semibold mb-2" style={{ color: "#4a4a47" }}>Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required
-              className="w-full px-5 py-3.5 rounded-2xl text-[15px] outline-none transition-all"
-              style={{ background: "white", color: "#1d1e1c", border: "1px solid #c0bbb6" }}
-              onFocus={(e) => { e.currentTarget.style.borderColor = "#D89B5B"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(216,155,91,0.15)"; }}
-              onBlur={(e) => { e.currentTarget.style.borderColor = "#c0bbb6"; e.currentTarget.style.boxShadow = "none"; }}
-            />
-          </div>
-        </div>
+          {error && (
+            <div role="alert" className="mt-5 rounded-[10px] border border-danger/15 bg-danger-wash px-3.5 py-2.5 text-[12.5px] text-danger">
+              {error}
+            </div>
+          )}
 
-        <button type="submit" disabled={loading}
-          className="w-full py-3.5 rounded-2xl font-semibold text-[15px] text-white transition-all hover:brightness-110 disabled:opacity-60"
-          style={{ background: "#D89B5B", boxShadow: "0px 1px 4px rgba(0,0,0,0.12)" }}>
-          {loading ? "Signing in..." : "Sign In"}
-        </button>
-      </form>
+          <div className="mt-6 space-y-4">
+            <div>
+              <label htmlFor="email" className="mb-1.5 block text-[13px] font-semibold text-ink-2">
+                Email
+              </label>
+              <div className="relative">
+                <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@stalci.com"
+                  className="field pl-9"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="password" className="mb-1.5 block text-[13px] font-semibold text-ink-2">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="field pl-9"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-7 inline-flex h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-copper text-sm font-semibold text-white transition-all hover:bg-copper-deep active:scale-[0.99] disabled:opacity-60"
+          >
+            {loading ? (
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            ) : (
+              <>
+                Sign in <ArrowRight className="h-4 w-4" />
+              </>
+            )}
+          </button>
+
+          <p className="mt-5 text-center text-[12px] text-faint">Protected area — activity is logged.</p>
+        </form>
+      </div>
     </div>
   );
 }

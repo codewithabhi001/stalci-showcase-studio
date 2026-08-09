@@ -14,7 +14,7 @@ export default function IndustriesAdmin() {
       isLoading={isLoading}
       columns={[
         { key: "name", label: "Industry" },
-        { key: "slug", label: "Slug", render: (v: string) => <code className="text-xs px-2 py-1 rounded" style={{ background: "rgba(255,255,255,0.05)" }}>{v}</code> },
+        { key: "slug", label: "Slug", render: (v: string) => <code className="rounded-md bg-surface-2 px-2 py-1 font-mono text-[12px] text-muted">{v}</code> },
         { key: "description", label: "Description" },
       ]}
       formFields={[

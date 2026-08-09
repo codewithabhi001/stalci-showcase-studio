@@ -1,0 +1,4 @@
+[run]
+install = "bash -lc 'cd stalci-portfolio && bun install'"
+dev = "bash -lc 'cd stalci-portfolio && bun run dev'"
+build = "bash -lc 'cd stalci-portfolio && bun run build'"
