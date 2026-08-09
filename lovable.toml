@@ -1,0 +1,4 @@
+[run]
+install = "cd stalci-portfolio && bun install"
+dev = "cd stalci-portfolio && bun run dev"
+build = "cd stalci-portfolio && bun run build"
