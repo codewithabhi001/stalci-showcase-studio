@@ -14,7 +14,7 @@ export default function BlogsAdmin() {
       isLoading={isLoading}
       columns={[
         { key: "title", label: "Title" },
-        { key: "slug", label: "Slug", render: (v: string) => <code className="text-xs px-2 py-1 rounded" style={{ background: "rgba(255,255,255,0.05)" }}>{v}</code> },
+        { key: "slug", label: "Slug", render: (v: string) => <code className="rounded-md bg-surface-2 px-2 py-1 font-mono text-[12px] text-muted">{v}</code> },
         { key: "author", label: "Author" },
         { key: "publishedAt", label: "Published", render: (v: string) => v ? new Date(v).toLocaleDateString() : "Draft" },
       ]}

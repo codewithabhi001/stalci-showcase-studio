@@ -14,7 +14,7 @@ export default function ServicesAdmin() {
       isLoading={isLoading}
       columns={[
         { key: "name", label: "Service Name" },
-        { key: "slug", label: "Slug", render: (v: string) => <code className="text-xs px-2 py-1 rounded" style={{ background: "rgba(255,255,255,0.05)" }}>{v}</code> },
+        { key: "slug", label: "Slug", render: (v: string) => <code className="rounded-md bg-surface-2 px-2 py-1 font-mono text-[12px] text-muted">{v}</code> },
         { key: "icon", label: "Icon" },
         { key: "createdAt", label: "Created", render: (v: string) => new Date(v).toLocaleDateString() },
       ]}

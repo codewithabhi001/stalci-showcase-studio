@@ -14,7 +14,7 @@ export default function PagesAdmin() {
       isLoading={isLoading}
       columns={[
         { key: "title", label: "Title" },
-        { key: "slug", label: "Slug", render: (v: string) => <code className="text-xs px-2 py-1 rounded" style={{ background: "rgba(255,255,255,0.05)" }}>{v}</code> },
+        { key: "slug", label: "Slug", render: (v: string) => <code className="rounded-md bg-surface-2 px-2 py-1 font-mono text-[12px] text-muted">{v}</code> },
         { key: "published", label: "Status", render: (v: boolean) => <span className="px-2 py-1 text-xs rounded-full" style={{ background: v ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)", color: v ? "#22c55e" : "#ef4444" }}>{v ? "Published" : "Draft"}</span> },
         { key: "createdAt", label: "Created", render: (v: string) => new Date(v).toLocaleDateString() },
       ]}
