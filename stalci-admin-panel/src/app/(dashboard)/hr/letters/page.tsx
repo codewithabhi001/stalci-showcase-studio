@@ -68,10 +68,10 @@ export default function LetterTemplatesPage() {
   const handleOpenCreate = () => {
     setEditingTpl(null);
     setFormData({
-      name: "Standard Employment Verification Certificate",
-      type: "EMPLOYMENT_CERTIFICATE",
-      subject: "Certificate of Active Employment — STALCI",
-      bodyTemplate: `<p>This certifies that <strong>{{employeeName}}</strong> (Employee ID: {{employeeCode}}) is a full-time employee with STALCI Global Technologies Inc. holding the title of <strong>{{designation}}</strong> within our <strong>{{departmentName}}</strong> since {{joiningDate}}.</p>`,
+      name: "",
+      type: "EXPERIENCE_LETTER",
+      subject: "",
+      bodyTemplate: `<p>This certifies that <strong>{{employeeName}}</strong> (Employee ID: {{employeeCode}}) has been employed with our organization as <strong>{{designation}}</strong> in the <strong>{{departmentName}}</strong> department from {{joiningDate}} to {{lastWorkingDay}}.</p>`,
     });
     setIsDrawerOpen(true);
   };

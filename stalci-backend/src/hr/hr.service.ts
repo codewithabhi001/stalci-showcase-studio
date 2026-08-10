@@ -808,7 +808,17 @@ export class HrService {
   // ====================================================
   async getRoles() {
     return this.prisma.role.findMany({
-      include: { permissions: true, _count: { select: { userRoles: true } } },
+      include: {
+        permissions: true,
+        userRoles: {
+          include: {
+            employee: {
+              select: { id: true, name: true, employeeCode: true, designation: true, email: true },
+            },
+          },
+        },
+        _count: { select: { userRoles: true } },
+      },
       orderBy: { id: 'asc' },
     });
   }
@@ -816,6 +826,38 @@ export class HrService {
   async getPermissions() {
     return this.prisma.permission.findMany({
       orderBy: { category: 'asc' },
+    });
+  }
+
+  async assignRoleToEmployee(employeeId: number, roleId: number) {
+    // Delete existing roles for employee to keep single primary role or add role
+    await this.prisma.userRole.deleteMany({
+      where: { employeeId: Number(employeeId) },
+    });
+
+    return this.prisma.userRole.create({
+      data: {
+        employeeId: Number(employeeId),
+        roleId: Number(roleId),
+      },
+      include: {
+        role: true,
+        employee: true,
+      },
+    });
+  }
+
+  async updateRolePermissions(roleId: number, permissionIds: number[]) {
+    return this.prisma.role.update({
+      where: { id: Number(roleId) },
+      data: {
+        permissions: {
+          set: permissionIds.map((id) => ({ id: Number(id) })),
+        },
+      },
+      include: {
+        permissions: true,
+      },
     });
   }
 }

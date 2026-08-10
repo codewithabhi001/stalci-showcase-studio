@@ -33,11 +33,11 @@ export default function AssetsPage() {
   const [selectedEmpId, setSelectedEmpId] = useState("");
 
   const [formData, setFormData] = useState({
-    name: "Apple MacBook Pro 16\" (M3 Max, 64GB Unified RAM)",
+    name: "",
     assetType: "Laptop",
-    serialNumber: `ST-MBP-2026-${Math.floor(100 + Math.random() * 900)}`,
+    serialNumber: "",
     condition: "EXCELLENT",
-    cost: 3999,
+    cost: 0,
     notes: "",
   });
 

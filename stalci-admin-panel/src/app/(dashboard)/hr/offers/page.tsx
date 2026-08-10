@@ -33,13 +33,13 @@ export default function OffersPage() {
     candidateId: "",
     candidateName: "",
     candidateEmail: "",
-    designation: "Senior Cloud Platform Engineer",
-    departmentName: "Cloud Infrastructure & SRE",
-    salaryCtc: 190000,
-    joiningDate: "2026-09-01",
+    designation: "",
+    departmentName: "",
+    salaryCtc: 0,
+    joiningDate: new Date().toISOString().split("T")[0],
     probationMonths: 3,
-    workLocation: "San Francisco, CA / Hybrid",
-    terms: "Master Employment Agreement with full health benefits, 401(k) matching, and annual equity grant.",
+    workLocation: "",
+    terms: "Master Employment Agreement with standard benefits, 401(k) matching, and annual equity grant.",
   });
 
   const { data: candidates = [] } = useQuery({

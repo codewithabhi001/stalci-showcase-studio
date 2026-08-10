@@ -35,49 +35,87 @@ export default function InternshipsPage() {
     const printWin = window.open("", "_blank", "width=900,height=650");
     if (!printWin) return;
 
+    const certCode = `ST-CERT-2026-${String(intern.id).padStart(4, "0")}`;
+
     printWin.document.write(`
       <!DOCTYPE html>
       <html>
         <head>
           <title>STALCI Certificate of Internship - ${intern.employee?.name}</title>
           <style>
-            @page { size: landscape A4; margin: 10mm; }
-            body { font-family: 'Georgia', serif; color: #0F172A; text-align: center; padding: 40px; background: #FFFDF9; }
-            .border-frame { border: 8px double #D89B5B; padding: 30px; height: calc(100% - 80px); position: relative; }
-            .logo { font-family: 'Helvetica Neue', sans-serif; font-size: 24px; font-weight: 900; letter-spacing: 4px; color: #0B0E14; }
-            .title { font-size: 32px; font-weight: bold; color: #D89B5B; margin-top: 20px; letter-spacing: 2px; }
-            .subtitle { font-size: 16px; color: #64748B; margin-top: 5px; }
-            .emp-name { font-size: 28px; font-weight: bold; color: #0B0E14; margin: 25px 0 10px 0; border-bottom: 2px solid #D89B5B; display: inline-block; padding: 0 40px 5px 40px; }
-            .body-text { font-size: 16px; line-height: 1.8; max-width: 750px; margin: 0 auto; color: #334155; }
-            .signatures { display: flex; justify-content: space-around; margin-top: 50px; }
+            @page { size: landscape A4; margin: 0; }
+            body { font-family: 'Playfair Display', Georgia, serif; color: #0F172A; text-align: center; margin: 0; padding: 30px; background: #FAF8F5; }
+            .outer-frame { border: 12px double #D89B5B; padding: 25px; background: #FFFDF9; box-shadow: inset 0 0 20px rgba(216, 155, 91, 0.15); height: calc(100vh - 120px); box-sizing: border-box; position: relative; }
+            .corner-dec { position: absolute; width: 40px; height: 40px; border: 3px solid #D89B5B; }
+            .top-left { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+            .top-right { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+            .bottom-left { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+            .bottom-right { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+            
+            .header-mark { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
+            .logo-text { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: 4px; color: #0B0E14; }
+            .title { font-size: 30px; font-weight: 700; color: #B47838; margin-top: 10px; letter-spacing: 3px; text-transform: uppercase; }
+            .subtitle { font-family: 'Inter', sans-serif; font-size: 13px; color: #64748B; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+            
+            .present-text { font-family: 'Inter', sans-serif; font-size: 14px; color: #475569; margin-top: 25px; }
+            .emp-name { font-size: 32px; font-weight: 700; color: #0B0E14; margin: 15px 0 5px 0; border-bottom: 2px solid #D89B5B; display: inline-block; padding: 0 40px 6px 40px; }
+            .institute { font-family: 'Inter', sans-serif; font-size: 12px; color: #64748B; font-weight: 600; }
+            
+            .body-text { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.8; max-width: 720px; margin: 20px auto 0 auto; color: #334155; }
+            .body-text strong { color: #0B0E14; }
+            
+            .signatures { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 45px; padding: 0 40px; }
             .sign-item { text-align: center; }
-            .sign-line { border-top: 1px solid #64748B; width: 180px; margin-top: 5px; font-size: 12px; font-family: sans-serif; }
+            .sign-line { border-top: 1px solid #94A3B8; width: 180px; margin-top: 4px; font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 600; color: #475569; padding-top: 4px; }
+            
+            .gold-seal { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #F5C082 0%, #D89B5B 50%, #9E6229 100%); display: flex; flex-column; align-items: center; justify-content: center; color: #FFF; font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(158, 98, 41, 0.3); transform: rotate(-5deg); margin: 0 auto; }
+            .cert-code { position: absolute; bottom: 15px; right: 20px; font-family: monospace; font-size: 10px; color: #94A3B8; }
           </style>
         </head>
         <body>
-          <div class="border-frame">
-            <div class="logo">STALCI GLOBAL TECHNOLOGIES</div>
-            <div class="title">CERTIFICATE OF INTERNSHIP EXCELLENCE</div>
-            <div class="subtitle">Awarded for Outstanding Engineering & Research Craftsmanship</div>
+          <div class="outer-frame">
+            <div class="corner-dec top-left"></div>
+            <div class="corner-dec top-right"></div>
+            <div class="corner-dec bottom-left"></div>
+            <div class="corner-dec bottom-right"></div>
 
-            <p style="margin-top: 20px; font-size: 15px;">This is proudly presented to</p>
+            <div class="header-mark">
+              <svg width="32" height="32" viewBox="0 0 120 120">
+                <path d="M 60 22 L 88 38 L 74 46 L 46 30 Z" fill="#D89B5B" />
+                <path d="M 32 46 L 74 46 L 88 54 L 46 70 L 32 62 Z" fill="#B47838" />
+                <path d="M 46 70 L 74 86 L 60 98 L 32 82 Z" fill="#D89B5B" />
+              </svg>
+              <span class="logo-text">STALCI GLOBAL TECHNOLOGIES</span>
+            </div>
+
+            <div class="title">Certificate of Excellence</div>
+            <div class="subtitle">Awarded for Outstanding Engineering & Research Fellowships</div>
+
+            <div class="present-text">This is proudly presented to</div>
             <div class="emp-name">${intern.employee?.name}</div>
-            <p style="font-size: 13px; color: #64748B; margin-bottom: 20px;">Representing: ${intern.institute}</p>
+            <div class="institute">Academic Institution: ${intern.institute}</div>
 
             <div class="body-text">
-              In recognition of successful completion of the research program as <strong>${intern.employee?.designation}</strong> from <strong>${new Date(intern.startDate).toLocaleDateString()}</strong> to <strong>${new Date(intern.endDate).toLocaleDateString()}</strong>. During their tenure, they architected and delivered the initiative: <em>"${intern.projectTitle}"</em> under the mentorship of <strong>${intern.mentorName}</strong>.
+              For successful completion of the research internship as <strong>${intern.employee?.designation}</strong> from <strong>${new Date(intern.startDate).toLocaleDateString()}</strong> to <strong>${new Date(intern.endDate).toLocaleDateString()}</strong>. During their fellowship, they architected and delivered: <em>"${intern.projectTitle}"</em> under the guidance of mentor <strong>${intern.mentorName}</strong>.
             </div>
 
             <div class="signatures">
               <div class="sign-item">
-                <div style="font-family: 'Brush Script MT', cursive; font-size: 26px;">${intern.mentorName}</div>
+                <div style="font-family: 'Brush Script MT', cursive; font-size: 26px; color: #1E293B;">${intern.mentorName}</div>
                 <div class="sign-line">Research Mentor & Lead</div>
               </div>
+
+              <div class="gold-seal">
+                OFFICIAL<br>STALCI<br>SEAL
+              </div>
+
               <div class="sign-item">
-                <div style="font-family: 'Brush Script MT', cursive; font-size: 26px;">Abhishek Kumar</div>
-                <div class="sign-line">Founder & Managing Director</div>
+                <div style="font-family: 'Brush Script MT', cursive; font-size: 26px; color: #1E293B;">Managing Director</div>
+                <div class="sign-line">STALCI Global Technologies</div>
               </div>
             </div>
+
+            <div class="cert-code">Verification Code: ${certCode}</div>
           </div>
         </body>
       </html>

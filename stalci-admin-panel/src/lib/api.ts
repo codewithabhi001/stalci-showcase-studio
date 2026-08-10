@@ -221,4 +221,9 @@ export const calculateFinalSettlement = (employeeId: number, data: any) =>
 // 14. RBAC Roles & Permissions
 export const fetchRoles = () => api.get("/hr/rbac/roles").then((r) => r.data);
 export const fetchPermissions = () => api.get("/hr/rbac/permissions").then((r) => r.data);
+export const assignRoleToEmployee = (employeeId: number, roleId: number) =>
+  api.post("/hr/rbac/assign-role", { employeeId, roleId }).then((r) => r.data);
+export const updateRolePermissions = (roleId: number, permissionIds: number[]) =>
+  api.put(`/hr/rbac/roles/${roleId}/permissions`, { permissionIds }).then((r) => r.data);
+
 

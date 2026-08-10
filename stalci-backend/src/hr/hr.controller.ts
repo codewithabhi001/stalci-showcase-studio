@@ -332,4 +332,17 @@ export class HrController {
   getPermissions() {
     return this.hrService.getPermissions();
   }
+
+  @Post('rbac/assign-role')
+  assignRoleToEmployee(@Body() body: { employeeId: number; roleId: number }) {
+    return this.hrService.assignRoleToEmployee(body.employeeId, body.roleId);
+  }
+
+  @Put('rbac/roles/:id/permissions')
+  updateRolePermissions(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('permissionIds') permissionIds: number[],
+  ) {
+    return this.hrService.updateRolePermissions(id, permissionIds || []);
+  }
 }

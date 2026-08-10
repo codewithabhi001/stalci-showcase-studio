@@ -31,18 +31,18 @@ export default function PerformanceTrainingPage() {
   const [revData, setRevData] = useState({
     employeeId: "",
     reviewerId: "",
-    reviewPeriod: "H2 2026",
+    reviewPeriod: "Q3 2026",
     rating: 5,
-    goalsKpi: "Lead architecture of distributed streaming engine with sub-10ms latency.",
-    managerFeedback: "Exceeds all technical criteria with exemplary code craftsmanship.",
-    promotionRecommendation: "Eligible for Staff Engineer benchmark.",
+    goalsKpi: "",
+    managerFeedback: "",
+    promotionRecommendation: "",
   });
 
   const [trainData, setTrainData] = useState({
     employeeId: "",
-    courseTitle: "Sovereign AI Model Fine-Tuning & Quantization",
-    trainer: "Deep Learning Engineering Institute",
-    skillsLearned: "LoRA, QLoRA, vLLM, TensorRT-LLM",
+    courseTitle: "",
+    trainer: "",
+    skillsLearned: "",
     startDate: new Date().toISOString().split("T")[0],
     completionDate: "",
   });

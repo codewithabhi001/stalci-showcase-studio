@@ -39,19 +39,19 @@ export default function RecruitmentPipelinePage() {
     email: "",
     phone: "",
     currentCompany: "",
-    experienceYrs: 4,
+    experienceYrs: 0,
     skills: "",
     stage: "APPLIED",
     rating: 5,
     interviewDate: "",
-    interviewer: "Abhishek Kumar",
+    interviewer: "",
     notes: "",
   });
 
   const [convertData, setConvertData] = useState({
     departmentId: "",
     designation: "",
-    salaryCtc: 160000,
+    salaryCtc: 0,
   });
 
   const { data: departments = [] } = useQuery({
@@ -100,8 +100,8 @@ export default function RecruitmentPipelinePage() {
     setConvertCandidate(cand);
     setConvertData({
       departmentId: departments[0]?.id ? String(departments[0].id) : "",
-      designation: cand.skills?.includes("Go") ? "Staff Distributed Systems Engineer" : "Senior Software Engineer",
-      salaryCtc: 175000,
+      designation: cand.designation || cand.roleApplied || "Software Engineer",
+      salaryCtc: cand.expectedSalary || 0,
     });
   };
 

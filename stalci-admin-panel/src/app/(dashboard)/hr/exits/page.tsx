@@ -36,13 +36,13 @@ export default function ExitsPage() {
   });
 
   const [settlementData, setSettlementData] = useState({
-    pendingSalary: 12000,
-    leaveEncashment: 2500,
-    bonusIncentives: 1000,
+    pendingSalary: 0,
+    leaveEncashment: 0,
+    bonusIncentives: 0,
     deductions: 0,
     noticePayAdjustment: 0,
     status: "SETTLED",
-    remarks: "Full and final settlement calculated and verified with zero outstanding liability.",
+    remarks: "Full and final settlement calculated and verified.",
   });
 
   const { data: employees = [] } = useQuery({

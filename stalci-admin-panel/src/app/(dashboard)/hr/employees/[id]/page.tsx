@@ -246,15 +246,15 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
               <div className="space-y-3 text-xs">
                 <div>
                   <span className="text-muted block font-bold">Banking Institution</span>
-                  <span className="text-ink font-semibold">{emp.bankName || "JPMorgan Chase Bank"}</span>
+                  <span className="text-ink font-semibold">{emp.bankName || "Not Provided"}</span>
                 </div>
                 <div>
                   <span className="text-muted block font-bold">Account Number</span>
-                  <span className="text-ink font-mono">{emp.bankAccount || "••••••••4892"}</span>
+                  <span className="text-ink font-mono">{emp.bankAccount || "Not Recorded"}</span>
                 </div>
                 <div>
                   <span className="text-muted block font-bold">SWIFT / Routing Code</span>
-                  <span className="text-ink font-mono">{emp.ifscSwift || "CHASUS33"}</span>
+                  <span className="text-ink font-mono">{emp.ifscSwift || "Not Recorded"}</span>
                 </div>
               </div>
             </div>
