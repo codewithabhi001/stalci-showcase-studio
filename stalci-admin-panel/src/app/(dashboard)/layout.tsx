@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Providers from "../providers";
@@ -100,13 +100,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [commandOpen, setCommandOpen] = useState(false);
   const pathname = usePathname();
   const { currentRole, setRole, roleInfo, canAccessRoute } = useRbac();
-  const sidebarNavRef = useState<{ current: HTMLElement | null }>({ current: null })[0];
-
-  const handleSidebarWheel = (e: React.WheelEvent) => {
-    if (sidebarNavRef.current) {
-      sidebarNavRef.current.scrollTop += e.deltaY;
-    }
-  };
+  const sidebarNavRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -131,10 +125,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const Sidebar = (
-    <div
-      onWheel={handleSidebarWheel}
-      className="flex h-screen max-h-screen flex-col bg-[#0B0D13] text-white border-r border-white/10 select-none overflow-hidden"
-    >
+    <div className="flex h-screen max-h-screen flex-col bg-[#0B0D13] text-white border-r border-white/10 select-none overflow-hidden">
       {/* Top Fixed Brand Header */}
       <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-white/10 bg-[#080A0F]">
         <Link href="/" className="flex items-center gap-2.5">
@@ -185,10 +176,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Independently Scrollable Navigation List */}
       <nav
-        ref={(el) => {
-          sidebarNavRef.current = el;
-        }}
-        className="flex-1 min-h-0 overflow-y-auto scrollable-y px-2.5 py-1.5 space-y-3.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+        ref={sidebarNavRef as any}
+        className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollable-y px-2.5 py-1.5 space-y-3.5 overscroll-contain pb-12 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
       >
         {navSections.map((sec) => {
           const visibleLinks = sec.links.filter((l) => canAccessRoute(l.href));
