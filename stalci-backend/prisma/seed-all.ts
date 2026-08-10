@@ -200,6 +200,54 @@ To exercise your statutory privacy rights, submit a data subject access request,
       ]),
       isActive: true,
     },
+    {
+      title: 'Senior Flutter & Cross-Platform Mobile Engineer',
+      location: 'San Francisco, CA / Remote',
+      type: 'Full-time',
+      description: 'Lead the architecture and mobile UI/UX engineering for high-performance iOS and Android enterprise mobile applications using Flutter, Dart, and native C++ integrations.',
+      requirements: JSON.stringify([
+        '4+ years building production mobile apps with Flutter & Dart',
+        'Experience with BLoC / Riverpod state management and offline-first SQLite synchronization',
+        'Familiarity with iOS TestFlight, Google Play Console deployment, and CI/CD pipelines',
+      ]),
+      isActive: true,
+    },
+    {
+      title: 'Full-Stack Web Architect (Next.js 16 & Node.js)',
+      location: 'London, UK / Hybrid',
+      type: 'Full-time',
+      description: 'Build robust end-to-end cloud applications with Next.js 16, React Server Components, NestJS, and PostgreSQL.',
+      requirements: JSON.stringify([
+        '5+ years experience building scalable full-stack web platforms',
+        'Proficiency with Next.js App Router, Tailwind CSS, Prisma ORM, and REST/GraphQL APIs',
+        'Experience designing multi-tenant SaaS systems with strict security RBAC',
+      ]),
+      isActive: true,
+    },
+    {
+      title: 'Growth & Digital Marketing Manager',
+      location: 'San Francisco, CA / Remote',
+      type: 'Full-time',
+      description: 'Drive B2B demand generation, technical SEO, performance marketing campaigns, and brand position for STALCI global IT services.',
+      requirements: JSON.stringify([
+        '4+ years managing enterprise B2B growth marketing and lead funnels',
+        'Experience with Google Analytics 4, HubSpot, LinkedIn Ads, and technical content marketing',
+        'Proven record scaling ARR and pipeline conversion for developer-focused tech services',
+      ]),
+      isActive: true,
+    },
+    {
+      title: 'Business Development Associate (BDA) & Enterprise Sales',
+      location: 'Bengaluru / Hybrid',
+      type: 'Full-time',
+      description: 'Identify enterprise client opportunities, lead technical consultative discovery calls, and close multi-year software development contracts.',
+      requirements: JSON.stringify([
+        '3+ years experience in B2B enterprise tech sales and client relationship management',
+        'Strong communication, proposal writing, and RFP presentation skills',
+        'Ability to work with engineering leads to scope custom software architecture deals',
+      ]),
+      isActive: true,
+    },
   ];
 
   // Clear and re-create jobs for clean seeding

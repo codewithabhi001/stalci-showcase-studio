@@ -32,8 +32,10 @@ import {
   ExternalLink,
   FileCode,
   LogOut,
+  Pencil,
 } from "lucide-react";
 import Link from "next/link";
+import { Drawer } from "@/components/ui/drawer";
 
 export default function EmployeeProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -43,6 +45,16 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
   const [activeTab, setActiveTab] = useState<
     "overview" | "onboarding" | "attendance" | "payroll" | "history" | "performance" | "assets"
   >("overview");
+
+  const [isBankOpen, setIsBankOpen] = useState(false);
+  const [bankFormData, setBankFormData] = useState({
+    bankName: "",
+    bankAccount: "",
+    ifscSwift: "",
+    personalEmail: "",
+    emergencyContactName: "",
+    emergencyContactPhone: "",
+  });
 
   const { data: emp, isLoading } = useQuery({
     queryKey: ["employee", employeeId],
@@ -55,6 +67,15 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["employee", employeeId] });
       toast.success("Onboarding task updated");
+    },
+  });
+
+  const updateBankMut = useMutation({
+    mutationFn: (data: any) => updateEmployee(employeeId, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["employee", employeeId] });
+      toast.success("Banking & emergency contact details updated");
+      setIsBankOpen(false);
     },
   });
 
@@ -270,10 +291,29 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
           {/* Banking & Compliance Details */}
           <div className="space-y-6">
             <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
-              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
-                <DollarSign className="h-4 w-4 text-copper" />
-                Banking & Direct Wire Routing
-              </h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                  <DollarSign className="h-4 w-4 text-copper" />
+                  Banking & Direct Wire Routing
+                </h3>
+                <button
+                  onClick={() => {
+                    setBankFormData({
+                      bankName: emp.bankName || "",
+                      bankAccount: emp.bankAccount || "",
+                      ifscSwift: emp.ifscSwift || "",
+                      personalEmail: emp.personalEmail || "",
+                      emergencyContactName: emp.emergencyContactName || "",
+                      emergencyContactPhone: emp.emergencyContactPhone || "",
+                    });
+                    setIsBankOpen(true);
+                  }}
+                  className="p-1.5 rounded-lg border border-line text-muted hover:text-ink transition-colors cursor-pointer"
+                  title="Edit Bank & Emergency Details"
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </button>
+              </div>
               <div className="space-y-3 text-xs">
                 <div>
                   <span className="text-muted block font-bold">Banking Institution</span>
@@ -512,6 +552,101 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
           </div>
         </div>
       )}
+
+      {/* Edit Bank Account & Emergency Details Drawer */}
+      <Drawer
+        open={isBankOpen}
+        onClose={() => setIsBankOpen(false)}
+        title={`Update Bank Account & Emergency Details: ${emp.name}`}
+        description="Enter bank name, account number, IFSC/SWIFT code, personal email, and emergency contacts."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setIsBankOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                updateBankMut.mutate(bankFormData);
+              }}
+              disabled={updateBankMut.isPending}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Bank & Emergency Details
+            </Button>
+          </div>
+        }
+      >
+        <form className="space-y-4">
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Banking Institution Name</label>
+            <input
+              type="text"
+              placeholder="e.g. JPMorgan Chase & Co. / HDFC Bank"
+              value={bankFormData.bankName}
+              onChange={(e) => setBankFormData({ ...bankFormData, bankName: e.target.value })}
+              className="field"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Account Number / IBAN</label>
+              <input
+                type="text"
+                placeholder="e.g. 94820194820194"
+                value={bankFormData.bankAccount}
+                onChange={(e) => setBankFormData({ ...bankFormData, bankAccount: e.target.value })}
+                className="field font-mono"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">IFSC / SWIFT / Routing Code</label>
+              <input
+                type="text"
+                placeholder="e.g. CHASUS33 / HDFC0000123"
+                value={bankFormData.ifscSwift}
+                onChange={(e) => setBankFormData({ ...bankFormData, ifscSwift: e.target.value })}
+                className="field font-mono"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Personal Email Address</label>
+            <input
+              type="email"
+              placeholder="e.g. employee.personal@gmail.com"
+              value={bankFormData.personalEmail}
+              onChange={(e) => setBankFormData({ ...bankFormData, personalEmail: e.target.value })}
+              className="field font-mono"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 pt-2 border-t border-line">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Emergency Contact Person</label>
+              <input
+                type="text"
+                placeholder="e.g. Sarah Vance (Spouse)"
+                value={bankFormData.emergencyContactName}
+                onChange={(e) => setBankFormData({ ...bankFormData, emergencyContactName: e.target.value })}
+                className="field"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Emergency Phone Number</label>
+              <input
+                type="text"
+                placeholder="e.g. +1 (415) 555-9081"
+                value={bankFormData.emergencyContactPhone}
+                onChange={(e) => setBankFormData({ ...bankFormData, emergencyContactPhone: e.target.value })}
+                className="field font-mono"
+              />
+            </div>
+          </div>
+        </form>
+      </Drawer>
     </div>
   );
 }
