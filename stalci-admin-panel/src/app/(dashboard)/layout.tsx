@@ -177,7 +177,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Independently Scrollable Navigation List */}
       <nav
         ref={sidebarNavRef as any}
-        className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden scrollable-y px-2.5 py-1.5 space-y-3.5 overscroll-contain pb-12 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+        onWheel={(e) => {
+          if (e.currentTarget) {
+            e.currentTarget.scrollTop += e.deltaY;
+          }
+        }}
+        className="flex-1 min-h-0 h-[calc(100vh-140px)] overflow-y-scroll overflow-x-hidden scrollable-y px-2.5 py-1.5 space-y-3.5 overscroll-contain pb-16 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-copper/40 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-white/5"
       >
         {navSections.map((sec) => {
           const visibleLinks = sec.links.filter((l) => canAccessRoute(l.href));
