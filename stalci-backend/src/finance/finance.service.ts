@@ -205,11 +205,24 @@ export class FinanceService {
   }
 
   async updateInvoiceStatus(id: number, status: string) {
-    return this.prisma.invoice.update({
+    const inv = await this.prisma.invoice.update({
       where: { id },
       data: { status },
       include: { client: true, items: true },
     });
+
+    if (status === "PAID") {
+      await this.prisma.notification.create({
+        data: {
+          title: "Invoice Settlement Received",
+          message: `Payment of $${Number(inv.total).toLocaleString()} received for Invoice ${inv.invoiceNumber} from ${inv.client?.company || inv.client?.name || "Client"}.`,
+          type: "SUCCESS",
+          isRead: false,
+        },
+      });
+    }
+
+    return inv;
   }
 
   async deleteInvoice(id: number) {
