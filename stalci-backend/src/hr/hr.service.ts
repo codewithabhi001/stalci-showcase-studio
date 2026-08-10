@@ -541,6 +541,58 @@ export class HrService {
     return record;
   }
 
+  async createManualPayrollRecord(data: any) {
+    const basic = Number(data.basicSalary || 0);
+    const hra = Number(data.hra || 0);
+    const allowances = Number(data.allowances || 0);
+    const bonus = Number(data.bonus || 0);
+    const deductions = Number(data.deductions || 0);
+    const taxDeductions = Number(data.taxDeductions || 0);
+    const netSalary = (basic + hra + allowances + bonus) - (deductions + taxDeductions);
+
+    return this.prisma.payrollRecord.upsert({
+      where: {
+        employeeId_month_year: {
+          employeeId: Number(data.employeeId),
+          month: data.month,
+          year: Number(data.year),
+        },
+      },
+      update: {
+        basicSalary: basic,
+        hra,
+        allowances,
+        bonus,
+        deductions,
+        taxDeductions,
+        netSalary,
+        paymentMode: data.paymentMode || 'Direct Wire',
+        referenceNumber: data.referenceNumber || `STALCI-PAY-${data.year}${data.month.substring(0,3).toUpperCase()}-${data.employeeId}`,
+        paymentReceiptUrl: data.paymentReceiptUrl || null,
+        status: data.status || 'PAID',
+        paidAt: data.status === 'PAID' ? new Date() : null,
+      },
+      create: {
+        employeeId: Number(data.employeeId),
+        month: data.month,
+        year: Number(data.year),
+        basicSalary: basic,
+        hra,
+        allowances,
+        bonus,
+        deductions,
+        taxDeductions,
+        netSalary,
+        paymentMode: data.paymentMode || 'Direct Wire',
+        referenceNumber: data.referenceNumber || `STALCI-PAY-${data.year}${data.month.substring(0,3).toUpperCase()}-${data.employeeId}`,
+        paymentReceiptUrl: data.paymentReceiptUrl || null,
+        status: data.status || 'PAID',
+        paidAt: data.status === 'PAID' ? new Date() : null,
+      },
+      include: { employee: { include: { department: true } } },
+    });
+  }
+
   async updatePayrollRecord(id: number, data: any) {
     const basic = Number(data.basicSalary || 0);
     const hra = Number(data.hra || 0);
@@ -562,13 +614,15 @@ export class HrService {
         netSalary,
         paymentMode: data.paymentMode || 'Direct Wire',
         referenceNumber: data.referenceNumber,
+        paymentReceiptUrl: data.paymentReceiptUrl,
         status: data.status || 'PROCESSED',
+        paidAt: data.status === 'PAID' ? new Date() : undefined,
       },
       include: { employee: { include: { department: true } } },
     });
   }
 
-  async disbursePayroll(id: number, paymentMode?: string, referenceNumber?: string) {
+  async disbursePayroll(id: number, paymentMode?: string, referenceNumber?: string, paymentReceiptUrl?: string, disbursedBy?: string) {
     return this.prisma.payrollRecord.update({
       where: { id: Number(id) },
       data: {
@@ -576,6 +630,8 @@ export class HrService {
         paidAt: new Date(),
         paymentMode: paymentMode || 'Direct Wire',
         referenceNumber: referenceNumber || `STALCI-WIRE-${Date.now()}`,
+        paymentReceiptUrl: paymentReceiptUrl || null,
+        disbursedBy: disbursedBy || 'HR Management',
       },
       include: { employee: true },
     });

@@ -55,6 +55,12 @@ export default function EmployeesPage() {
     status: "ACTIVE",
     bankName: "",
     bankAccount: "",
+    accountHolderName: "",
+    bankBranch: "",
+    accountType: "Salary Account",
+    ifscSwift: "",
+    taxIdPanSsn: "",
+    pfUanNumber: "",
     emergencyContactName: "",
     emergencyContactPhone: "",
     skills: "",
@@ -122,6 +128,12 @@ export default function EmployeesPage() {
       status: "ACTIVE",
       bankName: "",
       bankAccount: "",
+      accountHolderName: "",
+      bankBranch: "",
+      accountType: "Salary Account",
+      ifscSwift: "",
+      taxIdPanSsn: "",
+      pfUanNumber: "",
       emergencyContactName: "",
       emergencyContactPhone: "",
       skills: "",
@@ -145,6 +157,12 @@ export default function EmployeesPage() {
       status: emp.status || "ACTIVE",
       bankName: emp.bankName || "",
       bankAccount: emp.bankAccount || "",
+      accountHolderName: emp.accountHolderName || "",
+      bankBranch: emp.bankBranch || "",
+      accountType: emp.accountType || "Salary Account",
+      ifscSwift: emp.ifscSwift || "",
+      taxIdPanSsn: emp.taxIdPanSsn || "",
+      pfUanNumber: emp.pfUanNumber || "",
       emergencyContactName: emp.emergencyContactName || "",
       emergencyContactPhone: emp.emergencyContactPhone || "",
       skills: emp.skills ? (typeof emp.skills === "string" ? emp.skills : JSON.stringify(emp.skills)) : "",
@@ -501,6 +519,65 @@ export default function EmployeesPage() {
                 onChange={(e) => setFormData({ ...formData, personalEmail: e.target.value })}
                 className="field font-mono"
                 placeholder="personal@gmail.com"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-line">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Banking Institution Name</label>
+              <input
+                type="text"
+                value={formData.bankName}
+                onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
+                className="field"
+                placeholder="JPMorgan Chase & Co."
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Account Number / IBAN</label>
+              <input
+                type="text"
+                value={formData.bankAccount}
+                onChange={(e) => setFormData({ ...formData, bankAccount: e.target.value })}
+                className="field font-mono"
+                placeholder="94820194820194"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">IFSC / SWIFT Code</label>
+              <input
+                type="text"
+                value={formData.ifscSwift}
+                onChange={(e) => setFormData({ ...formData, ifscSwift: e.target.value })}
+                className="field font-mono text-xs"
+                placeholder="CHASUS33"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">PAN / SSN / Tax ID</label>
+              <input
+                type="text"
+                value={formData.taxIdPanSsn}
+                onChange={(e) => setFormData({ ...formData, taxIdPanSsn: e.target.value })}
+                className="field font-mono text-xs"
+                placeholder="TAX-9481029"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">PF / UAN Number</label>
+              <input
+                type="text"
+                value={formData.pfUanNumber}
+                onChange={(e) => setFormData({ ...formData, pfUanNumber: e.target.value })}
+                className="field font-mono text-xs"
+                placeholder="PF-10098234"
               />
             </div>
           </div>

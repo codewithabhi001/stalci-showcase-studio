@@ -334,6 +334,11 @@ model Employee {
   bankName               String?
   bankAccount            String?
   ifscSwift              String?
+  accountHolderName      String?
+  bankBranch             String?
+  accountType            String?                  @default("Salary Account")
+  taxIdPanSsn            String?
+  pfUanNumber            String?
   emergencyContactName   String?
   emergencyContactPhone  String?
   skills                 String?                  // JSON string array
@@ -466,10 +471,12 @@ model PayrollRecord {
   deductions      Float     @default(0)
   taxDeductions   Float     @default(0)
   netSalary       Float
-  status          String    @default("PAID") // DRAFT, PROCESSED, PAID
+  status          String    @default("PAID") // DRAFT, PROCESSED, PAID, HOLD
   paidAt          DateTime?
   paymentMode     String    @default("Direct Wire")
   referenceNumber String?
+  paymentReceiptUrl String?
+  disbursedBy     String?   @default("HR Management")
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -563,9 +570,11 @@ model EmployeeDocument {
   id           Int      @id @default(autoincrement())
   employeeId   Int
   employee     Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  documentType String   // RESUME, OFFER_LETTER, NDA, AGREEMENT, ID_PROOF, SALARY_SLIP, APPRAISAL, CERTIFICATE, RELIEVING_LETTER, EXPERIENCE_LETTER
+  documentType String   // RESUME, OFFER_LETTER, NDA, AGREEMENT, ID_PROOF, SALARY_SLIP, APPRAISAL, CERTIFICATE, RELIEVING_LETTER, EXPERIENCE_LETTER, BANK_PROOF, TAX_FORM
   fileName     String
   fileUrl      String
+  fileSize     String?  @default("250 KB")
+  notes        String?
   uploadedAt   DateTime @default(now())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

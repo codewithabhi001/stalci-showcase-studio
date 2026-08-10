@@ -181,9 +181,11 @@ export const fetchPayroll = (params?: { month?: string; year?: number }) =>
   api.get("/hr/payroll", { params }).then((r) => r.data);
 export const runMonthlyPayroll = (data: { month: string; year: number }) =>
   api.post("/hr/payroll/run", data).then((r) => r.data);
+export const createManualPayrollRecord = (data: any) =>
+  api.post("/hr/payroll/manual", data).then((r) => r.data);
 export const fetchPayslip = (id: number) => api.get(`/hr/payroll/payslip/${id}`).then((r) => r.data);
 export const updatePayrollRecord = (id: number, data: any) => api.put(`/hr/payroll/${id}`, data).then((r) => r.data);
-export const disbursePayroll = (id: number, data?: { paymentMode?: string; referenceNumber?: string }) =>
+export const disbursePayroll = (id: number, data?: { paymentMode?: string; referenceNumber?: string; paymentReceiptUrl?: string; disbursedBy?: string }) =>
   api.post(`/hr/payroll/${id}/disburse`, data || {}).then((r) => r.data);
 
 // 9. Internships

@@ -201,6 +201,11 @@ export class HrController {
     return this.hrService.runMonthlyPayroll(body.month, body.year);
   }
 
+  @Post('payroll/manual')
+  createManualPayrollRecord(@Body() body: any) {
+    return this.hrService.createManualPayrollRecord(body);
+  }
+
   @Get('payroll/payslip/:id')
   getPayslip(@Param('id', ParseIntPipe) id: number) {
     return this.hrService.getPayslip(id);
@@ -219,8 +224,10 @@ export class HrController {
     @Param('id', ParseIntPipe) id: number,
     @Body('paymentMode') paymentMode?: string,
     @Body('referenceNumber') referenceNumber?: string,
+    @Body('paymentReceiptUrl') paymentReceiptUrl?: string,
+    @Body('disbursedBy') disbursedBy?: string,
   ) {
-    return this.hrService.disbursePayroll(id, paymentMode, referenceNumber);
+    return this.hrService.disbursePayroll(id, paymentMode, referenceNumber, paymentReceiptUrl, disbursedBy);
   }
 
   // 9. Internships

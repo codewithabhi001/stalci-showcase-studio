@@ -1,7 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchPayroll, runMonthlyPayroll, updatePayrollRecord, disbursePayroll } from "@/lib/api";
+import {
+  fetchPayroll,
+  runMonthlyPayroll,
+  updatePayrollRecord,
+  disbursePayroll,
+  createManualPayrollRecord,
+  fetchEmployees,
+} from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
@@ -20,15 +27,41 @@ import {
   TrendingUp,
   ShieldCheck,
   CreditCard,
+  Plus,
+  Search,
+  Filter,
+  UploadCloud,
+  Check,
 } from "lucide-react";
 
 export default function PayrollPage() {
   const qc = useQueryClient();
   const [selectedMonth, setSelectedMonth] = useState("August");
   const [selectedYear, setSelectedYear] = useState(2026);
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [editingPay, setEditingPay] = useState<any | null>(null);
   const [disbursingPay, setDisbursingPay] = useState<any | null>(null);
   const [disburseWireRef, setDisburseWireRef] = useState("");
+  const [disburseReceiptUrl, setDisburseReceiptUrl] = useState("");
+
+  const [isManualOpen, setIsManualOpen] = useState(false);
+  const [manualFormData, setManualFormData] = useState({
+    employeeId: "",
+    month: "August",
+    year: 2026,
+    basicSalary: 6000,
+    hra: 3600,
+    allowances: 2400,
+    bonus: 1000,
+    deductions: 200,
+    taxDeductions: 1800,
+    paymentMode: "Direct Wire",
+    referenceNumber: "",
+    status: "PAID",
+    paymentReceiptUrl: "",
+  });
 
   const [editFormData, setEditFormData] = useState({
     basicSalary: 0,
@@ -40,6 +73,11 @@ export default function PayrollPage() {
     paymentMode: "Direct Wire",
     referenceNumber: "",
     status: "PROCESSED",
+  });
+
+  const { data: employeesList = [] } = useQuery({
+    queryKey: ["employees"],
+    queryFn: () => fetchEmployees(),
   });
 
   const { data: payrollList = [], isLoading } = useQuery({
@@ -56,6 +94,16 @@ export default function PayrollPage() {
     },
   });
 
+  const manualPayMut = useMutation({
+    mutationFn: createManualPayrollRecord,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["payroll"] });
+      qc.invalidateQueries({ queryKey: ["hr-dashboard"] });
+      toast.success("Manual payroll record issued & recorded successfully");
+      setIsManualOpen(false);
+    },
+  });
+
   const updateMut = useMutation({
     mutationFn: ({ id, data }: { id: number; data: any }) => updatePayrollRecord(id, data),
     onSuccess: () => {
@@ -67,7 +115,13 @@ export default function PayrollPage() {
   });
 
   const disburseMut = useMutation({
-    mutationFn: (id: number) => disbursePayroll(id),
+    mutationFn: (id: number) =>
+      disbursePayroll(id, {
+        paymentMode: disbursingPay?.paymentMode || "Direct Wire",
+        referenceNumber: disburseWireRef,
+        paymentReceiptUrl: disburseReceiptUrl || undefined,
+        disbursedBy: "HR Management Console",
+      }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["payroll"] });
       qc.invalidateQueries({ queryKey: ["hr-dashboard"] });
@@ -208,6 +262,16 @@ export default function PayrollPage() {
     printWin.print();
   };
 
+  const filteredPayroll = payrollList.filter((pay: any) => {
+    const matchesStatus = statusFilter === "ALL" || pay.status === statusFilter;
+    const matchesSearch =
+      !searchTerm ||
+      pay.employee?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pay.employee?.employeeCode?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pay.referenceNumber?.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesStatus && matchesSearch;
+  });
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -218,11 +282,29 @@ export default function PayrollPage() {
             Payroll Runner & Salary Disbursal Console
           </h1>
           <p className="text-xs text-muted mt-1">
-            Automated monthly salary calculation from employee base CTC, gross-to-net tax withholdings, and printable payslips.
+            Automated monthly salary calculation from employee base CTC, custom manual payments, gross-to-net tax withholdings, and printable payslips.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <Button
+            onClick={() => {
+              if (employeesList.length > 0) {
+                setManualFormData({
+                  ...manualFormData,
+                  employeeId: employeesList[0].id.toString(),
+                  month: selectedMonth,
+                  year: selectedYear,
+                  referenceNumber: `WIRE-STALCI-${selectedYear}-${Math.floor(100000 + Math.random() * 900000)}`,
+                });
+              }
+              setIsManualOpen(true);
+            }}
+            variant="secondary"
+            className="text-xs font-bold gap-1.5 border border-line"
+          >
+            <Plus className="h-4 w-4 text-copper" /> Issue Manual Custom Payment
+          </Button>
           <Button
             onClick={() => runMut.mutate({ month: selectedMonth, year: selectedYear })}
             disabled={runMut.isPending}
@@ -258,35 +340,67 @@ export default function PayrollPage() {
       <div className="rounded-2xl border border-copper/30 bg-surface-2 p-4 text-xs text-muted flex items-start gap-3">
         <HelpCircle className="h-4 w-4 text-copper shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <span className="font-bold text-ink block">How Payroll Calculation Works:</span>
+          <span className="font-bold text-ink block">How Payroll Calculation & Disbursal Works:</span>
           <p>
-            Employee monthly salaries are automatically calculated from their official annual compensation (<strong>CTC</strong>) set in the 
-            Workforce Directory. Clicking <strong>"Run Payroll"</strong> creates records for all active employees. HR & Payroll Finance can click 
-            <strong>"Edit Salary"</strong> on any row to adjust bonuses, allowances, or tax withholdings before disbursing.
+            Employee monthly salaries are calculated from their official annual compensation (<strong>CTC</strong>) in the Workforce Directory.
+            You can click <strong>"Run Payroll"</strong> for automatic generation or <strong>"Issue Manual Custom Payment"</strong> to disburse specific individual month/stipend payments.
+            Use <strong>"Disburse"</strong> on any pending row to record the bank transaction wire reference and attach payment receipts.
           </p>
         </div>
       </div>
 
-      {/* Month / Year Selector */}
-      <div className="flex items-center gap-3">
-        <span className="text-xs font-bold text-ink">Payroll Cycle:</span>
-        <select
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-          className="field text-xs w-auto font-bold"
-        >
-          {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m) => (
-            <option key={m} value={m}>{m}</option>
+      {/* Toolbar: Search, Filters, Month/Year Selector */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface p-4 rounded-2xl border border-line">
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="relative">
+            <Search className="h-3.5 w-3.5 text-muted absolute left-3 top-2.5" />
+            <input
+              type="text"
+              placeholder="Search employee or wire ref..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="field pl-9 text-xs font-semibold w-56"
+            />
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-ink">Cycle:</span>
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="field text-xs w-auto font-bold"
+            >
+              {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m) => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+              className="field text-xs w-auto font-mono"
+            >
+              <option value={2026}>2026</option>
+              <option value={2025}>2025</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Status Filter Pills */}
+        <div className="flex items-center gap-1 overflow-x-auto">
+          {["ALL", "PAID", "PROCESSED", "HOLD", "DRAFT"].map((st) => (
+            <button
+              key={st}
+              onClick={() => setStatusFilter(st)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                statusFilter === st
+                  ? "bg-copper text-slate-950 shadow-sm"
+                  : "text-muted hover:text-ink hover:bg-canvas"
+              }`}
+            >
+              {st}
+            </button>
           ))}
-        </select>
-        <select
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(Number(e.target.value))}
-          className="field text-xs w-auto font-mono"
-        >
-          <option value={2026}>2026</option>
-          <option value={2025}>2025</option>
-        </select>
+        </div>
       </div>
 
       {/* Payroll Records Table */}
@@ -294,9 +408,16 @@ export default function PayrollPage() {
         <div className="overflow-x-auto scrollable-y">
           {isLoading ? (
             <div className="p-12 text-center text-xs text-muted">Loading payroll records...</div>
-          ) : payrollList.length === 0 ? (
-            <div className="p-12 text-center text-xs text-muted">
-              No payroll processed yet for {selectedMonth} {selectedYear}. Click "Run Payroll" to disburse.
+          ) : filteredPayroll.length === 0 ? (
+            <div className="p-12 text-center text-xs text-muted space-y-2">
+              <p>No payroll records match the selected filters for {selectedMonth} {selectedYear}.</p>
+              <Button
+                variant="secondary"
+                onClick={() => runMut.mutate({ month: selectedMonth, year: selectedYear })}
+                className="text-xs font-bold gap-1.5"
+              >
+                <Play className="h-3.5 w-3.5" /> Run Automated Payroll for {selectedMonth}
+              </Button>
             </div>
           ) : (
             <table className="w-full text-left text-xs border-collapse">
@@ -308,13 +429,13 @@ export default function PayrollPage() {
                   <th className="px-5 py-3.5">Bonus</th>
                   <th className="px-5 py-3.5">Tax Withholding</th>
                   <th className="px-5 py-3.5">Net Disbursed</th>
-                  <th className="px-5 py-3.5">Reference</th>
+                  <th className="px-5 py-3.5">Payment Wire Ref</th>
                   <th className="px-5 py-3.5">Status</th>
                   <th className="px-5 py-3.5 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-line">
-                {payrollList.map((pay: any) => (
+                {filteredPayroll.map((pay: any) => (
                   <tr key={pay.id} className="hover:bg-surface-2/60 transition-colors">
                     <td className="px-5 py-4 font-bold text-ink">
                       <div>{pay.employee?.name}</div>
@@ -327,9 +448,21 @@ export default function PayrollPage() {
                     <td className="px-5 py-4 font-mono font-bold text-emerald-600 text-sm">
                       ${pay.netSalary?.toLocaleString()}
                     </td>
-                    <td className="px-5 py-4 font-mono text-[10px] text-muted">{pay.referenceNumber || "Pending Wire"}</td>
+                    <td className="px-5 py-4 font-mono text-[10px] text-muted">
+                      {pay.referenceNumber || "Pending Wire"}
+                      {pay.paymentReceiptUrl && (
+                        <a
+                          href={pay.paymentReceiptUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-copper hover:underline font-bold block mt-0.5 text-[9px]"
+                        >
+                          View Receipt
+                        </a>
+                      )}
+                    </td>
                     <td className="px-5 py-4">
-                      <Badge tone={pay.status === "PAID" ? "success" : "warning"}>
+                      <Badge tone={pay.status === "PAID" ? "success" : pay.status === "HOLD" ? "danger" : "warning"}>
                         {pay.status}
                       </Badge>
                     </td>
@@ -342,17 +475,22 @@ export default function PayrollPage() {
                         >
                           <Edit2 className="h-3.5 w-3.5 text-copper" />
                         </button>
-                        {pay.status !== "PAID" && (
+                        {pay.status !== "PAID" ? (
                           <button
                             onClick={() => {
-                              setDisburseWireRef(`WIRE-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`);
+                              setDisburseWireRef(pay.referenceNumber || `WIRE-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`);
+                              setDisburseReceiptUrl(pay.paymentReceiptUrl || "");
                               setDisbursingPay(pay);
                             }}
-                            className="p-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold cursor-pointer flex items-center gap-1 text-xs"
+                            className="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold cursor-pointer flex items-center gap-1 text-xs shadow-sm"
                             title="Disburse Funds Now"
                           >
                             <Send className="h-3.5 w-3.5" /> Disburse
                           </button>
+                        ) : (
+                          <span className="px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-700 text-[10px] font-extrabold flex items-center gap-1">
+                            <Check className="h-3 w-3" /> Disbursed
+                          </span>
                         )}
                         <button
                           onClick={() => handlePrintPayslip(pay)}
@@ -376,7 +514,7 @@ export default function PayrollPage() {
         open={!!editingPay}
         onClose={() => setEditingPay(null)}
         title={`Edit Monthly Salary: ${editingPay?.employee?.name}`}
-        description="Adjust monthly salary breakdown, bonuses, deductions, and payment reference."
+        description="Adjust monthly salary breakdown, bonuses, deductions, and payment status."
         footer={
           <div className="flex justify-end gap-2">
             <Button variant="secondary" onClick={() => setEditingPay(null)}>
@@ -470,18 +608,33 @@ export default function PayrollPage() {
                 <option value="Direct Wire">Direct Wire Transfer</option>
                 <option value="Direct Deposit">Direct Deposit (ACH)</option>
                 <option value="Corporate Cheque">Corporate Cheque</option>
+                <option value="Cash / Manual">Cash / Manual Disbursal</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-bold text-ink block mb-1">Wire / Reference Code</label>
-              <input
-                type="text"
-                value={editFormData.referenceNumber}
-                onChange={(e) => setEditFormData({ ...editFormData, referenceNumber: e.target.value })}
-                className="field font-mono text-xs"
-                placeholder="e.g. WIRE-CHASE-2026-9812"
-              />
+              <label className="text-xs font-bold text-ink block mb-1">Status</label>
+              <select
+                value={editFormData.status}
+                onChange={(e) => setEditFormData({ ...editFormData, status: e.target.value })}
+                className="field font-mono text-xs font-bold text-ink"
+              >
+                <option value="PAID">PAID</option>
+                <option value="PROCESSED">PROCESSED</option>
+                <option value="HOLD">HOLD</option>
+                <option value="DRAFT">DRAFT</option>
+              </select>
             </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Wire / Bank Reference Code</label>
+            <input
+              type="text"
+              value={editFormData.referenceNumber}
+              onChange={(e) => setEditFormData({ ...editFormData, referenceNumber: e.target.value })}
+              className="field font-mono text-xs"
+              placeholder="e.g. WIRE-CHASE-2026-9812"
+            />
           </div>
         </form>
       </Drawer>
@@ -491,7 +644,7 @@ export default function PayrollPage() {
         open={!!disbursingPay}
         onClose={() => setDisbursingPay(null)}
         title={`Disburse Monthly Salary: ${disbursingPay?.employee?.name}`}
-        description="Verify net payable amount, corporate bank wire reference code, and execute bank disbursal."
+        description="Verify net payable amount, corporate bank wire reference code, attach payment receipt, and execute bank disbursal."
         footer={
           <div className="flex justify-end gap-2">
             <Button variant="secondary" onClick={() => setDisbursingPay(null)}>
@@ -547,20 +700,214 @@ export default function PayrollPage() {
               </div>
             </div>
 
-            <div className="space-y-2 border-t border-line pt-4">
-              <label className="text-xs font-bold text-ink block">Generated Bank Wire Reference Code</label>
-              <input
-                type="text"
-                readOnly
-                value={disburseWireRef}
-                className="field font-mono font-bold text-emerald-700 bg-canvas cursor-not-allowed"
-              />
-              <span className="text-[11px] text-muted block">
-                This transaction reference will be attached to the official employee payslip statement.
-              </span>
+            <div className="space-y-3 border-t border-line pt-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Generated Bank Wire Reference Code</label>
+                <input
+                  type="text"
+                  value={disburseWireRef}
+                  onChange={(e) => setDisburseWireRef(e.target.value)}
+                  className="field font-mono font-bold text-emerald-700 bg-canvas"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Payment Receipt / Bank Proof URL</label>
+                <input
+                  type="text"
+                  placeholder="e.g. https://receipts.stalci.com/wire-2026-9812.pdf"
+                  value={disburseReceiptUrl}
+                  onChange={(e) => setDisburseReceiptUrl(e.target.value)}
+                  className="field font-mono text-xs"
+                />
+                <span className="text-[11px] text-muted block mt-1">
+                  Attach bank payment confirmation receipt to lock with official employee payslip.
+                </span>
+              </div>
             </div>
           </div>
         )}
+      </Drawer>
+
+      {/* Manual Custom Monthly Payroll Issue Drawer */}
+      <Drawer
+        open={isManualOpen}
+        onClose={() => setIsManualOpen(false)}
+        title="Issue Custom Manual Monthly Payroll / Stipend"
+        description="Select employee, target month/year, earnings, tax withholdings, and execute custom salary credit."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setIsManualOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                manualPayMut.mutate(manualFormData);
+              }}
+              disabled={manualPayMut.isPending || !manualFormData.employeeId}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold gap-1.5"
+            >
+              <Send className="h-4 w-4" /> Issue & Disburse Manual Payment
+            </Button>
+          </div>
+        }
+      >
+        <form className="space-y-4">
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Target Employee</label>
+            <select
+              value={manualFormData.employeeId}
+              onChange={(e) => setManualFormData({ ...manualFormData, employeeId: e.target.value })}
+              className="field text-xs font-bold text-ink"
+            >
+              {employeesList.map((emp: any) => (
+                <option key={emp.id} value={emp.id}>
+                  {emp.name} ({emp.employeeCode}) - {emp.designation} [CTC: ${emp.salaryCtc?.toLocaleString()}]
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Payroll Cycle Month</label>
+              <select
+                value={manualFormData.month}
+                onChange={(e) => setManualFormData({ ...manualFormData, month: e.target.value })}
+                className="field text-xs font-bold"
+              >
+                {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m) => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Year</label>
+              <select
+                value={manualFormData.year}
+                onChange={(e) => setManualFormData({ ...manualFormData, year: Number(e.target.value) })}
+                className="field text-xs font-mono"
+              >
+                <option value={2026}>2026</option>
+                <option value={2025}>2025</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Basic Salary ($ USD)</label>
+              <input
+                type="number"
+                value={manualFormData.basicSalary}
+                onChange={(e) => setManualFormData({ ...manualFormData, basicSalary: Number(e.target.value) })}
+                className="field font-mono"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">House Rent Allowance (HRA)</label>
+              <input
+                type="number"
+                value={manualFormData.hra}
+                onChange={(e) => setManualFormData({ ...manualFormData, hra: Number(e.target.value) })}
+                className="field font-mono"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Special Allowances ($ USD)</label>
+              <input
+                type="number"
+                value={manualFormData.allowances}
+                onChange={(e) => setManualFormData({ ...manualFormData, allowances: Number(e.target.value) })}
+                className="field font-mono"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Performance Bonus / Stipend ($ USD)</label>
+              <input
+                type="number"
+                value={manualFormData.bonus}
+                onChange={(e) => setManualFormData({ ...manualFormData, bonus: Number(e.target.value) })}
+                className="field font-mono text-amber-600 font-bold"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Tax Withholding ($ USD)</label>
+              <input
+                type="number"
+                value={manualFormData.taxDeductions}
+                onChange={(e) => setManualFormData({ ...manualFormData, taxDeductions: Number(e.target.value) })}
+                className="field font-mono text-red-600"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Other Deductions ($ USD)</label>
+              <input
+                type="number"
+                value={manualFormData.deductions}
+                onChange={(e) => setManualFormData({ ...manualFormData, deductions: Number(e.target.value) })}
+                className="field font-mono"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Payment Disbursal Mode</label>
+              <select
+                value={manualFormData.paymentMode}
+                onChange={(e) => setManualFormData({ ...manualFormData, paymentMode: e.target.value })}
+                className="field text-xs font-semibold"
+              >
+                <option value="Direct Wire">Direct Wire Transfer</option>
+                <option value="Direct Deposit">Direct Deposit (ACH)</option>
+                <option value="Corporate Cheque">Corporate Cheque</option>
+                <option value="Cash / Manual">Cash / Manual Disbursal</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Disbursal Status</label>
+              <select
+                value={manualFormData.status}
+                onChange={(e) => setManualFormData({ ...manualFormData, status: e.target.value })}
+                className="field text-xs font-bold"
+              >
+                <option value="PAID">PAID (Disbursed Immediately)</option>
+                <option value="PROCESSED">PROCESSED (Pending Wire)</option>
+                <option value="HOLD">HOLD</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Wire Reference Code</label>
+            <input
+              type="text"
+              value={manualFormData.referenceNumber}
+              onChange={(e) => setManualFormData({ ...manualFormData, referenceNumber: e.target.value })}
+              className="field font-mono text-xs"
+              placeholder="e.g. WIRE-STALCI-2026-98104"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Payment Receipt / Bank Proof Link</label>
+            <input
+              type="text"
+              placeholder="e.g. https://receipts.stalci.com/wire-2026-manual.pdf"
+              value={manualFormData.paymentReceiptUrl}
+              onChange={(e) => setManualFormData({ ...manualFormData, paymentReceiptUrl: e.target.value })}
+              className="field font-mono text-xs"
+            />
+          </div>
+        </form>
       </Drawer>
     </div>
   );
