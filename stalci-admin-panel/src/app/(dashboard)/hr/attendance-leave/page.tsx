@@ -40,9 +40,9 @@ export default function AttendanceLeavePage() {
     employeeId: "",
     date: selectedDate,
     status: "PRESENT",
-    checkIn: "09:00 AM",
-    checkOut: "06:00 PM",
-    notes: "Regular full shift",
+    checkIn: "",
+    checkOut: "",
+    notes: "",
   });
 
   const [leaveData, setLeaveData] = useState({

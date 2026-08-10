@@ -31,7 +31,7 @@ export default function ExitsPage() {
     employeeId: "",
     resignationDate: new Date().toISOString().split("T")[0],
     lastWorkingDay: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
-    reason: "Career growth opportunity",
+    reason: "",
     noticePeriodDays: 30,
   });
 
@@ -42,7 +42,7 @@ export default function ExitsPage() {
     deductions: 0,
     noticePayAdjustment: 0,
     status: "SETTLED",
-    remarks: "Full and final settlement calculated and verified.",
+    remarks: "",
   });
 
   const { data: employees = [] } = useQuery({
