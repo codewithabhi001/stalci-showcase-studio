@@ -231,6 +231,16 @@ export class CrmService {
     return fb;
   }
 
+  updateFeedback(id: number, data: any) {
+    return this.prisma.feedback.update({
+      where: { id: Number(id) },
+      data: {
+        ...data,
+        rating: data.rating !== undefined ? Number(data.rating) : undefined,
+      },
+    });
+  }
+
   deleteFeedback(id: number) {
     return this.prisma.feedback.delete({ where: { id } });
   }

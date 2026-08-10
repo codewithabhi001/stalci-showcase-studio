@@ -108,6 +108,8 @@ export const updateInquiry = (id: number, data: any) => api.put(`/crm/inquiries/
 export const deleteInquiry = (id: number) => api.delete(`/crm/inquiries/${id}`).then((r) => r.data);
 
 export const fetchFeedbacks = () => api.get("/crm/feedback").then((r) => r.data);
+export const createFeedback = (data: any) => api.post("/crm/feedback", data).then((r) => r.data);
+export const updateFeedback = (id: number, data: any) => api.put(`/crm/feedback/${id}`, data).then((r) => r.data);
 export const deleteFeedback = (id: number) => api.delete(`/crm/feedback/${id}`).then((r) => r.data);
 
 // --- STATS & ADMIN ---

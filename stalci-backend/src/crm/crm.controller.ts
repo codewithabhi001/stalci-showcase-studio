@@ -115,6 +115,11 @@ export class CrmController {
     return this.crmService.createFeedback(data);
   }
 
+  @Put('feedback/:id')
+  updateFeedback(@Param('id', ParseIntPipe) id: number, @Body() data: any) {
+    return this.crmService.updateFeedback(id, data);
+  }
+
   @Delete('feedback/:id')
   deleteFeedback(@Param('id', ParseIntPipe) id: number) {
     return this.crmService.deleteFeedback(id);
