@@ -151,6 +151,7 @@ export const fetchOfferLetters = () => api.get("/hr/offers").then((r) => r.data)
 export const createOfferLetter = (data: any) => api.post("/hr/offers", data).then((r) => r.data);
 export const updateOfferLetter = (id: number, data: any) => api.put(`/hr/offers/${id}`, data).then((r) => r.data);
 export const sendOfferLetter = (id: number) => api.post(`/hr/offers/${id}/send`).then((r) => r.data);
+export const deleteOfferLetter = (id: number) => api.delete(`/hr/offers/${id}`).then((r) => r.data);
 
 // 6. Onboarding
 export const fetchOnboarding = (employeeId: number) => api.get(`/hr/onboarding/${employeeId}`).then((r) => r.data);
@@ -158,6 +159,8 @@ export const toggleOnboardingTask = (taskId: number, isCompleted: boolean) =>
   api.put(`/hr/onboarding/task/${taskId}`, { isCompleted }).then((r) => r.data);
 export const addOnboardingTask = (employeeId: number, data: any) =>
   api.post(`/hr/onboarding/${employeeId}/task`, data).then((r) => r.data);
+export const deleteOnboardingTask = (taskId: number) =>
+  api.delete(`/hr/onboarding/task/${taskId}`).then((r) => r.data);
 
 // 7. Attendance & Leaves
 export const fetchAttendance = (date?: string) =>
@@ -187,6 +190,11 @@ export const createInternship = (data: any) => api.post("/hr/internships", data)
 export const updateInternship = (id: number, data: any) => api.put(`/hr/internships/${id}`, data).then((r) => r.data);
 export const issueInternshipCertificate = (id: number) =>
   api.post(`/hr/internships/${id}/certificate`).then((r) => r.data);
+export const deleteInternship = (id: number) => api.delete(`/hr/internships/${id}`).then((r) => r.data);
+
+export const createEmployeeDocument = (employeeId: number, data: { documentName: string; documentType: string; documentUrl: string }) =>
+  api.post(`/hr/employees/${employeeId}/documents`, data).then((r) => r.data);
+export const deleteEmployeeDocument = (id: number) => api.delete(`/hr/documents/${id}`).then((r) => r.data);
 
 // 10. Performance & Training
 export const fetchPerformanceReviews = (employeeId?: number) =>

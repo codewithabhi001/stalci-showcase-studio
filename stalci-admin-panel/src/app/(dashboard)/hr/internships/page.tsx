@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchInternships, issueInternshipCertificate } from "@/lib/api";
+import { fetchInternships, issueInternshipCertificate, deleteInternship } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
@@ -13,6 +13,7 @@ import {
   UserCheck,
   Printer,
   Building,
+  Trash2,
 } from "lucide-react";
 
 export default function InternshipsPage() {
@@ -28,6 +29,14 @@ export default function InternshipsPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["internships"] });
       toast.success("Internship completion certificate generated and marked issued");
+    },
+  });
+
+  const deleteMut = useMutation({
+    mutationFn: deleteInternship,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["internships"] });
+      toast.success("Internship record deleted");
     },
   });
 
@@ -198,6 +207,13 @@ export default function InternshipsPage() {
                             <Award className="h-3.5 w-3.5" /> Mark Issued
                           </button>
                         )}
+                        <button
+                          onClick={() => deleteMut.mutate(intern.id)}
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-red-600 transition-colors cursor-pointer"
+                          title="Delete Internship Record"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
                       </div>
                     </td>
                   </tr>

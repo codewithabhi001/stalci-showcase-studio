@@ -350,6 +350,10 @@ export class HrService {
     });
   }
 
+  async deleteOfferLetter(id: number) {
+    return this.prisma.offerLetter.delete({ where: { id: Number(id) } });
+  }
+
   // ====================================================
   // 6. ONBOARDING
   // ====================================================
@@ -378,6 +382,10 @@ export class HrService {
         category: data.category || 'General',
       },
     });
+  }
+
+  async deleteOnboardingTask(taskId: number) {
+    return this.prisma.onboardingTask.delete({ where: { id: Number(taskId) } });
   }
 
   // ====================================================
@@ -613,6 +621,25 @@ export class HrService {
         status: 'COMPLETED',
       },
     });
+  }
+
+  async deleteInternship(id: number) {
+    return this.prisma.internshipRecord.delete({ where: { id: Number(id) } });
+  }
+
+  async createEmployeeDocument(employeeId: number, data: { documentName?: string; fileName?: string; documentType: string; documentUrl?: string; fileUrl?: string }) {
+    return this.prisma.employeeDocument.create({
+      data: {
+        employeeId: Number(employeeId),
+        fileName: data.documentName || data.fileName || "Document",
+        documentType: data.documentType || "GENERAL",
+        fileUrl: data.documentUrl || data.fileUrl || "",
+      },
+    });
+  }
+
+  async deleteEmployeeDocument(id: number) {
+    return this.prisma.employeeDocument.delete({ where: { id: Number(id) } });
   }
 
   // ====================================================

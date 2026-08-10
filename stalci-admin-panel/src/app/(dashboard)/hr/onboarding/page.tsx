@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchEmployees, fetchOnboarding, toggleOnboardingTask, addOnboardingTask } from "@/lib/api";
+import { fetchEmployees, fetchOnboarding, toggleOnboardingTask, addOnboardingTask, deleteOnboardingTask } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
@@ -15,6 +15,7 @@ import {
   Laptop,
   FileText,
   Users,
+  Trash2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -52,6 +53,14 @@ export default function OnboardingPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["onboarding", selectedEmpId] });
       toast.success("Task status updated");
+    },
+  });
+
+  const deleteMut = useMutation({
+    mutationFn: (taskId: number) => deleteOnboardingTask(taskId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["onboarding", selectedEmpId] });
+      toast.success("Onboarding task deleted");
     },
   });
 
@@ -225,9 +234,18 @@ export default function OnboardingPage() {
                           </div>
                         </div>
 
-                        <Badge tone={task.isCompleted ? "success" : "neutral"}>
-                          {task.isCompleted ? "Done" : "Pending"}
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <Badge tone={task.isCompleted ? "success" : "neutral"}>
+                            {task.isCompleted ? "Done" : "Pending"}
+                          </Badge>
+                          <button
+                            onClick={() => deleteMut.mutate(task.id)}
+                            className="p-1 text-muted hover:text-red-600 cursor-pointer"
+                            title="Delete Task"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
                       </div>
                     );
                   })}

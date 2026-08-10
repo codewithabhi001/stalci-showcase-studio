@@ -118,6 +118,11 @@ export class HrController {
     return this.hrService.sendOfferLetter(id);
   }
 
+  @Delete('offers/:id')
+  deleteOfferLetter(@Param('id', ParseIntPipe) id: number) {
+    return this.hrService.deleteOfferLetter(id);
+  }
+
   // 6. Onboarding
   @Get('onboarding/:employeeId')
   getOnboardingByEmployee(@Param('employeeId', ParseIntPipe) employeeId: number) {
@@ -130,6 +135,11 @@ export class HrController {
     @Body('isCompleted') isCompleted: boolean,
   ) {
     return this.hrService.toggleOnboardingTask(taskId, isCompleted);
+  }
+
+  @Delete('onboarding/task/:taskId')
+  deleteOnboardingTask(@Param('taskId', ParseIntPipe) taskId: number) {
+    return this.hrService.deleteOnboardingTask(taskId);
   }
 
   @Post('onboarding/:employeeId/task')
@@ -232,6 +242,24 @@ export class HrController {
   @Post('internships/:id/certificate')
   issueInternshipCertificate(@Param('id', ParseIntPipe) id: number) {
     return this.hrService.issueInternshipCertificate(id);
+  }
+
+  @Delete('internships/:id')
+  deleteInternship(@Param('id', ParseIntPipe) id: number) {
+    return this.hrService.deleteInternship(id);
+  }
+
+  @Post('employees/:employeeId/documents')
+  createEmployeeDocument(
+    @Param('employeeId', ParseIntPipe) employeeId: number,
+    @Body() body: { documentName: string; documentType: string; documentUrl: string },
+  ) {
+    return this.hrService.createEmployeeDocument(employeeId, body);
+  }
+
+  @Delete('documents/:id')
+  deleteEmployeeDocument(@Param('id', ParseIntPipe) id: number) {
+    return this.hrService.deleteEmployeeDocument(id);
   }
 
   // 10. Performance & Training

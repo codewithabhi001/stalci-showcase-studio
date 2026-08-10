@@ -5,6 +5,7 @@ import {
   fetchOfferLetters,
   createOfferLetter,
   sendOfferLetter,
+  deleteOfferLetter,
   fetchCandidates,
 } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +23,7 @@ import {
   CheckCircle2,
   Clock,
   Eye,
+  Trash2,
 } from "lucide-react";
 
 export default function OffersPage() {
@@ -66,6 +68,14 @@ export default function OffersPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["offers"] });
       toast.success("Offer letter dispatched to candidate email");
+    },
+  });
+
+  const deleteMut = useMutation({
+    mutationFn: deleteOfferLetter,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["offers"] });
+      toast.success("Offer letter deleted");
     },
   });
 
@@ -228,6 +238,13 @@ export default function OffersPage() {
                             <Send className="h-3.5 w-3.5 text-blue-500" />
                           </button>
                         )}
+                        <button
+                          onClick={() => deleteMut.mutate(offer.id)}
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-red-600 transition-colors cursor-pointer"
+                          title="Delete Offer Letter"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
                       </div>
                     </td>
                   </tr>
