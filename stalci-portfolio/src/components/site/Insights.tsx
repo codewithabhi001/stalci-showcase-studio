@@ -14,29 +14,31 @@ export function Insights() {
     queryFn: fetchBlogs,
   });
 
-  const blogs: Post[] = apiBlogs && apiBlogs.length > 0
-    ? apiBlogs.map((b: any) => ({
-        slug: b.slug,
-        title: b.title,
-        excerpt: b.excerpt || "",
-        category: "Engineering" as const,
-        readingTime: `${Math.max(3, Math.ceil((b.content || "").split(/\s+/).length / 200))} min read`,
-        date: b.publishedAt || b.createdAt || "",
-        author: b.author || "STALCI Engineering",
-        body: (b.content || "").split("\n\n").filter(Boolean),
-      }))
-    : staticPosts;
+  const blogs: Post[] =
+    apiBlogs && apiBlogs.length > 0
+      ? apiBlogs.map((b: any) => ({
+          slug: b.slug,
+          title: b.title,
+          excerpt: b.excerpt || "",
+          category: "Engineering" as const,
+          readingTime: `${Math.max(3, Math.ceil((b.content || "").split(/\s+/).length / 200))} min read`,
+          date: b.publishedAt || b.createdAt || "",
+          author: b.author || "STALCI Engineering",
+          body: (b.content || "").split("\n\n").filter(Boolean),
+        }))
+      : staticPosts;
 
   const latest = blogs.slice(0, 3);
 
   return (
-    <section id="blog" className="relative bg-background py-20 sm:py-24">
+    <section id="blog" className="relative bg-[#F8FAFC] py-24 sm:py-32 text-slate-900 border-t border-slate-200">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <div ref={headingRef}>
           <SectionHeading
-            eyebrow="Blog & News"
-            title="Insights from our engineers"
-            subtitle="What we are learning building AI, cloud and security platforms for enterprise clients."
+            eyebrow="Blog & Technical Insights"
+            title="Insights From Our Core Architects"
+            subtitle="Deep dives into zero-trust meshes, distributed LLM orchestration, and resilient cloud architectures."
+            tone="light"
           />
         </div>
 
@@ -46,33 +48,26 @@ export function Insights() {
               key={p.slug}
               to="/blog/$slug"
               params={{ slug: p.slug }}
-              className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-copper/50"
+              className="flex flex-col rounded-2xl border border-slate-200/90 bg-white p-6 transition-all duration-300 hover:border-amber-500/70 hover:shadow-lg group"
             >
-              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-copper">
+              <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-amber-700">
                 {p.category}
               </span>
-              <h3 className="mt-3 text-base font-semibold leading-snug text-ink">{p.title}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                {p.excerpt}
-              </p>
-              <span className="mt-4 text-xs text-muted-foreground">{p.readingTime}</span>
+              <h3 className="mt-3 text-base font-bold leading-snug text-slate-900 group-hover:text-amber-700 transition-colors">
+                {p.title}
+              </h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{p.excerpt}</p>
+              <span className="mt-4 text-xs text-slate-400 font-mono font-semibold">{p.readingTime}</span>
             </Link>
           ))}
         </div>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mt-10 text-center">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-copper/60 hover:text-copper"
+            className="inline-flex items-center gap-2 text-sm font-bold text-amber-700 hover:text-amber-800 transition-colors"
           >
-            All articles <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
-            to="/careers"
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-ink"
-            style={{ background: "var(--gradient-copper)" }}
-          >
-            We are hiring <ArrowRight className="h-4 w-4" />
+            Explore all articles <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>

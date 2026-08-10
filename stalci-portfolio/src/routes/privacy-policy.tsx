@@ -1,20 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Nav } from '@/components/site/Nav';
 import { Footer } from '@/components/site/Footer';
-import { SectionHeading } from '@/components/site/Brand';
 import { useScrollReveal } from '@/lib/animations';
+import { ShieldCheck, Mail } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPageBySlug } from '@/lib/api';
 
-const title = 'Privacy Policy — STALCI';
-const description =
-  'How STALCI collects, uses, stores, shares and protects personal data across our website and enterprise IT services, including GDPR and CCPA rights.';
+const defaultTitle = 'Privacy Policy & Data Security — STALCI Enterprise';
+const defaultDescription =
+  'STALCI privacy policy detailing our zero-trust data protection frameworks, GDPR/SOC 2 compliance, client data isolation, and cryptographic confidentiality standards.';
 
 export const Route = createFileRoute('/privacy-policy')({
   head: () => ({
     meta: [
-      { title },
-      { name: 'description', content: description },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: description },
+      { title: defaultTitle },
+      { name: 'description', content: defaultDescription },
+      { property: 'og:title', content: defaultTitle },
+      { property: 'og:description', content: defaultDescription },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
@@ -22,138 +24,241 @@ export const Route = createFileRoute('/privacy-policy')({
   component: PrivacyPolicy,
 });
 
-const sections: { h: string; p: string[]; list?: string[] }[] = [
+interface LegalSection {
+  id: string;
+  h: string;
+  p: string[];
+  list?: string[];
+}
+
+const defaultSections: LegalSection[] = [
   {
-    h: '1. Introduction and Scope',
+    id: 'introduction',
+    h: '1. Introduction & Global Scope',
     p: [
-      'STALCI ("STALCI", "we", "us" or "our") is a global technology company providing software engineering, cloud, data, artificial intelligence and cyber security services. This Privacy Policy explains how we collect, use, disclose, transfer and safeguard personal data when you visit our website, contact us, apply for a role, or engage us as a client or supplier.',
-      'This policy applies to all STALCI digital properties and to personal data we process as a data controller. Where we process personal data on behalf of a client as a data processor, the terms of the applicable Data Processing Agreement (DPA) and Master Services Agreement (MSA) take precedence.',
+      'STALCI Global Technologies Inc. ("STALCI", "we", "us", or "our") is dedicated to uncompromising data privacy, confidentiality, and integrity across all software platforms, APIs, consulting engagements, and client ecosystems.',
+      'This Privacy Policy describes how we collect, process, safeguard, and govern personal and corporate information when you visit our website, submit technical consultation inquiries, interact with client portals, or engage our engineering teams.',
     ],
   },
   {
-    h: '2. Information We Collect',
-    p: ['We collect the following categories of personal data:'],
+    id: 'information-collected',
+    h: '2. Information We Ingest & Process',
+    p: ['We collect information solely to provide elite engineering services, manage commercial relationships, and secure our platforms. This includes:'],
     list: [
-      'Identity and contact data — name, job title, company, email address, telephone number and postal address you provide through forms, email or calls.',
-      'Engagement data — project requirements, budgets, timelines, meeting notes and correspondence relating to a potential or active engagement.',
-      'Recruitment data — CVs, portfolios, work history, references and interview notes submitted through our careers channels.',
-      'Technical data — IP address, browser type and version, device identifiers, operating system, referring URLs and time-zone settings.',
-      'Usage data — pages viewed, time on page, navigation paths, downloads and interactions with our content.',
-      'Marketing preferences — your consent status for newsletters and commercial communications.',
+      'Corporate Lead & Contact Data: Name, enterprise email, phone number, company name, and job title provided via inquiries.',
+      'Technical Project Specifications: Architecture briefs, system requirements, sandbox credentials, and technical dependencies provided under NDA.',
+      'Candidate & Talent Information: Resumes, GitHub profiles, portfolio links, and employment history submitted for open engineering roles.',
+      'Telemetry & Security Logs: Anonymized request metadata, IP addresses, browser agents, and access logs used strictly to mitigate cyber threats and maintain platform reliability.',
     ],
   },
   {
-    h: '3. How and Why We Use Your Information',
-    p: [
-      'We use personal data only where we have a lawful basis to do so. Those bases are: performance of a contract, our legitimate interests in operating and growing a business-to-business technology practice, compliance with a legal obligation, and consent where required.',
-    ],
+    id: 'data-use',
+    h: '3. Lawful Basis & Purposes for Processing',
+    p: ['We process data under strict lawful bases established by global privacy frameworks (including GDPR, CCPA/CPRA):'],
     list: [
-      'To respond to enquiries, prepare proposals and deliver contracted services.',
-      'To operate, secure, maintain and improve our website and platforms.',
-      'To assess job applications and manage recruitment.',
-      'To send service notices, security advisories and, with consent, marketing content.',
-      'To detect, prevent and investigate fraud, abuse and security incidents.',
-      'To meet accounting, tax, regulatory and contractual obligations.',
+      'Contractual Performance: Executing statements of work, architecting client solutions, and providing technical support.',
+      'Legitimate Business Interests: Protecting corporate infrastructure against intrusion, fraud, and Denial of Service (DoS) attacks.',
+      'Legal & Compliance Obligations: Adhering to statutory tax accounting, export controls, and international security governance.',
+      'Explicit Consent: Communicating technical whitepapers, architectural updates, and scheduled interview consultations.',
     ],
   },
   {
-    h: '4. Cookies and Similar Technologies',
+    id: 'sovereign-ai',
+    h: '4. Sovereign AI & Client Data Confidentiality',
     p: [
-      'We use strictly necessary cookies to operate the site and, where you consent, analytics cookies to understand aggregate usage. Analytics data is used to improve performance and content relevance and is not used to build advertising profiles. You can control cookies through your browser settings; disabling strictly necessary cookies may impair site functionality.',
+      'Zero Model Training on Client Data: STALCI guarantees that proprietary client source code, database records, and intellectual property are NEVER used to train public or shared Large Language Models (LLMs) or third-party AI systems.',
+      'Private Enclaves: Enterprise AI deployments are executed in isolated, VPC-peered private enclaves with strict data boundary policies and zero data retention (ZDR) APIs.',
     ],
   },
   {
-    h: '5. Sharing and Disclosure',
+    id: 'security-standards',
+    h: '5. Zero-Trust Security & Cryptographic Protection',
     p: [
-      'We do not sell, rent or trade personal data. We share personal data only with: (a) vetted sub-processors and service providers who host, secure, analyse or support our systems under written confidentiality and data-protection terms; (b) professional advisers such as auditors and lawyers; (c) authorities where disclosure is legally required; and (d) an acquirer in connection with a merger, acquisition or asset transfer, subject to equivalent protections.',
+      'STALCI enforces defense-in-depth cybersecurity controls across all engineering pods:',
+      'Data in Transit: Encrypted using TLS 1.3 with Perfect Forward Secrecy (PFS).',
+      'Data at Rest: Encrypted using AES-256 with rotating hardware cryptographic keys.',
+      'Access Governance: Strict Principle of Least Privilege (PoLP) and mandatory FIDO2 hardware Multi-Factor Authentication (MFA).',
+      'Infrastructure Audit: Continuous automated vulnerability scanning, eBPF telemetry monitoring, and annual third-party penetration testing.',
     ],
   },
   {
-    h: '6. International Transfers',
+    id: 'data-sharing',
+    h: '6. Third-Party Sub-Processors & Data Transfer',
     p: [
-      'As a global company, we may transfer personal data outside your country of residence. Where data leaves the European Economic Area or the United Kingdom, we rely on adequacy decisions or Standard Contractual Clauses together with supplementary technical measures such as encryption in transit and at rest.',
+      'STALCI never sells, monetizes, or leases client personal data to any third party.',
+      'We engage only enterprise sub-processors that maintain SOC 2 Type II or ISO 27001 certifications (e.g. AWS, GCP, Cloudflare, PostgreSQL hosting). Cross-border data transfers adhere strictly to Standard Contractual Clauses (SCCs) and adequacy decisions.',
     ],
   },
   {
-    h: '7. Data Retention',
+    id: 'retention',
+    h: '7. Data Retention & Cryptographic Erasure',
     p: [
-      'We retain personal data only as long as necessary for the purposes described in this policy. Enquiry data is typically retained for 24 months from last contact; client engagement records for the duration of the contract plus the statutory limitation period; recruitment records for 12 months unless you consent to a longer talent-pool retention; and accounting records for the period required by applicable tax law. When retention periods lapse, data is securely deleted or irreversibly anonymised.',
+      'We retain corporate lead and project data only for the duration necessary to fulfill our contractual commitments or statutory requirements.',
+      'Upon termination of an engagement or upon formal client request, all client-specific data, sandbox databases, and staging assets are permanently and cryptographically purged within thirty (30) calendar days.',
     ],
   },
   {
-    h: '8. Security Measures',
-    p: [
-      'Security is embedded in our engineering practice. We apply encryption in transit and at rest, least-privilege access controls, multi-factor authentication, network segmentation, centralised logging, continuous vulnerability scanning, periodic penetration testing and formal incident-response procedures aligned to ISO 27001 and SOC 2 control objectives. No system is perfectly secure, but we work continually to reduce risk and will notify affected individuals and regulators of a qualifying breach within the timelines the law requires.',
+    id: 'your-rights',
+    h: '8. Global Privacy Rights (GDPR / CCPA / CPRA)',
+    p: ['Depending on your geographic jurisdiction, you possess enforceable privacy rights:'],
+    list: [
+      'Right to Access & Portability: Request a copy of all personal data held by STALCI.',
+      'Right to Rectification: Correct inaccurate or incomplete personal records.',
+      'Right to Erasure ("Right to be Forgotten"): Request permanent deletion of personal information.',
+      'Right to Restriction & Objection: Restrict or object to specific data processing activities.',
     ],
   },
   {
-    h: '9. Your Rights',
+    id: 'contact-dpo',
+    h: '9. Data Protection Officer & Privacy Inquiries',
     p: [
-      'Depending on your jurisdiction, you may have rights to access, rectify, erase, restrict or object to processing, to data portability, to withdraw consent at any time, and to opt out of the sale or sharing of personal information (we do neither). Exercising these rights will never result in discriminatory treatment.',
-      'To make a request, email privacy@stalci.com. We may ask for information to verify your identity and will respond within the statutory period, normally 30 days. You may also lodge a complaint with your local supervisory authority.',
-    ],
-  },
-  {
-    h: '10. Children',
-    p: [
-      'Our services are directed to businesses and professionals. We do not knowingly collect personal data from children under 16. If you believe a child has provided us data, contact us and we will delete it promptly.',
-    ],
-  },
-  {
-    h: '11. Third-Party Links',
-    p: [
-      'Our website may link to third-party sites and tools. We are not responsible for their privacy practices and encourage you to review their policies before providing personal data.',
-    ],
-  },
-  {
-    h: '12. Changes and Contact',
-    p: [
-      'We review this policy at least annually and whenever our practices materially change. Updates are published on this page with a revised "last updated" date, and material changes are communicated directly where required.',
-      'Questions, requests or complaints: privacy@stalci.com. Data Protection Officer, STALCI, Global Privacy Office.',
+      'To exercise your statutory privacy rights, submit a data subject access request, or obtain our SOC 2 Type II compliance reports, please contact our Data Protection Office at privacy@stalci.com or mail: STALCI Global Technologies Inc., Attn: Privacy Office, 550 Howard Street, Suite 400, San Francisco, CA 94105, USA.',
     ],
   },
 ];
 
+// Clean robust markdown parser with zero empty blocks or stray hashes
+function parseMarkdownSections(content: string): LegalSection[] {
+  if (!content || !content.trim()) return defaultSections;
+
+  const rawSections = content.split(/\n(?=###?\s+|\d+\.\s+)/g);
+  const result: LegalSection[] = [];
+
+  rawSections.forEach((raw, idx) => {
+    const trimmed = raw.trim();
+    if (!trimmed) return;
+
+    const lines = trimmed
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.length > 0 && l !== '#' && l !== '##' && l !== '###');
+
+    if (lines.length === 0) return;
+
+    let headerLine = lines[0].replace(/^###?\s+/, '').trim();
+    if (!headerLine || headerLine === '#' || headerLine === '##' || headerLine === '###') {
+      return;
+    }
+
+    const paragraphs: string[] = [];
+    const listItems: string[] = [];
+
+    lines.slice(1).forEach((line) => {
+      const cleanLine = line.trim();
+      if (!cleanLine || cleanLine === '#' || cleanLine === '##' || cleanLine === '###') return;
+
+      if (cleanLine.startsWith('- ') || cleanLine.startsWith('* ') || cleanLine.startsWith('• ')) {
+        listItems.push(cleanLine.replace(/^[-*•]\s+/, '').trim());
+      } else {
+        paragraphs.push(cleanLine);
+      }
+    });
+
+    if (headerLine && (paragraphs.length > 0 || listItems.length > 0)) {
+      result.push({
+        id: `sec-${idx}`,
+        h: headerLine,
+        p: paragraphs.length > 0 ? paragraphs : [''],
+        list: listItems.length > 0 ? listItems : undefined,
+      });
+    }
+  });
+
+  return result.length > 0 ? result : defaultSections;
+}
+
 function PrivacyPolicy() {
   const contentRef = useScrollReveal();
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Nav solid />
-      <main className="pb-24 pt-28">
-        <div className="mx-auto max-w-4xl px-5 lg:px-8">
-          <div className="mb-12">
-            <SectionHeading
-              eyebrow="Legal"
-              title="Privacy Policy"
-              subtitle="Last updated: August 2026. How STALCI collects, uses and protects personal data."
-              align="left"
-            />
-          </div>
+  const { data: pageData } = useQuery({
+    queryKey: ['cms-page', 'privacy-policy'],
+    queryFn: () => fetchPageBySlug('privacy-policy'),
+  });
 
-          <div ref={contentRef} className="max-w-none text-ink-soft">
+  const titleText = pageData?.title || 'Privacy Policy & Data Security — STALCI Enterprise';
+  const sections = parseMarkdownSections(pageData?.content || '');
+
+  return (
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900">
+      <Nav solid />
+
+      {/* Header Banner */}
+      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
+        <div className="mx-auto max-w-5xl px-5 lg:px-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <ShieldCheck className="h-3.5 w-3.5" />
+            SOC 2 & GDPR Compliance Standard
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+            {titleText}
+          </h1>
+          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed">
+            Our comprehensive commitment to zero-trust data protection, sovereign AI privacy, cryptographic encryption standards, and client confidentiality.
+          </p>
+          <div className="mt-6 flex items-center gap-4 text-xs text-slate-400 font-mono">
+            <span>Standard: ISO 27001 / SOC 2</span>
+            <span>•</span>
+            <span>Last Updated: {pageData?.updatedAt ? new Date(pageData.updatedAt).toLocaleDateString() : 'August 2026'}</span>
+            <span>•</span>
+            <span>Managed via Backend CMS</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="py-16 sm:py-24">
+        <div className="mx-auto max-w-5xl px-5 lg:px-8">
+          <div ref={contentRef} className="space-y-8">
             {sections.map((s) => (
-              <section key={s.h}>
-                <h2 className="mb-3 mt-9 text-lg font-semibold text-ink">{s.h}</h2>
-                {s.p.map((para) => (
-                  <p key={para} className="mb-4 text-sm leading-relaxed">
-                    {para}
-                  </p>
-                ))}
-                {s.list ? (
-                  <ul className="mb-4 space-y-2">
-                    {s.list.map((li) => (
-                      <li key={li} className="text-sm leading-relaxed">
-                        — {li}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </section>
+              <div
+                key={s.id}
+                id={s.id}
+                className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all hover:shadow-md"
+              >
+                <h2 className="text-lg sm:text-xl font-bold text-slate-950 flex items-center gap-2.5 pb-3 border-b border-slate-100">
+                  <span className="h-2 w-2 rounded-full bg-emerald-600 shrink-0" />
+                  <span>{s.h}</span>
+                </h2>
+                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-slate-700">
+                  {s.p.map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
+                  {s.list && (
+                    <ul className="mt-3 space-y-2 pl-2">
+                      {s.list.map((li, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-slate-700">
+                          <span className="text-emerald-700 font-bold mt-0.5">•</span>
+                          <span>{li}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             ))}
+
+            {/* DPO Support Card */}
+            <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Mail className="h-5 w-5 text-emerald-400" />
+                  Data Protection Office (DPO)
+                </h3>
+                <p className="mt-2 text-sm text-slate-300 max-w-xl">
+                  For GDPR data subject requests, SOC 2 compliance certifications, or custom DPA signatures, contact our dedicated security team.
+                </p>
+              </div>
+              <a
+                href="mailto:privacy@stalci.com"
+                className="shrink-0 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-3 text-sm transition-all shadow-md"
+              >
+                Contact Data Protection Officer
+              </a>
+            </div>
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );

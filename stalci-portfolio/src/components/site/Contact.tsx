@@ -33,7 +33,9 @@ export function Contact() {
       await submitInquiry({
         name,
         email,
-        message: `Company: ${company} | Service Interest: ${service} | Message: ${details}`,
+        company,
+        service,
+        message: details,
       });
       setSent(true);
     } catch (err: any) {

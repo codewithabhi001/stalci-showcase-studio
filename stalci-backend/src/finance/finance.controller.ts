@@ -1,22 +1,82 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Patch, Delete, Body, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { FinanceService } from './finance.service';
 
 @Controller('finance')
 export class FinanceController {
   constructor(private readonly financeService: FinanceService) {}
 
+  // --- Stats ---
+  @Get('stats')
+  getStats() {
+    return this.financeService.getStats();
+  }
+
+  // --- Invoices ---
   @Get('invoices')
-  getInvoices() { return this.financeService.getInvoices(); }
+  getInvoices(
+    @Query('status') status?: string,
+    @Query('clientId') clientId?: string,
+  ) {
+    const cId = clientId ? parseInt(clientId, 10) : undefined;
+    return this.financeService.getInvoices(status, cId);
+  }
+
+  @Get('invoices/:id')
+  getInvoiceById(@Param('id', ParseIntPipe) id: number) {
+    return this.financeService.getInvoiceById(id);
+  }
 
   @Post('invoices')
-  createInvoice(@Body() body: any) { return this.financeService.createInvoice(body); }
+  createInvoice(@Body() data: any) {
+    return this.financeService.createInvoice(data);
+  }
+
+  @Post('invoices/:id/duplicate')
+  duplicateInvoice(@Param('id', ParseIntPipe) id: number) {
+    return this.financeService.duplicateInvoice(id);
+  }
+
+  @Patch('invoices/:id/status')
+  updateInvoiceStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status') status: string,
+  ) {
+    return this.financeService.updateInvoiceStatus(id, status);
+  }
 
   @Put('invoices/:id')
-  updateInvoice(@Param('id') id: string, @Body() body: any) { return this.financeService.updateInvoice(+id, body); }
+  updateInvoice(@Param('id', ParseIntPipe) id: number, @Body() data: any) {
+    return this.financeService.updateInvoice(id, data);
+  }
 
   @Delete('invoices/:id')
-  deleteInvoice(@Param('id') id: string) { return this.financeService.deleteInvoice(+id); }
+  deleteInvoice(@Param('id', ParseIntPipe) id: number) {
+    return this.financeService.deleteInvoice(id);
+  }
 
-  @Get('stats')
-  getStats() { return this.financeService.getStats(); }
+  // --- Templates ---
+  @Get('templates')
+  getTemplates() {
+    return this.financeService.getTemplates();
+  }
+
+  @Get('templates/:id')
+  getTemplateById(@Param('id', ParseIntPipe) id: number) {
+    return this.financeService.getTemplateById(id);
+  }
+
+  @Post('templates')
+  createTemplate(@Body() data: any) {
+    return this.financeService.createTemplate(data);
+  }
+
+  @Put('templates/:id')
+  updateTemplate(@Param('id', ParseIntPipe) id: number, @Body() data: any) {
+    return this.financeService.updateTemplate(id, data);
+  }
+
+  @Delete('templates/:id')
+  deleteTemplate(@Param('id', ParseIntPipe) id: number) {
+    return this.financeService.deleteTemplate(id);
+  }
 }

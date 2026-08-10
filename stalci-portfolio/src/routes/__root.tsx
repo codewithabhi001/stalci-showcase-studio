@@ -99,6 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap",
       },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
@@ -110,11 +111,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark bg-[#080A0F] text-white">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="bg-[#080A0F] text-white selection:bg-copper selection:text-slate-950 antialiased min-h-screen">
         {children}
         <Scripts />
       </body>

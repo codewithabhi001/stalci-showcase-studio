@@ -29,16 +29,18 @@ model Page {
 }
 
 model Blog {
-  id          Int      @id @default(autoincrement())
-  slug        String   @unique
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
   title       String
   excerpt     String?
   content     String
   author      String?
   imageUrl    String?
+  category    String?   @default("Engineering")
+  readTime    String?   @default("5 min read")
   publishedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Industry {
@@ -47,6 +49,7 @@ model Industry {
   name        String
   description String
   features    String?  // JSON string
+  icon        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -55,18 +58,40 @@ model Product {
   id          Int      @id @default(autoincrement())
   slug        String   @unique
   name        String
+  tag         String?
   description String
   pricing     String?
+  icon        String?
+  features    String?  // JSON string
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model Service {
+  id               Int      @id @default(autoincrement())
+  slug             String   @unique
+  name             String
+  shortDescription String?
+  description      String
+  fullDescription  String?
+  icon             String?
+  category         String?  @default("Core Services")
+  features         String?  // JSON string array
+  price            String?
+  isFeatured       Boolean  @default(true)
+  order            Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Technology {
   id          Int      @id @default(autoincrement())
-  slug        String   @unique
   name        String
-  description String
-  icon        String?
+  category    String   // Frontend, Backend, Cloud & DevOps, AI & Data, Security & Database
+  icon        String?  // Lucide icon name or image url
+  proficiency Int      @default(90) // percentage 0-100
+  isFeatured  Boolean  @default(true)
+  order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -74,31 +99,98 @@ model Service {
 model Testimonial {
   id          Int      @id @default(autoincrement())
   clientName  String
+  role        String?  @default("Executive")
   company     String?
+  avatarUrl   String?
   quote       String
   rating      Int      @default(5)
+  project     String?
+  isFeatured  Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
+model TeamMember {
+  id          Int      @id @default(autoincrement())
+  name        String
+  role        String
+  bio         String?
+  avatarUrl   String?
+  socialLinks String?  // JSON string { twitter, linkedin, github }
+  order       Int      @default(0)
+  isFeatured  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// --- CLIENT MANAGEMENT ---
+model Client {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  phone       String?
+  company     String?
+  address     String?
+  website     String?
+  avatarUrl   String?
+  status      String    @default("ACTIVE") // ACTIVE, INACTIVE, LEAD, ONBOARDING
+  notes       String?
+  projects    Project[]
+  invoices    Invoice[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// --- PROJECT MANAGEMENT ---
+model Project {
+  id             Int       @id @default(autoincrement())
+  title          String
+  slug           String    @unique
+  description    String
+  fullDescription String?
+  category       String    // AI & Machine Learning, Cloud & Platform, Web & Mobile, Cyber Security, Enterprise SaaS
+  clientId       Int?
+  client         Client?   @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  services       String?   // JSON string array of service tags
+  technologies   String?   // JSON string array of tech tags
+  startDate      DateTime?
+  endDate        DateTime?
+  deadline       DateTime?
+  budget         Float?    @default(0)
+  status         String    @default("IN_PROGRESS") // PLANNING, IN_PROGRESS, REVIEW, COMPLETED, ON_HOLD, CANCELLED
+  priority       String    @default("HIGH") // LOW, MEDIUM, HIGH, URGENT
+  progress       Int       @default(0) // 0-100%
+  featured       Boolean   @default(false)
+  imageUrl       String?
+  gallery        String?   // JSON string array of images
+  liveUrl        String?
+  githubUrl      String?
+  metrics        String?   // JSON string array of { label: string, value: string }
+  clientFeedback String?
+  invoices       Invoice[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
 // --- CAREERS MODULE ---
 model Job {
-  id           Int      @id @default(autoincrement())
+  id           Int              @id @default(autoincrement())
   title        String
   location     String
-  type         String   // Full-time, Part-time, Contract
+  type         String           // Full-time, Part-time, Contract
   description  String
   requirements String?
-  isActive     Boolean  @default(true)
+  isActive     Boolean          @default(true)
   applications JobApplication[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  candidates   Candidate[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
 }
 
 model JobApplication {
   id             Int      @id @default(autoincrement())
   jobId          Int
-  job            Job      @relation(fields: [jobId], references: [id])
+  job            Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
   applicantName  String
   applicantEmail String
   resumeUrl      String?
@@ -112,29 +204,78 @@ model Inquiry {
   id        Int      @id @default(autoincrement())
   name      String
   email     String
+  company   String?
+  service   String?
+  budget    String?
   message   String
-  status    String   @default("NEW") // NEW, IN_PROGRESS, RESOLVED
+  status    String   @default("NEW") // NEW, IN_PROGRESS, CONTACTED, RESOLVED
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Feedback {
   id        Int      @id @default(autoincrement())
+  name      String?
   rating    Int
   comments  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// --- FINANCE MODULE ---
+// --- FINANCE & INVOICE MODULE ---
+model InvoiceTemplate {
+  id           Int       @id @default(autoincrement())
+  name         String
+  slug         String    @unique
+  description  String?
+  layoutType   String    @default("MODERN") // MODERN, MINIMAL, CORPORATE, PREMIUM, CREATIVE
+  primaryColor String?   @default("#D89B5B")
+  headerText   String?
+  footerNotes  String?
+  customCss    String?
+  isDefault    Boolean   @default(false)
+  isActive     Boolean   @default(true)
+  invoices     Invoice[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
 model Invoice {
-  id         Int      @id @default(autoincrement())
-  clientName String
-  amount     Float
-  status     String   @default("PENDING") // PENDING, PAID, CANCELLED
-  dueDate    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id             Int              @id @default(autoincrement())
+  invoiceNumber  String           @unique
+  clientId       Int
+  client         Client           @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  projectId      Int?
+  project        Project?         @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  templateId     Int?
+  template       InvoiceTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  issueDate      DateTime         @default(now())
+  dueDate        DateTime
+  status         String           @default("PENDING") // DRAFT, SENT, PAID, OVERDUE, CANCELLED
+  currency       String           @default("USD")
+  subtotal       Float            @default(0)
+  discount       Float            @default(0) // discount percentage or fixed
+  taxRate        Float            @default(0) // percentage e.g. 10 for 10%
+  taxAmount      Float            @default(0)
+  total          Float            @default(0)
+  notes          String?
+  terms          String?
+  paymentDetails String?
+  items          InvoiceItem[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model InvoiceItem {
+  id          Int      @id @default(autoincrement())
+  invoiceId   Int
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Float    @default(1)
+  unitPrice   Float    @default(0)
+  amount      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // --- ADMIN MODULE ---
@@ -155,4 +296,355 @@ model Notification {
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ==========================================
+// --- HR & EMPLOYEE MANAGEMENT MODULE ---
+// ==========================================
+
+model Department {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  code        String       @unique
+  description String?
+  employees   Employee[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Employee {
+  id                     Int                      @id @default(autoincrement())
+  employeeCode           String                   @unique // e.g. ST-EMP-001
+  name                   String
+  email                  String                   @unique
+  personalEmail          String?
+  phone                  String?
+  avatarUrl              String?
+  departmentId           Int?
+  department             Department?              @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  designation            String
+  managerId              Int?
+  manager                Employee?                @relation("ManagerSubordinates", fields: [managerId], references: [id], onDelete: SetNull)
+  subordinates           Employee[]               @relation("ManagerSubordinates")
+  joiningDate            DateTime                 @default(now())
+  employmentType         String                   @default("Full-time") // Full-time, Part-time, Contract, Intern
+  workLocation           String                   @default("San Francisco, CA / Remote")
+  status                 String                   @default("ACTIVE") // ACTIVE, ONBOARDING, PROBATION, ON_LEAVE, NOTICE_PERIOD, TERMINATED, RESIGNED, ARCHIVED
+  salaryCtc              Float                    @default(0)
+  bankName               String?
+  bankAccount            String?
+  ifscSwift              String?
+  emergencyContactName   String?
+  emergencyContactPhone  String?
+  skills                 String?                  // JSON string array
+  notes                  String?
+  probationEndDate       DateTime?
+  probationStatus        String?                  @default("CONFIRMED") // PENDING, EXTENDED, CONFIRMED
+  resignationDate        DateTime?
+  lastWorkingDate        DateTime?
+  exitReason             String?
+  
+  // Relational lifecycle records
+  onboardingTasks        OnboardingTask[]
+  attendanceRecords      AttendanceRecord[]
+  leaveRequests          LeaveRequest[]
+  payrollRecords         PayrollRecord[]
+  internshipRecord       InternshipRecord?
+  performanceReviews     PerformanceReview[]      @relation("EmployeeReviews")
+  conductedReviews       PerformanceReview[]      @relation("ReviewerReviews")
+  trainings              TrainingRecord[]
+  assignedAssets         Asset[]
+  historyRecords         PromotionTransferHistory[]
+  documents              EmployeeDocument[]
+  exitClearance          ExitClearance?
+  finalSettlement        FinalSettlement?
+  userRoles              UserRole[]
+
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+}
+
+model Candidate {
+  id             Int          @id @default(autoincrement())
+  jobId          Int?
+  job            Job?         @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  name           String
+  email          String
+  phone          String?
+  resumeUrl      String?
+  portfolioUrl   String?
+  currentCompany String?
+  experienceYrs  Float?       @default(0)
+  skills         String?
+  stage          String       @default("APPLIED") // APPLIED, SCREENING, INTERVIEW_SCHEDULED, OFFER_EXTENDED, HIRED, REJECTED
+  rating         Int?         @default(5)
+  interviewDate  DateTime?
+  interviewer    String?
+  notes          String?
+  offerLetter    OfferLetter?
+  convertedToEmp Boolean      @default(false)
+  convertedEmpId Int?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model OfferLetter {
+  id              Int        @id @default(autoincrement())
+  candidateId     Int?       @unique
+  candidate       Candidate? @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  candidateName   String
+  candidateEmail  String
+  designation     String
+  departmentName  String
+  salaryCtc       Float
+  joiningDate     DateTime
+  probationMonths Int        @default(3)
+  workLocation    String     @default("San Francisco / Hybrid")
+  terms           String?
+  status          String     @default("DRAFT") // DRAFT, SENT, VIEWED, ACCEPTED, REJECTED
+  sentAt          DateTime?
+  acceptedAt      DateTime?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model OnboardingTask {
+  id          Int       @id @default(autoincrement())
+  employeeId  Int
+  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  taskName    String
+  category    String    @default("General") // Documentation, IT & Hardware, Admin, Orientation
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model AttendanceRecord {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  date       DateTime
+  status     String   @default("PRESENT") // PRESENT, ABSENT, HALF_DAY, WFH, LATE, HOLIDAY
+  checkIn    String?  // e.g. "09:15 AM"
+  checkOut   String?  // e.g. "06:30 PM"
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([employeeId, date])
+}
+
+model LeaveRequest {
+  id          Int       @id @default(autoincrement())
+  employeeId  Int
+  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveType   String    @default("CASUAL") // CASUAL, SICK, EARNED, UNPAID, MATERNITY_PATERNITY
+  startDate   DateTime
+  endDate     DateTime
+  daysCount   Float     @default(1)
+  reason      String
+  status      String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  approvedBy  String?
+  approvedAt  DateTime?
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PayrollRecord {
+  id              Int       @id @default(autoincrement())
+  employeeId      Int
+  employee        Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  month           String    // e.g. "August"
+  year            Int       // e.g. 2026
+  basicSalary     Float
+  hra             Float     @default(0)
+  allowances      Float     @default(0)
+  bonus           Float     @default(0)
+  deductions      Float     @default(0)
+  taxDeductions   Float     @default(0)
+  netSalary       Float
+  status          String    @default("PAID") // DRAFT, PROCESSED, PAID
+  paidAt          DateTime?
+  paymentMode     String    @default("Direct Wire")
+  referenceNumber String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([employeeId, month, year])
+}
+
+model InternshipRecord {
+  id                Int       @id @default(autoincrement())
+  employeeId        Int       @unique
+  employee          Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  institute         String
+  mentorName        String
+  projectTitle      String
+  stipend           Float     @default(0)
+  startDate         DateTime
+  endDate           DateTime
+  status            String    @default("ACTIVE") // ACTIVE, COMPLETED, EXTENDED, TERMINATED
+  certificateIssued Boolean   @default(false)
+  performanceNotes  String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model PerformanceReview {
+  id                        Int       @id @default(autoincrement())
+  employeeId                Int
+  employee                  Employee  @relation("EmployeeReviews", fields: [employeeId], references: [id], onDelete: Cascade)
+  reviewerId                Int?
+  reviewer                  Employee? @relation("ReviewerReviews", fields: [reviewerId], references: [id], onDelete: SetNull)
+  reviewPeriod              String    // e.g. "H1 2026", "Q3 2026"
+  rating                    Int       @default(5) // 1 to 5 stars
+  goalsKpi                  String?
+  managerFeedback           String
+  employeeFeedback          String?
+  promotionRecommendation   String?
+  salaryRevisionRecommendation String?
+  status                    String    @default("SUBMITTED") // DRAFT, SUBMITTED, ACKNOWLEDGED
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+}
+
+model TrainingRecord {
+  id             Int       @id @default(autoincrement())
+  employeeId     Int
+  employee       Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  courseTitle    String
+  trainer        String?
+  skillsLearned  String?
+  startDate      DateTime
+  completionDate DateTime?
+  status         String    @default("IN_PROGRESS") // ENROLLED, IN_PROGRESS, COMPLETED
+  certificateUrl String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Asset {
+  id            Int       @id @default(autoincrement())
+  name          String
+  assetType     String    // Laptop, Desktop, Mobile, Monitor, Security Card, Software License
+  serialNumber  String    @unique
+  condition     String    @default("EXCELLENT") // NEW, EXCELLENT, GOOD, DAMAGED
+  assignedToId  Int?
+  assignedTo    Employee? @relation(fields: [assignedToId], references: [id], onDelete: SetNull)
+  assignedDate  DateTime?
+  returnDate    DateTime?
+  status        String    @default("AVAILABLE") // AVAILABLE, ASSIGNED, IN_REPAIR, RETIRED
+  cost          Float?
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model PromotionTransferHistory {
+  id                   Int       @id @default(autoincrement())
+  employeeId           Int
+  employee             Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  effectiveDate        DateTime  @default(now())
+  previousDesignation  String
+  newDesignation       String
+  previousDepartment   String?
+  newDepartment        String?
+  previousSalary       Float
+  newSalary            Float
+  reason               String
+  approvedBy           String?
+  createdAt            DateTime  @default(now())
+}
+
+model EmployeeDocument {
+  id           Int      @id @default(autoincrement())
+  employeeId   Int
+  employee     Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  documentType String   // RESUME, OFFER_LETTER, NDA, AGREEMENT, ID_PROOF, SALARY_SLIP, APPRAISAL, CERTIFICATE, RELIEVING_LETTER, EXPERIENCE_LETTER
+  fileName     String
+  fileUrl      String
+  uploadedAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model HRLetterTemplate {
+  id           Int      @id @default(autoincrement())
+  name         String
+  type         String   // OFFER_LETTER, INTERNSHIP_CERTIFICATE, EXPERIENCE_LETTER, RELIEVING_LETTER, PROMOTION_LETTER, APPRECIATION_LETTER, WARNING_LETTER, CONFIRMATION_LETTER
+  subject      String
+  bodyTemplate String   // Rich HTML with placeholders e.g. {{employeeName}}, {{designation}}, {{salary}}
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ExitClearance {
+  id                 Int       @id @default(autoincrement())
+  employeeId         Int       @unique
+  employee           Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  resignationDate    DateTime  @default(now())
+  lastWorkingDay     DateTime
+  reason             String
+  noticePeriodDays   Int       @default(30)
+  itClearance        Boolean   @default(false)
+  financeClearance   Boolean   @default(false)
+  hrClearance        Boolean   @default(false)
+  assetsReturned     Boolean   @default(false)
+  exitInterviewDone  Boolean   @default(false)
+  exitNotes          String?
+  status             String    @default("IN_PROGRESS") // IN_PROGRESS, COMPLETED, CANCELLED
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model FinalSettlement {
+  id                  Int       @id @default(autoincrement())
+  employeeId          Int       @unique
+  employee            Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  pendingSalary       Float     @default(0)
+  leaveEncashment     Float     @default(0)
+  bonusIncentives     Float     @default(0)
+  deductions          Float     @default(0)
+  noticePayAdjustment Float     @default(0)
+  netPayableAmount    Float     @default(0)
+  settlementDate      DateTime  @default(now())
+  status              String    @default("PENDING") // PENDING, APPROVED, SETTLED
+  remarks             String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+}
+
+// --- CENTRALIZED RBAC ---
+model Role {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique // SUPER_ADMIN, HR_ADMIN, RECRUITER, HR_OPS, PAYROLL_FINANCE, MANAGER, EMPLOYEE, INTERN
+  description String?
+  permissions Permission[]
+  userRoles   UserRole[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Permission {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique // e.g. employees.view, payroll.manage, recruitment.view
+  name        String
+  category    String   // Employees, Recruitment, Payroll, Attendance, Assets, RBAC
+  roles       Role[]
+  createdAt   DateTime @default(now())
+}
+
+model UserRole {
+  id         Int       @id @default(autoincrement())
+  employeeId Int?
+  employee   Employee? @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  roleId     Int
+  role       Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  createdAt  DateTime  @default(now())
+
+  @@unique([employeeId, roleId])
 }

@@ -46,9 +46,14 @@
 
 * { border-color: var(--color-line); }
 
-html, body { height: 100%; }
+html {
+  min-height: 100%;
+  height: 100%;
+}
 
 body {
+  min-height: 100%;
+  height: 100%;
   background-color: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans);
@@ -58,10 +63,18 @@ body {
 
 h1, h2, h3, h4 { letter-spacing: -0.018em; }
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-line-strong); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-faint); }
+::-webkit-scrollbar-thumb { background: rgba(140, 145, 160, 0.3); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(140, 145, 160, 0.55); }
+
+/* Utility class for robust mouse wheel scrolling */
+.scrollable-y {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
 
 :focus-visible {
   outline: 2px solid var(--color-copper);
@@ -133,4 +146,25 @@ h1, h2, h3, h4 { letter-spacing: -0.018em; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ─── Print Styles for Invoices ─── */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  aside, nav, header, .no-print, [role="dialog"] > div:not(.print-target) {
+    display: none !important;
+  }
+  .print-target {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 }

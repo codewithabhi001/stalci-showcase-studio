@@ -1,9 +1,10 @@
-import { Quote, Star } from "lucide-react";
+import { useState } from "react";
+import { Quote, Star, PlusCircle, CheckCircle2, X, Send, MessageSquarePlus } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTestimonials } from "@/lib/api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchTestimonials, submitFeedback } from "@/lib/api";
 
 const staticTestimonials = [
   {
@@ -32,85 +33,193 @@ const staticTestimonials = [
 export function Testimonials() {
   const headerRef = useScrollReveal();
   const staggerRef = useStaggerReveal();
+  const qc = useQueryClient();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [rating, setRating] = useState(5);
+  const [name, setName] = useState("");
+  const [comments, setComments] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const { data: apiTestimonials } = useQuery({
     queryKey: ["testimonials"],
     queryFn: fetchTestimonials,
   });
 
-  const testimonials: { quote: string; name: string; role: string; rating: number }[] = apiTestimonials && apiTestimonials.length > 0
-    ? apiTestimonials.map((t: any) => ({
-        quote: t.quote,
-        name: t.clientName,
-        role: t.company || "Client",
-        rating: t.rating || 5,
-      }))
-    : staticTestimonials;
+  const feedbackMutation = useMutation({
+    mutationFn: submitFeedback,
+    onSuccess: () => {
+      setSubmitted(true);
+      qc.invalidateQueries({ queryKey: ["testimonials"] });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!comments.trim()) return;
+    feedbackMutation.mutate({
+      name: name.trim() || "Anonymous Partner",
+      rating,
+      comments: comments.trim(),
+    });
+  };
+
+  const testimonials: { quote: string; name: string; role: string; rating: number }[] =
+    apiTestimonials && apiTestimonials.length > 0
+      ? apiTestimonials.map((t: any) => ({
+          quote: t.quote,
+          name: t.clientName,
+          role: t.company || t.role || "Client Partner",
+          rating: t.rating || 5,
+        }))
+      : staticTestimonials;
 
   return (
-    <section className="relative overflow-hidden bg-secondary/60 py-20 sm:py-24">
+    <section className="relative overflow-hidden bg-white py-24 sm:py-32 text-slate-900 border-t border-slate-200">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        <div ref={headerRef}>
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <SectionHeading
-            eyebrow="Client Success"
+            eyebrow="Client Success & Feedback"
             title="Trusted For Mission-Critical Systems"
-            subtitle="Strategic partnerships, highly measurable outcomes, and elite engineering teams driving your digital transformation."
+            subtitle="Strategic partnerships, highly measurable outcomes, and elite engineering teams driving digital transformation."
+            tone="light"
+            align="left"
           />
+
+          <button
+            onClick={() => {
+              setModalOpen(true);
+              setSubmitted(false);
+            }}
+            className="self-start md:self-auto shrink-0 inline-flex items-center gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold px-5 py-2.5 transition-all shadow-md cursor-pointer"
+          >
+            <MessageSquarePlus className="h-4 w-4" />
+            Share Client Review
+          </button>
         </div>
 
-        <div ref={staggerRef} className="mt-14 grid gap-6 lg:grid-cols-3">
-          {testimonials.map((t) => (
-            <figure
-              key={t.name}
-              className="perspective-hover flex flex-col rounded-3xl border border-border bg-card p-8"
+        <div ref={staggerRef} className="mt-14 grid gap-6 md:grid-cols-3">
+          {testimonials.map((t, idx) => (
+            <motion.div
+              key={idx}
+              className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-7 transition-all duration-300 hover:shadow-lg hover:border-amber-500/70"
             >
-              <motion.div
-                whileHover={{ scale: 1.15, rotate: -5 }}
-                whileTap={{ scale: 0.95 }}
-                className="animate-pulse-glow w-fit rounded-full"
-              >
-                <Quote className="h-8 w-8 text-[var(--copper)]" strokeWidth={1.4} />
-              </motion.div>
-              
-              <blockquote className="mt-6 flex-1 text-base leading-relaxed text-foreground">
-                "{t.quote}"
-              </blockquote>
-              
-              <div className="mt-6 flex gap-1">
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
-                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ 
-                      delay: i * 0.1, 
-                      duration: 0.4, 
-                      type: "spring", 
-                      bounce: 0.5 
-                    }}
-                  >
-                    <Star className="h-4 w-4 fill-[var(--copper)] text-[var(--copper)]" />
-                  </motion.div>
-                ))}
+              <div>
+                <div className="flex gap-1 text-amber-500 mb-4">
+                  {Array.from({ length: t.rating || 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-500 text-amber-500" />
+                  ))}
+                </div>
+                <Quote className="h-8 w-8 text-amber-600/30 mb-3" />
+                <p className="text-sm leading-relaxed text-slate-700 italic">"{t.quote}"</p>
               </div>
-              
-              <figcaption className="mt-6 flex items-center gap-4 border-t border-[var(--copper-soft)] pt-5">
-                <div 
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[var(--copper-soft)] font-semibold text-white shadow-lg"
-                  style={{ backgroundImage: "var(--gradient-copper)" }}
-                >
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
-                </div>
-              </figcaption>
-            </figure>
+
+              <div className="mt-6 pt-5 border-t border-slate-200">
+                <p className="text-sm font-bold text-slate-900">{t.name}</p>
+                <p className="text-xs text-amber-700 mt-0.5 font-semibold">{t.role}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Review Submission Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+          <div
+            data-lenis-prevent
+            className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 sm:p-8 animate-pop max-h-[90vh] overflow-y-auto"
+          >
+            <button
+              onClick={() => setModalOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg border border-slate-200 text-slate-400 hover:text-slate-900 cursor-pointer"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            {submitted ? (
+              <div className="text-center py-8">
+                <CheckCircle2 className="h-12 w-12 text-emerald-600 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-slate-950">Thank You for Your Feedback!</h3>
+                <p className="mt-2 text-sm text-slate-600">
+                  Your review has been securely transmitted to the STALCI Executive Pod. We appreciate your strategic partnership.
+                </p>
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="mt-6 rounded-xl bg-slate-900 text-white text-xs font-bold px-6 py-2.5 shadow-sm cursor-pointer"
+                >
+                  Close Window
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Client Partner Review</span>
+                  <h3 className="text-lg font-bold text-slate-950 mt-0.5">Submit Project Feedback</h3>
+                </div>
+
+                {/* Rating Selector */}
+                <div>
+                  <label className="text-xs font-bold text-slate-900 block mb-1.5">Rating (1 to 5 Stars)</label>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setRating(star)}
+                        className="p-1 hover:scale-110 transition-transform cursor-pointer"
+                      >
+                        <Star
+                          className={`h-6 w-6 ${
+                            star <= rating
+                              ? "fill-amber-500 text-amber-500"
+                              : "fill-slate-100 text-slate-300"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                    <span className="ml-2 text-xs font-bold text-slate-700">{rating} / 5 Stars</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-900 block mb-1">Your Name or Organization</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Sarah Jenkins (CTO, TechCorp)"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-900 block mb-1">Feedback / Experience *</label>
+                  <textarea
+                    rows={4}
+                    required
+                    placeholder="Share your experience working with the STALCI engineering squad..."
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600 resize-none"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={feedbackMutation.isPending}
+                    className="w-full rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                    {feedbackMutation.isPending ? "Submitting Review..." : "Submit Review"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -8,14 +8,15 @@ export default function FeedbackAdmin() {
 
   return (
     <CrudTable
-      title="Feedback"
+      title="Client Reviews & Feedback"
       queryKey="feedbacks"
       data={data}
       isLoading={isLoading}
       columns={[
-        { key: "rating", label: "Rating", render: (v: number) => "⭐".repeat(v) },
-        { key: "comments", label: "Comments" },
-        { key: "createdAt", label: "Date", render: (v: string) => new Date(v).toLocaleDateString() },
+        { key: "name", label: "Client / Partner", render: (v: string) => v || "Anonymous Partner" },
+        { key: "rating", label: "Rating", render: (v: number) => "⭐".repeat(v || 5) },
+        { key: "comments", label: "Review / Comments" },
+        { key: "createdAt", label: "Received Date", render: (v: string) => new Date(v).toLocaleDateString() },
       ]}
       onDelete={deleteFeedback}
     />

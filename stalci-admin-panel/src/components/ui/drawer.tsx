@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
@@ -8,6 +8,7 @@ export function Drawer({
   onClose,
   title,
   description,
+  width = "max-w-2xl",
   footer,
   children,
 }: {
@@ -15,13 +16,14 @@ export function Drawer({
   onClose: () => void;
   title: string;
   description?: string;
+  width?: string;
   footer?: React.ReactNode;
   children: React.ReactNode;
 }) {
   const [mounted, setMounted] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -39,26 +41,63 @@ export function Drawer({
   if (!open || !mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6">
-      <div className="animate-fade-in absolute inset-0 bg-ink/35 backdrop-blur-[2px]" onClick={onClose} />
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 no-print">
+      {/* Backdrop */}
+      <div
+        className="animate-fade-in absolute inset-0 bg-ink/60 backdrop-blur-[3px] transition-opacity"
+        onClick={onClose}
+      />
+
+      {/* Modal Dialog Container */}
       <div
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="animate-pop relative flex w-full max-w-[560px] max-h-[95vh] flex-col rounded-[14px] border border-line bg-surface overflow-hidden"
+        onWheel={(e) => {
+          const target = e.target as HTMLElement;
+          if (target && target.tagName === "TEXTAREA") {
+            const isAtTop = target.scrollTop === 0 && e.deltaY < 0;
+            const isAtBottom = target.scrollHeight - target.scrollTop <= target.clientHeight + 2 && e.deltaY > 0;
+            if (!isAtTop && !isAtBottom) {
+              return; // Let textarea scroll internally
+            }
+          }
+          if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop += e.deltaY;
+          }
+        }}
+        className={`animate-pop relative flex w-full ${width} h-auto max-h-[92vh] max-h-[92dvh] flex-col rounded-2xl border border-line bg-surface shadow-2xl overflow-hidden`}
         style={{ boxShadow: "var(--shadow-modal)" }}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-line px-6 py-5 shrink-0">
+        {/* Sticky Header */}
+        <header className="flex items-start justify-between gap-4 border-b border-line px-6 py-4.5 shrink-0 bg-surface">
           <div>
-            <h2 className="text-lg font-semibold text-ink">{title}</h2>
-            {description && <p className="mt-1 text-[13px] text-muted">{description}</p>}
+            <h2 className="text-base sm:text-lg font-bold text-ink tracking-tight">{title}</h2>
+            {description && <p className="mt-0.5 text-xs text-muted leading-relaxed">{description}</p>}
           </div>
-          <button onClick={onClose} aria-label="Close panel" className="rounded-lg p-1.5 text-faint hover:bg-canvas hover:text-ink">
+          <button
+            onClick={onClose}
+            aria-label="Close dialog"
+            className="rounded-lg p-1.5 text-muted hover:bg-canvas hover:text-ink transition-colors cursor-pointer"
+          >
             <X className="h-4 w-4" />
           </button>
         </header>
-        <div className="flex-1 overflow-y-auto px-6 py-6">{children}</div>
-        {footer && <footer className="border-t border-line bg-surface-2 px-6 py-4 shrink-0">{footer}</footer>}
+
+        {/* Scrollable Body Content */}
+        <div
+          ref={scrollContainerRef}
+          className="flex-1 min-h-0 overflow-y-auto px-6 py-5 scrollable-y [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-line-strong [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+        >
+          {children}
+        </div>
+
+        {/* Optional Sticky Footer */}
+        {footer && (
+          <footer className="border-t border-line bg-surface-2 px-6 py-3.5 shrink-0">
+            {footer}
+          </footer>
+        )}
       </div>
     </div>,
     document.body

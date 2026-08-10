@@ -1,0 +1,486 @@
+"use client";
+import { use } from "react";
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  fetchEmployeeById,
+  toggleOnboardingTask,
+  updateEmployee,
+} from "@/lib/api";
+import { useRbac } from "@/lib/rbac-context";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
+import {
+  User,
+  Mail,
+  Phone,
+  Building,
+  Calendar,
+  DollarSign,
+  ShieldCheck,
+  CheckCircle2,
+  Clock,
+  Laptop,
+  GraduationCap,
+  TrendingUp,
+  FileText,
+  History,
+  ArrowLeft,
+  Award,
+  AlertCircle,
+  ExternalLink,
+} from "lucide-react";
+import Link from "next/link";
+
+export default function EmployeeProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const employeeId = Number(resolvedParams.id);
+  const qc = useQueryClient();
+  const { currentRole } = useRbac();
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "onboarding" | "attendance" | "payroll" | "history" | "performance" | "assets"
+  >("overview");
+
+  const { data: emp, isLoading } = useQuery({
+    queryKey: ["employee", employeeId],
+    queryFn: () => fetchEmployeeById(employeeId),
+  });
+
+  const toggleTaskMut = useMutation({
+    mutationFn: ({ taskId, isCompleted }: { taskId: number; isCompleted: boolean }) =>
+      toggleOnboardingTask(taskId, isCompleted),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["employee", employeeId] });
+      toast.success("Onboarding task updated");
+    },
+  });
+
+  if (isLoading) {
+    return <div className="p-12 text-center text-xs text-muted">Loading 360° Employee Profile...</div>;
+  }
+
+  if (!emp) {
+    return (
+      <div className="p-12 text-center space-y-4">
+        <h2 className="text-lg font-bold text-ink">Employee not found</h2>
+        <Link href="/hr/employees" className="text-xs text-copper underline">
+          ← Back to Employee Directory
+        </Link>
+      </div>
+    );
+  }
+
+  const skillsList: string[] = emp.skills
+    ? typeof emp.skills === "string"
+      ? emp.skills.startsWith("[")
+        ? JSON.parse(emp.skills)
+        : emp.skills.split(",").map((s: string) => s.trim())
+      : emp.skills
+    : [];
+
+  const completedTasks = emp.onboardingTasks?.filter((t: any) => t.isCompleted).length || 0;
+  const totalTasks = emp.onboardingTasks?.length || 0;
+  const onboardingPct = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 100;
+
+  return (
+    <div className="space-y-6">
+      {/* Back Button */}
+      <div>
+        <Link
+          href="/hr/employees"
+          className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-ink transition-colors font-semibold"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to Workforce Directory
+        </Link>
+      </div>
+
+      {/* Header Profile Card */}
+      <div className="rounded-3xl border border-line bg-surface p-6 sm:p-8 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="flex items-center gap-5">
+            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-amber-500 to-copper text-slate-950 flex items-center justify-center font-extrabold text-2xl shadow-lg border border-white/20 shrink-0">
+              {emp.name.slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <h1 className="text-2xl font-bold text-ink tracking-tight">{emp.name}</h1>
+                <Badge tone="copper" className="font-mono text-xs">
+                  {emp.employeeCode}
+                </Badge>
+                <Badge
+                  tone={
+                    emp.status === "ACTIVE"
+                      ? "success"
+                      : emp.status === "ONBOARDING"
+                      ? "info"
+                      : emp.status === "NOTICE_PERIOD"
+                      ? "warning"
+                      : "neutral"
+                  }
+                >
+                  {emp.status}
+                </Badge>
+              </div>
+
+              <p className="text-sm font-semibold text-copper mt-1 flex items-center gap-2">
+                <span>{emp.designation}</span>
+                <span>•</span>
+                <span className="text-muted">{emp.department?.name || "General Engineering"}</span>
+              </p>
+
+              <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-muted font-mono">
+                <span className="flex items-center gap-1">
+                  <Mail className="h-3.5 w-3.5 text-copper" /> {emp.email}
+                </span>
+                {emp.phone && (
+                  <span className="flex items-center gap-1">
+                    <Phone className="h-3.5 w-3.5 text-copper" /> {emp.phone}
+                  </span>
+                )}
+                <span className="flex items-center gap-1">
+                  <Calendar className="h-3.5 w-3.5 text-copper" /> Joined {new Date(emp.joiningDate).toLocaleDateString()}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {currentRole !== "RECRUITER" && (
+            <div className="rounded-2xl border border-line bg-canvas p-4 text-right shrink-0">
+              <span className="text-[11px] font-bold text-muted uppercase tracking-wider block">
+                Annual Remuneration (CTC)
+              </span>
+              <div className="text-2xl font-extrabold text-ink font-mono mt-0.5">
+                ${emp.salaryCtc?.toLocaleString()}
+              </div>
+              <span className="text-[11px] text-emerald-600 font-semibold">
+                ${Math.round((emp.salaryCtc || 0) / 12).toLocaleString()} / month
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="mt-8 flex items-center gap-2 border-t border-line pt-4 overflow-x-auto">
+          {[
+            { id: "overview", label: "Overview & Credentials", icon: User },
+            { id: "onboarding", label: `Onboarding (${onboardingPct}%)`, icon: CheckCircle2 },
+            { id: "attendance", label: "Attendance & Leaves", icon: Clock },
+            ...(currentRole !== "RECRUITER" ? [{ id: "payroll", label: "Payroll & Payslips", icon: DollarSign }] : []),
+            { id: "history", label: "Career & History", icon: History },
+            { id: "performance", label: "KPI & Performance", icon: TrendingUp },
+            { id: "assets", label: "Assigned Assets", icon: Laptop },
+          ].map((tab: any) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                activeTab === tab.id
+                  ? "bg-copper text-slate-950 shadow-sm"
+                  : "text-muted hover:text-ink hover:bg-surface-2"
+              }`}
+            >
+              <tab.icon className="h-3.5 w-3.5" />
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* TAB CONTENT: 1. OVERVIEW */}
+      {activeTab === "overview" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
+            {/* Technical Skills & Expertise */}
+            <div className="rounded-2xl border border-line bg-surface p-6 space-y-3">
+              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                <Award className="h-4 w-4 text-copper" />
+                Technical Competencies & Practice Areas
+              </h3>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {skillsList.map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 rounded-xl bg-canvas border border-line text-ink font-mono text-xs font-semibold"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Emergency & Personal Details */}
+            <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-copper" />
+                Emergency Contact & Personal Information
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <span className="text-muted font-bold block">Personal Email</span>
+                  <span className="text-ink font-mono">{emp.personalEmail || "N/A"}</span>
+                </div>
+                <div>
+                  <span className="text-muted font-bold block">Work Location</span>
+                  <span className="text-ink">{emp.workLocation}</span>
+                </div>
+                <div>
+                  <span className="text-muted font-bold block">Emergency Contact Person</span>
+                  <span className="text-ink font-semibold">{emp.emergencyContactName || "Not Recorded"}</span>
+                </div>
+                <div>
+                  <span className="text-muted font-bold block">Emergency Contact Phone</span>
+                  <span className="text-ink font-mono">{emp.emergencyContactPhone || "Not Recorded"}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Banking & Compliance Details */}
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                <DollarSign className="h-4 w-4 text-copper" />
+                Banking & Direct Wire Routing
+              </h3>
+              <div className="space-y-3 text-xs">
+                <div>
+                  <span className="text-muted block font-bold">Banking Institution</span>
+                  <span className="text-ink font-semibold">{emp.bankName || "JPMorgan Chase Bank"}</span>
+                </div>
+                <div>
+                  <span className="text-muted block font-bold">Account Number</span>
+                  <span className="text-ink font-mono">{emp.bankAccount || "••••••••4892"}</span>
+                </div>
+                <div>
+                  <span className="text-muted block font-bold">SWIFT / Routing Code</span>
+                  <span className="text-ink font-mono">{emp.ifscSwift || "CHASUS33"}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Probation Status */}
+            <div className="rounded-2xl border border-line bg-surface p-6 space-y-2">
+              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-copper" />
+                Probation Status
+              </h3>
+              <p className="text-xs text-muted">
+                Status: <strong className="text-ink">{emp.probationStatus || "CONFIRMED"}</strong>
+              </p>
+              {emp.probationEndDate && (
+                <p className="text-xs text-muted">
+                  End Date: {new Date(emp.probationEndDate).toLocaleDateString()}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT: 2. ONBOARDING */}
+      {activeTab === "onboarding" && (
+        <div className="rounded-2xl border border-line bg-surface p-6 space-y-6">
+          <div className="flex items-center justify-between border-b border-line pb-4">
+            <div>
+              <h3 className="text-sm font-bold text-ink">Employee Onboarding Checklist</h3>
+              <p className="text-xs text-muted">Track statutory document verification, hardware distribution, and team introductions.</p>
+            </div>
+            <div className="text-right">
+              <span className="text-xs font-bold text-ink">{completedTasks} of {totalTasks} Completed</span>
+              <div className="h-2 w-36 rounded-full bg-surface-2 mt-1 overflow-hidden">
+                <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${onboardingPct}%` }} />
+              </div>
+            </div>
+          </div>
+
+          <div className="divide-y divide-line">
+            {emp.onboardingTasks?.map((task: any) => (
+              <div key={task.id} className="py-3.5 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={task.isCompleted}
+                    onChange={(e) =>
+                      toggleTaskMut.mutate({ taskId: task.id, isCompleted: e.target.checked })
+                    }
+                    className="h-4 w-4 accent-copper cursor-pointer"
+                  />
+                  <div>
+                    <h4 className={`text-xs font-bold ${task.isCompleted ? "line-through text-muted" : "text-ink"}`}>
+                      {task.taskName}
+                    </h4>
+                    <span className="text-[10px] text-muted font-mono">{task.category}</span>
+                  </div>
+                </div>
+
+                <Badge tone={task.isCompleted ? "success" : "neutral"}>
+                  {task.isCompleted ? "Completed" : "Pending"}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT: 3. ATTENDANCE & LEAVES */}
+      {activeTab === "attendance" && (
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+            <h3 className="text-sm font-bold text-ink">Recent Attendance Logs</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-line text-muted uppercase text-[10px] font-bold">
+                    <th className="py-2.5">Date</th>
+                    <th className="py-2.5">Status</th>
+                    <th className="py-2.5">Check In</th>
+                    <th className="py-2.5">Check Out</th>
+                    <th className="py-2.5">Notes</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-line">
+                  {emp.attendanceRecords?.map((att: any) => (
+                    <tr key={att.id}>
+                      <td className="py-3 font-mono font-semibold">{new Date(att.date).toLocaleDateString()}</td>
+                      <td className="py-3">
+                        <Badge tone={att.status === "PRESENT" ? "success" : att.status === "WFH" ? "info" : "warning"}>
+                          {att.status}
+                        </Badge>
+                      </td>
+                      <td className="py-3 font-mono text-muted">{att.checkIn || "09:00 AM"}</td>
+                      <td className="py-3 font-mono text-muted">{att.checkOut || "06:00 PM"}</td>
+                      <td className="py-3 text-muted">{att.notes || "Standard Shift"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+            <h3 className="text-sm font-bold text-ink">Leave & Time-Off History</h3>
+            <div className="divide-y divide-line">
+              {emp.leaveRequests?.map((leave: any) => (
+                <div key={leave.id} className="py-3 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-ink">{leave.leaveType} Leave ({leave.daysCount} Days)</h4>
+                    <p className="text-[11px] text-muted font-mono">
+                      {new Date(leave.startDate).toLocaleDateString()} to {new Date(leave.endDate).toLocaleDateString()}
+                    </p>
+                    <p className="text-xs text-slate-600 mt-1">Reason: {leave.reason}</p>
+                  </div>
+                  <Badge tone={leave.status === "APPROVED" ? "success" : leave.status === "REJECTED" ? "danger" : "warning"}>
+                    {leave.status}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT: 4. PAYROLL */}
+      {activeTab === "payroll" && (
+        <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+          <h3 className="text-sm font-bold text-ink">Monthly Payslip & Disbursal History</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-line text-muted uppercase text-[10px] font-bold">
+                  <th className="py-2.5">Period</th>
+                  <th className="py-2.5">Basic</th>
+                  <th className="py-2.5">HRA & Allowances</th>
+                  <th className="py-2.5">Tax Deductions</th>
+                  <th className="py-2.5">Net Disbursed</th>
+                  <th className="py-2.5">Reference</th>
+                  <th className="py-2.5">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-line">
+                {emp.payrollRecords?.map((pay: any) => (
+                  <tr key={pay.id}>
+                    <td className="py-3 font-bold text-ink">{pay.month} {pay.year}</td>
+                    <td className="py-3 font-mono">${pay.basicSalary?.toLocaleString()}</td>
+                    <td className="py-3 font-mono">${((pay.hra || 0) + (pay.allowances || 0))?.toLocaleString()}</td>
+                    <td className="py-3 font-mono text-red-600">-${pay.taxDeductions?.toLocaleString()}</td>
+                    <td className="py-3 font-mono font-bold text-emerald-600">${pay.netSalary?.toLocaleString()}</td>
+                    <td className="py-3 font-mono text-[10px] text-muted">{pay.referenceNumber}</td>
+                    <td className="py-3"><Badge tone="success">{pay.status}</Badge></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT: 5. CAREER HISTORY */}
+      {activeTab === "history" && (
+        <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+          <h3 className="text-sm font-bold text-ink">Promotion, Transfer & Compensation Timeline</h3>
+          <div className="divide-y divide-line">
+            {emp.historyRecords?.length === 0 ? (
+              <p className="text-xs text-muted py-4">No historical revisions recorded yet.</p>
+            ) : (
+              emp.historyRecords?.map((h: any) => (
+                <div key={h.id} className="py-4 space-y-1">
+                  <div className="flex items-center justify-between text-xs">
+                    <strong className="text-ink">{h.previousDesignation} → {h.newDesignation}</strong>
+                    <span className="font-mono text-muted">{new Date(h.effectiveDate).toLocaleDateString()}</span>
+                  </div>
+                  <p className="text-xs text-muted">
+                    Remuneration: ${h.previousSalary?.toLocaleString()} → <strong className="text-emerald-600">${h.newSalary?.toLocaleString()}</strong>
+                  </p>
+                  <p className="text-xs text-slate-600">Rationale: {h.reason}</p>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT: 6. PERFORMANCE */}
+      {activeTab === "performance" && (
+        <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+          <h3 className="text-sm font-bold text-ink">Performance Reviews & KPI Appraisals</h3>
+          <div className="space-y-4">
+            {emp.performanceReviews?.map((rev: any) => (
+              <div key={rev.id} className="rounded-xl border border-line bg-canvas p-4 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-ink text-sm">Review Cycle: {rev.reviewPeriod}</span>
+                  <Badge tone="copper">Rating: {rev.rating} / 5 Stars</Badge>
+                </div>
+                <p className="text-muted"><strong>KPI Goals:</strong> {rev.goalsKpi}</p>
+                <p className="text-ink"><strong>Manager Feedback:</strong> {rev.managerFeedback}</p>
+                {rev.salaryRevisionRecommendation && (
+                  <p className="text-emerald-600 font-semibold">
+                    Recommendation: {rev.salaryRevisionRecommendation}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB CONTENT: 7. ASSETS */}
+      {activeTab === "assets" && (
+        <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
+          <h3 className="text-sm font-bold text-ink">Assigned IT & Hardware Inventory</h3>
+          <div className="divide-y divide-line">
+            {emp.assignedAssets?.map((asset: any) => (
+              <div key={asset.id} className="py-3 flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-bold text-ink">{asset.name}</h4>
+                  <p className="text-[11px] font-mono text-muted">Serial: {asset.serialNumber} • Condition: {asset.condition}</p>
+                </div>
+                <Badge tone="info">Assigned</Badge>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

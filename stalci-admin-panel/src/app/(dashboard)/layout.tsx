@@ -7,59 +7,89 @@ import { NotificationsPopover } from "@/components/NotificationsPopover";
 import { ProfileDropdown } from "@/components/ProfileDropdown";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CreateDropdown } from "@/components/CreateDropdown";
+import { useRbac, ROLE_DEFINITIONS, RoleType } from "@/lib/rbac-context";
 import {
   LayoutDashboard,
+  Users,
+  FolderKanban,
   FileText,
   Newspaper,
   Boxes,
-  Factory,
-  Package,
+  Code2,
   Quote,
   MessageSquare,
   Briefcase,
   Star,
   Receipt,
+  FileCode,
   Settings,
   Menu,
   X,
   LogOut,
   Search,
-  Bell,
   ChevronRight,
-  Plus,
+  ExternalLink,
+  Clock,
+  GraduationCap,
+  TrendingUp,
+  Laptop,
+  ShieldCheck,
+  Award,
 } from "lucide-react";
 
 const navSections = [
   {
     title: "Overview",
-    links: [{ href: "/", label: "Dashboard", icon: LayoutDashboard }],
+    links: [{ href: "/", label: "Studio Dashboard", icon: LayoutDashboard }],
   },
   {
-    title: "Content",
+    title: "People & HR Operations",
     links: [
-      { href: "/pages", label: "Pages", icon: FileText },
-      { href: "/blogs", label: "Blogs", icon: Newspaper },
-      { href: "/services", label: "Services", icon: Boxes },
-      { href: "/industries", label: "Industries", icon: Factory },
-      { href: "/products", label: "Products", icon: Package },
-      { href: "/testimonials", label: "Testimonials", icon: Quote },
+      { href: "/hr/dashboard", label: "HR Command Center", icon: LayoutDashboard },
+      { href: "/hr/employees", label: "Workforce Directory", icon: Users },
+      { href: "/hr/recruitment", label: "Hiring & Candidates", icon: Briefcase },
+      { href: "/hr/offers", label: "Offer Letters", icon: FileText },
+      { href: "/hr/onboarding", label: "Onboarding Tracker", icon: Award },
+      { href: "/hr/attendance-leave", label: "Attendance & Leaves", icon: Clock },
+      { href: "/hr/payroll", label: "Payroll & Payslips", icon: Receipt },
+      { href: "/hr/internships", label: "Internships", icon: GraduationCap },
+      { href: "/hr/performance-training", label: "Performance & Training", icon: TrendingUp },
+      { href: "/hr/assets", label: "Assets Inventory", icon: Laptop },
+      { href: "/hr/letters", label: "HR Letter Templates", icon: FileCode },
+      { href: "/hr/exits", label: "Exits & F&F Settlement", icon: LogOut },
+      { href: "/hr/rbac", label: "Roles & Permissions", icon: ShieldCheck },
     ],
   },
   {
-    title: "CRM & Careers",
+    title: "Business & CRM",
     links: [
+      { href: "/clients", label: "Clients Directory", icon: Users },
+      { href: "/projects", label: "Projects Pipeline", icon: FolderKanban },
       { href: "/inquiries", label: "Client Inquiries", icon: MessageSquare },
-      { href: "/jobs", label: "Jobs & Applicants", icon: Briefcase },
-      { href: "/feedback", label: "Feedback", icon: Star },
+      { href: "/jobs", label: "Job Postings", icon: Briefcase },
+      { href: "/feedback", label: "Client Feedback", icon: Star },
     ],
   },
   {
-    title: "Finance",
-    links: [{ href: "/invoices", label: "Invoices", icon: Receipt }],
+    title: "Billing & Invoices",
+    links: [
+      { href: "/invoices", label: "Invoices & Billing", icon: Receipt },
+      { href: "/invoice-templates", label: "Invoice Templates", icon: FileCode },
+    ],
+  },
+  {
+    title: "Portfolio CMS",
+    links: [
+      { href: "/services", label: "Services CMS", icon: Boxes },
+      { href: "/technologies", label: "Tech Stack & Skills", icon: Code2 },
+      { href: "/testimonials", label: "Testimonials", icon: Quote },
+      { href: "/blogs", label: "Blogs & Articles", icon: Newspaper },
+      { href: "/pages", label: "Site Pages", icon: FileText },
+    ],
   },
   {
     title: "System",
-    links: [{ href: "/settings", label: "Site Config", icon: Settings }],
+    links: [{ href: "/settings", label: "Site Configuration", icon: Settings }],
   },
 ];
 
@@ -69,6 +99,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [mobileOpen, setMobileOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const pathname = usePathname();
+  const { currentRole, setRole, roleInfo, canAccessRoute } = useRbac();
+  const sidebarNavRef = useState<{ current: HTMLElement | null }>({ current: null })[0];
+
+  const handleSidebarWheel = (e: React.WheelEvent) => {
+    if (sidebarNavRef.current) {
+      sidebarNavRef.current.scrollTop += e.deltaY;
+    }
+  };
 
   useEffect(() => {
     setMobileOpen(false);
@@ -93,136 +131,200 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const Sidebar = (
-    <div className="flex h-full flex-col bg-ink text-white">
-      <div className="flex h-16 items-center justify-between px-5">
+    <div
+      onWheel={handleSidebarWheel}
+      className="flex h-screen max-h-screen flex-col bg-[#0B0D13] text-white border-r border-white/10 select-none overflow-hidden"
+    >
+      {/* Top Fixed Brand Header */}
+      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-white/10 bg-[#080A0F]">
         <Link href="/" className="flex items-center gap-2.5">
-          <img src="/stalci-mark.png" alt="Stalci Logo" className="h-8 w-8 rounded-[9px]" />
-          <span className="text-[15px] font-semibold tracking-tight text-white">
-            Stalci <span className="font-normal text-white/60">Console</span>
-          </span>
+          <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-900/30 border border-copper/50 flex items-center justify-center p-1.5 shadow-md shadow-amber-950/40">
+            <svg viewBox="0 0 120 120" className="h-full w-full">
+              <defs>
+                <linearGradient id="sideLogo" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#F5C082" />
+                  <stop offset="50%" stopColor="#D89B5B" />
+                  <stop offset="100%" stopColor="#9E6229" />
+                </linearGradient>
+              </defs>
+              <path d="M 60 22 L 88 38 L 74 46 L 46 30 Z" fill="url(#sideLogo)" />
+              <path d="M 32 46 L 74 46 L 88 54 L 46 70 L 32 62 Z" fill="url(#sideLogo)" opacity="0.95" />
+              <path d="M 46 70 L 74 86 L 60 98 L 32 82 Z" fill="url(#sideLogo)" />
+              <polygon points="60,48 70,60 60,72 50,60" fill="#FFFFFF" />
+            </svg>
+          </div>
+          <div>
+            <span className="text-[13px] font-extrabold tracking-tight text-white block leading-tight">
+              STALCI STUDIO
+            </span>
+            <span className="text-[9px] text-copper/80 tracking-widest uppercase font-mono font-semibold">
+              HR & Enterprise OS
+            </span>
+          </div>
         </Link>
-        <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="rounded-lg p-1.5 text-white/50 hover:bg-white/10 lg:hidden">
-          <X className="h-4 w-4" />
+        <span className="rounded-full bg-copper/15 px-2 py-0.5 text-[9.5px] font-bold text-copper border border-copper/20">
+          v3.0 HR
+        </span>
+      </div>
+
+      {/* Quick search button */}
+      <div className="px-3 pt-2.5 pb-1.5 shrink-0 bg-[#0B0D13]">
+        <button
+          onClick={() => setCommandOpen(true)}
+          className="flex w-full items-center justify-between rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[11.5px] text-white/60 transition-colors hover:border-copper/40 hover:text-white"
+        >
+          <span className="flex items-center gap-2">
+            <Search className="h-3 w-3 text-copper" />
+            Quick jump...
+          </span>
+          <kbd className="rounded border border-white/10 bg-white/[0.08] px-1 py-0.5 text-[9px] font-mono text-white/50">
+            ⌘K
+          </kbd>
         </button>
       </div>
 
-      <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" data-lenis-prevent="true">
-        {navSections.map((s) => (
-          <div key={s.title}>
-            <p className="eyebrow px-3 pb-2 text-white/50">{s.title}</p>
-            <div className="space-y-0.5">
-              {s.links.map((l) => {
-                const Icon = l.icon;
-                const active = pathname === l.href;
-                return (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`group flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-[13.5px] font-medium transition-colors ${
-                      active ? "bg-copper/20 text-copper-soft" : "text-white/70 hover:bg-white/5 hover:text-white"
-                    }`}
-                  >
-                    <Icon className={`h-[17px] w-[17px] ${active ? "text-copper-soft" : "text-white/40 group-hover:text-white/70"}`} strokeWidth={1.9} />
-                    {l.label}
-                  </Link>
-                );
-              })}
+      {/* Independently Scrollable Navigation List */}
+      <nav
+        ref={(el) => {
+          sidebarNavRef.current = el;
+        }}
+        className="flex-1 min-h-0 overflow-y-auto scrollable-y px-2.5 py-1.5 space-y-3.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+      >
+        {navSections.map((sec) => {
+          const visibleLinks = sec.links.filter((l) => canAccessRoute(l.href));
+          if (visibleLinks.length === 0) return null;
+
+          return (
+            <div key={sec.title} className="space-y-0.5">
+              <p className="px-2.5 text-[9.5px] font-extrabold uppercase tracking-[0.18em] text-white/40 mb-1">
+                {sec.title}
+              </p>
+              <div className="space-y-0.5">
+                {visibleLinks.map((link) => {
+                  const Icon = link.icon;
+                  const active = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-[12px] transition-all ${
+                        active
+                          ? "bg-copper text-slate-950 font-bold shadow-md shadow-amber-950/30"
+                          : "text-white/70 hover:bg-white/[0.06] hover:text-white font-medium"
+                      }`}
+                    >
+                      <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-slate-950" : "text-copper"}`} />
+                      <span className="truncate">{link.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </nav>
 
-      <div className="p-3">
-        <ProfileDropdown />
+      {/* Bottom Pinned Footer */}
+      <div className="p-2.5 shrink-0 border-t border-white/10 bg-[#080A0F] space-y-1">
+        <a
+          href="http://localhost:8080"
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11.5px] font-medium text-white/80 hover:bg-white/[0.06] hover:text-white transition-colors border border-white/5"
+        >
+          <span className="flex items-center gap-2">
+            <ExternalLink className="h-3 w-3 text-copper" />
+            Live Portfolio
+          </span>
+          <span className="text-[9.5px] font-mono text-copper bg-copper/10 px-1.5 py-0.5 rounded">
+            :8080 ↗
+          </span>
+        </a>
+
+        <button
+          onClick={handleSignOut}
+          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1 text-[11px] font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+        >
+          <LogOut className="h-3 w-3" />
+          Sign out
+        </button>
       </div>
     </div>
   );
 
   return (
-    <Providers>
-      <div className="flex min-h-screen bg-canvas">
-        {/* Desktop sidebar */}
-        <aside className="sticky top-0 z-40 hidden h-screen w-[248px] shrink-0 bg-ink lg:block">{Sidebar}</aside>
+    <div className="min-h-screen bg-canvas text-ink">
+      {/* Desktop sidebar */}
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-64">
+        {Sidebar}
+      </aside>
 
-        {/* Mobile sidebar */}
-        {mobileOpen && (
-          <div className="fixed inset-0 z-[70] lg:hidden">
-            <div className="animate-fade-in absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={() => setMobileOpen(false)} />
-            <div className="animate-fade-in absolute left-0 top-0 h-full w-[270px] border-r border-line shadow-2xl">{Sidebar}</div>
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="fixed inset-y-0 left-0 w-72 max-w-[85vw] shadow-2xl">
+            {Sidebar}
           </div>
-        )}
-
-        <div className="flex min-w-0 flex-1 flex-col relative z-0">
-          {/* Global Pattern Background for all pages */}
-          <div className="pointer-events-none absolute inset-0 z-[-1] overflow-hidden bg-canvas">
-            <div 
-              className="absolute inset-0 opacity-[0.4]" 
-              style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M0 0h40v40H0V0zm39 39V1H1v38h38z%22 fill=%22%23e5e7eb%22 fill-opacity=%221%22 fill-rule=%22evenodd%22/%3E%3C/svg%3E")' }}
-            />
-            {/* Top ambient glows bleeding into header */}
-            <div className="absolute left-[20%] top-[-100px] h-[300px] w-[500px] rounded-full bg-copper/10 blur-[100px]" />
-            <div className="absolute right-[10%] top-[-50px] h-[300px] w-[300px] rounded-full bg-amber-500/10 blur-[80px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-canvas/40 to-canvas" />
-          </div>
-
-          <header className="sticky top-0 z-40 border-b border-line bg-canvas/60 backdrop-blur-xl">
-            <div className="mx-auto flex h-14 w-full max-w-[1240px] items-center justify-between px-4 sm:px-6 lg:px-8">
-              
-              {/* Left Side: Mobile Menu & Breadcrumbs */}
-              <div className="flex items-center gap-3">
-                <button onClick={() => setMobileOpen(true)} aria-label="Open menu" className="rounded-lg p-1.5 text-ink-2 hover:bg-black/5 lg:hidden">
-                  <Menu className="h-5 w-5" />
-                </button>
-                <nav aria-label="Breadcrumb" className="hidden lg:flex min-w-0 items-center gap-2 text-[13.5px]">
-                  <span className="font-medium text-muted">Workspace</span>
-                  <ChevronRight className="h-3.5 w-3.5 text-faint" />
-                  <span className="font-semibold text-ink">{current?.label || "Console"}</span>
-                </nav>
-              </div>
-
-              {/* Center Side: expansive Command Palette & Actions to fill the empty space */}
-              <div className="hidden md:flex flex-1 items-center justify-center px-6 lg:px-12 max-w-2xl">
-                <div className="flex w-full items-center gap-2">
-                  <div className="relative flex-1 group">
-                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint group-hover:text-copper transition-colors" />
-                    <input 
-                      onFocus={(e) => { e.target.blur(); setCommandOpen(true); }}
-                      readOnly
-                      placeholder="Search pages, invoices, or type a command..." 
-                      aria-label="Command palette" 
-                      className="field h-9 w-full pl-9 pr-14 text-[13px] bg-surface/50 hover:bg-surface focus:bg-surface transition-all shadow-sm cursor-text" 
-                    />
-                    <div className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                      <span className="flex h-5 w-5 items-center justify-center rounded border border-line bg-canvas text-[10px] font-medium text-muted shadow-sm">⌘</span>
-                      <span className="flex h-5 w-5 items-center justify-center rounded border border-line bg-canvas text-[10px] font-medium text-muted shadow-sm">K</span>
-                    </div>
-                  </div>
-                  <CreateDropdown />
-                </div>
-              </div>
-
-              {/* Right Side: Date, Notification, Live Status */}
-              <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-                <div className="hidden sm:block text-[12px] font-medium text-muted">
-                  {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-                </div>
-                
-                <NotificationsPopover />
-                
-                <span className="hidden items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1 text-[11px] font-semibold tracking-wide text-muted sm:inline-flex">
-                  <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                  LIVE
-                </span>
-              </div>
-            </div>
-          </header>
-
-          <CommandPalette open={commandOpen} setOpen={setCommandOpen} />
-
-          <main className="mx-auto w-full max-w-[1240px] flex-1 px-4 py-5 sm:px-6 lg:px-8">{children}</main>
         </div>
+      )}
+
+      {/* Main content wrapper */}
+      <div className="lg:pl-64 flex min-h-screen flex-col">
+        {/* Top App Bar */}
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-surface/90 px-4 sm:px-6 backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="lg:hidden rounded-lg p-1.5 text-muted hover:bg-surface-2 hover:text-ink cursor-pointer"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+
+            {/* Breadcrumbs */}
+            <div className="flex items-center gap-1.5 text-xs text-muted">
+              <span className="font-medium text-ink hidden sm:inline">STALCI Studio</span>
+              <ChevronRight className="h-3 w-3 hidden sm:inline" />
+              <span className="font-bold text-copper truncate">
+                {current?.label || "Console"}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {/* Live Role Switcher Simulator in Topbar */}
+            <div className="flex items-center gap-2 bg-surface-2 px-2.5 py-1 rounded-xl border border-line shadow-xs">
+              <ShieldCheck className="h-3.5 w-3.5 text-copper" />
+              <span className="text-[10.5px] font-bold text-muted uppercase tracking-wider hidden sm:inline">Role:</span>
+              <select
+                value={currentRole}
+                onChange={(e) => setRole(e.target.value as RoleType)}
+                className="bg-transparent text-xs font-bold text-ink cursor-pointer focus:outline-none"
+              >
+                {(Object.keys(ROLE_DEFINITIONS) as RoleType[]).map((r) => (
+                  <option key={r} value={r} className="bg-surface text-ink">
+                    {ROLE_DEFINITIONS[r].label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <CreateDropdown />
+            <NotificationsPopover />
+            <ProfileDropdown />
+          </div>
+        </header>
+
+        {/* Dynamic Page Content */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+          {children}
+        </main>
       </div>
-    </Providers>
+
+      <CommandPalette open={commandOpen} setOpen={setCommandOpen} />
+    </div>
   );
 }

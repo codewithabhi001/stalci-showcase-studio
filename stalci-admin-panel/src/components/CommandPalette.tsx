@@ -1,9 +1,25 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, LayoutDashboard, FileText, Settings, ArrowRight, User, Plus } from "lucide-react";
+import {
+  Search,
+  LayoutDashboard,
+  Users,
+  FolderKanban,
+  Receipt,
+  FileCode,
+  Boxes,
+  Code2,
+  Quote,
+  Newspaper,
+  FileText,
+  Settings,
+  ArrowRight,
+  User,
+  Plus,
+} from "lucide-react";
 
-export function CommandPalette({ open, setOpen }: { open: boolean, setOpen: (v: boolean) => void }) {
+export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,22 +41,28 @@ export function CommandPalette({ open, setOpen }: { open: boolean, setOpen: (v: 
 
   const ITEMS = [
     { label: "Dashboard", href: "/", icon: LayoutDashboard },
-    { label: "Manage Blogs", href: "/blogs", icon: FileText },
-    { label: "Manage Invoices", href: "/invoices", icon: FileText },
+    { label: "Clients Directory", href: "/clients", icon: Users },
+    { label: "Projects Pipeline", href: "/projects", icon: FolderKanban },
+    { label: "Invoices & Billing", href: "/invoices", icon: Receipt },
+    { label: "Invoice Templates", href: "/invoice-templates", icon: FileCode },
+    { label: "Services CMS", href: "/services", icon: Boxes },
+    { label: "Tech Stack & Skills", href: "/technologies", icon: Code2 },
+    { label: "Client Testimonials", href: "/testimonials", icon: Quote },
+    { label: "Blogs & Articles", href: "/blogs", icon: Newspaper },
+    { label: "Site Pages", href: "/pages", icon: FileText },
     { label: "Site Configuration", href: "/settings", icon: Settings },
     { label: "My Profile", href: "/profile", icon: User },
-    { label: "Create new Blog", href: "/blogs?new=true", icon: Plus },
   ];
 
-  const filtered = ITEMS.filter(i => i.label.toLowerCase().includes(query.toLowerCase()));
+  const filtered = ITEMS.filter((i) => i.label.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] sm:pt-[20vh] px-4">
-      <div 
+      <div
         className="absolute inset-0 bg-ink/40 backdrop-blur-md transition-opacity"
         onClick={() => setOpen(false)}
       />
-      
+
       <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-canvas shadow-2xl ring-1 ring-line animate-fade-up">
         <div className="flex items-center border-b border-line px-4 bg-surface/30">
           <Search className="h-[18px] w-[18px] text-copper shrink-0" />
@@ -48,14 +70,16 @@ export function CommandPalette({ open, setOpen }: { open: boolean, setOpen: (v: 
             ref={inputRef}
             className="flex h-16 w-full bg-transparent px-4 text-[16px] border-none text-ink placeholder:text-muted"
             style={{ outline: "none", boxShadow: "none" }}
-            placeholder="Search pages, settings, or type a command..."
+            placeholder="Search pages, clients, invoices, settings..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
           />
-          <span className="hidden sm:inline-flex h-6 items-center rounded border border-line bg-canvas px-2 text-[10px] font-bold text-muted shadow-sm">ESC</span>
+          <span className="hidden sm:inline-flex h-6 items-center rounded border border-line bg-canvas px-2 text-[10px] font-bold text-muted shadow-sm">
+            ESC
+          </span>
         </div>
-        
+
         <div className="max-h-[60vh] overflow-y-auto p-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {filtered.length > 0 ? (
             <div className="space-y-0.5">
@@ -75,13 +99,15 @@ export function CommandPalette({ open, setOpen }: { open: boolean, setOpen: (v: 
                     </span>
                     <ArrowRight className="h-4 w-4 text-faint opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-copper" />
                   </button>
-                )
+                );
               })}
             </div>
           ) : (
             <div className="py-16 text-center">
               <Search className="mx-auto h-8 w-8 text-faint mb-3" />
-              <p className="text-[14px] text-muted">No results found for <span className="font-semibold text-ink">"{query}"</span></p>
+              <p className="text-[14px] text-muted">
+                No results found for <span className="font-semibold text-ink">"{query}"</span>
+              </p>
             </div>
           )}
         </div>

@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { SectionHeading } from "@/components/site/Brand";
-import { posts } from "@/lib/blog-data";
-import { ArrowRight } from "lucide-react";
+import { posts as fallbackPosts } from "@/lib/blog-data";
+import { ArrowRight, BookOpen, Clock, User } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBlogs } from "@/lib/api";
 
 const title = "Blog & News — STALCI Engineering Insights";
 const description =
@@ -24,65 +26,122 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogIndex() {
-  const featured = posts[0]!;
-  const rest = posts.slice(1);
+  const { data: apiBlogs, isLoading } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: fetchBlogs,
+  });
 
+  const blogs =
+    apiBlogs && apiBlogs.length > 0
+      ? apiBlogs.map((b: any) => ({
+          slug: b.slug,
+          title: b.title,
+          excerpt: b.excerpt || "",
+          category: b.category || "Engineering",
+          readingTime: b.readTime || `${Math.max(3, Math.ceil((b.content || "").split(/\s+/).length / 200))} min read`,
+          date: b.publishedAt || b.createdAt || new Date().toISOString(),
+          author: b.author || "STALCI Engineering",
+          imageUrl: b.imageUrl,
+        }))
+      : fallbackPosts;
+
+  const featured = blogs[0];
+  const rest = blogs.slice(1);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900">
       <Nav solid />
-      <main className="pb-24 pt-28">
+
+      {/* Header Banner */}
+      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-6xl px-5 lg:px-8">
-          <SectionHeading
-            eyebrow="Blog & News"
-            title="Engineering notes from the field"
-            subtitle="Practical writing on AI systems, cloud platforms, security and enterprise delivery."
-            align="left"
-          />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <BookOpen className="h-3.5 w-3.5" />
+            STALCI Engineering Publications
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+            Engineering Insights & Deep Dives
+          </h1>
+          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+            Practical writing on deterministic AI agents, multi-cloud kernel telemetry, zero-trust identity meshes, and enterprise systems engineering.
+          </p>
+        </div>
+      </div>
 
-          <Link
-            to="/blog/$slug"
-            params={{ slug: featured.slug }}
-            className="mt-12 block rounded-3xl border border-border bg-card p-7 transition-colors hover:border-copper/50 sm:p-10"
-          >
-            <span className="eyebrow text-copper">{featured.category} · Featured</span>
-            <h2 className="mt-3 text-xl font-semibold text-ink sm:text-2xl">{featured.title}</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              {featured.excerpt}
-            </p>
-            <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-copper">
-              Read article <ArrowRight className="h-4 w-4" />
-            </span>
-          </Link>
+      <main className="py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 lg:px-8">
+          {/* Featured Article */}
+          {featured && (
+            <Link
+              to="/blog/$slug"
+              params={{ slug: featured.slug }}
+              className="group block rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-10 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-amber-500/70"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
+                  {featured.category} · Featured
+                </span>
+                <span className="text-xs text-slate-500 font-mono flex items-center gap-1">
+                  <Clock className="h-3 w-3" /> {featured.readingTime}
+                </span>
+              </div>
+              <h2 className="mt-4 text-xl sm:text-3xl font-extrabold text-slate-950 group-hover:text-amber-700 transition-colors leading-tight">
+                {featured.title}
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-600">
+                {featured.excerpt}
+              </p>
+              <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                  <User className="h-3.5 w-3.5 text-amber-600" /> {featured.author}
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-sm font-bold text-amber-700 group-hover:translate-x-1 transition-transform">
+                  Read full paper <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </Link>
+          )}
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((p) => (
+          {/* Grid of Other Articles */}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((p: any) => (
               <Link
                 key={p.slug}
                 to="/blog/$slug"
                 params={{ slug: p.slug }}
-                className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-copper/50"
+                className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-amber-500/70"
               >
-                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-copper">
-                  {p.category}
-                </span>
-                <h3 className="mt-3 text-base font-semibold leading-snug text-ink">{p.title}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {p.excerpt}
-                </p>
-                <span className="mt-4 text-xs text-muted-foreground">
-                  {new Date(p.date).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}{" "}
-                  · {p.readingTime}
-                </span>
+                <div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                      {p.category}
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-mono">{p.readingTime}</span>
+                  </div>
+                  <h3 className="mt-4 text-base font-bold leading-snug text-slate-950 group-hover:text-amber-700 transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
+                    {p.excerpt}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <span className="truncate max-w-[150px] font-medium">{p.author}</span>
+                  <span className="font-mono">
+                    {new Date(p.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </main>
+
       <Footer />
     </div>
   );

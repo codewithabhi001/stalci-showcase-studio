@@ -32,21 +32,24 @@ export function SectionHeading({
 }) {
   const lineRef = useLineReveal();
 
+  const isDark = tone === "dark";
+
   return (
     <div
       className={
-        (align === "center" ? "mx-auto max-w-2xl text-center " : "max-w-2xl ") +
-        (tone === "dark" ? "text-on-ink" : "text-foreground")
+        (align === "center" ? "mx-auto max-w-3xl text-center " : "max-w-3xl ") +
+        (isDark ? "text-white" : "text-slate-900")
       }
     >
-      <p className="eyebrow text-copper">{eyebrow}</p>
-      <h2 className="mt-3 text-2xl font-semibold leading-tight sm:text-3xl md:text-[2.25rem]">{title}</h2>
+      <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-copper mb-2">{eyebrow}</p>
+      <h2 className={`text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-[2.6rem] ${isDark ? "text-white" : "text-slate-900"}`}>
+        {title}
+      </h2>
       {subtitle ? (
         <p
-          className={
-            "mt-4 text-sm leading-relaxed sm:text-base " +
-            (tone === "dark" ? "text-on-ink-muted" : "text-muted-foreground")
-          }
+          className={`mt-4 text-sm sm:text-base leading-relaxed ${
+            isDark ? "text-slate-300" : "text-slate-600"
+          }`}
         >
           {subtitle}
         </p>
@@ -54,7 +57,7 @@ export function SectionHeading({
       <div
         ref={lineRef}
         className={
-          "mt-6 h-px w-16 bg-copper " + (align === "center" ? "mx-auto" : "")
+          "mt-6 h-0.5 w-16 bg-gradient-to-r from-copper to-amber-600 rounded-full " + (align === "center" ? "mx-auto" : "")
         }
       />
     </div>

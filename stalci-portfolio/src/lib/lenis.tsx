@@ -11,30 +11,39 @@ export function LenisProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Respect reduced motion settings
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
     const lenis = new Lenis({
-      lerp: 0.07,
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.8,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
+      infinite: false,
     });
 
     lenisRef.current = lenis;
 
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
+    rafId = requestAnimationFrame(raf);
 
-    requestAnimationFrame(raf);
-
-    // Handle anchor clicks through Lenis
+    // Handle internal anchor clicks smoothly
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest("a");
-      if (anchor?.hash) {
+      if (anchor?.hash && anchor.hash.startsWith("#") && (anchor.pathname === window.location.pathname || anchor.pathname === "")) {
         const el = document.querySelector(anchor.hash);
         if (el) {
           e.preventDefault();
-          lenis.scrollTo(el as HTMLElement, { offset: -80 });
+          lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.2 });
         }
       }
     };
@@ -42,8 +51,10 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     document.addEventListener("click", handleClick);
 
     return () => {
+      cancelAnimationFrame(rafId);
       document.removeEventListener("click", handleClick);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 

@@ -3,23 +3,23 @@ import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
-import { Industries } from "@/components/site/Industries";
+import { ProjectsShowcase } from "@/components/site/ProjectsShowcase";
 import { TechStack } from "@/components/site/TechStack";
+import { Industries } from "@/components/site/Industries";
 import { Products } from "@/components/site/Products";
 import { Process } from "@/components/site/Process";
 import { WhyStalci } from "@/components/site/WhyStalci";
 import { Testimonials } from "@/components/site/Testimonials";
-import { FAQ } from "@/components/site/FAQ";
 import { Insights } from "@/components/site/Insights";
+import { FAQ } from "@/components/site/FAQ";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 
-const title = "STALCI — Global IT Services, Cloud, AI & Cyber Security";
+const title = "STALCI — Global IT Services, Sovereign AI, Cloud & Cyber Security";
 const description =
-  "STALCI is a global technology company delivering custom software, mobile, cloud, AI, data and cyber security services across 12 industries.";
+  "STALCI is a global technology and software studio engineering sovereign AI systems, multi-cloud platforms, data pipelines, and cyber resilience.";
 
-export const Route = createFileRoute("/")(
-  {
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title },
@@ -35,14 +35,15 @@ export const Route = createFileRoute("/")(
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Nav />
       <main>
         <Hero />
         <About />
         <Services />
-        <Industries />
+        <ProjectsShowcase />
         <TechStack />
+        <Industries />
         <Products />
         <Process />
         <WhyStalci />

@@ -1,48 +1,29 @@
 import { Lightbulb, Award, ShieldCheck, Users, Globe2 } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal, useParallax, useCountUp } from "@/lib/animations";
-import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteConfigMap, fetchStats } from "@/lib/api";
 
 const values = [
-  { icon: Lightbulb, title: "Innovation", copy: "We architect scalable solutions that drive enterprise digital transformation." },
-  { icon: Award, title: "Excellence", copy: "Uncompromising engineering quality for mission-critical IT systems." },
-  { icon: ShieldCheck, title: "Integrity", copy: "Transparent IT governance, strict compliance, and predictable delivery." },
-  { icon: Users, title: "Collaboration", copy: "Seamlessly embedding within your enterprise as a dedicated agile unit." },
-  { icon: Globe2, title: "Impact", copy: "Strategic technology initiatives measured by tangible business outcomes." },
-];
-
-const stats = [
-  { value: "120+", label: "Enterprise deployments" },
-  { value: "18", label: "Global markets served" },
-  { value: "60+", label: "Elite IT consultants" },
-  { value: "99.9%", label: "Mission-critical uptime" },
+  { icon: Lightbulb, title: "Innovation & Speed", copy: "We architect scalable solutions that accelerate enterprise time-to-market without compromising resilience." },
+  { icon: Award, title: "Engineering Excellence", copy: "Uncompromising software craftsmanship and rigorous code quality for mission-critical IT systems." },
+  { icon: ShieldCheck, title: "Zero-Trust Integrity", copy: "Transparent IT governance, automated regulatory compliance, and predictable delivery milestones." },
+  { icon: Users, title: "Embedded Collaboration", copy: "Seamlessly integrating alongside your core engineering team as a dedicated high-velocity agile pod." },
+  { icon: Globe2, title: "Measurable Business Impact", copy: "Strategic technology programs governed by tangible operational KPIs and bottom-line growth." },
 ];
 
 function StatItem({ stat }: { stat: { value: string; label: string } }) {
-  let end = 0;
-  let suffix = "";
-  if (stat.value === "120+") {
-    end = 120;
-    suffix = "+";
-  } else if (stat.value === "18") {
-    end = 18;
-    suffix = "";
-  } else if (stat.value === "60+") {
-    end = 60;
-    suffix = "+";
-  } else if (stat.value === "99.9%") {
-    end = 99;
-    suffix = ".9%";
-  }
+  const numericVal = parseInt(stat.value.replace(/[^0-9]/g, ""), 10) || 100;
+  const suffix = stat.value.includes("%") ? "%" : stat.value.includes("+") ? "+" : "";
 
-  const ref = useCountUp(end, { suffix }) as any;
+  const ref = useCountUp(numericVal, { suffix }) as any;
 
   return (
-    <div className="bg-card/55 backdrop-blur-sm border border-border/50 rounded-2xl px-5 py-6 shadow-sm hover:border-copper/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-      <dt ref={ref} className="text-2xl font-bold text-copper-deep">
+    <div className="bg-white rounded-2xl px-5 py-6 border border-slate-200/90 shadow-sm hover:border-copper/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+      <dt ref={ref} className="text-3xl font-extrabold text-amber-700">
         0{suffix}
       </dt>
-      <dd className="mt-1 text-xs leading-snug text-muted-foreground">{stat.label}</dd>
+      <dd className="mt-1.5 text-xs font-semibold leading-snug text-slate-600">{stat.label}</dd>
     </div>
   );
 }
@@ -52,23 +33,50 @@ export function About() {
   const staggerRef = useStaggerReveal({ staggerChildren: 0.1 }) as any;
   const parallaxRef = useParallax(0.03) as any;
 
+  const { data: config = {} } = useQuery({
+    queryKey: ["site-config-map"],
+    queryFn: fetchSiteConfigMap,
+  });
+
+  const { data: statsData } = useQuery({
+    queryKey: ["site-stats"],
+    queryFn: fetchStats,
+  });
+
+  const aboutTitle =
+    config.aboutTitle || "Architecting the technological foundation for modern enterprise agility.";
+  const aboutSubtitle =
+    config.aboutSubtitle ||
+    "We synergize enterprise architecture, elite software engineering, and strategic IT consulting to deliver mission-critical solutions—from initial blueprinting to global deployment.";
+  const aboutBody =
+    config.aboutBody ||
+    "Our cross-functional practices specialize in sovereign enterprise platforms, multi-cloud orchestration, advanced AI model integration, and distributed zero-trust cybersecurity. Every engagement is executed by elite engineers utilizing agile delivery and enterprise-grade quality assurance.";
+
+  const dynamicStats = [
+    { value: config.stat_shipped || `${statsData?.totalProjectsCount || 140}+`, label: "Enterprise Deployments" },
+    { value: config.stat_markets || "18", label: "Global Markets Served" },
+    { value: config.stat_engineers || "60+", label: "Elite IT Engineers" },
+    { value: config.stat_uptime || "99.9%", label: "System Availability" },
+  ];
+
   return (
-    <section id="about" className="bg-background py-20 sm:py-24 relative">
+    <section id="about" className="bg-[#F8FAFC] py-20 sm:py-28 relative text-slate-900 border-y border-slate-200/80">
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <div className="grid items-start gap-14 lg:grid-cols-2">
           <div ref={textRevealRef}>
             <SectionHeading
               align="left"
               eyebrow="About STALCI"
-              title="Architecting the technological foundation for modern enterprise agility."
-              subtitle="We synergize enterprise architecture, elite engineering, and strategic IT consulting to deliver mission-critical solutions—from initial blueprinting to global deployment and continuous optimization."
+              title={aboutTitle}
+              subtitle={aboutSubtitle}
+              tone="light"
             />
-            <p className="mt-8 text-base leading-relaxed text-muted-foreground">
-              Our cross-functional practices specialize in enterprise software engineering, scalable cloud infrastructures, advanced AI integrations, robust cybersecurity, and scalable data architectures. Every engagement is executed by domain experts utilizing agile methodologies, rigorous governance, and enterprise-grade quality assurance.
+            <p className="mt-6 text-base leading-relaxed text-slate-600">
+              {aboutBody}
             </p>
 
             <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {stats.map((s) => (
+              {dynamicStats.map((s) => (
                 <StatItem key={s.label} stat={s} />
               ))}
             </dl>
@@ -80,18 +88,15 @@ export function About() {
                 <div
                   key={v.title}
                   className={
-                    "gradient-border card-lift rounded-2xl bg-card p-6 border border-border/80 shadow-sm " +
+                    "rounded-2xl bg-white p-6 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-copper/60 transition-all " +
                     (i === 0 || i === 3 || i === 4 ? "sm:col-span-2" : "sm:col-span-1")
                   }
                 >
-                  <motion.span
-                    whileHover={{ boxShadow: "0px 0px 16px var(--copper)" }}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent transition-colors"
-                  >
-                    <v.icon className="h-5 w-5 text-copper-deep" strokeWidth={1.6} />
-                  </motion.span>
-                  <h3 className="mt-4 text-base font-semibold">{v.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{v.copy}</p>
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 border border-amber-200/70 text-amber-700">
+                    <v.icon className="h-5 w-5" strokeWidth={1.8} />
+                  </span>
+                  <h3 className="mt-4 text-base font-bold text-slate-900">{v.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{v.copy}</p>
                 </div>
               ))}
             </div>

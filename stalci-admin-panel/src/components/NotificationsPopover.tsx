@@ -27,6 +27,7 @@ export function NotificationsPopover() {
   const { data: notifications = [], isLoading } = useQuery({
     queryKey: ["notifications"],
     queryFn: fetchNotifications,
+    refetchInterval: 4000,
   });
 
   const markReadMut = useMutation({

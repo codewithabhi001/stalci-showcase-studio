@@ -3,12 +3,14 @@ import { useState } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { SectionHeading } from "@/components/site/Brand";
-import { jobs, departments, benefits } from "@/lib/careers-data";
-import { MapPin, Clock, Briefcase } from "lucide-react";
+import { benefits } from "@/lib/careers-data";
+import { MapPin, Clock, Briefcase, ChevronDown, CheckCircle2, Sparkles, Send, X } from "lucide-react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { fetchJobs, submitJobApplication } from "@/lib/api";
 
-const title = "Careers at STALCI — Engineering, AI, Cloud, SEO & Sales Roles";
+const title = "Careers at STALCI — Enterprise Engineering, AI, Cloud & Security";
 const description =
-  "Join STALCI. Open roles across software engineering, AI and data, cloud and DevOps, cyber security, design, SEO and digital marketing, business development and delivery.";
+  "Join STALCI. Open roles across distributed systems engineering, sovereign AI models, multi-cloud platforms, and cyber resilience.";
 
 export const Route = createFileRoute("/careers")({
   head: () => ({
@@ -24,135 +26,305 @@ export const Route = createFileRoute("/careers")({
   component: Careers,
 });
 
+const fallbackJobs = [
+  {
+    id: 1,
+    title: "Staff Distributed Systems Engineer",
+    location: "San Francisco, CA / Hybrid",
+    type: "Full-time",
+    description: "Architect and build ultra-high throughput distributed consensus engines and memory-safe streaming microservices in Go and Rust.",
+    requirements: JSON.stringify([
+      "7+ years experience in distributed systems, network protocols, and Linux kernel fundamentals",
+      "Proficiency with Go, Rust, eBPF, and Apache Kafka",
+      "Experience building low-latency financial or cloud telemetry infrastructure",
+    ]),
+    isActive: true,
+  },
+  {
+    id: 2,
+    title: "Principal AI / ML Infrastructure Architect",
+    location: "Remote (US / EU)",
+    type: "Full-time",
+    description: "Lead the architecture of enterprise sovereign AI platforms, agentic LLM pipelines, and fine-tuning clusters on Kubernetes.",
+    requirements: JSON.stringify([
+      "Deep expertise with PyTorch, vLLM, LangChain, Ray, and Triton Inference Server",
+      "Track record of deploying production-grade RAG and agentic workflows at scale",
+      "Strong understanding of model safety, quantization, and evaluation benchmarks",
+    ]),
+    isActive: true,
+  },
+  {
+    id: 3,
+    title: "Senior Cloud Platform & SRE Engineer",
+    location: "London, UK / Remote",
+    type: "Full-time",
+    description: "Design multi-cloud Kubernetes clusters, automated GitOps CI/CD pipelines, and zero-trust mesh architectures across AWS, GCP, and Cloudflare.",
+    requirements: JSON.stringify([
+      "5+ years mastering Kubernetes, Terraform / OpenTofu, and Helm",
+      "Experience with Cilium eBPF, Istio, Prometheus, and Grafana Tempo",
+      "Strong scripting skills in Go or Python for custom operator development",
+    ]),
+    isActive: true,
+  },
+  {
+    id: 4,
+    title: "Lead Full-Stack Product Engineer",
+    location: "San Francisco, CA / Remote",
+    type: "Full-time",
+    description: "Craft high-performance, accessible enterprise web applications and developer consoles utilizing React 19, TypeScript, and Tailwind CSS.",
+    requirements: JSON.stringify([
+      "5+ years in modern frontend architectures, design systems, and state management",
+      "Strong mastery of Next.js, TanStack Router/Query, WebGL, and Framer Motion",
+      "Obsession with 60fps micro-interactions, accessibility, and sub-100ms response times",
+    ]),
+    isActive: true,
+  },
+];
+
 function Careers() {
   const [filter, setFilter] = useState<string>("All");
-  const [open, setOpen] = useState<string | null>(null);
+  const [expandedJobId, setExpandedJobId] = useState<number | null>(null);
+  const [applyingJob, setApplyingJob] = useState<any | null>(null);
+  const [formState, setFormState] = useState({ name: "", email: "", resumeUrl: "", notes: "" });
+  const [submitted, setSubmitted] = useState(false);
 
-  const visible = filter === "All" ? jobs : jobs.filter((j) => j.department === filter);
+  const { data: apiJobs } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: fetchJobs,
+  });
+
+  const jobsList = apiJobs && apiJobs.length > 0 ? apiJobs : fallbackJobs;
+
+  const appMutation = useMutation({
+    mutationFn: (data: any) => submitJobApplication(data),
+    onSuccess: () => {
+      setSubmitted(true);
+    },
+  });
+
+  const handleSubmitApplication = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!applyingJob) return;
+    appMutation.mutate({
+      jobId: applyingJob.id,
+      applicantName: formState.name,
+      applicantEmail: formState.email,
+      resumeUrl: formState.resumeUrl || formState.notes,
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900">
       <Nav solid />
-      <main className="pb-24 pt-28">
-        <div className="mx-auto max-w-6xl px-5 lg:px-8">
-          <SectionHeading
-            eyebrow="Careers"
-            title="Build technology that enterprises depend on"
-            subtitle="We hire senior thinkers across engineering, AI, cloud, security, design, marketing and sales — and give them real ownership."
-            align="left"
-          />
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Header Banner */}
+      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
+        <div className="mx-auto max-w-6xl px-5 lg:px-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <Sparkles className="h-3.5 w-3.5" />
+            STALCI Talent Network
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+            Build Technology That Global Enterprises Depend On
+          </h1>
+          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+            We assemble senior, high-autonomy engineering squads across distributed systems, sovereign AI, zero-trust security, and cloud platform infrastructure.
+          </p>
+        </div>
+      </div>
+
+      <main className="py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 lg:px-8">
+          {/* Engineering Culture / Benefits */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-16">
             {benefits.map((b) => (
-              <div key={b.title} className="rounded-2xl border border-border bg-card p-5">
-                <h3 className="text-sm font-semibold text-ink">{b.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{b.body}</p>
+              <div key={b.title} className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm hover:shadow-md transition-all">
+                <h3 className="text-base font-bold text-slate-950">{b.title}</h3>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">{b.body}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-14 flex flex-wrap gap-2">
-            {["All", ...departments].map((d) => (
-              <button
-                key={d}
-                onClick={() => setFilter(d)}
-                className={
-                  "rounded-full border px-4 py-2 text-xs font-semibold transition-colors " +
-                  (filter === d
-                    ? "border-copper bg-copper/10 text-copper"
-                    : "border-border text-muted-foreground hover:border-copper/50 hover:text-copper")
-                }
-              >
-                {d}
-              </button>
-            ))}
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-950">Open Engineering Positions</h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">Live active roles managed by STALCI Talent Operations.</p>
+            </div>
           </div>
 
-          <div className="mt-6 space-y-3">
-            {visible.map((j) => {
-              const expanded = open === j.slug;
-              return (
-                <div key={j.slug} className="rounded-2xl border border-border bg-card">
-                  <button
-                    onClick={() => setOpen(expanded ? null : j.slug)}
-                    className="flex w-full flex-col gap-3 p-5 text-left sm:flex-row sm:items-center sm:justify-between"
-                    aria-expanded={expanded}
-                  >
-                    <div className="min-w-0">
-                      <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-copper">
-                        {j.department}
-                      </span>
-                      <h3 className="mt-1.5 text-base font-semibold text-ink">{j.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{j.summary}</p>
-                    </div>
-                    <div className="flex shrink-0 flex-wrap gap-4 text-xs text-muted-foreground">
-                      <span className="inline-flex items-center gap-1.5">
-                        <MapPin className="h-3.5 w-3.5 text-copper" /> {j.location}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <Clock className="h-3.5 w-3.5 text-copper" /> {j.type}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <Briefcase className="h-3.5 w-3.5 text-copper" /> {j.experience}
-                      </span>
-                    </div>
-                  </button>
+          {/* Job Listings */}
+          <div className="space-y-4">
+            {jobsList.map((j: any) => {
+              const isExpanded = expandedJobId === j.id;
+              let requirementsArr: string[] = [];
+              try {
+                requirementsArr = typeof j.requirements === "string" ? JSON.parse(j.requirements) : j.requirements || [];
+              } catch {
+                requirementsArr = [j.requirements];
+              }
 
-                  {expanded ? (
-                    <div className="grid gap-6 border-t border-border p-5 sm:grid-cols-2">
-                      <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-[0.16em] text-copper">
-                          What you will do
-                        </h4>
-                        <ul className="mt-3 space-y-2">
-                          {j.responsibilities.map((r) => (
-                            <li key={r} className="text-sm leading-relaxed text-ink-soft">
-                              — {r}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-semibold uppercase tracking-[0.16em] text-copper">
-                          What we look for
-                        </h4>
-                        <ul className="mt-3 space-y-2">
-                          {j.requirements.map((r) => (
-                            <li key={r} className="text-sm leading-relaxed text-ink-soft">
-                              — {r}
-                            </li>
-                          ))}
-                        </ul>
-                        <a
-                          href={`mailto:careers@stalci.com?subject=Application: ${encodeURIComponent(j.title)}`}
-                          className="mt-5 inline-flex rounded-full px-5 py-2.5 text-sm font-semibold text-ink"
-                          style={{ background: "var(--gradient-copper)" }}
-                        >
-                          Apply for this role
-                        </a>
-                      </div>
+              return (
+                <div
+                  key={j.id}
+                  className="rounded-2xl border border-slate-200/90 bg-white shadow-sm overflow-hidden transition-all hover:border-amber-500/60"
+                >
+                  <div
+                    onClick={() => setExpandedJobId(isExpanded ? null : j.id)}
+                    className="p-6 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 select-none"
+                  >
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-950">{j.title}</h3>
+                      <p className="mt-1 text-sm text-slate-600 max-w-2xl">{j.description}</p>
                     </div>
-                  ) : null}
+
+                    <div className="flex flex-wrap items-center gap-3 shrink-0 text-xs font-semibold text-slate-600">
+                      <span className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
+                        <MapPin className="h-3.5 w-3.5 text-amber-600" /> {j.location}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
+                        <Clock className="h-3.5 w-3.5 text-amber-600" /> {j.type}
+                      </span>
+                      <ChevronDown
+                        className={`h-4 w-4 text-slate-400 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                      />
+                    </div>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="px-6 pb-6 pt-2 border-t border-slate-100 bg-[#F8FAFC]">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-amber-700 mt-2 mb-2">
+                        Key Qualifications & Requirements
+                      </h4>
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 mb-6">
+                        {requirementsArr.map((r, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-amber-600 font-bold">•</span>
+                            <span>{r}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <button
+                        onClick={() => {
+                          setApplyingJob(j);
+                          setSubmitted(false);
+                        }}
+                        className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold px-5 py-2.5 transition-all shadow-sm cursor-pointer"
+                      >
+                        Apply for {j.title}
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
 
-          <div className="mt-14 rounded-3xl border border-border bg-card p-7 sm:p-10">
-            <h2 className="text-lg font-semibold text-ink">Nothing matching your skills?</h2>
-            <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-              Send an open application with your CV and portfolio. We review every submission and
-              keep strong profiles on file for upcoming roles.
-            </p>
+          {/* Open Inquiries Card */}
+          <div className="mt-14 rounded-3xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-8 sm:p-10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-xl font-bold text-white">Don't See an Exact Match?</h2>
+              <p className="mt-2 text-sm text-slate-300 max-w-xl">
+                We are constantly expanding our sovereign engineering squads. Submit an open talent application with your GitHub, LinkedIn, or portfolio.
+              </p>
+            </div>
             <a
-              href="mailto:careers@stalci.com?subject=Open application"
-              className="mt-5 inline-flex rounded-full border border-copper/50 px-5 py-2.5 text-sm font-semibold text-copper transition-colors hover:bg-copper hover:text-ink"
+              href="mailto:careers@stalci.com?subject=Open Engineering Application — STALCI"
+              className="shrink-0 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 text-sm transition-all shadow-md"
             >
-              careers@stalci.com
+              Send Open Application
             </a>
           </div>
         </div>
       </main>
+
+      {/* Interactive Application Modal */}
+      {applyingJob && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+          <div
+            data-lenis-prevent
+            className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 sm:p-8 animate-pop max-h-[90vh] overflow-y-auto"
+          >
+            <button
+              onClick={() => setApplyingJob(null)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg border border-slate-200 text-slate-400 hover:text-slate-900 cursor-pointer"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            {submitted ? (
+              <div className="text-center py-8">
+                <CheckCircle2 className="h-12 w-12 text-emerald-600 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-slate-950">Application Received!</h3>
+                <p className="mt-2 text-sm text-slate-600">
+                  Thank you for applying to the <span className="font-semibold">{applyingJob.title}</span> role. Our engineering leadership pod will review your profile within 48 business hours.
+                </p>
+                <button
+                  onClick={() => setApplyingJob(null)}
+                  className="mt-6 rounded-xl bg-slate-900 text-white text-xs font-bold px-6 py-2.5 shadow-sm cursor-pointer"
+                >
+                  Close Window
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitApplication} className="space-y-4">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Application</span>
+                  <h3 className="text-lg font-bold text-slate-950 mt-0.5">{applyingJob.title}</h3>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-900 block mb-1">Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Alex Morgan"
+                    value={formState.name}
+                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-900 block mb-1">Email Address *</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="alex@domain.com"
+                    value={formState.email}
+                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-slate-900 block mb-1">Portfolio, Resume Link, or GitHub *</label>
+                  <input
+                    type="url"
+                    required
+                    placeholder="https://github.com/... or LinkedIn"
+                    value={formState.resumeUrl}
+                    onChange={(e) => setFormState({ ...formState, resumeUrl: e.target.value })}
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={appMutation.isPending}
+                    className="w-full rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                    {appMutation.isPending ? "Submitting..." : "Submit Application"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

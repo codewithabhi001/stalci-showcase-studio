@@ -2,6 +2,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { ToastProvider } from "@/components/ui/toast";
+import { RbacProvider } from "@/lib/rbac-context";
 import Lenis from "lenis";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -10,7 +11,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1, staleTime: 30_000 } },
       }),
-  );  useEffect(() => {
+  );
+
+  useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -35,7 +38,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={client}>
-      <ToastProvider>{children}</ToastProvider>
+      <RbacProvider>
+        <ToastProvider>{children}</ToastProvider>
+      </RbacProvider>
     </QueryClientProvider>
   );
 }

@@ -7,31 +7,43 @@ export function ConfirmDialog({
   open,
   title,
   message,
-  confirmLabel = "Delete",
+  description,
+  confirmLabel,
+  confirmText = "Delete",
   loading = false,
+  danger = false,
   onConfirm,
   onCancel,
+  onClose,
 }: {
   open: boolean;
   title: string;
-  message: string;
+  message?: string;
+  description?: string;
   confirmLabel?: string;
+  confirmText?: string;
   loading?: boolean;
+  danger?: boolean;
   onConfirm: () => void;
-  onCancel: () => void;
+  onCancel?: () => void;
+  onClose?: () => void;
 }) {
+  const handleClose = onCancel || onClose || (() => {});
+  const displayMessage = message || description || "Are you sure you want to proceed?";
+  const displayLabel = confirmLabel || confirmText;
+
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onCancel();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && handleClose();
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open, onCancel]);
+  }, [open, handleClose]);
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4">
-      <div className="animate-fade-in absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onCancel} />
+    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 no-print">
+      <div className="animate-fade-in absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={handleClose} />
       <div
         role="alertdialog"
         aria-modal="true"
@@ -42,13 +54,13 @@ export function ConfirmDialog({
           <AlertTriangle className="h-5 w-5" />
         </span>
         <h3 className="text-base font-semibold text-ink">{title}</h3>
-        <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{message}</p>
+        <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{displayMessage}</p>
         <div className="mt-6 flex justify-end gap-2">
-          <Button variant="secondary" onClick={onCancel}>
+          <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="danger" loading={loading} onClick={onConfirm}>
-            {confirmLabel}
+            {displayLabel}
           </Button>
         </div>
       </div>
