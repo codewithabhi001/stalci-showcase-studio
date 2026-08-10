@@ -70,36 +70,38 @@ h1, h2, h3, h4 { letter-spacing: -0.018em; }
 }
 
 /* ─── Utilities ─── */
-.eyebrow {
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-faint);
-}
+@layer components {
+  .eyebrow {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
 
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-card);
-}
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
 
-.field {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--color-line-strong);
-  background: var(--color-surface);
-  padding: 0.625rem 0.875rem;
-  font-size: 0.875rem;
-  color: var(--color-ink);
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.field::placeholder { color: var(--color-faint); }
-.field:focus {
-  border-color: var(--color-copper);
-  box-shadow: 0 0 0 3px rgba(193, 127, 66, 0.15);
+  .field {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field::placeholder { color: var(--color-faint); }
+  .field:focus {
+    border-color: var(--color-copper);
+    box-shadow: 0 0 0 3px rgba(193, 127, 66, 0.15);
+  }
 }
 
 /* ─── Animation ─── */

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
@@ -64,3 +65,10 @@ export const deleteInvoice = (id: number) => api.delete(`/finance/invoices/${id}
 
 // --- Dashboard Stats ---
 export const fetchStats = () => api.get("/finance/stats").then((r) => r.data);
+
+// --- Admin ---
+export const fetchProfile = () => api.get("/admin/profile").then((r) => r.data);
+export const updateProfile = (data: any) => api.put("/admin/profile", data).then((r) => r.data);
+
+export const fetchNotifications = () => api.get("/admin/notifications").then((r) => r.data);
+export const markNotificationsRead = () => api.put("/admin/notifications/read").then((r) => r.data);

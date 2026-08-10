@@ -30,7 +30,7 @@ export default function LoginPage() {
           style={{ background: "#c17f42" }}
         />
         <div className="relative flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-copper text-sm font-bold text-white">S</span>
+          <img src="/stalci-mark.png" alt="Stalci Logo" className="h-9 w-9 rounded-[10px]" />
           <span className="text-[15px] font-semibold tracking-tight text-white">Stalci Console</span>
         </div>
         <div className="relative max-w-md">
@@ -48,9 +48,7 @@ export default function LoginPage() {
       <div className="flex items-center justify-center bg-canvas px-5 py-14">
         <form onSubmit={handleLogin} className="card w-full max-w-[400px] p-8">
           <div className="lg:hidden">
-            <span className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-[11px] bg-copper text-sm font-bold text-white">
-              S
-            </span>
+            <img src="/stalci-mark.png" alt="Stalci Logo" className="mb-6 h-10 w-10 rounded-[11px]" />
           </div>
           <h1 className="text-[22px] font-semibold tracking-tight text-ink">Sign in</h1>
           <p className="mt-1.5 text-[13px] text-muted">Use your Stalci administrator account to continue.</p>

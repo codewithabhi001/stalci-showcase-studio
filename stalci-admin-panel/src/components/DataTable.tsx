@@ -1,5 +1,6 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Pencil, Trash2, Plus, Search, ChevronLeft, ChevronRight, ArrowUpDown, Inbox } from "lucide-react";
 import { Button, IconButton } from "@/components/ui/button";
@@ -66,6 +67,15 @@ export default function DataTable({
   const [pendingDelete, setPendingDelete] = useState<any>(null);
 
   const entity = title.replace(/ (Management|Admin)$/i, "");
+  
+  const searchParams = useSearchParams();
+  const isNew = searchParams.get("new") === "true";
+
+  useEffect(() => {
+    if (isNew && onCreate && !drawerOpen) {
+      openCreate();
+    }
+  }, [isNew, onCreate]);
 
   const invalidate = () => qc.invalidateQueries({ queryKey: [queryKey] });
 

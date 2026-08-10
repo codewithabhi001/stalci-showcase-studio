@@ -1,5 +1,6 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
 export function Drawer({
@@ -17,6 +18,13 @@ export function Drawer({
   footer?: React.ReactNode;
   children: React.ReactNode;
 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -28,19 +36,19 @@ export function Drawer({
     };
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
-  return (
-    <div className="fixed inset-0 z-[80] flex justify-end">
+  return createPortal(
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6">
       <div className="animate-fade-in absolute inset-0 bg-ink/35 backdrop-blur-[2px]" onClick={onClose} />
-      <aside
+      <div
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="animate-slide-in-right relative flex h-full w-full max-w-[520px] flex-col border-l border-line bg-surface"
+        className="animate-pop relative flex w-full max-w-[560px] max-h-[95vh] flex-col rounded-[14px] border border-line bg-surface overflow-hidden"
         style={{ boxShadow: "var(--shadow-modal)" }}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-line px-6 py-5">
+        <header className="flex items-start justify-between gap-4 border-b border-line px-6 py-5 shrink-0">
           <div>
             <h2 className="text-lg font-semibold text-ink">{title}</h2>
             {description && <p className="mt-1 text-[13px] text-muted">{description}</p>}
@@ -50,8 +58,9 @@ export function Drawer({
           </button>
         </header>
         <div className="flex-1 overflow-y-auto px-6 py-6">{children}</div>
-        {footer && <footer className="border-t border-line bg-surface-2 px-6 py-4">{footer}</footer>}
-      </aside>
-    </div>
+        {footer && <footer className="border-t border-line bg-surface-2 px-6 py-4 shrink-0">{footer}</footer>}
+      </div>
+    </div>,
+    document.body
   );
 }
