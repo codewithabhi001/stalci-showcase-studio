@@ -670,6 +670,16 @@ export class HrService {
     });
   }
 
+  async updatePerformanceReview(id: number, data: any) {
+    return this.prisma.performanceReview.update({
+      where: { id: Number(id) },
+      data: {
+        ...data,
+        rating: data.rating !== undefined ? Number(data.rating) : undefined,
+      },
+    });
+  }
+
   async getTrainings(employeeId?: number) {
     const where: any = {};
     if (employeeId) where.employeeId = Number(employeeId);
@@ -688,6 +698,17 @@ export class HrService {
         employeeId: Number(data.employeeId),
         startDate: new Date(data.startDate),
         completionDate: data.completionDate ? new Date(data.completionDate) : null,
+      },
+    });
+  }
+
+  async updateTraining(id: number, data: any) {
+    return this.prisma.trainingRecord.update({
+      where: { id: Number(id) },
+      data: {
+        ...data,
+        startDate: data.startDate ? new Date(data.startDate) : undefined,
+        completionDate: data.completionDate ? new Date(data.completionDate) : undefined,
       },
     });
   }

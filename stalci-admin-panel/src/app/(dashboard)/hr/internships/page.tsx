@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchInternships, issueInternshipCertificate, deleteInternship, fetchEmployees, createInternship } from "@/lib/api";
+import { fetchInternships, issueInternshipCertificate, deleteInternship, fetchEmployees, createInternship, updateInternship } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
@@ -16,11 +16,13 @@ import {
   Building,
   Trash2,
   Plus,
+  Pencil,
 } from "lucide-react";
 
 export default function InternshipsPage() {
   const qc = useQueryClient();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingIntern, setEditingIntern] = useState<any | null>(null);
 
   const [formData, setFormData] = useState({
     employeeId: "",
@@ -59,6 +61,15 @@ export default function InternshipsPage() {
         endDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
         performanceNotes: "",
       });
+    },
+  });
+
+  const updateInternMut = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => updateInternship(id, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["internships"] });
+      toast.success("Internship details updated");
+      setEditingIntern(null);
     },
   });
 
@@ -240,6 +251,13 @@ export default function InternshipsPage() {
                         >
                           <Printer className="h-3.5 w-3.5" /> Certificate
                         </button>
+                        <button
+                          onClick={() => setEditingIntern(intern)}
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-ink transition-colors cursor-pointer"
+                          title="Edit Internship Details"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
                         {!intern.certificateIssued && (
                           <button
                             onClick={() => certMut.mutate(intern.id)}
@@ -384,6 +402,107 @@ export default function InternshipsPage() {
             />
           </div>
         </form>
+      </Drawer>
+
+      {/* Edit Internship Drawer */}
+      <Drawer
+        open={!!editingIntern}
+        onClose={() => setEditingIntern(null)}
+        title={`Edit Research Fellowship: ${editingIntern?.employee?.name || "Intern"}`}
+        description="Update academic institute, project title, mentor assignment, stipend amount, and notes."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setEditingIntern(null)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                editingIntern && updateInternMut.mutate({ id: editingIntern.id, data: editingIntern });
+              }}
+              disabled={updateInternMut.isPending || !editingIntern?.projectTitle}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Internship Updates
+            </Button>
+          </div>
+        }
+      >
+        {editingIntern && (
+          <form className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Academic Institute / University *</label>
+              <input
+                type="text"
+                value={editingIntern.institute || ""}
+                onChange={(e) => setEditingIntern({ ...editingIntern, institute: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Research Project Title *</label>
+              <input
+                type="text"
+                value={editingIntern.projectTitle || ""}
+                onChange={(e) => setEditingIntern({ ...editingIntern, projectTitle: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Assigned Mentor</label>
+                <input
+                  type="text"
+                  value={editingIntern.mentorName || ""}
+                  onChange={(e) => setEditingIntern({ ...editingIntern, mentorName: e.target.value })}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Monthly Stipend ($ USD)</label>
+                <input
+                  type="number"
+                  value={editingIntern.stipend || 0}
+                  onChange={(e) => setEditingIntern({ ...editingIntern, stipend: Number(e.target.value) })}
+                  className="field font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Fellowship Start Date</label>
+                <input
+                  type="date"
+                  value={editingIntern.startDate ? new Date(editingIntern.startDate).toISOString().split("T")[0] : ""}
+                  onChange={(e) => setEditingIntern({ ...editingIntern, startDate: e.target.value })}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Fellowship End Date</label>
+                <input
+                  type="date"
+                  value={editingIntern.endDate ? new Date(editingIntern.endDate).toISOString().split("T")[0] : ""}
+                  onChange={(e) => setEditingIntern({ ...editingIntern, endDate: e.target.value })}
+                  className="field"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Performance & Evaluation Notes</label>
+              <textarea
+                rows={3}
+                value={editingIntern.performanceNotes || ""}
+                onChange={(e) => setEditingIntern({ ...editingIntern, performanceNotes: e.target.value })}
+                className="field"
+              />
+            </div>
+          </form>
+        )}
       </Drawer>
     </div>
   );

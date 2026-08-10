@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   fetchOfferLetters,
   createOfferLetter,
+  updateOfferLetter,
   sendOfferLetter,
   deleteOfferLetter,
   fetchCandidates,
@@ -24,11 +25,13 @@ import {
   Clock,
   Eye,
   Trash2,
+  Pencil,
 } from "lucide-react";
 
 export default function OffersPage() {
   const qc = useQueryClient();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingOffer, setEditingOffer] = useState<any | null>(null);
   const [viewingOffer, setViewingOffer] = useState<any | null>(null);
 
   const [formData, setFormData] = useState({
@@ -60,6 +63,15 @@ export default function OffersPage() {
       qc.invalidateQueries({ queryKey: ["offers"] });
       toast.success("Offer letter generated");
       setIsCreateOpen(false);
+    },
+  });
+
+  const updateOfferMut = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => updateOfferLetter(id, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["offers"] });
+      toast.success("Offer letter details updated");
+      setEditingOffer(null);
     },
   });
 
@@ -229,6 +241,13 @@ export default function OffersPage() {
                         >
                           <Printer className="h-3.5 w-3.5 text-copper" />
                         </button>
+                        <button
+                          onClick={() => setEditingOffer(offer)}
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-ink transition-colors cursor-pointer"
+                          title="Edit Offer Letter Details"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
                         {offer.status === "DRAFT" && (
                           <button
                             onClick={() => sendMut.mutate(offer.id)}
@@ -353,6 +372,107 @@ export default function OffersPage() {
             />
           </div>
         </form>
+      </Drawer>
+
+      {/* Edit Offer Drawer */}
+      <Drawer
+        open={!!editingOffer}
+        onClose={() => setEditingOffer(null)}
+        title={`Edit Offer Terms: ${editingOffer?.candidateName}`}
+        description="Update proposed compensation, designation, department, and target start date."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setEditingOffer(null)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                editingOffer && updateOfferMut.mutate({ id: editingOffer.id, data: editingOffer });
+              }}
+              disabled={updateOfferMut.isPending || !editingOffer?.candidateName}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Offer Changes
+            </Button>
+          </div>
+        }
+      >
+        {editingOffer && (
+          <form className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Candidate Name *</label>
+              <input
+                type="text"
+                value={editingOffer.candidateName || ""}
+                onChange={(e) => setEditingOffer({ ...editingOffer, candidateName: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Candidate Email *</label>
+              <input
+                type="email"
+                value={editingOffer.candidateEmail || ""}
+                onChange={(e) => setEditingOffer({ ...editingOffer, candidateEmail: e.target.value })}
+                className="field font-mono"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Proposed Designation *</label>
+                <input
+                  type="text"
+                  value={editingOffer.designation || ""}
+                  onChange={(e) => setEditingOffer({ ...editingOffer, designation: e.target.value })}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Annual CTC ($ USD) *</label>
+                <input
+                  type="number"
+                  value={editingOffer.salaryCtc || 0}
+                  onChange={(e) => setEditingOffer({ ...editingOffer, salaryCtc: Number(e.target.value) })}
+                  className="field font-mono font-bold"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Joining Date *</label>
+                <input
+                  type="date"
+                  value={editingOffer.joiningDate ? new Date(editingOffer.joiningDate).toISOString().split("T")[0] : ""}
+                  onChange={(e) => setEditingOffer({ ...editingOffer, joiningDate: e.target.value })}
+                  className="field font-mono"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Probation Period (Months)</label>
+                <input
+                  type="number"
+                  value={editingOffer.probationMonths || 3}
+                  onChange={(e) => setEditingOffer({ ...editingOffer, probationMonths: Number(e.target.value) })}
+                  className="field"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Work Location</label>
+              <input
+                type="text"
+                value={editingOffer.workLocation || "San Francisco, CA / Remote"}
+                onChange={(e) => setEditingOffer({ ...editingOffer, workLocation: e.target.value })}
+                className="field"
+              />
+            </div>
+          </form>
+        )}
       </Drawer>
     </div>
   );

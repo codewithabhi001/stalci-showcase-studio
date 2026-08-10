@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   fetchAssets,
   createAsset,
+  updateAsset,
   assignAsset,
   returnAsset,
   deleteAsset,
@@ -23,12 +24,14 @@ import {
   Key,
   Smartphone,
   Cpu,
+  Pencil,
 } from "lucide-react";
 
 export default function AssetsPage() {
   const qc = useQueryClient();
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingAsset, setEditingAsset] = useState<any | null>(null);
   const [assigningAsset, setAssigningAsset] = useState<any | null>(null);
   const [selectedEmpId, setSelectedEmpId] = useState("");
 
@@ -58,6 +61,15 @@ export default function AssetsPage() {
       qc.invalidateQueries({ queryKey: ["hr-dashboard"] });
       toast.success("Asset added to inventory");
       setIsCreateOpen(false);
+    },
+  });
+
+  const updateAssetMut = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => updateAsset(id, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["assets"] });
+      toast.success("Asset hardware details updated");
+      setEditingAsset(null);
     },
   });
 
@@ -173,22 +185,40 @@ export default function AssetsPage() {
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-line flex items-center justify-between">
+                <div className="pt-3 border-t border-line flex items-center justify-between gap-2">
                   {asset.status === "AVAILABLE" ? (
-                    <Button
-                      onClick={() => setAssigningAsset(asset)}
-                      className="h-8 text-xs font-bold bg-copper text-slate-950 gap-1 w-full"
-                    >
-                      <UserCheck className="h-3.5 w-3.5" /> Assign to Employee
-                    </Button>
+                    <div className="flex items-center gap-2 w-full">
+                      <Button
+                        onClick={() => setAssigningAsset(asset)}
+                        className="h-8 text-xs font-bold bg-copper text-slate-950 gap-1 flex-1"
+                      >
+                        <UserCheck className="h-3.5 w-3.5" /> Assign to Employee
+                      </Button>
+                      <button
+                        onClick={() => setEditingAsset(asset)}
+                        className="p-2 rounded-lg border border-line text-muted hover:text-ink cursor-pointer h-8 w-8 flex items-center justify-center"
+                        title="Edit Asset Details"
+                      >
+                        <Pencil className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
                   ) : (
                     <div className="flex items-center justify-between w-full">
-                      <button
-                        onClick={() => returnMut.mutate(asset.id)}
-                        className="px-3 py-1.5 rounded-lg border border-line bg-canvas hover:bg-surface-2 text-xs font-bold text-ink cursor-pointer flex items-center gap-1"
-                      >
-                        <RotateCcw className="h-3 w-3" /> Return Asset
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => returnMut.mutate(asset.id)}
+                          className="px-3 py-1.5 rounded-lg border border-line bg-canvas hover:bg-surface-2 text-xs font-bold text-ink cursor-pointer flex items-center gap-1"
+                        >
+                          <RotateCcw className="h-3 w-3" /> Return Asset
+                        </button>
+                        <button
+                          onClick={() => setEditingAsset(asset)}
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-ink cursor-pointer"
+                          title="Edit Asset Details"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
                       <button
                         onClick={() => deleteMut.mutate(asset.id)}
                         className="p-1.5 text-muted hover:text-red-600 cursor-pointer"
@@ -308,6 +338,105 @@ export default function AssetsPage() {
             </div>
           </div>
         </form>
+      </Drawer>
+
+      {/* Edit Asset Drawer */}
+      <Drawer
+        open={!!editingAsset}
+        onClose={() => setEditingAsset(null)}
+        title={`Edit Hardware Asset: ${editingAsset?.name}`}
+        description="Update serial number, asset category, physical condition, and notes."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setEditingAsset(null)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                editingAsset && updateAssetMut.mutate({ id: editingAsset.id, data: editingAsset });
+              }}
+              disabled={updateAssetMut.isPending || !editingAsset?.name}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Asset Updates
+            </Button>
+          </div>
+        }
+      >
+        {editingAsset && (
+          <form className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Asset Name *</label>
+              <input
+                type="text"
+                value={editingAsset.name || ""}
+                onChange={(e) => setEditingAsset({ ...editingAsset, name: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Asset Category</label>
+                <select
+                  value={editingAsset.assetType || "Laptop"}
+                  onChange={(e) => setEditingAsset({ ...editingAsset, assetType: e.target.value })}
+                  className="field"
+                >
+                  <option value="Laptop">Laptop</option>
+                  <option value="Monitor">Monitor</option>
+                  <option value="Security Card">Security Card / Key</option>
+                  <option value="Mobile">Mobile</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Serial Number *</label>
+                <input
+                  type="text"
+                  value={editingAsset.serialNumber || ""}
+                  onChange={(e) => setEditingAsset({ ...editingAsset, serialNumber: e.target.value })}
+                  className="field font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Physical Condition</label>
+                <select
+                  value={editingAsset.condition || "EXCELLENT"}
+                  onChange={(e) => setEditingAsset({ ...editingAsset, condition: e.target.value })}
+                  className="field"
+                >
+                  <option value="EXCELLENT">Excellent (Like New)</option>
+                  <option value="GOOD">Good (Minor Wear)</option>
+                  <option value="FAIR">Fair (Needs Service)</option>
+                  <option value="DAMAGED">Damaged / Retired</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Procurement Cost ($ USD)</label>
+                <input
+                  type="number"
+                  value={editingAsset.cost || 0}
+                  onChange={(e) => setEditingAsset({ ...editingAsset, cost: Number(e.target.value) })}
+                  className="field font-mono"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Asset Notes & Custody Remarks</label>
+              <textarea
+                rows={3}
+                value={editingAsset.notes || ""}
+                onChange={(e) => setEditingAsset({ ...editingAsset, notes: e.target.value })}
+                className="field"
+              />
+            </div>
+          </form>
+        )}
       </Drawer>
     </div>
   );

@@ -273,6 +273,11 @@ export class HrController {
     return this.hrService.createPerformanceReview(body);
   }
 
+  @Put('performance/:id')
+  updatePerformanceReview(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+    return this.hrService.updatePerformanceReview(id, body);
+  }
+
   @Get('training')
   getTrainings(@Query('employeeId') employeeId?: number) {
     return this.hrService.getTrainings(employeeId);
@@ -281,6 +286,11 @@ export class HrController {
   @Post('training')
   createTraining(@Body() body: any) {
     return this.hrService.createTraining(body);
+  }
+
+  @Put('training/:id')
+  updateTraining(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+    return this.hrService.updateTraining(id, body);
   }
 
   // 11. Assets

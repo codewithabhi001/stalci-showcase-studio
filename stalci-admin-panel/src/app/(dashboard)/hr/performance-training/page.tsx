@@ -5,7 +5,9 @@ import {
   fetchPerformanceReviews,
   fetchTrainings,
   createPerformanceReview,
+  updatePerformanceReview,
   createTraining,
+  updateTraining,
   fetchEmployees,
 } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +22,7 @@ import {
   Calendar,
   CheckCircle2,
   Award,
+  Pencil,
 } from "lucide-react";
 
 export default function PerformanceTrainingPage() {
@@ -27,6 +30,8 @@ export default function PerformanceTrainingPage() {
   const [activeTab, setActiveTab] = useState<"performance" | "training">("performance");
   const [isRevOpen, setIsRevOpen] = useState(false);
   const [isTrainOpen, setIsTrainOpen] = useState(false);
+  const [editingRev, setEditingRev] = useState<any | null>(null);
+  const [editingTrain, setEditingTrain] = useState<any | null>(null);
 
   const [revData, setRevData] = useState({
     employeeId: "",
@@ -71,12 +76,30 @@ export default function PerformanceTrainingPage() {
     },
   });
 
+  const updateRevMut = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => updatePerformanceReview(id, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["performance-reviews"] });
+      toast.success("Performance appraisal updated");
+      setEditingRev(null);
+    },
+  });
+
   const trainMut = useMutation({
     mutationFn: createTraining,
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["trainings"] });
       toast.success("Training program enrolled");
       setIsTrainOpen(false);
+    },
+  });
+
+  const updateTrainMut = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => updateTraining(id, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["trainings"] });
+      toast.success("Training record updated");
+      setEditingTrain(null);
     },
   });
 
@@ -146,9 +169,18 @@ export default function PerformanceTrainingPage() {
                     <h3 className="text-sm font-bold text-ink">{rev.employee?.name}</h3>
                     <p className="text-[11px] text-muted">{rev.employee?.designation} • {rev.employee?.department?.name}</p>
                   </div>
-                  <Badge tone="copper" className="font-bold flex items-center gap-1">
-                    <Star className="h-3 w-3 fill-amber-500 text-amber-500" /> {rev.rating} / 5
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setEditingRev(rev)}
+                      className="p-1.5 rounded-lg border border-line text-muted hover:text-ink transition-colors cursor-pointer"
+                      title="Edit Review Details"
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                    </button>
+                    <Badge tone="copper" className="font-bold flex items-center gap-1">
+                      <Star className="h-3 w-3 fill-amber-500 text-amber-500" /> {rev.rating} / 5
+                    </Badge>
+                  </div>
                 </div>
 
                 <div className="text-xs space-y-2 pt-2 border-t border-line">
@@ -183,6 +215,7 @@ export default function PerformanceTrainingPage() {
                     <th className="px-5 py-3.5">Skills Learned</th>
                     <th className="px-5 py-3.5">Timeline</th>
                     <th className="px-5 py-3.5">Status</th>
+                    <th className="px-5 py-3.5 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line">
@@ -196,9 +229,18 @@ export default function PerformanceTrainingPage() {
                         {new Date(t.startDate).toLocaleDateString()}
                       </td>
                       <td className="px-5 py-4">
-                        <Badge tone={t.status === "COMPLETED" ? "success" : "info"}>
-                          {t.status}
+                        <Badge tone={t.completionDate ? "success" : "warning"}>
+                          {t.completionDate ? "Completed" : "In Progress"}
                         </Badge>
+                      </td>
+                      <td className="px-5 py-4 text-right">
+                        <button
+                          onClick={() => setEditingTrain(t)}
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-ink transition-colors cursor-pointer"
+                          title="Edit Training Program"
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -341,6 +383,173 @@ export default function PerformanceTrainingPage() {
             />
           </div>
         </form>
+      </Drawer>
+
+      {/* Edit Review Drawer */}
+      <Drawer
+        open={!!editingRev}
+        onClose={() => setEditingRev(null)}
+        title={`Edit Performance Appraisal: ${editingRev?.employee?.name || "Employee"}`}
+        description="Update rating, key goals & KPIs, manager feedback, and promotion recommendation."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setEditingRev(null)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                editingRev && updateRevMut.mutate({ id: editingRev.id, data: editingRev });
+              }}
+              disabled={updateRevMut.isPending || !editingRev?.reviewPeriod}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Appraisal Changes
+            </Button>
+          </div>
+        }
+      >
+        {editingRev && (
+          <form className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Review Period *</label>
+                <input
+                  type="text"
+                  value={editingRev.reviewPeriod || "Q3 2026"}
+                  onChange={(e) => setEditingRev({ ...editingRev, reviewPeriod: e.target.value })}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Overall Rating (1 - 5 Stars) *</label>
+                <select
+                  value={editingRev.rating || 5}
+                  onChange={(e) => setEditingRev({ ...editingRev, rating: Number(e.target.value) })}
+                  className="field font-bold text-copper"
+                >
+                  <option value={5}>5 Stars - Exceptional</option>
+                  <option value={4}>4 Stars - Exceeds Expectations</option>
+                  <option value={3}>3 Stars - Meets Expectations</option>
+                  <option value={2}>2 Stars - Needs Improvement</option>
+                  <option value={1}>1 Star - Unsatisfactory</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Goals & Key Performance Indicators (KPIs)</label>
+              <textarea
+                rows={3}
+                value={editingRev.goalsKpi || ""}
+                onChange={(e) => setEditingRev({ ...editingRev, goalsKpi: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Manager Appraisal Feedback</label>
+              <textarea
+                rows={3}
+                value={editingRev.managerFeedback || ""}
+                onChange={(e) => setEditingRev({ ...editingRev, managerFeedback: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Promotion / Transfer Recommendation</label>
+              <input
+                type="text"
+                placeholder="e.g. Recommended for Senior Engineer promotion in Q4"
+                value={editingRev.promotionRecommendation || ""}
+                onChange={(e) => setEditingRev({ ...editingRev, promotionRecommendation: e.target.value })}
+                className="field"
+              />
+            </div>
+          </form>
+        )}
+      </Drawer>
+
+      {/* Edit Training Drawer */}
+      <Drawer
+        open={!!editingTrain}
+        onClose={() => setEditingTrain(null)}
+        title={`Edit Training Program: ${editingTrain?.courseTitle}`}
+        description="Update course title, instructor, skills learned, and completion timeline."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setEditingTrain(null)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                editingTrain && updateTrainMut.mutate({ id: editingTrain.id, data: editingTrain });
+              }}
+              disabled={updateTrainMut.isPending || !editingTrain?.courseTitle}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Training Updates
+            </Button>
+          </div>
+        }
+      >
+        {editingTrain && (
+          <form className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Course Title *</label>
+              <input
+                type="text"
+                value={editingTrain.courseTitle || ""}
+                onChange={(e) => setEditingTrain({ ...editingTrain, courseTitle: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Trainer / Academy Provider</label>
+                <input
+                  type="text"
+                  value={editingTrain.trainer || "STALCI Academy"}
+                  onChange={(e) => setEditingTrain({ ...editingTrain, trainer: e.target.value })}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Key Skills Taught</label>
+                <input
+                  type="text"
+                  value={editingTrain.skillsLearned || ""}
+                  onChange={(e) => setEditingTrain({ ...editingTrain, skillsLearned: e.target.value })}
+                  className="field"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Start Date</label>
+                <input
+                  type="date"
+                  value={editingTrain.startDate ? new Date(editingTrain.startDate).toISOString().split("T")[0] : ""}
+                  onChange={(e) => setEditingTrain({ ...editingTrain, startDate: e.target.value })}
+                  className="field"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Completion Date (Leave blank if ongoing)</label>
+                <input
+                  type="date"
+                  value={editingTrain.completionDate ? new Date(editingTrain.completionDate).toISOString().split("T")[0] : ""}
+                  onChange={(e) => setEditingTrain({ ...editingTrain, completionDate: e.target.value })}
+                  className="field"
+                />
+              </div>
+            </div>
+          </form>
+        )}
       </Drawer>
     </div>
   );

@@ -200,9 +200,11 @@ export const deleteEmployeeDocument = (id: number) => api.delete(`/hr/documents/
 export const fetchPerformanceReviews = (employeeId?: number) =>
   api.get("/hr/performance", { params: employeeId ? { employeeId } : {} }).then((r) => r.data);
 export const createPerformanceReview = (data: any) => api.post("/hr/performance", data).then((r) => r.data);
+export const updatePerformanceReview = (id: number, data: any) => api.put(`/hr/performance/${id}`, data).then((r) => r.data);
 export const fetchTrainings = (employeeId?: number) =>
   api.get("/hr/training", { params: employeeId ? { employeeId } : {} }).then((r) => r.data);
 export const createTraining = (data: any) => api.post("/hr/training", data).then((r) => r.data);
+export const updateTraining = (id: number, data: any) => api.put(`/hr/training/${id}`, data).then((r) => r.data);
 
 // 11. Assets
 export const fetchAssets = (status?: string) =>

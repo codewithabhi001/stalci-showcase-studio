@@ -26,6 +26,7 @@ import {
   UserCheck,
   ArrowRight,
   FileText,
+  Pencil,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -33,19 +34,17 @@ export default function RecruitmentPipelinePage() {
   const qc = useQueryClient();
   const [stageFilter, setStageFilter] = useState("ALL");
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingCand, setEditingCand] = useState<any | null>(null);
   const [convertCandidate, setConvertCandidate] = useState<any | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    currentCompany: "",
-    experienceYrs: 0,
+    appliedPosition: "",
+    expectedSalaryCtc: 0,
     skills: "",
-    stage: "APPLIED",
-    rating: 5,
-    interviewDate: "",
-    interviewer: "",
+    source: "Direct",
     notes: "",
   });
 
@@ -82,6 +81,15 @@ export default function RecruitmentPipelinePage() {
       qc.invalidateQueries({ queryKey: ["candidates"] });
       qc.invalidateQueries({ queryKey: ["hr-dashboard"] });
       toast.success("Candidate stage updated");
+    },
+  });
+
+  const updateCandMut = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: any }) => updateCandidate(id, data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["candidates"] });
+      toast.success("Candidate details updated");
+      setEditingCand(null);
     },
   });
 
@@ -244,6 +252,13 @@ export default function RecruitmentPipelinePage() {
 
                 {cand.stage !== "HIRED" ? (
                   <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setEditingCand(cand)}
+                      className="p-1.5 rounded-lg border border-line text-muted hover:text-ink transition-colors cursor-pointer h-8 w-8 flex items-center justify-center"
+                      title="Edit Candidate Details"
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                    </button>
                     <Link
                       href={`/hr/offers?candidateId=${cand.id}&name=${encodeURIComponent(cand.name)}`}
                       className="h-8 px-3 rounded-lg border border-copper/50 bg-surface text-xs font-bold text-copper hover:bg-copper/10 transition-colors inline-flex items-center gap-1 cursor-pointer"
@@ -398,6 +413,118 @@ export default function RecruitmentPipelinePage() {
             />
           </div>
         </form>
+      </Drawer>
+
+      {/* Edit Candidate Drawer */}
+      <Drawer
+        open={!!editingCand}
+        onClose={() => setEditingCand(null)}
+        title={`Edit Candidate Profile: ${editingCand?.name}`}
+        description="Update contact information, applied position, compensation expectations, and technical skills."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setEditingCand(null)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                editingCand && updateCandMut.mutate({ id: editingCand.id, data: editingCand });
+              }}
+              disabled={updateCandMut.isPending || !editingCand?.name}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Save Candidate Updates
+            </Button>
+          </div>
+        }
+      >
+        {editingCand && (
+          <form className="space-y-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Full Candidate Name *</label>
+              <input
+                type="text"
+                value={editingCand.name || ""}
+                onChange={(e) => setEditingCand({ ...editingCand, name: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Applied Position / Role Title *</label>
+              <input
+                type="text"
+                value={editingCand.appliedPosition || ""}
+                onChange={(e) => setEditingCand({ ...editingCand, appliedPosition: e.target.value })}
+                className="field"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Email Address *</label>
+                <input
+                  type="email"
+                  value={editingCand.email || ""}
+                  onChange={(e) => setEditingCand({ ...editingCand, email: e.target.value })}
+                  className="field font-mono"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Phone Number</label>
+                <input
+                  type="text"
+                  value={editingCand.phone || ""}
+                  onChange={(e) => setEditingCand({ ...editingCand, phone: e.target.value })}
+                  className="field"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Expected Annual CTC ($ USD)</label>
+                <input
+                  type="number"
+                  value={editingCand.expectedSalaryCtc || 0}
+                  onChange={(e) => setEditingCand({ ...editingCand, expectedSalaryCtc: Number(e.target.value) })}
+                  className="field font-mono"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-ink block mb-1">Lead Source</label>
+                <input
+                  type="text"
+                  value={editingCand.source || "Direct"}
+                  onChange={(e) => setEditingCand({ ...editingCand, source: e.target.value })}
+                  className="field"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Technical Skills & Tech Stack</label>
+              <input
+                type="text"
+                value={editingCand.skills || ""}
+                onChange={(e) => setEditingCand({ ...editingCand, skills: e.target.value })}
+                className="field"
+                placeholder="e.g. Go, Rust, Kubernetes, Raft"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Interview & Evaluation Notes</label>
+              <textarea
+                rows={3}
+                value={editingCand.notes || ""}
+                onChange={(e) => setEditingCand({ ...editingCand, notes: e.target.value })}
+                className="field"
+              />
+            </div>
+          </form>
+        )}
       </Drawer>
     </div>
   );
