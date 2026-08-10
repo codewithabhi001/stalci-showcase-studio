@@ -196,6 +196,23 @@ export class HrController {
     return this.hrService.getPayslip(id);
   }
 
+  @Put('payroll/:id')
+  updatePayrollRecord(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: any,
+  ) {
+    return this.hrService.updatePayrollRecord(id, body);
+  }
+
+  @Post('payroll/:id/disburse')
+  disbursePayroll(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('paymentMode') paymentMode?: string,
+    @Body('referenceNumber') referenceNumber?: string,
+  ) {
+    return this.hrService.disbursePayroll(id, paymentMode, referenceNumber);
+  }
+
   // 9. Internships
   @Get('internships')
   getInternships() {

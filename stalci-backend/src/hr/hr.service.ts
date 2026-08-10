@@ -533,6 +533,46 @@ export class HrService {
     return record;
   }
 
+  async updatePayrollRecord(id: number, data: any) {
+    const basic = Number(data.basicSalary || 0);
+    const hra = Number(data.hra || 0);
+    const allowances = Number(data.allowances || 0);
+    const bonus = Number(data.bonus || 0);
+    const deductions = Number(data.deductions || 0);
+    const taxDeductions = Number(data.taxDeductions || 0);
+    const netSalary = (basic + hra + allowances + bonus) - (deductions + taxDeductions);
+
+    return this.prisma.payrollRecord.update({
+      where: { id: Number(id) },
+      data: {
+        basicSalary: basic,
+        hra,
+        allowances,
+        bonus,
+        deductions,
+        taxDeductions,
+        netSalary,
+        paymentMode: data.paymentMode || 'Direct Wire',
+        referenceNumber: data.referenceNumber,
+        status: data.status || 'PROCESSED',
+      },
+      include: { employee: { include: { department: true } } },
+    });
+  }
+
+  async disbursePayroll(id: number, paymentMode?: string, referenceNumber?: string) {
+    return this.prisma.payrollRecord.update({
+      where: { id: Number(id) },
+      data: {
+        status: 'PAID',
+        paidAt: new Date(),
+        paymentMode: paymentMode || 'Direct Wire',
+        referenceNumber: referenceNumber || `STALCI-WIRE-${Date.now()}`,
+      },
+      include: { employee: true },
+    });
+  }
+
   // ====================================================
   // 9. INTERNSHIP MANAGEMENT
   // ====================================================
