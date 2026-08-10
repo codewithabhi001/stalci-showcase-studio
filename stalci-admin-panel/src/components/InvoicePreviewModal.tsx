@@ -46,6 +46,16 @@ export function InvoicePreviewModal({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
+    fetch("/api/cms/config")
+      .then((r) => r.json())
+      .then((cfg) => {
+        if (cfg?.companySignatoryName) setSignatoryName(cfg.companySignatoryName);
+        if (cfg?.companySignatoryTitle) setSignatoryTitle(cfg.companySignatoryTitle);
+      })
+      .catch(() => {});
+  }, []);
+
+  React.useEffect(() => {
     if (initialInvoice) {
       setInvoice({
         ...initialInvoice,
