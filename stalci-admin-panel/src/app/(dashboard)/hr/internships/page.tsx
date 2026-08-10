@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchInternships, issueInternshipCertificate, deleteInternship } from "@/lib/api";
+import { fetchInternships, issueInternshipCertificate, deleteInternship, fetchEmployees, createInternship } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Drawer } from "@/components/ui/drawer";
 import { toast } from "@/components/ui/toast";
 import {
   GraduationCap,
@@ -14,14 +15,51 @@ import {
   Printer,
   Building,
   Trash2,
+  Plus,
 } from "lucide-react";
 
 export default function InternshipsPage() {
   const qc = useQueryClient();
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+  const [formData, setFormData] = useState({
+    employeeId: "",
+    institute: "",
+    mentorName: "",
+    projectTitle: "",
+    stipend: 3500,
+    startDate: new Date().toISOString().slice(0, 10),
+    endDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    performanceNotes: "",
+  });
 
   const { data: internships = [], isLoading } = useQuery({
     queryKey: ["internships"],
     queryFn: fetchInternships,
+  });
+
+  const { data: employees = [] } = useQuery({
+    queryKey: ["employees"],
+    queryFn: () => fetchEmployees(),
+  });
+
+  const createMut = useMutation({
+    mutationFn: createInternship,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["internships"] });
+      toast.success("Internship fellowship enrolled successfully");
+      setIsCreateOpen(false);
+      setFormData({
+        employeeId: "",
+        institute: "",
+        mentorName: "",
+        projectTitle: "",
+        stipend: 3500,
+        startDate: new Date().toISOString().slice(0, 10),
+        endDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+        performanceNotes: "",
+      });
+    },
   });
 
   const certMut = useMutation({
@@ -147,6 +185,10 @@ export default function InternshipsPage() {
             Track student researchers, academic institutes, mentorship assignments, stipends, and certificate issuance.
           </p>
         </div>
+
+        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+          <Plus className="h-4 w-4" /> Enroll Intern / Fellowship
+        </Button>
       </div>
 
       {/* Internships Table */}
@@ -223,6 +265,126 @@ export default function InternshipsPage() {
           )}
         </div>
       </div>
+
+      {/* Enroll Intern / Fellowship Drawer */}
+      <Drawer
+        open={isCreateOpen}
+        onClose={() => setIsCreateOpen(false)}
+        title="Enroll Intern & Research Fellowship"
+        description="Specify academic institute, research project title, mentor assignment, stipend, and fellowship duration."
+        footer={
+          <div className="flex justify-end gap-2">
+            <Button variant="secondary" onClick={() => setIsCreateOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                createMut.mutate(formData);
+              }}
+              disabled={createMut.isPending || !formData.employeeId || !formData.projectTitle}
+              className="bg-copper text-slate-950 font-bold"
+            >
+              Enroll Intern Fellowship
+            </Button>
+          </div>
+        }
+      >
+        <form className="space-y-4">
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Select Employee / Intern Roster *</label>
+            <select
+              value={formData.employeeId}
+              onChange={(e) => setFormData({ ...formData, employeeId: e.target.value })}
+              className="field"
+            >
+              <option value="">-- Choose Employee / Intern --</option>
+              {employees.map((emp: any) => (
+                <option key={emp.id} value={emp.id}>
+                  {emp.name} ({emp.employeeCode} - {emp.designation})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Academic Institute / University *</label>
+            <input
+              type="text"
+              placeholder="e.g. Stanford University (Computer Science)"
+              value={formData.institute}
+              onChange={(e) => setFormData({ ...formData, institute: e.target.value })}
+              className="field"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Research Project Title *</label>
+            <input
+              type="text"
+              placeholder="e.g. Sovereign Context Scaling & Attention Compression"
+              value={formData.projectTitle}
+              onChange={(e) => setFormData({ ...formData, projectTitle: e.target.value })}
+              className="field"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Assigned Mentor</label>
+              <input
+                type="text"
+                placeholder="e.g. Dr. Elena Rostova"
+                value={formData.mentorName}
+                onChange={(e) => setFormData({ ...formData, mentorName: e.target.value })}
+                className="field"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Monthly Stipend ($ USD)</label>
+              <input
+                type="number"
+                placeholder="3500"
+                value={formData.stipend}
+                onChange={(e) => setFormData({ ...formData, stipend: Number(e.target.value) })}
+                className="field font-mono"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Fellowship Start Date</label>
+              <input
+                type="date"
+                value={formData.startDate}
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                className="field"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-ink block mb-1">Fellowship End Date</label>
+              <input
+                type="date"
+                value={formData.endDate}
+                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                className="field"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-ink block mb-1">Performance & Mentor Evaluation Notes</label>
+            <textarea
+              rows={3}
+              placeholder="Demonstrates exceptional mathematical intuition and efficient PyTorch CUDA kernel implementation..."
+              value={formData.performanceNotes}
+              onChange={(e) => setFormData({ ...formData, performanceNotes: e.target.value })}
+              className="field"
+            />
+          </div>
+        </form>
+      </Drawer>
     </div>
   );
 }
