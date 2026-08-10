@@ -30,6 +30,8 @@ import {
   Award,
   AlertCircle,
   ExternalLink,
+  FileCode,
+  LogOut,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -153,11 +155,40 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
               <div className="text-2xl font-extrabold text-ink font-mono mt-0.5">
                 ${emp.salaryCtc?.toLocaleString()}
               </div>
-              <span className="text-[11px] text-emerald-600 font-semibold">
-                ${Math.round((emp.salaryCtc || 0) / 12).toLocaleString()} / month
-              </span>
+              <span className="text-[10px] text-muted block mt-1">Monthly ~${Math.round((emp.salaryCtc || 0) / 12).toLocaleString()}</span>
             </div>
           )}
+        </div>
+
+        {/* Quick Action Document Dispatch Toolbar */}
+        <div className="mt-6 pt-5 border-t border-line flex items-center justify-between gap-3 flex-wrap">
+          <span className="text-xs font-bold text-ink">Employee Quick Document & Certificate Actions:</span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <Link
+              href="/hr/letters"
+              className="px-3 py-1.5 rounded-xl border border-line bg-canvas hover:bg-copper/10 text-xs font-bold text-copper flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <FileCode className="h-3.5 w-3.5" /> Issue HR Letter / Cert
+            </Link>
+            <Link
+              href="/hr/internships"
+              className="px-3 py-1.5 rounded-xl border border-line bg-canvas hover:bg-copper/10 text-xs font-bold text-copper flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <Award className="h-3.5 w-3.5" /> Issue Internship Cert
+            </Link>
+            <Link
+              href="/hr/payroll"
+              className="px-3 py-1.5 rounded-xl border border-line bg-canvas hover:bg-copper/10 text-xs font-bold text-copper flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <DollarSign className="h-3.5 w-3.5" /> View Payslips & Salary
+            </Link>
+            <Link
+              href="/hr/exits"
+              className="px-3 py-1.5 rounded-xl border border-line bg-canvas hover:bg-copper/10 text-xs font-bold text-copper flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <LogOut className="h-3.5 w-3.5" /> Exit & F&F Clearance
+            </Link>
+          </div>
         </div>
 
         {/* Tab Navigation */}

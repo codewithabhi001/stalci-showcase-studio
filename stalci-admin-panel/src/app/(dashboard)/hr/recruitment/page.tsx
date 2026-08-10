@@ -25,6 +25,7 @@ import {
   ExternalLink,
   UserCheck,
   ArrowRight,
+  FileText,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -241,13 +242,21 @@ export default function RecruitmentPipelinePage() {
                   <option value="REJECTED">Rejected</option>
                 </select>
 
-                {!cand.convertedToEmp ? (
-                  <Button
-                    onClick={() => handleOpenConvert(cand)}
-                    className="h-8 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white gap-1"
-                  >
-                    <UserCheck className="h-3.5 w-3.5" /> Convert to Employee
-                  </Button>
+                {cand.stage !== "HIRED" ? (
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/hr/offers?candidateId=${cand.id}&name=${encodeURIComponent(cand.name)}`}
+                      className="h-8 px-3 rounded-lg border border-copper/50 bg-surface text-xs font-bold text-copper hover:bg-copper/10 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      <FileText className="h-3.5 w-3.5" /> Draft Offer
+                    </Link>
+                    <Button
+                      onClick={() => handleOpenConvert(cand)}
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 h-8"
+                    >
+                      <UserCheck className="h-3.5 w-3.5" /> Convert to Employee
+                    </Button>
+                  </div>
                 ) : (
                   <Link
                     href={`/hr/employees/${cand.convertedEmpId}`}
