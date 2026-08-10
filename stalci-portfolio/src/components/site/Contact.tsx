@@ -1,14 +1,9 @@
 import { useState, type FormEvent } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStaggerReveal, useScrollReveal } from "@/lib/animations";
-import { submitInquiry } from "@/lib/api";
-
-const details = [
-  { icon: Mail, label: "Email", value: "hello@stalci.com" },
-  { icon: Phone, label: "Phone", value: "+1 (415) 555-0134" },
-  { icon: MapPin, label: "Offices", value: "Bengaluru · Dubai · London" },
-];
+import { submitInquiry, fetchSiteConfigMap } from "@/lib/api";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -16,6 +11,17 @@ export function Contact() {
   const [error, setError] = useState("");
   const staggerRef = useStaggerReveal();
   const formRevealRef = useScrollReveal();
+
+  const { data: config = {} } = useQuery({
+    queryKey: ["config"],
+    queryFn: fetchSiteConfigMap,
+  });
+
+  const details = [
+    { icon: Mail, label: "Email", value: config.contactEmail || "contact@stalci.com" },
+    { icon: Phone, label: "Phone", value: config.phone || "+1 (415) 890-3200" },
+    { icon: MapPin, label: "Offices", value: config.location || config.companyAddress || "San Francisco, CA & London, UK" },
+  ];
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

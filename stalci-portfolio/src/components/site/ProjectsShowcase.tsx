@@ -261,17 +261,12 @@ export function ProjectsShowcase() {
                           <ExternalLink className="h-3.5 w-3.5" />
                         </a>
                       )}
-                      {p.githubUrl && (
-                        <a
-                          href={p.githubUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="p-2 rounded-lg border border-white/10 bg-white/[0.04] text-slate-300 hover:text-white hover:border-white/30 transition-colors"
-                          title="View Repository"
-                        >
-                          <GitBranch className="h-3.5 w-3.5" />
-                        </a>
-                      )}
+                      <span
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+                        title="Private Sovereign Codebase - Protected under Enterprise Non-Disclosure Agreement (NDA)"
+                      >
+                        <CheckCircle2 className="h-3 w-3" /> Private Enterprise IP
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -353,16 +348,12 @@ export function ProjectsShowcase() {
                         <ExternalLink className="h-3.5 w-3.5" /> View Live Deployment
                       </a>
                     )}
-                    {activeCaseStudy.githubUrl && (
-                      <a
-                        href={activeCaseStudy.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold text-white border border-white/20 hover:border-white/50 transition-colors"
-                      >
-                        <GitBranch className="h-3.5 w-3.5" /> Source Code
-                      </a>
-                    )}
+                    <span
+                      className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
+                      title="Private Sovereign Codebase - Governed by Enterprise Non-Disclosure Agreement"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5" /> Sovereign Codebase (Zero-Trust MSA)
+                    </span>
                   </div>
 
                   <button

@@ -1,4 +1,6 @@
-import { Linkedin, Twitter, Github, Globe } from "lucide-react";
+import { Linkedin, Twitter, Github, Globe, Instagram, Youtube, MessageCircle } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteConfigMap } from "@/lib/api";
 import { Wordmark } from "./Brand";
 import { motion } from "framer-motion";
 import { Link } from '@tanstack/react-router';
@@ -36,13 +38,24 @@ const linkHref: Record<string, string> = {
   FAQ: "/#faq",
 };
 
-
-const socials = [Linkedin, Twitter, Github, Globe];
-
 export function Footer() {
   const containerReveal = useScrollReveal();
   const staggerColumnsRef = useStaggerReveal({ childSelector: "> div" });
   const parallaxRef = useParallax(0.15);
+
+  const { data: config = {} } = useQuery({
+    queryKey: ["config"],
+    queryFn: fetchSiteConfigMap,
+  });
+
+  const socialsList = [
+    { icon: Linkedin, url: config.social_linkedin || "https://linkedin.com/company/stalci", label: "LinkedIn" },
+    { icon: Twitter, url: config.social_twitter || "https://twitter.com/stalciglobal", label: "Twitter" },
+    { icon: Github, url: config.social_github || "https://github.com/stalci", label: "GitHub" },
+    { icon: Instagram, url: config.social_instagram || "https://instagram.com/stalciglobal", label: "Instagram" },
+    { icon: Youtube, url: config.social_youtube || "https://youtube.com/@stalciglobal", label: "YouTube" },
+    { icon: MessageCircle, url: config.social_discord || "https://discord.gg/stalci", label: "Discord" },
+  ];
 
   return (
     <footer className="surface-ink relative isolate overflow-hidden">
@@ -62,16 +75,19 @@ export function Footer() {
               A global technology company delivering IT services, digital solutions and engineered
               products. Create · Innovate · Empower.
             </p>
-            <div className="mt-6 flex gap-3">
-              {socials.map((Icon, i) => (
+            <div className="mt-6 flex flex-wrap gap-3">
+              {socialsList.map((item, i) => (
                 <motion.a
                   key={i}
-                  href="#top"
-                  aria-label="STALCI social link"
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`STALCI ${item.label} social link`}
+                  title={item.label}
                   whileHover={{ scale: 1.15 }}
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/12 text-on-ink-muted transition-colors hover:border-copper hover:text-copper hover:glow-copper"
                 >
-                  <Icon className="h-4 w-4" />
+                  <item.icon className="h-4 w-4" />
                 </motion.a>
               ))}
             </div>
