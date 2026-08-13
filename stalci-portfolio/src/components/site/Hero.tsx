@@ -1,23 +1,23 @@
-import { ArrowRight, Sparkles, ShieldCheck, Cloud, Cpu, Star } from "lucide-react";
+import { ArrowRight, ShieldCheck, Cloud, Cpu, Terminal, CheckCircle2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { fetchSiteConfigMap, fetchStats } from "@/lib/api";
+import { fetchSiteConfigMap } from "@/lib/api";
 
 const pills = [
-  { icon: Cpu, label: "AI & Agentic Systems" },
-  { icon: Cloud, label: "Cloud & Platform Engineering" },
-  { icon: ShieldCheck, label: "Cyber Security & Zero Trust" },
+  { icon: Cpu, label: "AI Agentic Systems" },
+  { icon: Cloud, label: "Cloud Platforms" },
+  { icon: ShieldCheck, label: "Zero-Trust Security" },
 ];
 
 function Monogram() {
   return (
-    <div className="relative h-16 w-16 sm:h-20 sm:w-20 flex items-center justify-center">
+    <div className="relative h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center shrink-0">
       <img
         src="/stalci-mark.png"
         alt="STALCI monogram"
-        width={96}
-        height={96}
-        className="h-full w-full object-contain drop-shadow-[0_0_28px_rgba(216,155,91,0.55)]"
+        width={64}
+        height={64}
+        className="relative z-10 h-full w-full object-contain drop-shadow-md"
       />
     </div>
   );
@@ -29,164 +29,194 @@ export function Hero() {
     queryFn: fetchSiteConfigMap,
   });
 
-  const { data: statsData } = useQuery({
-    queryKey: ["site-stats"],
-    queryFn: fetchStats,
-  });
-
-  const heroTitle = config.heroTitle || "We build AI-native software engineered to scale.";
   const heroSubtitle =
     config.heroSubtitle ||
     "STALCI is a global technology company delivering custom software, cloud architecture, AI agentic systems, data pipelines and cyber security for enterprises that cannot afford downtime.";
 
-  const dynamicStats = [
-    { value: config.stat_shipped || `${statsData?.totalProjectsCount || 140}+`, label: "Products Shipped" },
-    { value: config.stat_uptime || "99.99%", label: "Uptime Delivered" },
-    { value: config.stat_industries || "14", label: "Industries Served" },
-    { value: config.stat_support || "24/7/365", label: "Managed SRE Support" },
-  ];
-
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden py-24 sm:py-32"
+      className="relative isolate flex min-h-[100svh] w-full flex-col justify-center overflow-hidden pt-24 pb-16 lg:pt-28 lg:pb-20 bg-[#06080F] text-white"
     >
+      {/* Razor-Sharp Ultra-Light Crisp Grid Pattern (NO Heavy Blur Filters) */}
       <div 
-        className="absolute inset-0 -z-30 bg-[url('/hero-bg.jpg')] bg-cover bg-center bg-no-repeat opacity-40" 
+        className="absolute inset-0 -z-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none" 
         aria-hidden 
       />
-      <div className="grid-lines absolute inset-0 -z-20 opacity-[0.35]" aria-hidden />
-      
-      {/* Animated Glowing Orbs */}
-      <div
-        className="animate-float-orb absolute left-1/2 top-[32%] -z-10 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-copper/20 blur-[130px] pointer-events-none"
-        aria-hidden
-      />
-      <div
-        className="absolute right-[15%] top-[20%] -z-10 h-[20rem] w-[20rem] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none"
-        aria-hidden
-      />
 
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Monogram />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12 }}
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-copper/40 bg-copper/10 px-4 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-copper shadow-sm"
-        >
-          <Sparkles className="h-3.5 w-3.5" />
-          Enterprise-Grade Sovereign Engineering
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 text-balance text-[2.2rem] font-bold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-[3.6rem]"
-        >
-          {heroTitle.includes("engineered to scale") ? (
-            <>
-              {heroTitle.split("engineered to scale")[0]}
-              <span className="text-copper-gradient">engineered to scale.</span>
-            </>
-          ) : (
-            <span className="text-copper-gradient">{heroTitle}</span>
-          )}
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.32 }}
-          className="mt-6 max-w-2xl text-balance text-sm leading-relaxed text-slate-300 sm:text-base font-normal"
-        >
-          {heroSubtitle}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-6 flex flex-wrap items-center justify-center gap-2"
-        >
-          {pills.map((p) => (
-            <span
-              key={p.label}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs text-slate-300 backdrop-blur-sm shadow-xs"
-            >
-              <p.icon className="h-3.5 w-3.5 text-copper" />
-              {p.label}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.48 }}
-          className="mt-8 flex w-full flex-col items-center gap-3.5 sm:w-auto sm:flex-row"
-        >
-          <a
-            href="#projects"
-            className="group relative overflow-hidden inline-flex w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold text-slate-950 transition-transform hover:scale-[1.03] sm:w-auto shadow-lg shadow-amber-950/20"
-            style={{ background: "var(--gradient-copper)" }}
-          >
-            <span className="absolute inset-0 block w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 translate-x-[-120%] group-hover:animate-shine pointer-events-none" />
-            <span className="relative z-10 flex items-center gap-2">
-              Explore Portfolio
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </span>
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/[0.03] backdrop-blur-sm px-8 py-3.5 text-sm font-semibold text-white transition-all hover:border-copper hover:text-copper hover:bg-white/[0.06] sm:w-auto"
-          >
-            Book Architecture Review
-          </a>
-        </motion.div>
-
-        {/* KPI Stats Counter Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.58 }}
-          className="mt-16 w-full max-w-4xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden shadow-2xl"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-copper/10 via-transparent to-copper/10 pointer-events-none" />
+      <div className="mx-auto w-full max-w-7xl px-5 lg:px-8 my-auto relative z-10">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
           
-          <dl className="relative z-10 grid grid-cols-2 gap-y-6 sm:grid-cols-4 sm:divide-x divide-white/10">
-            {dynamicStats.map((s) => (
-              <div key={s.label} className="px-4 text-center group/stat cursor-default">
-                <dt className="font-sans text-2xl font-extrabold text-copper sm:text-3xl tracking-tight transition-transform duration-300 group-hover/stat:scale-105">
-                  {s.value}
-                </dt>
-                <dd className="mt-1.5 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-slate-400 transition-colors duration-300 group-hover/stat:text-copper">
-                  {s.label}
-                </dd>
+          {/* Left Column: Premium Brand & Typography */}
+          <div className="lg:col-span-7 text-left">
+            
+            {/* Header Badge Row */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3"
+            >
+              <Monogram />
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#D89B5B]/40 bg-[#D89B5B]/10 px-4 py-1.5 text-xs font-mono font-bold text-[#F0BC86] shadow-xs">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F0BC86] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D89B5B]" />
+                </span>
+                <span>GLOBAL ENTERPRISE IT STUDIO</span>
               </div>
-            ))}
-          </dl>
-        </motion.div>
-      </div>
+            </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute inset-x-0 bottom-5 flex justify-center pointer-events-none"
-        aria-hidden
-      >
-        <span className="h-8 w-px bg-gradient-to-b from-transparent via-copper/60 to-transparent" />
-      </motion.div>
+            {/* High-Impact Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="mt-6 text-balance text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-white"
+            >
+              Architecting <br className="hidden sm:inline" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0BC86] via-[#D89B5B] to-[#B4783B]">
+                Sovereign AI & Cloud
+              </span> <br />
+              Infrastructure.
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mt-5 max-w-xl text-sm sm:text-base leading-relaxed text-slate-300 font-normal"
+            >
+              {heroSubtitle}
+            </motion.p>
+
+            {/* Feature Badges */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.28 }}
+              className="mt-6 flex flex-wrap items-center gap-2.5"
+            >
+              {pills.map((p) => (
+                <span
+                  key={p.label}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs text-slate-200 shadow-2xs"
+                >
+                  <p.icon className="h-3.5 w-3.5 text-[#D89B5B]" />
+                  {p.label}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* Premium Action CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.36 }}
+              className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+            >
+              <a
+                href="#projects"
+                className="group relative overflow-hidden inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-sm font-extrabold text-slate-950 bg-gradient-to-r from-[#F0BC86] via-[#D89B5B] to-[#B4783B] hover:opacity-95 transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-[#D89B5B]/20"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Explore Live Portfolio
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.03] px-8 py-3.5 text-sm font-bold text-white transition-all hover:border-[#D89B5B]/70 hover:text-[#F0BC86] hover:bg-white/[0.06]"
+              >
+                Schedule Consultation
+              </a>
+            </motion.div>
+
+            {/* Enterprise Trust Highlights */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.45 }}
+              className="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 text-xs text-slate-400 font-mono"
+            >
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+                <span>100% Type-Safe TypeScript</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+                <span>99.99% Production SLA</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+                <span>Zero-Trust Security</span>
+              </div>
+            </motion.div>
+
+          </div>
+
+          {/* Right Column: Code Terminal Console Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-5 relative"
+          >
+            <div className="relative mx-auto max-w-md lg:max-w-none rounded-3xl border border-white/15 bg-[#0A0D17] p-6 shadow-2xl hover:border-[#D89B5B]/50 transition-colors duration-300">
+              
+              {/* Terminal Window Header */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-3.5 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                  <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                  <span className="h-3 w-3 rounded-full bg-green-500/80" />
+                  <span className="ml-2 font-mono text-xs text-slate-300 font-medium">stalci-engine.ts</span>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-[#F0BC86] bg-[#D89B5B]/15 px-2.5 py-1 rounded-md border border-[#D89B5B]/30">
+                  <Terminal className="h-3 w-3 text-[#D89B5B]" /> ACTIVE NODE
+                </span>
+              </div>
+
+              {/* Code Snippet Container */}
+              <div className="font-mono text-xs leading-relaxed text-slate-300 space-y-2">
+                <div className="text-slate-500">// STALCI Sovereign Core Engine v4.8</div>
+                <div>
+                  <span className="text-amber-400">import</span> {`{ SovereignPlatform }`} <span className="text-amber-400">from</span> <span className="text-emerald-400">"@stalci/core"</span>;
+                </div>
+                <div className="pt-2">
+                  <span className="text-amber-400">const</span> app = <span className="text-blue-400">new</span> <span className="text-[#F0BC86]">SovereignPlatform</span>({`{`}
+                </div>
+                <div className="pl-4 text-slate-400">
+                  cluster: <span className="text-emerald-400">"global-multi-region"</span>,<br />
+                  aiInference: <span className="text-blue-400">true</span>,<br />
+                  zeroTrust: <span className="text-blue-400">true</span>,<br />
+                  latency: <span className="text-orange-400">"&lt; 14ms"</span>
+                </div>
+                <div>{`});`}</div>
+                <div className="pt-2 text-emerald-400 flex items-center gap-1.5 font-bold">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-400 animate-pulse" />
+                  ✔ Deploying 14 microservices across 18 markets...
+                </div>
+              </div>
+
+              {/* Stats Metrics Card Bar */}
+              <div className="mt-6 grid grid-cols-2 gap-3 pt-5 border-t border-white/10 font-mono">
+                <div className="rounded-2xl bg-white/[0.04] p-3.5 border border-white/10 text-center hover:border-[#D89B5B]/40 transition-colors">
+                  <span className="block text-2xl font-extrabold text-[#D89B5B]">140+</span>
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">Deployments</span>
+                </div>
+                <div className="rounded-2xl bg-white/[0.04] p-3.5 border border-white/10 text-center hover:border-[#D89B5B]/40 transition-colors">
+                  <span className="block text-2xl font-extrabold text-[#D89B5B]">99.99%</span>
+                  <span className="text-[10px] text-slate-400 uppercase font-semibold">SLA Uptime</span>
+                </div>
+              </div>
+
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
     </section>
   );
 }

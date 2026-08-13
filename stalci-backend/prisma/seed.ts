@@ -106,223 +106,204 @@ async function main() {
     },
   });
 
-  // 3. Projects
-  const project1 = await prisma.project.create({
-    data: {
-      title: 'StalciOps Cloud Intelligence Platform',
-      slug: 'stalciops-cloud-intelligence',
-      description: 'Multi-cloud autonomous cost optimization and kubernetes telemetry engine.',
-      fullDescription: 'Architected and implemented a next-generation cloud infrastructure control plane that analyzes Kubernetes clusters, serverless workloads, and database egress across AWS, GCP, and Azure. Utilizes predictive ML models to dynamically scale compute pods and negotiate spot instances, slashing cloud expenditure by 38% while guaranteeing 99.999% SLA.',
-      category: 'Cloud & Platform',
-      clientId: client1.id,
-      services: JSON.stringify(['Cloud Engineering', 'AI & Agentic Systems', 'DevOps & SRE']),
-      technologies: JSON.stringify(['Go', 'Rust', 'Kubernetes', 'AWS EKS', 'OpenTelemetry', 'React', 'Tailwind CSS']),
-      startDate: new Date('2025-11-01'),
-      endDate: new Date('2026-06-30'),
-      deadline: new Date('2026-06-30'),
-      budget: 185000,
+  const clientGRClass = await prisma.client.upsert({
+    where: { email: 'ops@grclass.com' },
+    update: {},
+    create: {
+      name: 'GR Class Directorate',
+      email: 'ops@grclass.com',
+      phone: '+91 22 6800 4500',
+      company: 'GR Class Classification Society',
+      address: 'Maritime Towers, Mumbai & Global Ports',
+      website: 'https://grclass.com',
+      avatarUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=150&auto=format&fit=crop&q=80',
+      status: 'ACTIVE',
+      notes: 'Recognized Organization (RO) maritime classification & statutory survey portal contract.',
+    },
+  });
+
+  const clientKonvo = await prisma.client.upsert({
+    where: { email: 'support@konvoshoes.com' },
+    update: {},
+    create: {
+      name: 'Konvo Footwear Group',
+      email: 'support@konvoshoes.com',
+      phone: '+91 98200 11223',
+      company: 'Konvo Shoes India Ltd.',
+      address: 'Industrial Hub, New Delhi, India',
+      website: 'https://konvoshoes.com',
+      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      status: 'ACTIVE',
+      notes: 'B2B & B2C High Volume Footwear Wholesale & Retail Portal.',
+    },
+  });
+
+  const clientApniSabha = await prisma.client.upsert({
+    where: { email: 'connect@apnisabha.com' },
+    update: {},
+    create: {
+      name: 'ApniSabha Foundation',
+      email: 'connect@apnisabha.com',
+      phone: '+91 11 4100 8899',
+      company: 'ApniSabha Community Manch',
+      address: 'Civic Innovation Hub, New Delhi',
+      website: 'https://apnisabha.com',
+      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+      status: 'ACTIVE',
+      notes: 'Digital civic empowerment and transparent community discussion platform.',
+    },
+  });
+
+  // 3. Projects & Invoices reset
+  await prisma.invoiceItem.deleteMany();
+  await prisma.invoice.deleteMany();
+  await prisma.project.deleteMany();
+
+  const projectGRClass = await prisma.project.upsert({
+    where: { slug: 'gr-class-maritime-survey-platform' },
+    update: {
+      featured: true,
+      liveUrl: 'https://grclass.com/',
+      imageUrl: '/projects/grclass-preview.jpg',
+    },
+    create: {
+      title: 'GR Class — Ship Classification & Statutory Surveys Portal',
+      slug: 'gr-class-maritime-survey-platform',
+      description: 'Recognized Organization (RO) digital vessel classification, statutory survey tracking, and maritime certification suite.',
+      fullDescription: 'Architected and built the enterprise digital infrastructure for GR Class — a Recognized Organization (RO) and Classification Society. The platform handles statutory vessel surveys, fleet compliance tracking, digital ISO certificate issuance, and real-time surveyor dispatch across 120+ global ports worldwide.',
+      category: 'Maritime Tech & Cloud',
+      clientId: clientGRClass.id,
+      services: JSON.stringify(['Custom Software', 'Cloud Architecture', 'Cyber Security & Compliance', 'DevOps & SRE']),
+      technologies: JSON.stringify(['Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'Docker', 'Cloudflare']),
+      startDate: new Date('2025-06-15'),
+      endDate: new Date('2026-02-10'),
+      deadline: new Date('2026-02-10'),
+      budget: 280000,
       status: 'COMPLETED',
       priority: 'URGENT',
       progress: 100,
       featured: true,
-      imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop&q=80',
+      imageUrl: '/projects/grclass-preview.jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80'
+        '/projects/grclass-preview.jpg',
+        'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&auto=format&fit=crop&q=80'
       ]),
-      liveUrl: 'https://stalciops.demo.stalci.com',
-      githubUrl: 'https://github.com/stalci/stalciops-core',
+      liveUrl: 'https://grclass.com/',
+      githubUrl: 'https://github.com/stalci/grclass-maritime-portal',
       metrics: JSON.stringify([
-        { label: 'Cloud Cost Reduction', value: '-38%' },
-        { label: 'Query Latency', value: '4.2ms' },
-        { label: 'Cluster Uptime', value: '99.999%' },
-        { label: 'Nodes Managed', value: '12,500+' }
+        { label: 'Global Ports Covered', value: '120+' },
+        { label: 'Certificates Issued', value: '500+' },
+        { label: 'ISO Standards Aligned', value: '9001 / 14001' },
+        { label: 'Surveyor Dispatch Speed', value: '<15 Mins' }
       ]),
-      clientFeedback: 'Stalci transformed our entire infrastructure. The cost savings alone paid for the project in 4 months.',
+      clientFeedback: 'STALCI delivered a digital classification system that elevated our global maritime compliance operations instantly.',
     },
   });
 
-  const project2 = await prisma.project.create({
-    data: {
-      title: 'Aegis Medical Triage AI & Telehealth Portal',
-      slug: 'aegis-medical-triage-ai',
-      description: 'HIPAA-compliant clinical LLM agent for patient symptom analysis and smart scheduling.',
-      fullDescription: 'Developed an end-to-end patient engagement platform equipped with a fine-tuned medical reasoning agent. The system securely collects patient symptoms, correlates against medical history, provides preliminary urgency assessments, and connects patients with on-call specialists in under 60 seconds.',
-      category: 'AI & Machine Learning',
-      clientId: client2.id,
-      services: JSON.stringify(['AI & Agentic Systems', 'Cyber Security & Compliance', 'Custom Software']),
-      technologies: JSON.stringify(['Python', 'PyTorch', 'FastAPI', 'Next.js', 'PostgreSQL', 'Docker', 'WebRTC']),
-      startDate: new Date('2026-01-10'),
-      endDate: new Date('2026-09-15'),
-      deadline: new Date('2026-09-15'),
-      budget: 220000,
-      status: 'IN_PROGRESS',
-      priority: 'HIGH',
-      progress: 75,
+  const projectKonvo = await prisma.project.upsert({
+    where: { slug: 'konvo-shoes-b2b-e-commerce-portal' },
+    update: {
       featured: true,
-      imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&auto=format&fit=crop&q=80',
-      gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&auto=format&fit=crop&q=80'
-      ]),
-      liveUrl: 'https://aegis-health.demo.stalci.com',
-      githubUrl: 'https://github.com/stalci/aegis-triage-agent',
-      metrics: JSON.stringify([
-        { label: 'Wait Time Reduction', value: '-65%' },
-        { label: 'Diagnostic Concordance', value: '98.4%' },
-        { label: 'Patients Assisted', value: '250k+' },
-        { label: 'Compliance Score', value: '100% HIPAA' }
-      ]),
-      clientFeedback: 'The engineering rigor around data privacy and medical accuracy was truly unmatched.',
+      liveUrl: 'https://konvoshoes.com/',
+      imageUrl: '/projects/konvoshoes-preview.jpg',
     },
-  });
-
-  const project3 = await prisma.project.create({
-    data: {
-      title: 'Nova Quantum Trading Engine & Analytics',
-      slug: 'nova-quantum-trading-engine',
-      description: 'Sub-millisecond order execution and real-time market risk forecasting engine.',
-      fullDescription: 'Engineered a low-latency distributed trading system with custom event-sourcing architecture, capable of processing 1.2M market events per second with sub-50-microsecond tick-to-trade latency. Features a WebAssembly financial charting suite and institutional risk dashboards.',
-      category: 'Enterprise SaaS',
-      clientId: client4.id,
-      services: JSON.stringify(['Custom Software', 'Data Engineering', 'Cloud Engineering']),
-      technologies: JSON.stringify(['Rust', 'C++', 'Apache Kafka', 'ClickHouse', 'TypeScript', 'WebAssembly']),
-      startDate: new Date('2025-08-15'),
-      endDate: new Date('2026-03-20'),
-      deadline: new Date('2026-03-20'),
-      budget: 310000,
+    create: {
+      title: 'Konvo Shoes — B2B & Wholesale Footwear E-Commerce Hub',
+      slug: 'konvo-shoes-b2b-e-commerce-portal',
+      description: 'High-volume B2B wholesale storefront with GST tax-compliant invoicing, real-time inventory, and express dispatch logistics.',
+      fullDescription: 'Engineered the modern B2B storefront and inventory engine for Konvo Shoes, enabling footwear retailers across India to place bulk wholesale orders with automated GST Input Tax Credit (ITC) invoicing, multi-warehouse stock reservation, factory quality verification badges, and instant express dispatch integration.',
+      category: 'E-Commerce & Retail Tech',
+      clientId: clientKonvo.id,
+      services: JSON.stringify(['E-Commerce Solutions', 'Full Stack Development', 'Payment & ERP Integration', 'UI/UX Design']),
+      technologies: JSON.stringify(['React', 'Vite', 'TanStack Query', 'Tailwind CSS', 'NestJS', 'PostgreSQL', 'Razorpay UPI']),
+      startDate: new Date('2025-09-01'),
+      endDate: new Date('2026-04-15'),
+      deadline: new Date('2026-04-15'),
+      budget: 195000,
       status: 'COMPLETED',
-      priority: 'URGENT',
+      priority: 'HIGH',
       progress: 100,
       featured: true,
-      imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop&q=80',
+      imageUrl: '/projects/konvoshoes-preview.jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop&q=80'
+        '/projects/konvoshoes-preview.jpg',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&auto=format&fit=crop&q=80'
       ]),
-      liveUrl: 'https://novatrade.demo.stalci.com',
-      githubUrl: 'https://github.com/stalci/nova-engine',
+      liveUrl: 'https://konvoshoes.com/',
+      githubUrl: 'https://github.com/stalci/konvoshoes-b2b-platform',
       metrics: JSON.stringify([
-        { label: 'Execution Speed', value: '<42μs' },
-        { label: 'Events/sec', value: '1.2M+' },
-        { label: 'Daily Volume', value: '$840M' },
-        { label: 'System Uptime', value: '100.0%' }
+        { label: 'Annual GMV Processed', value: '₹15 Cr+' },
+        { label: 'Active Retail Partners', value: '10,000+' },
+        { label: 'GST Invoice Accuracy', value: '100%' },
+        { label: 'Order Dispatch Time', value: 'Same Day' }
       ]),
-      clientFeedback: 'Stalci built an engine that outperforms our tier-1 investment bank competitors.',
+      clientFeedback: 'STALCI built our complete wholesale engine — handling bulk ordering, GST invoicing and payments flawlessly.',
     },
   });
 
-  const project4 = await prisma.project.create({
-    data: {
-      title: 'Vanguard Cyber Resilience & Zero Trust Hub',
-      slug: 'vanguard-cyber-resilience-hub',
-      description: 'Automated continuous vulnerability management and biometric zero-trust identity mesh.',
-      fullDescription: 'Comprehensive cyber security posture orchestrator. Includes automated red-team simulations, continuous container image SBOM scanning, and zero-trust policy enforcement across distributed multi-region infrastructure.',
-      category: 'Cyber Security',
-      clientId: client1.id,
-      services: JSON.stringify(['Cyber Security & Compliance', 'Cloud Engineering', '24/7 Managed SRE']),
-      technologies: JSON.stringify(['Golang', 'eBPF', 'OIDC/OAuth2', 'HashiCorp Vault', 'Terraform', 'React']),
-      startDate: new Date('2026-02-01'),
-      endDate: new Date('2026-10-31'),
-      deadline: new Date('2026-10-31'),
-      budget: 160000,
-      status: 'IN_PROGRESS',
-      priority: 'HIGH',
-      progress: 60,
+  const projectApniSabha = await prisma.project.upsert({
+    where: { slug: 'apnisabha-civic-community-platform' },
+    update: {
       featured: true,
-      imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&auto=format&fit=crop&q=80',
+      liveUrl: 'https://apnisabha.com/',
+      imageUrl: '/projects/apnisabha-preview.jpg',
+    },
+    create: {
+      title: 'ApniSabha — Digital Civic Engagement & Community Platform',
+      slug: 'apnisabha-civic-community-platform',
+      description: 'Apna Manch, Apni Awaaz — Real-time community discussion, civic problem-solving, and transparent public collaboration platform.',
+      fullDescription: 'Designed and implemented ApniSabha ("Apna Manch, Apni Awaaz"), a digital community engagement platform where citizens raise local issues, participate in verified polls, collaborate on civic improvements, and amplify their voice with complete trust and transparency.',
+      category: 'Civic Tech & Community',
+      clientId: clientApniSabha.id,
+      services: JSON.stringify(['Custom Software', 'AI & Agentic Systems', 'Cloud Engineering', 'UI/UX Design']),
+      technologies: JSON.stringify(['React', 'Vite', 'Tailwind CSS', 'Node.js', 'WebSockets', 'PostgreSQL', 'Cloudflare']),
+      startDate: new Date('2025-10-10'),
+      endDate: new Date('2026-05-20'),
+      deadline: new Date('2026-05-20'),
+      budget: 175000,
+      status: 'COMPLETED',
+      priority: 'HIGH',
+      progress: 100,
+      featured: true,
+      imageUrl: '/projects/apnisabha-preview.jpg',
       gallery: JSON.stringify([
-        'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&auto=format&fit=crop&q=80'
+        '/projects/apnisabha-preview.jpg',
+        'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&auto=format&fit=crop&q=80'
       ]),
-      liveUrl: 'https://vanguard-sec.demo.stalci.com',
-      githubUrl: 'https://github.com/stalci/vanguard-mesh',
+      liveUrl: 'https://apnisabha.com/',
+      githubUrl: 'https://github.com/stalci/apnisabha-community-engine',
       metrics: JSON.stringify([
-        { label: 'Threat Detection', value: 'Instant (<1s)' },
-        { label: 'Vulnerabilities Mitigated', value: '4,100+' },
-        { label: 'SOC2 / ISO27001', value: 'Certified' }
+        { label: 'Active Community Members', value: '250,000+' },
+        { label: 'Civic Issues Resolved', value: '85,000+' },
+        { label: 'Discussion Engagement', value: '4.8M Posts' },
+        { label: 'Platform Uptime', value: '99.9%' }
       ]),
+      clientFeedback: 'ApniSabha gives power back to the community. STALCI engineered a fast, secure, and beautiful platform.',
     },
   });
 
-  // 4. Invoice Templates
-  const templateModern = await prisma.invoiceTemplate.create({
-    data: {
-      name: 'Modern Clean (Copper Glow)',
-      slug: 'modern-clean',
-      description: 'Contemporary design with dark copper accents, clean typography, and sleek tabular hierarchy.',
-      layoutType: 'MODERN',
-      primaryColor: '#D89B5B',
-      headerText: 'INVOICE / BILLING STATEMENT',
-      footerNotes: 'Thank you for partnering with STALCI. Payment is due within 30 days of issue.',
-      isDefault: true,
-      isActive: true,
-    },
-  });
-
-  const templateMinimal = await prisma.invoiceTemplate.create({
-    data: {
-      name: 'Minimalist Slate',
-      slug: 'minimalist-slate',
-      description: 'Ultra-clean monochromatic layout optimized for executive reporting and swift processing.',
-      layoutType: 'MINIMAL',
-      primaryColor: '#0F172A',
-      headerText: 'TAX INVOICE',
-      footerNotes: 'Electronic payment preferred. Inquiries: billing@stalci.com',
-      isDefault: false,
-      isActive: true,
-    },
-  });
-
-  const templateCorporate = await prisma.invoiceTemplate.create({
-    data: {
-      name: 'Corporate Navy',
-      slug: 'corporate-navy',
-      description: 'Traditional enterprise format with formal remittance details, PO tracking, and bank vouchers.',
-      layoutType: 'CORPORATE',
-      primaryColor: '#1E3A8A',
-      headerText: 'OFFICIAL INVOICE',
-      footerNotes: 'Wire transfer instructions on reverse. Net 30 terms apply.',
-      isDefault: false,
-      isActive: true,
-    },
-  });
-
-  const templatePremium = await prisma.invoiceTemplate.create({
-    data: {
-      name: 'Luxury Obsidian & Gold',
-      slug: 'luxury-obsidian-gold',
-      description: 'High-end executive billing theme with warm gold foil aesthetics and bespoke layout.',
-      layoutType: 'PREMIUM',
-      primaryColor: '#B45309',
-      headerText: 'EXCLUSIVE CLIENT STATEMENT',
-      footerNotes: 'STALCI Global Technologies • Confidential Billing Document',
-      isDefault: false,
-      isActive: true,
-    },
-  });
-
-  // 5. Invoices with Line Items
+  // 5. Invoices with Line Items for Real Projects
   const invoice1 = await prisma.invoice.create({
     data: {
       invoiceNumber: 'INV-2026-001',
-      clientId: client1.id,
-      projectId: project1.id,
-      templateId: templateModern.id,
-      issueDate: new Date('2026-06-15'),
-      dueDate: new Date('2026-07-15'),
+      clientId: clientGRClass.id,
+      projectId: projectGRClass.id,
+      issueDate: new Date('2026-02-15'),
+      dueDate: new Date('2026-03-15'),
       status: 'PAID',
       currency: 'USD',
-      subtotal: 92500,
-      discount: 2500,
-      taxRate: 8.5,
-      taxAmount: 7650,
-      total: 97650,
-      notes: 'Final milestone release for StalciOps Cloud Platform Phase 2.',
-      terms: 'Payment received in full via Wire Transfer. Thank you for your business!',
-      paymentDetails: 'Wire Transfer Reference: TXN-89301824 • Silicon Valley Bank',
+      subtotal: 140000,
+      discount: 0,
+      taxRate: 0,
+      taxAmount: 0,
+      total: 140000,
+      notes: 'Final milestone release for GR Class Maritime Survey & Classification Platform.',
+      terms: 'Payment received in full via Bank Wire Transfer. Thank you!',
+      paymentDetails: 'Wire Transfer Reference: TXN-GR-901824 • HDFC Corporate Banking',
       items: {
         create: [
-          { description: 'Cloud Cost Optimization ML Pipeline Implementation', quantity: 1, unitPrice: 45000, amount: 45000 },
-          { description: 'Kubernetes Multi-Cluster Control Plane Integration', quantity: 1, unitPrice: 32500, amount: 32500 },
-          { description: 'OpenTelemetry Observability & Dashboard Suite', quantity: 1, unitPrice: 15000, amount: 15000 },
+          { description: 'Vessel Survey Tracking & ISO Digital Certificate Module', quantity: 1, unitPrice: 85000, amount: 85000 },
+          { description: 'Real-time Port Surveyor Dispatch & Telemetry System', quantity: 1, unitPrice: 55000, amount: 55000 },
         ],
       },
     },
@@ -331,25 +312,24 @@ async function main() {
   const invoice2 = await prisma.invoice.create({
     data: {
       invoiceNumber: 'INV-2026-002',
-      clientId: client2.id,
-      projectId: project2.id,
-      templateId: templateModern.id,
-      issueDate: new Date('2026-07-20'),
-      dueDate: new Date('2026-08-20'),
-      status: 'PENDING',
-      currency: 'USD',
-      subtotal: 110000,
-      discount: 5000,
-      taxRate: 0,
-      taxAmount: 0,
-      total: 105000,
-      notes: 'Milestone 3: Clinical Triage NLP Agent Fine-Tuning & WebRTC Telehealth portal.',
-      terms: 'Net 30 Days. Late fees of 1.5% apply past due date.',
-      paymentDetails: 'Bank: JPMorgan Chase • Account: ****9281 • Routing: 12100024',
+      clientId: clientKonvo.id,
+      projectId: projectKonvo.id,
+      issueDate: new Date('2026-04-20'),
+      dueDate: new Date('2026-05-20'),
+      status: 'PAID',
+      currency: 'INR',
+      subtotal: 9500000,
+      discount: 500000,
+      taxRate: 18.0,
+      taxAmount: 1620000,
+      total: 10620000,
+      notes: 'Phase 1 Delivery for Konvo Shoes B2B Wholesale Storefront & GST ITC Invoicing Engine.',
+      terms: 'Payment received via HDFC Razorpay B2B Portal.',
+      paymentDetails: 'UPI / HDFC NetBanking Reference: RZP-KONVO-2026',
       items: {
         create: [
-          { description: 'Fine-tuned Medical LLM Agent & Verification Test Suite', quantity: 1, unitPrice: 65000, amount: 65000 },
-          { description: 'End-to-End HIPAA Encrypted WebRTC Video Portal', quantity: 1, unitPrice: 45000, amount: 45000 },
+          { description: 'B2B Wholesale Catalog & Bulk Ordering Engine', quantity: 1, unitPrice: 5000000, amount: 5000000 },
+          { description: 'Automated GST Input Tax Credit (ITC) Invoicing Integration', quantity: 1, unitPrice: 4500000, amount: 4500000 },
         ],
       },
     },
@@ -358,76 +338,48 @@ async function main() {
   const invoice3 = await prisma.invoice.create({
     data: {
       invoiceNumber: 'INV-2026-003',
-      clientId: client3.id,
-      templateId: templateMinimal.id,
-      issueDate: new Date('2026-08-01'),
-      dueDate: new Date('2026-08-31'),
-      status: 'SENT',
-      currency: 'EUR',
-      subtotal: 48000,
-      discount: 0,
-      taxRate: 19.0,
-      taxAmount: 9120,
-      total: 57120,
-      notes: 'Monthly Dedicated SRE & Cloud Engineering Pod retainer (August 2026).',
-      terms: 'Payment due on receipt. SEPA Bank Transfer accepted.',
-      paymentDetails: 'IBAN: DE89 3704 0044 0532 0130 00 • BIC: COBADEFFXXX',
-      items: {
-        create: [
-          { description: 'Dedicated SRE / DevOps Lead (160 Hours)', quantity: 160, unitPrice: 175, amount: 28000 },
-          { description: 'Senior AI / Data Infrastructure Engineer (100 Hours)', quantity: 100, unitPrice: 200, amount: 20000 },
-        ],
-      },
-    },
-  });
-
-  const invoice4 = await prisma.invoice.create({
-    data: {
-      invoiceNumber: 'INV-2026-004',
-      clientId: client4.id,
-      projectId: project3.id,
-      templateId: templatePremium.id,
-      issueDate: new Date('2026-03-25'),
-      dueDate: new Date('2026-04-25'),
+      clientId: clientApniSabha.id,
+      projectId: projectApniSabha.id,
+      issueDate: new Date('2026-05-25'),
+      dueDate: new Date('2026-06-25'),
       status: 'PAID',
-      currency: 'USD',
-      subtotal: 155000,
-      discount: 5000,
-      taxRate: 0,
-      taxAmount: 0,
-      total: 150000,
-      notes: 'Phase 1 Delivery: Sub-millisecond Execution Engine for Nova FinTech Labs.',
-      terms: 'Fully Settled via SWIFT wire transfer.',
-      paymentDetails: 'Barclays Corporate Banking London • Ref: NV-TRD-01',
+      currency: 'INR',
+      subtotal: 8500000,
+      discount: 0,
+      taxRate: 18.0,
+      taxAmount: 1530000,
+      total: 10030000,
+      notes: 'Full Platform Delivery: ApniSabha Community & Civic Engagement Manch.',
+      terms: 'Payment settled in full. SEPA / NEFT transfer.',
+      paymentDetails: 'ICICI Corporate Bank • Ref: APNI-SABHA-01',
       items: {
         create: [
-          { description: 'Rust/C++ Low-Latency Matching Engine Core', quantity: 1, unitPrice: 95000, amount: 95000 },
-          { description: 'ClickHouse + Kafka High-Throughput Analytics Cluster', quantity: 1, unitPrice: 40000, amount: 40000 },
-          { description: 'WebAssembly Real-Time Institutional Dashboard', quantity: 1, unitPrice: 20000, amount: 20000 },
+          { description: 'Real-time Community Discussion & Upvote Engine', quantity: 1, unitPrice: 4500000, amount: 4500000 },
+          { description: 'Civic Issue Resolution & Verified Polling Suite', quantity: 1, unitPrice: 4000000, amount: 4000000 },
         ],
       },
     },
   });
 
   // 6. Technologies & Skills
+  await prisma.technology.deleteMany();
   await prisma.technology.createMany({
     data: [
-      { name: 'React 19 & Next.js 16', category: 'Frontend', icon: 'Code', proficiency: 98, isFeatured: true, order: 1 },
-      { name: 'TypeScript & JavaScript', category: 'Frontend', icon: 'FileCode', proficiency: 99, isFeatured: true, order: 2 },
-      { name: 'Tailwind CSS & Radix UI', category: 'Frontend', icon: 'Palette', proficiency: 96, isFeatured: true, order: 3 },
-      { name: 'Node.js & NestJS', category: 'Backend', icon: 'Server', proficiency: 97, isFeatured: true, order: 4 },
-      { name: 'Go (Golang)', category: 'Backend', icon: 'Cpu', proficiency: 92, isFeatured: true, order: 5 },
-      { name: 'Rust', category: 'Backend', icon: 'Zap', proficiency: 90, isFeatured: true, order: 6 },
-      { name: 'Python & PyTorch', category: 'AI & Data', icon: 'Brain', proficiency: 95, isFeatured: true, order: 7 },
-      { name: 'LangChain & Agentic LLMs', category: 'AI & Data', icon: 'Sparkles', proficiency: 94, isFeatured: true, order: 8 },
-      { name: 'PostgreSQL & pgvector', category: 'Security & Database', icon: 'Database', proficiency: 96, isFeatured: true, order: 9 },
-      { name: 'Redis & Kafka', category: 'Security & Database', icon: 'Layers', proficiency: 93, isFeatured: true, order: 10 },
-      { name: 'Kubernetes & Docker', category: 'Cloud & DevOps', icon: 'Container', proficiency: 98, isFeatured: true, order: 11 },
-      { name: 'AWS & Cloudflare', category: 'Cloud & DevOps', icon: 'Cloud', proficiency: 97, isFeatured: true, order: 12 },
-      { name: 'Terraform & OpenTofu', category: 'Cloud & DevOps', icon: 'Terminal', proficiency: 91, isFeatured: true, order: 13 },
-      { name: 'Zero-Trust & eBPF Security', category: 'Security & Database', icon: 'ShieldCheck', proficiency: 94, isFeatured: true, order: 14 },
+      { name: 'React 19 & Next.js 16', category: 'Frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', proficiency: 99, isFeatured: true, order: 1 },
+      { name: 'TypeScript & JavaScript', category: 'Frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', proficiency: 99, isFeatured: true, order: 2 },
+      { name: 'Tailwind CSS & Radix UI', category: 'Frontend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', proficiency: 97, isFeatured: true, order: 3 },
+      { name: 'Node.js & NestJS', category: 'Backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg', proficiency: 98, isFeatured: true, order: 4 },
+      { name: 'Go (Golang)', category: 'Backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg', proficiency: 94, isFeatured: true, order: 5 },
+      { name: 'Rust & WebAssembly', category: 'Backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg', proficiency: 91, isFeatured: true, order: 6 },
+      { name: 'Python & PyTorch', category: 'AI & Data', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', proficiency: 96, isFeatured: true, order: 7 },
+      { name: 'LangChain & Agentic LLMs', category: 'AI & Data', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg', proficiency: 95, isFeatured: true, order: 8 },
+      { name: 'PostgreSQL & pgvector', category: 'Security & Database', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', proficiency: 98, isFeatured: true, order: 9 },
+      { name: 'Redis & Apache Kafka', category: 'Security & Database', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', proficiency: 94, isFeatured: true, order: 10 },
+      { name: 'Kubernetes & Docker', category: 'Cloud & DevOps', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', proficiency: 98, isFeatured: true, order: 11 },
+      { name: 'AWS & Cloudflare', category: 'Cloud & DevOps', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', proficiency: 97, isFeatured: true, order: 12 },
+      { name: 'Terraform & OpenTofu', category: 'Cloud & DevOps', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg', proficiency: 93, isFeatured: true, order: 13 },
+      { name: 'Zero-Trust & eBPF Security', category: 'Security & Database', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', proficiency: 95, isFeatured: true, order: 14 },
     ],
-    skipDuplicates: true,
   });
 
   // 7. Services
