@@ -164,81 +164,24 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Floating Product Preview Cards Container (Supahub style floating mockups) */}
+        {/* Clean Enterprise Trust Highlights Row */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.45 }}
-          className="mt-14 relative mx-auto max-w-5xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="mt-12 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-xs text-slate-400 font-mono"
         >
-          {/* Main Central Showcase Window */}
-          <div className="relative rounded-3xl border border-white/15 bg-gradient-to-b from-[#0F1424]/90 to-[#0A0D17]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-xl hover:border-[#D89B5B]/50 transition-all duration-300">
-            
-            {/* Top Bar with Traffic Dots & Live Tag */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-red-500/80" />
-                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                <span className="h-3 w-3 rounded-full bg-green-500/80" />
-                <span className="ml-3 font-mono text-xs text-slate-400 font-medium hidden sm:inline">
-                  STALCI ENTERPRISE PLATFORM HUB
-                </span>
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-mono font-medium text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>OPERATIONAL · 99.99% SLA</span>
-              </div>
-            </div>
-
-            {/* Core Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-              {capabilities.map((cap) => (
-                <div
-                  key={cap.name}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all hover:bg-white/[0.07] hover:border-[#D89B5B]/40 group"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="h-10 w-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#D89B5B] group-hover:bg-[#D89B5B]/20 transition-colors shrink-0">
-                      <cap.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-white group-hover:text-[#F0BC86] transition-colors">
-                        {cap.name}
-                      </div>
-                      <div className="text-xs text-slate-400 font-mono mt-0.5">
-                        {cap.tag}
-                      </div>
-                    </div>
-                  </div>
-
-                  <span className="text-[10px] font-mono font-medium px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-slate-300">
-                    {cap.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Bottom Key Performance Highlights Bar */}
-            <div className="mt-6 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-              <div className="rounded-xl bg-white/[0.03] p-3 border border-white/10">
-                <div className="text-xs text-slate-400 font-mono">DELIVERIES</div>
-                <div className="text-xl font-extrabold text-[#F0BC86] mt-0.5">140+ Projects</div>
-              </div>
-              <div className="rounded-xl bg-white/[0.03] p-3 border border-white/10">
-                <div className="text-xs text-slate-400 font-mono">SECTORS</div>
-                <div className="text-xl font-extrabold text-[#F0BC86] mt-0.5">18+ Industries</div>
-              </div>
-              <div className="rounded-xl bg-white/[0.03] p-3 border border-white/10">
-                <div className="text-xs text-slate-400 font-mono">AVAILABILITY</div>
-                <div className="text-xl font-extrabold text-[#F0BC86] mt-0.5">99.99% Uptime</div>
-              </div>
-              <div className="rounded-xl bg-white/[0.03] p-3 border border-white/10">
-                <div className="text-xs text-slate-400 font-mono">SUPPORT</div>
-                <div className="text-xl font-extrabold text-[#F0BC86] mt-0.5">24/7 Managed</div>
-              </div>
-            </div>
-
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+            <span>100% Type-Safe Architecture</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+            <span>99.99% Production SLA Uptime</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+            <span>Zero-Trust Cybersecurity</span>
           </div>
         </motion.div>
 
