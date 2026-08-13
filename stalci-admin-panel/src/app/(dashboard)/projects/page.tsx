@@ -648,8 +648,8 @@ export default function ProjectsPage() {
             <div>
               <label className="text-xs font-semibold text-ink block mb-1">Cover Image URL</label>
               <input
-                type="url"
-                placeholder="https://images.unsplash..."
+                type="text"
+                placeholder="/projects/apnisabha-preview.jpg or https://..."
                 value={formData.imageUrl}
                 onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                 className="field"
@@ -658,8 +658,8 @@ export default function ProjectsPage() {
             <div>
               <label className="text-xs font-semibold text-ink block mb-1">Live Demo URL</label>
               <input
-                type="url"
-                placeholder="https://app.demo.com"
+                type="text"
+                placeholder="https://app.demo.com or /demo"
                 value={formData.liveUrl}
                 onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
                 className="field"
@@ -668,7 +668,7 @@ export default function ProjectsPage() {
             <div>
               <label className="text-xs font-semibold text-ink block mb-1">GitHub URL</label>
               <input
-                type="url"
+                type="text"
                 placeholder="https://github.com/..."
                 value={formData.githubUrl}
                 onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}

@@ -585,8 +585,8 @@ export default function ClientsPage() {
             <div>
               <label className="text-xs font-semibold text-ink block mb-1">Website URL</label>
               <input
-                type="url"
-                placeholder="https://techcorp.io"
+                type="text"
+                placeholder="https://techcorp.io or /client"
                 value={formData.website}
                 onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                 className="field"
@@ -610,8 +610,8 @@ export default function ClientsPage() {
           <div>
             <label className="text-xs font-semibold text-ink block mb-1">Avatar / Photo URL</label>
             <input
-              type="url"
-              placeholder="https://images.unsplash.com/photo-..."
+              type="text"
+              placeholder="/avatars/client.jpg or https://images.unsplash..."
               value={formData.avatarUrl}
               onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
               className="field"
