@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: stalci_db
     ports:
-      - "5433:5432"
+      - 5435:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
 

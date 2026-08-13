@@ -1,4 +1,7 @@
-const API_BASE = "http://localhost:3000";
+const API_BASE =
+  typeof window !== "undefined"
+    ? `${window.location.protocol}//${window.location.hostname}:4001`
+    : "http://127.0.0.1:4001";
 
 // --- PROJECTS ---
 export async function fetchProjects(category?: string, featured?: boolean) {
