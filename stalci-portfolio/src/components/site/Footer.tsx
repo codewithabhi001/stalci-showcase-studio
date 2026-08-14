@@ -1,47 +1,50 @@
-import { Linkedin, Twitter, Github, Globe, Instagram, Youtube, MessageCircle } from "lucide-react";
+import { Linkedin, Twitter, Github, Globe, Instagram, Youtube, MessageCircle, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSiteConfigMap } from "@/lib/api";
 import { Wordmark } from "./Brand";
-import { motion } from "framer-motion";
 import { Link } from '@tanstack/react-router';
 import { useScrollReveal, useStaggerReveal, useParallax } from "@/lib/animations";
 
 const columns = [
   {
-    title: "Services",
+    title: "Capabilities",
     links: [
-      "Custom Software",
-      "Mobile Apps",
-      "Cloud & DevOps",
-      "AI & Machine Learning",
-      "Cyber Security",
-      "Data & Analytics",
+      { name: "Custom Software", href: "/#services" },
+      { name: "Mobile Applications", href: "/#services" },
+      { name: "Cloud & Multi-Region", href: "/#services" },
+      { name: "Sovereign AI Systems", href: "/#services" },
+      { name: "Zero-Trust Security", href: "/#services" },
+      { name: "High-Volume Data", href: "/#services" },
     ],
   },
   {
-    title: "Industries",
-    links: ["Fintech", "Healthcare", "Retail", "Logistics", "Manufacturing", "Public Sector"],
+    title: "Domain Depth",
+    links: [
+      { name: "Fintech & Banking", href: "/#industries" },
+      { name: "Healthcare & HIPAA", href: "/#industries" },
+      { name: "B2B E-Commerce & Retail", href: "/#industries" },
+      { name: "Maritime & Logistics", href: "/#industries" },
+      { name: "Manufacturing Systems", href: "/#industries" },
+      { name: "Public Sector & Civic", href: "/#industries" },
+    ],
   },
   {
-    title: "Company",
-    links: ["About", "Process", "Products", "Blog", "Careers", "Contact"],
+    title: "Organisation",
+    links: [
+      { name: "About STALCI", href: "/#about" },
+      { name: "Engineering Process", href: "/#process" },
+      { name: "Proprietary Products", href: "/#products" },
+      { name: "Technical Blog", href: "/blog" },
+      { name: "Careers & Squads", href: "/careers" },
+      { name: "Executive Contact", href: "/#contact" },
+    ],
   },
 ];
-
-const linkHref: Record<string, string> = {
-  Blog: "/blog",
-  Careers: "/careers",
-  About: "/#about",
-  Process: "/#process",
-  Products: "/#products",
-  Contact: "/#contact",
-  FAQ: "/#faq",
-};
 
 export function Footer() {
   const containerReveal = useScrollReveal();
   const staggerColumnsRef = useStaggerReveal({ childSelector: "> div" });
-  const parallaxRef = useParallax(0.15);
+  const parallaxRef = useParallax(0.08);
 
   const { data: config = {} } = useQuery({
     queryKey: ["config"],
@@ -58,55 +61,75 @@ export function Footer() {
   ];
 
   return (
-    <footer className="surface-ink relative isolate overflow-hidden">
-      {/* Animated gradient divider line at the top */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/50 to-transparent animate-gradient-shift bg-[length:200%_auto]" />
+    <footer className="bg-[#05070D] text-white relative isolate overflow-hidden border-t border-white/10">
+      
+      {/* Top Subtle Ambient Lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50rem] h-[15rem] bg-slate-800/10 blur-[120px] pointer-events-none -z-10" />
 
-      {/* Copper glow orb decoration behind the footer */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[var(--copper)] opacity-[0.07] blur-[150px] pointer-events-none mix-blend-screen animate-float-orb" />
-
-      <div ref={containerReveal} className="mx-auto max-w-7xl px-5 py-16 lg:px-8 relative z-10">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_auto]">
-          <div>
-            <div className="text-on-ink inline-block drop-shadow-[0_0_12px_rgba(216,155,91,0.4)]">
+      <div ref={containerReveal} className="mx-auto max-w-6xl px-5 py-16 lg:px-8 relative z-10">
+        
+        {/* Main Footer Layout */}
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_auto]">
+          
+          {/* Left Column: Brand & Mission */}
+          <div className="space-y-5">
+            <div className="text-white inline-block">
               <Wordmark />
             </div>
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-on-ink-muted">
-              A global technology company delivering IT services, digital solutions and engineered
-              products. Create · Innovate · Empower.
+            
+            <p className="max-w-sm text-xs leading-relaxed text-slate-400 font-normal">
+              STALCI is a global engineering studio delivering mission-critical custom software, sovereign AI systems, multi-cloud platforms, and cybersecurity resilience.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+
+            {/* Status & Compliance Badge */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono text-slate-300">
+                <span className="flex h-1.5 w-1.5 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                </span>
+                <span>Global Uptime 99.99%</span>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono text-slate-400">
+                <ShieldCheck className="h-3.5 w-3.5 text-slate-400" />
+                <span>ISO 27001 / SOC 2 Ready</span>
+              </div>
+            </div>
+
+            {/* Social Channels */}
+            <div className="flex flex-wrap gap-2 pt-2">
               {socialsList.map((item, i) => (
-                <motion.a
+                <a
                   key={i}
                   href={item.url}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`STALCI ${item.label} social link`}
+                  aria-label={`STALCI ${item.label} channel`}
                   title={item.label}
-                  whileHover={{ scale: 1.15 }}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/12 text-on-ink-muted transition-colors hover:border-copper hover:text-copper hover:glow-copper"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition-all hover:border-white/30 hover:text-white hover:bg-white/10 bg-white/[0.03]"
                 >
-                  <item.icon className="h-4 w-4" />
-                </motion.a>
+                  <item.icon className="h-3.5 w-3.5" />
+                </a>
               ))}
             </div>
           </div>
 
-          <div ref={staggerColumnsRef} className="grid gap-12 sm:grid-cols-3 lg:gap-16">
+          {/* Right Columns: Structured Navigation */}
+          <div ref={staggerColumnsRef} className="grid gap-8 sm:grid-cols-3 lg:gap-14">
             {columns.map((c) => (
               <div key={c.title}>
-                <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-copper">
+                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-200">
                   {c.title}
-                </h3>
-                <ul className="mt-5 space-y-3">
+                </h4>
+                <ul className="mt-4 space-y-2.5">
                   {c.links.map((l) => (
-                    <li key={l}>
+                    <li key={l.name}>
                       <a
-                        href={linkHref[l] ?? "/#services"}
-                        className="text-sm text-on-ink-muted transition-colors hover:text-copper underline-sweep inline-block"
+                        href={l.href}
+                        className="text-xs text-slate-400 transition-colors hover:text-white inline-block"
                       >
-                        {l}
+                        {l.name}
                       </a>
                     </li>
                   ))}
@@ -114,31 +137,35 @@ export function Footer() {
               </div>
             ))}
           </div>
+
         </div>
 
-        <div className="mt-14 relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 pt-6 sm:flex sm:justify-between">
-          {/* Inner animated gradient divider line */}
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/30 to-transparent animate-gradient-shift bg-[length:200%_auto]" />
-          
-          <p className="min-w-0 text-xs text-on-ink-muted">
-            © {new Date().getFullYear()} STALCI. All rights reserved.
+        {/* Bottom Copyright & Legal Links */}
+        <div className="mt-14 relative flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">
+          <p className="text-[11px] text-slate-500 font-mono">
+            © {new Date().getFullYear()} STALCI Global Inc. All rights reserved.
           </p>
-          <div className="flex shrink-0 gap-5 text-xs text-on-ink-muted">
-            <Link to="/privacy-policy" className="hover:text-copper underline-sweep">
-              Privacy
+          <div className="flex items-center gap-6 text-[11px] text-slate-400 font-mono">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
             </Link>
-            <Link to="/terms" className="hover:text-copper underline-sweep">
-              Terms
+            <Link to="/terms" className="hover:text-white transition-colors">
+              Terms & SLA
             </Link>
+            <a href="/#contact" className="hover:text-white transition-colors flex items-center gap-1">
+              Contact <ArrowUpRight className="h-3 w-3" />
+            </a>
           </div>
         </div>
+
       </div>
 
-      <div className="relative select-none overflow-hidden px-5 pb-6 pointer-events-none">
+      {/* Subtle Background Watermark Typography */}
+      <div className="relative select-none overflow-hidden px-5 pb-3 pointer-events-none opacity-[0.06]">
         <div ref={parallaxRef}>
           <p
             aria-hidden
-            className="text-copper-gradient text-center font-display text-[16vw] font-bold leading-[0.85] tracking-[0.06em]"
+            className="text-white text-center font-display text-[15vw] font-bold leading-[0.75] tracking-[0.05em]"
           >
             STALCI
           </p>

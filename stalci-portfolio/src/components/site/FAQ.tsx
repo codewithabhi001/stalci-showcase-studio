@@ -41,11 +41,11 @@ const faqs = [
 export function FAQ() {
   const [value, setValue] = useState<string>("");
 
-  const headingRef = useScrollReveal({ distance: 40 });
-  const staggerRef = useStaggerReveal({ staggerChildren: 0.1 });
+  const headingRef = useScrollReveal({ distance: 30 });
+  const staggerRef = useStaggerReveal({ staggerChildren: 0.08 });
 
   return (
-    <section id="faq" className="relative bg-white py-24 sm:py-32 overflow-hidden text-slate-900 border-t border-slate-200">
+    <section id="faq" className="relative bg-white py-20 sm:py-28 overflow-hidden text-slate-900 border-t border-slate-200/80">
       <div className="mx-auto max-w-3xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
@@ -56,12 +56,12 @@ export function FAQ() {
           />
         </div>
 
-        <div className="mt-12 max-w-2xl mx-auto relative">
+        <div className="mt-10 max-w-2xl mx-auto relative">
           <div ref={staggerRef}>
             <Accordion
               type="single"
               collapsible
-              className="w-full space-y-4"
+              className="w-full space-y-3"
               value={value}
               onValueChange={setValue}
             >
@@ -72,29 +72,21 @@ export function FAQ() {
                   <motion.div
                     key={f.q}
                     variants={{
-                      hidden: { opacity: 0, y: 20 },
+                      hidden: { opacity: 0, y: 15 },
                       visible: { opacity: 1, y: 0 },
                     }}
                     className="relative"
                   >
                     <AccordionItem
                       value={f.q}
-                      className="border border-slate-200/90 rounded-2xl bg-[#F8FAFC] px-5 sm:px-6 overflow-hidden transition-all duration-300 hover:border-amber-500/70 hover:shadow-md"
+                      className="border border-slate-200 rounded-xl bg-[#F8FAFC] px-4 sm:px-5 overflow-hidden transition-all duration-200 hover:border-slate-400"
                     >
-                      {/* Animated Amber Accent Line */}
-                      <motion.div
-                        className="absolute left-0 top-0 bottom-0 w-1 bg-amber-600 rounded-l-2xl origin-top"
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: isOpen ? 1 : 0 }}
-                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      />
-
-                      <AccordionTrigger className="hover:no-underline py-5 sm:py-6 group">
-                        <div className="flex items-center text-left gap-4">
-                          <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-amber-300/80 text-xs sm:text-sm font-bold text-amber-700 mr-2 sm:mr-4 shadow-2xs">
+                      <AccordionTrigger className="hover:no-underline py-4 group">
+                        <div className="flex items-center text-left gap-3">
+                          <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-white border border-slate-200 text-xs font-mono font-bold text-slate-700">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-sm sm:text-[0.95rem] font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
+                          <span className="text-xs sm:text-sm font-semibold text-slate-900">
                             {f.q}
                           </span>
                         </div>
@@ -110,12 +102,9 @@ export function FAQ() {
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{
-                                height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-                                opacity: { duration: 0.3, delay: isOpen ? 0.1 : 0 },
-                              }}
+                              transition={{ duration: 0.2 }}
                             >
-                              <div className="pb-6 pl-14 sm:pl-18 pr-4 text-sm leading-relaxed text-slate-600">
+                              <div className="pb-4 pl-10 pr-3 text-xs sm:text-sm leading-relaxed text-slate-600">
                                 {f.a}
                               </div>
                             </motion.div>

@@ -340,3 +340,82 @@ html.lenis body {
 .animate-shine {
   animation: shine 1.5s ease-in-out infinite;
 }
+
+/* ─── Honeycomb Hexagon Utilities ─── */
+.hex-cell {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hex-cell:hover {
+  transform: translateY(-4px) scale(1.04);
+}
+
+/* ─── Subtle Perspective Grid Background ─── */
+.perspective-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
+}
+
+/* ─── Pill Badge Gradient Glow ─── */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pill-badge-light {
+  border: 1px solid rgba(216, 155, 91, 0.4);
+  background: rgba(216, 155, 91, 0.06);
+  color: #B4783B;
+  box-shadow: 0 2px 10px rgba(216, 155, 91, 0.08);
+}
+
+.pill-badge-dark {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #F0BC86;
+  box-shadow: 0 0 20px rgba(216, 155, 91, 0.15);
+}
+
+.pill-badge-gradient {
+  position: relative;
+  border-radius: 9999px;
+  background: linear-gradient(#0C101B, #0C101B) padding-box,
+              linear-gradient(135deg, #FF6B6B, #4ECDC4, #FFE66D, #D89B5B) border-box;
+  border: 1px solid transparent;
+  color: #FFFFFF;
+}
+
+.pill-badge-gradient-light {
+  position: relative;
+  border-radius: 9999px;
+  background: linear-gradient(#FFFFFF, #FFFFFF) padding-box,
+              linear-gradient(135deg, #D89B5B, #F0BC86, #3B82F6, #D89B5B) border-box;
+  border: 1.5px solid transparent;
+  color: #334155;
+}
+
+/* ─── Watermark Number ─── */
+.watermark-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.85;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+

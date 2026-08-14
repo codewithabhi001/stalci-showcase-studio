@@ -8,7 +8,7 @@ import { fetchIndustries } from "@/lib/api";
 import { mapIndustry } from "@/lib/api-mapper";
 
 export function Industries() {
-  const gridRef = useStaggerReveal({ stagger: 0.05, y: 24 });
+  const gridRef = useStaggerReveal({ stagger: 0.04, y: 20 });
 
   const { data: apiIndustries } = useQuery({
     queryKey: ["industries"],
@@ -19,7 +19,7 @@ export function Industries() {
     apiIndustries && apiIndustries.length > 0 ? apiIndustries.map(mapIndustry) : staticIndustries;
 
   return (
-    <section id="industries" className="border-t border-slate-200 bg-white py-24 sm:py-32 text-slate-900">
+    <section id="industries" className="border-t border-slate-200/80 bg-white py-20 sm:py-28 text-slate-900">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="Industries & Domains"
@@ -28,24 +28,24 @@ export function Industries() {
           tone="light"
         />
 
-        <div ref={gridRef} className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div ref={gridRef} className="mt-12 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((i) => (
             <Link
               key={i.slug}
               to="/industries/$slug"
               params={{ slug: i.slug }}
-              className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/70 hover:shadow-lg"
+              className="group flex flex-col justify-between rounded-xl border border-slate-200 bg-[#F8FAFC] p-5 transition-all duration-200 hover:border-slate-400 hover:shadow-xs"
             >
               <div>
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-slate-200 text-amber-700 shadow-2xs group-hover:bg-amber-600 group-hover:text-white transition-colors">
-                  <i.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-800 shadow-2xs">
+                  <i.icon className="h-4 w-4" strokeWidth={1.8} />
                 </span>
-                <h3 className="mt-4 flex items-center gap-1.5 text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
+                <h3 className="mt-3 text-xs sm:text-sm font-bold text-slate-900">
                   {i.title}
                 </h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{i.summary}</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate-600">{i.summary}</p>
               </div>
-              <span className="mt-4 inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <span className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-slate-900 group-hover:underline">
                 View Frameworks
                 <ArrowUpRight className="h-3 w-3" />
               </span>

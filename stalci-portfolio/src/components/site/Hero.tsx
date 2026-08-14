@@ -1,27 +1,16 @@
 import { 
   ArrowRight, 
-  ShieldCheck, 
-  Cloud, 
-  Cpu, 
   CheckCircle2, 
-  Layers,
-  Lock,
-  Activity,
   Star,
-  Zap,
-  Server,
-  Globe
+  Shield,
+  Layers,
+  Cpu,
+  Globe,
+  Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSiteConfigMap } from "@/lib/api";
-
-const capabilities = [
-  { icon: Layers, name: "Custom Software Engineering", tag: "Enterprise Grade", status: "Active" },
-  { icon: Cpu, name: "Sovereign AI & Agentic Systems", tag: "LLMs & Neural Pipelines", status: "Optimized" },
-  { icon: Cloud, name: "Multi-Cloud Architecture", tag: "AWS / GCP / Azure", status: "Deployed" },
-  { icon: Lock, name: "Zero-Trust Cybersecurity", tag: "SOC2 & ISO Compliant", status: "Shielded" },
-];
 
 const avatars = [
   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80",
@@ -32,13 +21,13 @@ const avatars = [
 
 function Monogram() {
   return (
-    <div className="relative h-14 w-14 sm:h-16 sm:w-16 flex items-center justify-center shrink-0">
+    <div className="relative h-12 w-12 sm:h-14 sm:w-14 flex items-center justify-center shrink-0">
       <img
         src="/stalci-mark.png"
         alt="STALCI monogram"
-        width={64}
-        height={64}
-        className="relative z-10 h-full w-full object-contain drop-shadow-lg"
+        width={56}
+        height={56}
+        className="relative z-10 h-full w-full object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]"
       />
     </div>
   );
@@ -52,95 +41,99 @@ export function Hero() {
 
   const heroSubtitle =
     config.heroSubtitle ||
-    "STALCI is a global technology company delivering custom software, cloud architecture, AI agentic systems, data pipelines and cyber security for enterprises that cannot afford downtime.";
+    "STALCI is a global technology studio delivering custom software, cloud architecture, sovereign AI systems, data pipelines, and cyber resilience for enterprises that cannot afford downtime.";
 
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-28 bg-[#06080F] text-white"
+      className="relative isolate flex min-h-[96svh] w-full flex-col items-center justify-center overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 bg-[#06080F] text-white"
     >
-      {/* Crisp Grid Background Pattern */}
+      {/* ─── Rich Luxury Tech Atmosphere Background ─── */}
+      
+      {/* 1. Subtle Radial Gradient Aurora Orbs */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[65rem] h-[35rem] bg-gradient-to-b from-slate-700/20 via-slate-800/10 to-transparent blur-[120px] pointer-events-none -z-20" />
+      <div className="absolute top-1/3 left-1/4 w-[28rem] h-[28rem] bg-blue-900/10 rounded-full blur-[140px] pointer-events-none -z-20" />
+      <div className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] bg-amber-900/10 rounded-full blur-[140px] pointer-events-none -z-20" />
+
+      {/* 2. Precision Perspective Grid Overlay */}
       <div 
-        className="absolute inset-0 -z-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" 
+        className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] pointer-events-none" 
         aria-hidden 
       />
 
-      {/* Atmospheric Gradient Atmosphere behind Showcase */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-[#D89B5B]/20 via-[#F0BC86]/10 to-amber-500/5 blur-[150px] pointer-events-none -z-10 rounded-full" />
+      {/* 3. Subtle Horizon Glow Line */}
+      <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none -z-10" />
 
-      <div className="mx-auto w-full max-w-6xl px-5 lg:px-8 text-center relative z-10">
+      <div className="mx-auto w-full max-w-5xl px-5 lg:px-8 text-center relative z-10">
         
-        {/* Centered Monogram & Eyebrow Badge */}
+        {/* Monogram & Eyebrow Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center justify-center gap-3"
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center justify-center gap-3.5"
         >
           <Monogram />
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#D89B5B]/40 bg-[#D89B5B]/10 px-4 py-1.5 text-xs font-mono font-bold text-[#F0BC86] shadow-xs tracking-wider uppercase">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F0BC86] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D89B5B]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1 text-[11px] font-mono text-slate-300 backdrop-blur-md shadow-inner">
+            <span className="flex h-1.5 w-1.5 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
             </span>
-            <span>GLOBAL ENTERPRISE IT STUDIO</span>
+            <span className="uppercase tracking-widest font-semibold">GLOBAL ENTERPRISE IT STUDIO</span>
           </div>
         </motion.div>
 
-        {/* Headline */}
+        {/* Clean Headline with Balanced Scale */}
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mt-6 text-balance text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.06] tracking-tight text-white max-w-4xl mx-auto"
+          transition={{ duration: 0.6, delay: 0.08 }}
+          className="mt-6 text-balance text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-white max-w-3xl mx-auto"
         >
-          Architecting <br className="hidden sm:inline" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0BC86] via-[#D89B5B] to-[#B4783B]">
-            Sovereign AI & Cloud
-          </span> <br />
-          Infrastructure.
+          Architecting Sovereign <br className="hidden sm:inline" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+            AI & Multi-Cloud Systems
+          </span>
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed text-slate-300 font-normal"
+          transition={{ duration: 0.6, delay: 0.16 }}
+          className="mt-5 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed text-slate-400 font-normal"
         >
           {heroSubtitle}
         </motion.p>
 
-        {/* CTA Buttons Row */}
+        {/* Action Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.6, delay: 0.24 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5"
         >
           <a
             href="#projects"
-            className="group relative overflow-hidden inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-4 text-sm font-extrabold text-slate-950 bg-gradient-to-r from-[#F0BC86] via-[#D89B5B] to-[#B4783B] hover:opacity-95 transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-[#D89B5B]/25"
+            className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-xs font-bold text-slate-950 bg-white hover:bg-slate-200 transition-all shadow-md hover:scale-[1.02] active:scale-98"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Explore Live Portfolio
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
+            <span>Explore Case Studies</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.04] px-8 py-4 text-sm font-bold text-white transition-all hover:border-[#D89B5B]/70 hover:text-[#F0BC86] hover:bg-white/[0.08]"
+            className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/[0.04] px-7 py-3 text-xs font-semibold text-white transition-all hover:bg-white/[0.08] hover:border-white/40"
           >
             Schedule Consultation
           </a>
         </motion.div>
 
-        {/* Social Proof & Rating Stack */}
+        {/* Social Proof Stack */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400"
+          transition={{ duration: 0.6, delay: 0.32 }}
+          className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 text-[11px] text-slate-400"
         >
           <div className="flex items-center -space-x-2">
             {avatars.map((img, idx) => (
@@ -148,39 +141,39 @@ export function Hero() {
                 key={idx}
                 src={img}
                 alt="Client avatar"
-                className="h-8 w-8 rounded-full border-2 border-[#06080F] object-cover"
+                className="h-7 w-7 rounded-full border border-[#06080F] object-cover"
               />
             ))}
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="flex items-center text-amber-400 gap-0.5">
+            <div className="flex items-center text-amber-400/90 gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-amber-400" />
+                <Star key={i} className="h-3 w-3 fill-amber-400/90" />
               ))}
             </div>
-            <span className="font-medium text-slate-300">
-              Trusted by 140+ enterprise leaders worldwide
+            <span className="text-slate-300 font-medium">
+              Trusted by 140+ enterprise partners worldwide
             </span>
           </div>
         </motion.div>
 
-        {/* Clean Enterprise Trust Highlights Row */}
+        {/* High-End Enterprise Standards Bar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-          className="mt-12 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-xs text-slate-400 font-mono"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-[11px] text-slate-400 font-mono"
         >
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
-            <span>100% Type-Safe Architecture</span>
+            <CheckCircle2 className="h-3.5 w-3.5 text-slate-300" />
+            <span>100% Type-Safe TypeScript</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-slate-300" />
             <span>99.99% Production SLA Uptime</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#D89B5B]" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-slate-300" />
             <span>Zero-Trust Cybersecurity</span>
           </div>
         </motion.div>

@@ -19,19 +19,19 @@ function StatItem({ stat }: { stat: { value: string; label: string } }) {
   const ref = useCountUp(numericVal, { suffix }) as any;
 
   return (
-    <div className="bg-white rounded-2xl px-5 py-6 border border-slate-200/90 shadow-sm hover:border-copper/60 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-      <dt ref={ref} className="text-3xl font-extrabold text-amber-700">
+    <div className="bg-white rounded-xl px-4 py-4 border border-slate-200 shadow-2xs hover:border-slate-400 transition-colors">
+      <dt ref={ref} className="text-2xl sm:text-3xl font-bold text-slate-900">
         0{suffix}
       </dt>
-      <dd className="mt-1.5 text-xs font-semibold leading-snug text-slate-600">{stat.label}</dd>
+      <dd className="mt-1 text-[11px] font-medium leading-snug text-slate-500">{stat.label}</dd>
     </div>
   );
 }
 
 export function About() {
-  const textRevealRef = useScrollReveal({ direction: "up", distance: 40 }) as any;
-  const staggerRef = useStaggerReveal({ staggerChildren: 0.1 }) as any;
-  const parallaxRef = useParallax(0.03) as any;
+  const textRevealRef = useScrollReveal({ direction: "up", distance: 30 }) as any;
+  const staggerRef = useStaggerReveal({ staggerChildren: 0.08 }) as any;
+  const parallaxRef = useParallax(0.02) as any;
 
   const { data: config = {} } = useQuery({
     queryKey: ["site-config-map"],
@@ -53,16 +53,16 @@ export function About() {
     "Our cross-functional practices specialize in sovereign enterprise platforms, multi-cloud orchestration, advanced AI model integration, and distributed zero-trust cybersecurity. Every engagement is executed by elite engineers utilizing agile delivery and enterprise-grade quality assurance.";
 
   const dynamicStats = [
-    { value: config.stat_shipped || `${statsData?.totalProjectsCount || 140}+`, label: "Enterprise Deployments" },
-    { value: config.stat_markets || "18", label: "Global Markets Served" },
-    { value: config.stat_engineers || "60+", label: "Elite IT Engineers" },
-    { value: config.stat_uptime || "99.9%", label: "System Availability" },
+    { value: config.stat_shipped || `${statsData?.totalProjectsCount || 140}+`, label: "Deployments" },
+    { value: config.stat_markets || "18", label: "Global Markets" },
+    { value: config.stat_engineers || "60+", label: "IT Engineers" },
+    { value: config.stat_uptime || "99.9%", label: "Availability" },
   ];
 
   return (
-    <section id="about" className="bg-[#F8FAFC] py-20 sm:py-28 relative text-slate-900 border-y border-slate-200/80">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
-        <div className="grid items-start gap-14 lg:grid-cols-2">
+    <section id="about" className="bg-[#F8FAFC] py-20 sm:py-28 relative text-slate-900 border-t border-slate-200/80">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
+        <div className="grid items-start gap-10 lg:grid-cols-2">
           <div ref={textRevealRef}>
             <SectionHeading
               align="left"
@@ -71,11 +71,11 @@ export function About() {
               subtitle={aboutSubtitle}
               tone="light"
             />
-            <p className="mt-6 text-base leading-relaxed text-slate-600">
+            <p className="mt-5 text-xs sm:text-sm leading-relaxed text-slate-600">
               {aboutBody}
             </p>
 
-            <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <dl className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {dynamicStats.map((s) => (
                 <StatItem key={s.label} stat={s} />
               ))}
@@ -83,20 +83,20 @@ export function About() {
           </div>
 
           <div ref={parallaxRef}>
-            <div ref={staggerRef} className="grid gap-4 sm:grid-cols-2">
+            <div ref={staggerRef} className="grid gap-3.5 sm:grid-cols-2">
               {values.map((v, i) => (
                 <div
                   key={v.title}
                   className={
-                    "rounded-2xl bg-white p-6 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-copper/60 transition-all " +
+                    "rounded-xl bg-white p-5 border border-slate-200 shadow-2xs hover:border-slate-400 transition-colors " +
                     (i === 0 || i === 3 || i === 4 ? "sm:col-span-2" : "sm:col-span-1")
                   }
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 border border-amber-200/70 text-amber-700">
-                    <v.icon className="h-5 w-5" strokeWidth={1.8} />
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 border border-slate-200 text-slate-800">
+                    <v.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
                   </span>
-                  <h3 className="mt-4 text-base font-bold text-slate-900">{v.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{v.copy}</p>
+                  <h3 className="mt-3 text-sm font-bold text-slate-900">{v.title}</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600">{v.copy}</p>
                 </div>
               ))}
             </div>

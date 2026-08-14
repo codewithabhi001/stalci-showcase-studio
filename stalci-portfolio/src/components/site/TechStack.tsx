@@ -1,346 +1,427 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTechnologies } from "@/lib/api";
+import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "./Brand";
-import { motion } from "framer-motion";
-import {
-  Code2,
-  Server,
-  Cloud,
-  Brain,
-  ShieldCheck,
-  Sparkles,
-  CheckCircle2,
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-const fallbackTechs = [
+interface TechItem {
+  name: string;
+  label: string;
+  category: "Languages" | "Frameworks and SDKs" | "Cloud and Backend" | "Dev Tools";
+  iconSlug: string;
+  proficiency: number;
+  description: string;
+  badge: string;
+}
+
+const techItems: TechItem[] = [
+  // ─── Languages ───
   {
-    id: 1,
-    name: "React 19 & Next.js 16",
-    category: "Frontend",
+    name: "JavaScript",
+    label: "JavaScript",
+    category: "Languages",
+    iconSlug: "typescript",
     proficiency: 99,
-    isFeatured: true,
-    description: "Server components, streaming SSR, dynamic hydration, and micro-frontend architecture.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-    badge: "Core Framework",
+    description: "Modern ESNext asynchronous runtime, event loop optimization, and web standards.",
+    badge: "Primary Web",
   },
   {
-    id: 2,
-    name: "TypeScript & JavaScript",
-    category: "Frontend",
+    name: "TypeScript",
+    label: "TypeScript",
+    category: "Languages",
+    iconSlug: "typescript",
     proficiency: 99,
-    isFeatured: true,
-    description: "Strict type safety, generic utility structures, and modern async execution engines.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-    badge: "Primary Language",
+    description: "Strict static typing, compile-time validation, generic utilities, and enterprise scale.",
+    badge: "Core Language",
   },
   {
-    id: 3,
-    name: "Tailwind CSS & Radix UI",
-    category: "Frontend",
-    proficiency: 97,
-    isFeatured: true,
-    description: "Bespoke design systems, responsive flex layouts, and accessible UI component primitives.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-    badge: "Styling Suite",
+    name: "Kotlin",
+    label: "Kotlin",
+    category: "Languages",
+    iconSlug: "kotlin",
+    proficiency: 96,
+    description: "Modern Android application engineering, coroutines, and type-safe multiplatform code.",
+    badge: "Native Mobile",
   },
   {
-    id: 4,
-    name: "Node.js & NestJS",
-    category: "Backend",
+    name: "Swift",
+    label: "Swift",
+    category: "Languages",
+    iconSlug: "swift",
+    proficiency: 96,
+    description: "High-performance iOS ecosystem, SwiftUI, Combine reactive flows, and Metal GPU shaders.",
+    badge: "Apple Ecosystem",
+  },
+  {
+    name: "Python",
+    label: "Python",
+    category: "Languages",
+    iconSlug: "python",
     proficiency: 98,
-    isFeatured: true,
-    description: "Enterprise modular microservices, dependency injection, and REST/GraphQL gateways.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
-    badge: "Backend Core",
+    description: "AI/ML pipelines, PyTorch tensor models, LangChain agentic systems, and FastAPI microservices.",
+    badge: "AI & Systems",
   },
   {
-    id: 5,
     name: "Go (Golang)",
-    category: "Backend",
+    label: "Go",
+    category: "Languages",
+    iconSlug: "go",
     proficiency: 94,
-    isFeatured: true,
-    description: "High-concurrency microservices, lightweight goroutines, and memory efficiency.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
+    description: "High-throughput microservices, concurrent goroutines, and sub-millisecond network gateways.",
     badge: "High Concurrency",
   },
   {
-    id: 6,
-    name: "Rust & WebAssembly",
-    category: "Backend",
-    proficiency: 91,
-    isFeatured: true,
-    description: "Sub-millisecond compute engines, zero-cost abstractions, and WASM web modules.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg",
+    name: "Rust",
+    label: "Rust",
+    category: "Languages",
+    iconSlug: "rust",
+    proficiency: 92,
+    description: "Memory-safe systems programming, WebAssembly binaries, and zero-cost abstractions.",
     badge: "Systems & WASM",
   },
+
+  // ─── Frameworks and SDKs ───
   {
-    id: 7,
-    name: "Python & PyTorch",
-    category: "AI & Data",
-    proficiency: 96,
-    isFeatured: true,
-    description: "Deep learning model fine-tuning, tensor math algorithms, and inference pipelines.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-    badge: "AI Inference",
+    name: "React 19",
+    label: "React",
+    category: "Frameworks and SDKs",
+    iconSlug: "react",
+    proficiency: 99,
+    description: "Server components, concurrent rendering, dynamic hydration, and state primitives.",
+    badge: "Core Frontend",
   },
   {
-    id: 8,
-    name: "LangChain & Agentic LLMs",
-    category: "AI & Data",
-    proficiency: 95,
-    isFeatured: true,
-    description: "RAG vector retrieval, autonomous tool-calling agents, and structured outputs.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
-    badge: "LLM Orchestrator",
+    name: "Next.js 16",
+    label: "Next.js",
+    category: "Frameworks and SDKs",
+    iconSlug: "nextdotjs",
+    proficiency: 99,
+    description: "Streaming SSR, edge middleware, nested layouts, and Core Web Vitals optimization.",
+    badge: "Production Web",
   },
   {
-    id: 9,
-    name: "PostgreSQL & pgvector",
-    category: "Security & Database",
+    name: "React Native",
+    label: "React Native",
+    category: "Frameworks and SDKs",
+    iconSlug: "react",
     proficiency: 98,
-    isFeatured: true,
-    description: "ACID compliance, schema migrations, indexing optimization, and pgvector embeddings.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-    badge: "Primary RDBMS",
+    description: "Cross-platform mobile apps with native UI bridges and 60fps smooth gestures.",
+    badge: "Cross-Platform",
   },
   {
-    id: 10,
-    name: "Redis & Apache Kafka",
-    category: "Security & Database",
+    name: "Flutter",
+    label: "Flutter",
+    category: "Frameworks and SDKs",
+    iconSlug: "flutter",
     proficiency: 94,
-    isFeatured: true,
-    description: "Distributed pub/sub event streams, in-memory caching, and rate limiting.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
-    badge: "Caching & Queues",
+    description: "Pixel-perfect compiled mobile and desktop UI powered by Dart and Skia canvas.",
+    badge: "Multi-Platform",
   },
   {
-    id: 11,
-    name: "Kubernetes & Docker",
-    category: "Cloud & DevOps",
+    name: "NestJS",
+    label: "NestJS",
+    category: "Frameworks and SDKs",
+    iconSlug: "nestjs",
+    proficiency: 97,
+    description: "Enterprise modular backend architecture, dependency injection, and gRPC microservices.",
+    badge: "Backend Core",
+  },
+  {
+    name: "Tailwind CSS",
+    label: "Tailwind CSS",
+    category: "Frameworks and SDKs",
+    iconSlug: "tailwindcss",
+    proficiency: 99,
+    description: "Utility-first design tokens, responsive layouts, and accessible component themes.",
+    badge: "Styling Suite",
+  },
+  {
+    name: "Node.js",
+    label: "Node.js",
+    category: "Frameworks and SDKs",
+    iconSlug: "nodedotjs",
     proficiency: 98,
-    isFeatured: true,
-    description: "Container orchestration, automated rolling deployments, and Helm cluster charts.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
+    description: "V8-powered asynchronous server runtime, high-concurrency event loops, and streaming APIs.",
+    badge: "Server Runtime",
+  },
+
+  // ─── Cloud and Backend ───
+  {
+    name: "AWS",
+    label: "AWS Cloud",
+    category: "Cloud and Backend",
+    iconSlug: "googlecloud",
+    proficiency: 98,
+    description: "Multi-region VPCs, ECS/EKS clusters, serverless Lambda, and S3 global distribution.",
+    badge: "Cloud Infra",
+  },
+  {
+    name: "Kubernetes",
+    label: "Kubernetes",
+    category: "Cloud and Backend",
+    iconSlug: "kubernetes",
+    proficiency: 97,
+    description: "Automated container orchestration, blue/green rollouts, and multi-cloud Helm deployments.",
     badge: "Orchestration",
   },
   {
-    id: 12,
-    name: "AWS & Cloudflare",
-    category: "Cloud & DevOps",
-    proficiency: 97,
-    isFeatured: true,
-    description: "Multi-region edge infrastructure, serverless compute, and global S3 CDN routing.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-    badge: "Cloud Infrastructure",
+    name: "Docker",
+    label: "Docker",
+    category: "Cloud and Backend",
+    iconSlug: "docker",
+    proficiency: 99,
+    description: "Deterministic container environments, multi-stage builds, and microservice packaging.",
+    badge: "Containers",
   },
   {
-    id: 13,
-    name: "Terraform & OpenTofu",
-    category: "Cloud & DevOps",
-    proficiency: 93,
-    isFeatured: true,
-    description: "Declarative cloud provisioning and immutable infrastructure state management.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
-    badge: "Infrastructure as Code",
-  },
-  {
-    id: 14,
-    name: "Zero-Trust & eBPF Security",
-    category: "Security & Database",
+    name: "Terraform",
+    label: "Terraform",
+    category: "Cloud and Backend",
+    iconSlug: "terraform",
     proficiency: 95,
-    isFeatured: true,
-    description: "Kernel-level observability, mTLS encryption, and SOC2 compliance monitoring.",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-    badge: "Kernel Observability",
+    description: "Declarative Infrastructure as Code (IaC) and immutable cloud state management.",
+    badge: "IaC Automation",
+  },
+  {
+    name: "PostgreSQL",
+    label: "PostgreSQL",
+    category: "Cloud and Backend",
+    iconSlug: "postgresql",
+    proficiency: 98,
+    description: "ACID compliance, pgvector embeddings, complex indexing, and high-volume transactions.",
+    badge: "Primary RDBMS",
+  },
+  {
+    name: "Redis",
+    label: "Redis",
+    category: "Cloud and Backend",
+    iconSlug: "redis",
+    proficiency: 96,
+    description: "In-memory caching, distributed locks, rate-limiting, and Pub/Sub message channels.",
+    badge: "Fast Cache",
+  },
+  {
+    name: "Apache Kafka",
+    label: "Kafka",
+    category: "Cloud and Backend",
+    iconSlug: "apachekafka",
+    proficiency: 94,
+    description: "Distributed high-throughput event streaming, log compaction, and event-driven pipelines.",
+    badge: "Event Streaming",
+  },
+
+  // ─── Dev Tools ───
+  {
+    name: "GitHub Actions",
+    label: "CI/CD Actions",
+    category: "Dev Tools",
+    iconSlug: "githubactions",
+    proficiency: 98,
+    description: "Automated linting, unit/integration testing, security scanning, and container deployments.",
+    badge: "CI/CD Pipeline",
+  },
+  {
+    name: "LangChain",
+    label: "LangChain",
+    category: "Dev Tools",
+    iconSlug: "langchain",
+    proficiency: 96,
+    description: "Autonomous LLM tool orchestration, RAG retrieval agents, and vector store connectors.",
+    badge: "AI Agentic",
+  },
+  {
+    name: "Cloudflare",
+    label: "Cloudflare",
+    category: "Dev Tools",
+    iconSlug: "cloudflare",
+    proficiency: 97,
+    description: "Global edge CDN, DDoS mitigation, WAF security rules, and Workers serverless execution.",
+    badge: "Edge & WAF",
+  },
+  {
+    name: "Figma",
+    label: "Figma",
+    category: "Dev Tools",
+    iconSlug: "figma",
+    proficiency: 98,
+    description: "Collaborative design systems, interactive prototypes, and auto-layout UI specifications.",
+    badge: "UI/UX Design",
+  },
+  {
+    name: "Prometheus",
+    label: "Prometheus",
+    category: "Dev Tools",
+    iconSlug: "prometheus",
+    proficiency: 95,
+    description: "Real-time metrics scraping, alert rules, service level telemetry, and uptime monitoring.",
+    badge: "Observability",
+  },
+  {
+    name: "HashiCorp Vault",
+    label: "Vault",
+    category: "Dev Tools",
+    iconSlug: "vault",
+    proficiency: 95,
+    description: "Centralized secrets encryption, dynamic certificate leasing, and identity verification.",
+    badge: "Zero-Trust",
   },
 ];
 
 const categories = [
-  "All",
-  "Frontend",
-  "Backend",
-  "Cloud & DevOps",
-  "AI & Data",
-  "Security & Database",
-];
+  "Languages",
+  "Frameworks and SDKs",
+  "Cloud and Backend",
+  "Dev Tools",
+] as const;
 
 export function TechStack() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState<TechItem["category"]>("Languages");
+  const [selectedTech, setSelectedTech] = useState<TechItem | null>(techItems[0]);
 
-  const { data: apiTechs } = useQuery({
-    queryKey: ["technologies", selectedCategory],
-    queryFn: () => fetchTechnologies(selectedCategory),
-  });
-
-  const rawTechs = apiTechs && apiTechs.length > 0 ? apiTechs : fallbackTechs;
-
-  // Deduplicate technologies strictly by unique name
-  const uniqueTechMap = new Map<string, any>();
-  rawTechs.forEach((t: any) => {
-    if (!uniqueTechMap.has(t.name)) {
-      const matchedFallback = fallbackTechs.find((f) => f.name === t.name);
-      uniqueTechMap.set(t.name, {
-        ...t,
-        icon: t.icon && t.icon.startsWith("http") ? t.icon : matchedFallback?.icon || "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/code/code-original.svg",
-        badge: matchedFallback?.badge || t.category || "Core Tech",
-        description: t.description || matchedFallback?.description || "Production toolchain engineered for enterprise reliability.",
-      });
-    }
-  });
-
-  const technologies = Array.from(uniqueTechMap.values());
-
-  const filtered = technologies.filter((t: any) => {
-    if (selectedCategory === "All") return true;
-    return t.category === selectedCategory;
-  });
-
-  // Duplicate filtered cards for seamless continuous infinite marquee loop
-  const marqueeCards = filtered.length > 0 ? [...filtered, ...filtered, ...filtered] : [];
+  const filteredItems = techItems.filter((item) => item.category === activeCategory);
 
   return (
-    <section id="tech-stack" className="relative bg-[#FAFAFD] py-28 sm:py-36 overflow-hidden text-slate-900 border-t border-slate-200">
-      {/* Decorative Light Theme Orbs */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[55rem] h-[28rem] bg-gradient-to-br from-amber-200/40 via-amber-100/30 to-blue-100/30 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-gradient-to-tl from-slate-200/60 via-slate-100/40 to-transparent rounded-full blur-[150px] pointer-events-none -z-10" />
+    <section id="tech-stack" className="relative bg-[#080B12] py-24 sm:py-32 overflow-hidden text-white border-t border-white/10">
+      <div className="absolute inset-0 perspective-grid opacity-30 pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <div className="mx-auto max-w-5xl px-5 lg:px-8 relative z-10">
+        
+        {/* Section Heading */}
         <SectionHeading
-          eyebrow="Core Technology Radar"
-          title="Battle-Tested Engineering Stack"
-          subtitle="Explore our modern software toolchain flowing seamlessly across production ecosystems."
-          tone="light"
+          tone="dark"
+          eyebrow="Advanced Tech Portfolio"
+          title="Using The Right Tools For Powerful Results"
+          subtitle="We pick the right stack for your specific project requirements and ensure maximum performance."
         />
 
-        {/* Light Mode KPI Highlights */}
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">100%</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">Type-Safe TypeScript</span>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">99.999%</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">Production SLA</span>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">Multi-Cloud</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">AWS, GCP & Edge</span>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">Zero-Trust</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">Security First</span>
-          </div>
-        </div>
-
-        {/* Category Filter Pills */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+        {/* Category Pill Tabs */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
           {categories.map((cat) => {
-            const count = cat === "All" ? technologies.length : technologies.filter((t: any) => t.category === cat).length;
-            const isSelected = selectedCategory === cat;
+            const isActive = activeCategory === cat;
             return (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`relative inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
-                  isSelected
-                    ? "bg-slate-900 text-white font-bold shadow-lg shadow-slate-900/30 scale-105"
-                    : "bg-white text-slate-700 border border-slate-200/90 hover:border-amber-500 hover:text-slate-900 shadow-2xs"
+                onClick={() => {
+                  setActiveCategory(cat);
+                  const firstOfCat = techItems.find((t) => t.category === cat);
+                  if (firstOfCat) setSelectedTech(firstOfCat);
+                }}
+                className={`relative rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? "bg-white text-slate-950 font-bold shadow-sm"
+                    : "bg-[#101522] text-slate-300 border border-white/10 hover:border-white/30 hover:text-white"
                 }`}
               >
                 <span>{cat}</span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-mono ${
-                    isSelected ? "bg-amber-500 text-slate-950 font-extrabold" : "bg-slate-100 text-slate-600"
-                  }`}
-                >
-                  {count}
-                </span>
               </button>
             );
           })}
         </div>
-      </div>
 
-      {/* Infinite Flow Marquee Track with Left & Right Edge Fade Overlay */}
-      <div className="mt-14 relative w-full overflow-hidden">
-        {/* Left Side Edge Fade Overlay */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#FAFAFD] via-[#FAFAFD]/80 to-transparent pointer-events-none z-20" />
-        
-        {/* Right Side Edge Fade Overlay */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[#FAFAFD] via-[#FAFAFD]/80 to-transparent pointer-events-none z-20" />
-
-        {/* Seamless Smooth Horizontal Motion Track */}
-        <motion.div
-          animate={{ x: ["0%", "-33.333%"] }}
-          transition={{
-            ease: "linear",
-            duration: Math.max(20, marqueeCards.length * 2.8),
-            repeat: Infinity,
-          }}
-          className="flex items-center gap-6 w-max py-4 px-4 hover:[animation-play-state:paused]"
-        >
-          {marqueeCards.map((t: any, idx: number) => {
-            const proficiency = t.proficiency || 95;
-
-            return (
+        {/* Honeycomb Grid */}
+        <div className="mt-14 sm:mt-16 flex flex-col items-center">
+          
+          <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 max-w-3xl">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={`${t.name}-${idx}`}
-                whileHover={{ scale: 1.03 }}
-                className="group relative w-[320px] sm:w-[360px] shrink-0 rounded-3xl bg-white border border-slate-200/90 p-6 shadow-md shadow-slate-200/50 hover:shadow-2xl hover:shadow-amber-900/10 hover:border-amber-500/60 transition-all duration-300 opacity-100 flex flex-col justify-between"
+                key={activeCategory}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.25 }}
+                className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 w-full"
               >
-                <div>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3.5">
-                      {/* SVG Logo Container */}
-                      <div className="h-12 w-12 rounded-2xl bg-slate-50 border border-slate-200 p-2.5 shadow-2xs flex items-center justify-center group-hover:bg-amber-50 group-hover:border-amber-300 transition-colors shrink-0">
+                {filteredItems.map((tech, idx) => {
+                  const isSelected = selectedTech?.name === tech.name;
+
+                  return (
+                    <motion.button
+                      key={tech.name}
+                      onClick={() => setSelectedTech(tech)}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.25, delay: idx * 0.03 }}
+                      className={`relative w-24 h-28 sm:w-28 sm:h-32 hex-cell flex flex-col items-center justify-center p-3 cursor-pointer transition-all duration-200 ${
+                        isSelected
+                          ? "bg-[#1E2738] border border-white/40 shadow-md scale-105"
+                          : "bg-[#101522] border border-white/10 hover:bg-[#161D2C] hover:border-white/25"
+                      }`}
+                    >
+                      <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-black/40 border border-white/10 p-1.5 flex items-center justify-center mb-1.5 shadow-inner">
                         <img
-                          src={t.icon}
-                          alt={`${t.name} logo`}
-                          className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
+                          src={`/icons/${tech.iconSlug}.svg`}
+                          alt={`${tech.name} logo`}
+                          className="h-full w-full object-contain"
                           onError={(e) => {
                             (e.target as HTMLElement).style.display = "none";
                           }}
                         />
                       </div>
-                      <div>
-                        <h4 className="font-bold text-base text-slate-900 group-hover:text-amber-800 transition-colors leading-snug">
-                          {t.name}
-                        </h4>
-                        <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
-                          {t.category}
-                        </span>
-                      </div>
-                    </div>
 
-                    <span className="inline-flex items-center gap-1 text-[9.5px] font-extrabold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full shrink-0">
-                      <Sparkles className="h-3 w-3 fill-amber-500 text-amber-500" />
-                      {t.badge}
-                    </span>
-                  </div>
+                      <span className="text-[10px] sm:text-[11px] font-semibold text-slate-200 tracking-tight text-center leading-tight">
+                        {tech.label}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-                  <p className="mt-4 text-xs leading-relaxed text-slate-600 font-normal line-clamp-3">
-                    {t.description}
-                  </p>
-                </div>
-
-                {/* Production Mastery Meter */}
-                <div className="mt-6 pt-4 border-t border-slate-100">
-                  <div className="flex justify-between items-center text-[11px] mb-2 font-mono">
-                    <span className="text-slate-500 font-semibold">Production Mastery</span>
-                    <span className="font-bold text-amber-700 font-mono text-xs">{proficiency}%</span>
-                  </div>
-                  <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
-                    <div
-                      style={{ width: `${proficiency}%` }}
-                      className="h-full bg-gradient-to-r from-amber-500 to-amber-700 rounded-full shadow-xs"
+          {/* Active Tool Spotlight Drawer */}
+          {selectedTech && (
+            <motion.div
+              key={selectedTech.name}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="mt-10 w-full max-w-xl rounded-2xl border border-white/15 bg-[#0D121C] p-5 sm:p-6 shadow-xl relative overflow-hidden"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-[#161D2B] border border-white/10 p-2 flex items-center justify-center shrink-0">
+                    <img
+                      src={`/icons/${selectedTech.iconSlug}.svg`}
+                      alt={selectedTech.name}
+                      className="h-full w-full object-contain"
                     />
                   </div>
+                  <div>
+                    <h4 className="font-display text-base sm:text-lg font-bold text-white leading-tight">
+                      {selectedTech.name}
+                    </h4>
+                    <span className="text-[11px] font-mono text-slate-400 font-medium">
+                      {selectedTech.badge} &bull; {selectedTech.category}
+                    </span>
+                  </div>
                 </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+
+                <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-white/5 border border-white/10 text-[10px] font-mono font-semibold text-slate-300">
+                  <Sparkles className="h-3 w-3 text-slate-300" />
+                  {selectedTech.proficiency}% Production Grade
+                </span>
+              </div>
+
+              <p className="mt-3 text-xs leading-relaxed text-slate-300">
+                {selectedTech.description}
+              </p>
+
+              {/* Progress bar */}
+              <div className="mt-4 pt-3 border-t border-white/10">
+                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1">
+                  <span>Production SLA Readiness</span>
+                  <span className="font-semibold text-white">{selectedTech.proficiency}%</span>
+                </div>
+                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    style={{ width: `${selectedTech.proficiency}%` }}
+                    className="h-full bg-white rounded-full"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+        </div>
       </div>
     </section>
   );
