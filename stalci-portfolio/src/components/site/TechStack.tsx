@@ -3,15 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTechnologies } from "@/lib/api";
 import { SectionHeading } from "./Brand";
 import { motion } from "framer-motion";
-import {
-  Code2,
-  Server,
-  Cloud,
-  Brain,
-  ShieldCheck,
-  Sparkles,
-  CheckCircle2,
-} from "lucide-react";
+import { Layers, ShieldCheck, Cpu, Database, Cloud, Terminal, CheckCircle2 } from "lucide-react";
 
 const fallbackTechs = [
   {
@@ -165,93 +157,99 @@ const categories = [
   "Security & Database",
 ];
 
+const architectureLayers = [
+  { layer: "01. Presentation Edge", stack: "Next.js 16 • React 19 • Tailwind CSS • WebAssembly", latency: "<15ms", icon: Layers },
+  { layer: "02. API Gateway & Auth", stack: "NestJS • Go Gateway • GraphQL • OAuth2 / JWT", latency: "<8ms", icon: Terminal },
+  { layer: "03. Sovereign AI & Inference", stack: "PyTorch • vLLM • LangChain • Ray Vector Index", latency: "<45ms", icon: Cpu },
+  { layer: "04. High-Throughput Data Layer", stack: "PostgreSQL • pgvector • Apache Kafka • Redis", latency: "<2ms", icon: Database },
+  { layer: "05. Multi-Cloud Mesh & SRE", stack: "Kubernetes • Terraform • AWS • Cloudflare WAF", latency: "99.999% SLA", icon: Cloud },
+];
+
 export function TechStack() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const { data: apiTechs } = useQuery({
-    queryKey: ["technologies", selectedCategory],
-    queryFn: () => fetchTechnologies(selectedCategory),
+    queryKey: ["technologies"],
+    queryFn: fetchTechnologies,
   });
 
-  const rawTechs = apiTechs && apiTechs.length > 0 ? apiTechs : fallbackTechs;
+  const allTechs = apiTechs && apiTechs.length > 0 ? apiTechs : fallbackTechs;
 
-  // Deduplicate technologies strictly by unique name
-  const uniqueTechMap = new Map<string, any>();
-  rawTechs.forEach((t: any) => {
-    if (!uniqueTechMap.has(t.name)) {
-      const matchedFallback = fallbackTechs.find((f) => f.name === t.name);
-      uniqueTechMap.set(t.name, {
-        ...t,
-        icon: t.icon && t.icon.startsWith("http") ? t.icon : matchedFallback?.icon || "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/code/code-original.svg",
-        badge: matchedFallback?.badge || t.category || "Core Tech",
-        description: t.description || matchedFallback?.description || "Production toolchain engineered for enterprise reliability.",
-      });
-    }
+  const filteredTechs = allTechs.filter((t: any) => {
+    if (activeCategory === "All") return true;
+    return t.category?.toLowerCase() === activeCategory.toLowerCase();
   });
 
-  const technologies = Array.from(uniqueTechMap.values());
-
-  const filtered = technologies.filter((t: any) => {
-    if (selectedCategory === "All") return true;
-    return t.category === selectedCategory;
-  });
-
-  // Duplicate filtered cards for seamless continuous infinite marquee loop
-  const marqueeCards = filtered.length > 0 ? [...filtered, ...filtered, ...filtered] : [];
+  const row1 = filteredTechs.slice(0, Math.ceil(filteredTechs.length / 2));
+  const row2 = filteredTechs.slice(Math.ceil(filteredTechs.length / 2));
 
   return (
-    <section id="tech-stack" className="relative bg-[#FAFAFD] py-28 sm:py-36 overflow-hidden text-slate-900 border-t border-slate-200">
-      {/* Decorative Light Theme Orbs */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[55rem] h-[28rem] bg-gradient-to-br from-amber-200/40 via-amber-100/30 to-blue-100/30 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-gradient-to-tl from-slate-200/60 via-slate-100/40 to-transparent rounded-full blur-[150px] pointer-events-none -z-10" />
-
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <section id="tech-stack" className="relative bg-white py-24 sm:py-32 overflow-hidden text-slate-900 border-t border-slate-200">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
         <SectionHeading
-          eyebrow="Core Technology Radar"
-          title="Battle-Tested Engineering Stack"
-          subtitle="Explore our modern software toolchain flowing seamlessly across production ecosystems."
+          eyebrow="Core Technologies"
+          title="Enterprise Architecture Stack"
+          subtitle="Battle-tested open-source and cloud-native frameworks engineered for zero-downtime scalability."
           tone="light"
         />
 
-        {/* Light Mode KPI Highlights */}
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">100%</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">Type-Safe TypeScript</span>
+        {/* Visual Architecture Pipeline Stack Diagram */}
+        <div className="mt-14 max-w-4xl mx-auto rounded-3xl border border-slate-200/90 bg-[#F8FAFC] p-6 sm:p-8 shadow-xs">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#9E6229] flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4" /> End-to-End Enterprise Architecture Pipeline
+            </span>
+            <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              Verified 5-Tier Architecture
+            </span>
           </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">99.999%</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">Production SLA</span>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">Multi-Cloud</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">AWS, GCP & Edge</span>
-          </div>
-          <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm text-center">
-            <span className="block font-mono text-2xl sm:text-3xl font-extrabold text-amber-700">Zero-Trust</span>
-            <span className="block text-xs text-slate-500 mt-1 uppercase font-semibold tracking-wider">Security First</span>
+
+          <div className="space-y-3">
+            {architectureLayers.map((l, i) => (
+              <div
+                key={i}
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-[#D89B5B]/80 transition-all gap-3"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="h-9 w-9 rounded-xl bg-[#FDF6ED] border border-[#EED7BF] text-[#9E6229] flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-2xs">
+                    <l.icon className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-950">{l.layer}</h4>
+                    <p className="text-xs font-mono text-slate-600 mt-0.5">{l.stack}</p>
+                  </div>
+                </div>
+                <span className="font-mono text-xs font-black text-[#9E6229] bg-[#FDF6ED] px-3 py-1 rounded-lg border border-[#EED7BF] shrink-0 self-end sm:self-auto">
+                  {l.latency}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Category Filter Pills */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
           {categories.map((cat) => {
-            const count = cat === "All" ? technologies.length : technologies.filter((t: any) => t.category === cat).length;
-            const isSelected = selectedCategory === cat;
+            const count =
+              cat === "All"
+                ? allTechs.length
+                : allTechs.filter((t: any) => t.category?.toLowerCase() === cat.toLowerCase()).length;
+            const isSelected = activeCategory === cat;
+
             return (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`relative inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer ${
+                onClick={() => setActiveCategory(cat)}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? "bg-slate-900 text-white font-bold shadow-lg shadow-slate-900/30 scale-105"
-                    : "bg-white text-slate-700 border border-slate-200/90 hover:border-amber-500 hover:text-slate-900 shadow-2xs"
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "bg-[#F8FAFC] text-slate-700 border border-slate-200 hover:border-[#D89B5B] hover:text-slate-950"
                 }`}
               >
                 <span>{cat}</span>
                 <span
-                  className={`rounded-full px-2 py-0.5 text-[10px] font-mono ${
-                    isSelected ? "bg-amber-500 text-slate-950 font-extrabold" : "bg-slate-100 text-slate-600"
+                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
+                    isSelected ? "bg-[#D89B5B] text-slate-950 font-bold" : "bg-slate-200 text-slate-600"
                   }`}
                 >
                   {count}
@@ -262,85 +260,99 @@ export function TechStack() {
         </div>
       </div>
 
-      {/* Infinite Flow Marquee Track with Left & Right Edge Fade Overlay */}
-      <div className="mt-14 relative w-full overflow-hidden">
-        {/* Left Side Edge Fade Overlay */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[#FAFAFD] via-[#FAFAFD]/80 to-transparent pointer-events-none z-20" />
+      {/* Infinite Marquee Tickers in Luxury Light Mode */}
+      <div className="mt-14 relative w-full space-y-5 overflow-hidden select-none">
         
-        {/* Right Side Edge Fade Overlay */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[#FAFAFD] via-[#FAFAFD]/80 to-transparent pointer-events-none z-20" />
-
-        {/* Seamless Smooth Horizontal Motion Track */}
-        <motion.div
-          animate={{ x: ["0%", "-33.333%"] }}
-          transition={{
-            ease: "linear",
-            duration: Math.max(20, marqueeCards.length * 2.8),
-            repeat: Infinity,
-          }}
-          className="flex items-center gap-6 w-max py-4 px-4 hover:[animation-play-state:paused]"
-        >
-          {marqueeCards.map((t: any, idx: number) => {
-            const proficiency = t.proficiency || 95;
-
-            return (
-              <motion.div
-                key={`${t.name}-${idx}`}
-                whileHover={{ scale: 1.03 }}
-                className="group relative w-[320px] sm:w-[360px] shrink-0 rounded-3xl bg-white border border-slate-200/90 p-6 shadow-md shadow-slate-200/50 hover:shadow-2xl hover:shadow-amber-900/10 hover:border-amber-500/60 transition-all duration-300 opacity-100 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3.5">
-                      {/* SVG Logo Container */}
-                      <div className="h-12 w-12 rounded-2xl bg-slate-50 border border-slate-200 p-2.5 shadow-2xs flex items-center justify-center group-hover:bg-amber-50 group-hover:border-amber-300 transition-colors shrink-0">
-                        <img
-                          src={t.icon}
-                          alt={`${t.name} logo`}
-                          className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
-                          onError={(e) => {
-                            (e.target as HTMLElement).style.display = "none";
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-base text-slate-900 group-hover:text-amber-800 transition-colors leading-snug">
-                          {t.name}
-                        </h4>
-                        <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
-                          {t.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    <span className="inline-flex items-center gap-1 text-[9.5px] font-extrabold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full shrink-0">
-                      <Sparkles className="h-3 w-3 fill-amber-500 text-amber-500" />
-                      {t.badge}
-                    </span>
+        {/* Row 1 (Left Scrolling) */}
+        <div className="animate-marquee-left flex gap-4">
+          {[...row1, ...row1, ...row1].map((t: any, idx: number) => (
+            <div
+              key={`r1-${idx}`}
+              className="flex-shrink-0 w-72 rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-5 shadow-2xs transition-all duration-300 hover:border-[#D89B5B]/80 hover:shadow-lg hover:bg-white"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-white border border-slate-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                    <img src={t.icon} alt={t.name} className="h-full w-full object-contain" />
                   </div>
-
-                  <p className="mt-4 text-xs leading-relaxed text-slate-600 font-normal line-clamp-3">
-                    {t.description}
-                  </p>
-                </div>
-
-                {/* Production Mastery Meter */}
-                <div className="mt-6 pt-4 border-t border-slate-100">
-                  <div className="flex justify-between items-center text-[11px] mb-2 font-mono">
-                    <span className="text-slate-500 font-semibold">Production Mastery</span>
-                    <span className="font-bold text-amber-700 font-mono text-xs">{proficiency}%</span>
-                  </div>
-                  <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
-                    <div
-                      style={{ width: `${proficiency}%` }}
-                      className="h-full bg-gradient-to-r from-amber-500 to-amber-700 rounded-full shadow-xs"
-                    />
+                  <div>
+                    <h4 className="font-bold text-sm text-slate-950 truncate max-w-[130px]">{t.name}</h4>
+                    <span className="text-[10px] font-mono text-[#9E6229] font-bold uppercase">{t.badge || t.category}</span>
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                <span className="text-xs font-mono font-extrabold text-[#9E6229] bg-[#FDF6ED] px-2 py-0.5 rounded-md border border-[#EED7BF]">
+                  {t.proficiency}%
+                </span>
+              </div>
+              <p className="mt-3 text-xs leading-relaxed text-slate-600 line-clamp-2">{t.description}</p>
+              
+              {/* Mastery Level Bar */}
+              <div className="mt-4 h-1.5 w-full rounded-full bg-slate-200/70 overflow-hidden">
+                <div 
+                  className="h-full rounded-full bg-gradient-to-r from-[#D89B5B] to-[#9E6229]"
+                  style={{ width: `${t.proficiency}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Row 2 (Right Scrolling) */}
+        <div className="animate-marquee-right flex gap-4">
+          {[...row2, ...row2, ...row2].map((t: any, idx: number) => (
+            <div
+              key={`r2-${idx}`}
+              className="flex-shrink-0 w-72 rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-5 shadow-2xs transition-all duration-300 hover:border-[#D89B5B]/80 hover:shadow-lg hover:bg-white"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-white border border-slate-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                    <img src={t.icon} alt={t.name} className="h-full w-full object-contain" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-slate-950 truncate max-w-[130px]">{t.name}</h4>
+                    <span className="text-[10px] font-mono text-[#9E6229] font-bold uppercase">{t.badge || t.category}</span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono font-extrabold text-[#9E6229] bg-[#FDF6ED] px-2 py-0.5 rounded-md border border-[#EED7BF]">
+                  {t.proficiency}%
+                </span>
+              </div>
+              <p className="mt-3 text-xs leading-relaxed text-slate-600 line-clamp-2">{t.description}</p>
+              
+              {/* Mastery Level Bar */}
+              <div className="mt-4 h-1.5 w-full rounded-full bg-slate-200/70 overflow-hidden">
+                <div 
+                  className="h-full rounded-full bg-gradient-to-r from-[#D89B5B] to-[#9E6229]"
+                  style={{ width: `${t.proficiency}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      {/* KPI Stats Bar */}
+      <div className="mx-auto max-w-5xl px-5 mt-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 rounded-3xl bg-[#F8FAFC] border border-slate-200/90 shadow-2xs">
+          <div className="text-center p-2">
+            <span className="block font-display text-2xl font-black text-[#9E6229]">100%</span>
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono mt-0.5">Strict Type Safety</span>
+          </div>
+          <div className="text-center p-2 border-l border-slate-200">
+            <span className="block font-display text-2xl font-black text-[#9E6229]">99.999%</span>
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono mt-0.5">Production SLA</span>
+          </div>
+          <div className="text-center p-2 border-l border-slate-200">
+            <span className="block font-display text-2xl font-black text-[#9E6229]">&lt; 15ms</span>
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono mt-0.5">Edge P99 Latency</span>
+          </div>
+          <div className="text-center p-2 border-l border-slate-200">
+            <span className="block font-display text-2xl font-black text-[#9E6229]">SOC 2</span>
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono mt-0.5">Certified Standard</span>
+          </div>
+        </div>
       </div>
     </section>
   );

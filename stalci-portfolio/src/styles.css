@@ -1,290 +1,185 @@
 @import "tailwindcss" source(none);
 @source "../src";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-ring-offset-background: var(--background);
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-ink-line: var(--ink-line);
-  --color-on-ink: var(--on-ink);
-  --color-on-ink-muted: var(--on-ink-muted);
-  --color-copper: var(--copper);
-  --color-copper-soft: var(--copper-soft);
-  --color-copper-deep: var(--copper-deep);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
 
 :root {
-  --radius: 0.875rem;
+  /* Google, Stripe & Linear Caliber Design Tokens */
+  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Sora', var(--font-sans);
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* STALCI Signature Sovereign Dark & Copper Palette */
-  --ink: #07090E;
-  --ink-soft: #0E131F;
-  --ink-line: rgba(255, 255, 255, 0.08);
-  --on-ink: #FFFFFF;
-  --on-ink-muted: #94A3B8;
-  
-  --copper: #D89B5B;
-  --copper-soft: #F0BC86;
-  --copper-deep: #B4783B;
+  /* Surfaces & Hierarchy */
+  --bg-main: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F1F5F9;
+  --bg-elevated: #FFFFFF;
+  --border-subtle: rgba(226, 232, 240, 0.9);
+  --border-strong: #CBD5E1;
 
-  --background: #080A0F;
-  --foreground: #FFFFFF;
-  --card: #0E131F;
-  --card-foreground: #FFFFFF;
-  --popover: #0E131F;
-  --popover-foreground: #FFFFFF;
-  --primary: #D89B5B;
-  --primary-foreground: #080A0F;
-  --secondary: #141A29;
-  --secondary-foreground: #FFFFFF;
-  --muted: #111624;
-  --muted-foreground: #94A3B8;
-  --accent: rgba(216, 155, 91, 0.12);
-  --accent-foreground: #D89B5B;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #D89B5B;
+  /* Text colors */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
 
-  --chart-1: #D89B5B;
-  --chart-2: #3B82F6;
-  --chart-3: #10B981;
-  --chart-4: #8B5CF6;
-  --chart-5: #F59E0B;
+  /* Official STALCI Luxury Bronze & Copper Palette (Exact Logo Palette - No Yellow) */
+  --copper-primary: #D89B5B;
+  --copper-deep: #9E6229;
+  --copper-dark: #784415;
+  --copper-light: #F2CFAB;
+  --copper-cream: #FDF6ED;
+  --copper-border: #EED7BF;
 
-  --sidebar: #080A0F;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #D89B5B;
-  --sidebar-primary-foreground: #080A0F;
-  --sidebar-accent: rgba(216, 155, 91, 0.1);
-  --sidebar-accent-foreground: #D89B5B;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #D89B5B;
-
-  --gradient-copper: linear-gradient(135deg, #B4783B 0%, #D89B5B 50%, #F0BC86 100%);
-  --gradient-ink: linear-gradient(180deg, #0E131F 0%, #07090E 100%);
-  --shadow-lift: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 0 80px -10px rgba(216, 155, 91, 0.35);
+  /* Gradients */
+  --gradient-copper: linear-gradient(135deg, #F2CFAB 0%, #D89B5B 50%, #9E6229 100%);
+  --gradient-copper-gold: linear-gradient(135deg, #FFF6EB 0%, #E8BC88 45%, #C27E3E 100%);
+  --gradient-glow: radial-gradient(circle, rgba(216, 155, 91, 0.18) 0%, rgba(216, 155, 91, 0) 70%);
 }
 
-.dark {
-  --background: #080A0F;
-  --foreground: #FFFFFF;
-  --card: #0E131F;
-  --card-foreground: #FFFFFF;
-  --popover: #0E131F;
-  --popover-foreground: #FFFFFF;
-  --primary: #D89B5B;
-  --primary-foreground: #080A0F;
-  --secondary: #141A29;
-  --secondary-foreground: #FFFFFF;
-  --muted: #111624;
-  --muted-foreground: #94A3B8;
-  --accent: rgba(216, 155, 91, 0.12);
-  --accent-foreground: #D89B5B;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #D89B5B;
-}
-
-/* ─── Lenis smooth scroll ─── */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
-  }
-}
-
-/* ─── Brand utilities ─── */
-@utility text-copper-gradient {
-  background: var(--gradient-copper);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@utility surface-ink {
-  background: var(--gradient-ink);
-  color: var(--on-ink);
-}
-
-@utility hero-glow {
-  background:
-    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(216, 155, 91, 0.25), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(216, 155, 91, 0.08), transparent 70%),
-    var(--gradient-ink);
-}
-
-@utility grid-lines {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-@utility card-lift {
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    border-color 0.35s ease;
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lift);
-    border-color: rgba(216, 155, 91, 0.5);
-  }
-}
-
-@utility eyebrow {
+html {
+  scroll-behavior: smooth;
   font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
 }
 
-/* ─── Glassmorphism ─── */
-@utility glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px) saturate(1.2);
-  -webkit-backdrop-filter: blur(24px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@utility glass-dark {
-  background: rgba(8, 10, 15, 0.85);
-  backdrop-filter: blur(24px) saturate(1.2);
-  -webkit-backdrop-filter: blur(24px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Headings inherit color by default to prevent dark navy overriding white text in dark hero/footer */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  color: inherit;
 }
 
-/* ─── Gradient border ─── */
-@utility gradient-border {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(216, 155, 91, 0.6), rgba(255, 255, 255, 0.05), rgba(216, 155, 91, 0.6));
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  &:hover::before {
-    opacity: 1;
-  }
+.font-display {
+  font-family: var(--font-display);
 }
 
-/* ─── Glow pulse ─── */
-@utility glow-copper {
-  box-shadow: 0 0 40px -8px rgba(216, 155, 91, 0.35);
+.font-mono {
+  font-family: var(--font-mono);
 }
 
-/* ─── Marquee animation ─── */
+/* Luxury Elevation Classes */
+.luxury-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(216, 155, 91, 0.7);
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.09), 0 0 20px -3px rgba(216, 155, 91, 0.2);
+}
+
+/* Copper Brand Badge */
+.copper-badge {
+  background-color: #FDF6ED;
+  border: 1px solid #EED7BF;
+  color: #9E6229;
+}
+
+/* Gradient text utilities aligned with official STALCI logo gold & copper */
+.text-copper-gradient {
+  background: linear-gradient(135deg, #F2CFAB 0%, #D89B5B 50%, #9E6229 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF6EB 0%, #E8BC88 45%, #C27E3E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grid overlays */
+.grid-lines {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.grid-lines-light {
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.7) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.7) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Dot pattern for subtle texture */
+.dot-pattern {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
 @keyframes marquee-left {
-  0% { transform: translateX(0); }
+  0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
 
 @keyframes marquee-right {
   0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes metallic-shine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
 
 .animate-marquee-left {
   display: flex;
   width: max-content;
-  animation: marquee-left 35s linear infinite;
+  animation: marquee-left 32s linear infinite;
 }
 
 .animate-marquee-right {
   display: flex;
   width: max-content;
-  animation: marquee-right 35s linear infinite;
+  animation: marquee-right 32s linear infinite;
 }
 
 .animate-marquee-left:hover,
@@ -292,51 +187,21 @@ html.lenis body {
   animation-play-state: paused;
 }
 
-/* ─── Shimmer effect ─── */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+.animate-text-shine {
+  background: linear-gradient(
+    90deg,
+    rgba(216, 155, 91, 0.25) 0%,
+    rgba(242, 207, 171, 0.5) 20%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(242, 207, 171, 0.5) 80%,
+    rgba(216, 155, 91, 0.25) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: metallic-shine 4s linear infinite;
 }
 
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(216, 155, 91, 0.15) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
-}
-
-/* ─── Float animation ─── */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* ─── Floating Orb ─── */
-@keyframes floatOrb {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.25;
-  }
-  50% {
-    transform: translate(-50%, -55%) scale(1.15);
-    opacity: 0.4;
-  }
-}
-
-.animate-float-orb {
-  animation: floatOrb 12s ease-in-out infinite;
-}
-
-/* ─── Shimmer shine on buttons ─── */
-@keyframes shine {
-  100% {
-    transform: translateX(200%) skewX(-12deg);
-  }
-}
-
-.animate-shine {
-  animation: shine 1.5s ease-in-out infinite;
+.animate-pulse-ring {
+  animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

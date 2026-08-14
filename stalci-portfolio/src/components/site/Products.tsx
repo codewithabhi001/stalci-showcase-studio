@@ -8,7 +8,7 @@ import { fetchProducts } from "@/lib/api";
 import { mapProduct } from "@/lib/api-mapper";
 
 export function Products() {
-  const gridRef = useStaggerReveal({ stagger: 0.08, y: 30 });
+  const gridRef = useStaggerReveal({ stagger: 0.08, y: 20 });
 
   const { data: apiProducts } = useQuery({
     queryKey: ["products"],
@@ -19,81 +19,83 @@ export function Products() {
     apiProducts && apiProducts.length > 0 ? apiProducts.map(mapProduct) : staticProducts;
 
   return (
-    <section id="products" className="bg-[#080A0F] py-24 sm:py-32 text-white border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="products" className="relative bg-white py-24 sm:py-32 text-slate-900 border-t border-slate-200 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
         <SectionHeading
-          eyebrow="Our products"
-          title="Platforms we build and run ourselves"
-          subtitle="Four products born out of client engagements — now available as licensed platforms."
-          tone="dark"
+          eyebrow="Proprietary Platforms"
+          title="Engineered & Maintained In-House"
+          subtitle="Battle-tested platforms born out of enterprise client engagements — now available as high-performance licensed software suites."
+          tone="light"
         />
 
-        <div ref={gridRef} className="mt-12 grid gap-6 sm:grid-cols-2">
+        <div ref={gridRef} className="mt-14 grid gap-6 sm:grid-cols-2">
           {products.map((p, idx) => (
             <Link
               key={p.slug}
               to="/products/$slug"
               params={{ slug: p.slug }}
-              className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0E131F] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-copper/50 hover:shadow-2xl hover:shadow-black/70"
+              className="group flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-[#F8FAFC] p-7 sm:p-9 shadow-2xs transition-all duration-300 hover:-translate-y-1.5 hover:border-[#D89B5B]/80 hover:shadow-xl hover:bg-white"
             >
               <div>
                 <div className="flex items-start justify-between gap-4">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-black/60 border border-white/10">
-                    <p.icon className="h-5 w-5 text-copper" strokeWidth={1.5} />
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FDF6ED] border border-[#EED7BF] text-[#9E6229] group-hover:bg-[#9E6229] group-hover:text-white transition-colors shadow-2xs">
+                    <p.icon className="h-6 w-6" strokeWidth={1.8} />
                   </span>
-                  <ArrowUpRight className="h-4 w-4 text-slate-400 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-copper" />
+                  <span className="px-3 py-1 rounded-full text-[10.5px] font-mono font-bold uppercase tracking-wider bg-white text-slate-700 border border-slate-200 shadow-2xs">
+                    {p.tag}
+                  </span>
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-white group-hover:text-copper transition-colors">
+
+                <h3 className="mt-6 text-xl sm:text-2xl font-extrabold text-slate-950 group-hover:text-[#9E6229] transition-colors">
                   {p.title}
                 </h3>
-                <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-copper">
-                  {p.tag}
+                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600">
+                  {p.summary}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300">{p.summary}</p>
 
-                {/* Custom inline mockups */}
+                {/* Technical preview widgets */}
                 {idx === 0 && (
-                  <div className="mt-5 rounded-xl bg-[#07090E] p-4 border border-white/10 text-[10px] text-slate-300 shadow-md">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
-                      <span className="font-bold text-white text-[9px] uppercase tracking-wider">
-                        Multi-Cloud Billing
+                  <div className="mt-6 rounded-2xl bg-[#0B0F19] p-4 border border-slate-800 text-xs text-slate-300 shadow-inner font-mono">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-3 text-[10px]">
+                      <span className="font-bold text-[#F2CFAB] uppercase tracking-wider">
+                        FinOps Multi-Cloud Billing
                       </span>
-                      <span className="text-[9px] text-emerald-400 font-bold">-35% Saved</span>
+                      <span className="text-emerald-400 font-bold">-38% Optimized</span>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-xs">
                       <div className="flex justify-between items-center text-slate-400">
-                        <span>AWS EKS Cluster (us-east-1)</span>
-                        <span className="text-white font-mono">$1,420/mo</span>
+                        <span>AWS EKS Multi-AZ Cluster</span>
+                        <span className="text-white font-bold">$1,420/mo</span>
                       </div>
                       <div className="flex justify-between items-center text-slate-400">
-                        <span>GCP BigQuery Datasets</span>
-                        <span className="text-white font-mono">$840/mo</span>
+                        <span>GCP BigQuery Data Lake</span>
+                        <span className="text-white font-bold">$840/mo</span>
                       </div>
                     </div>
                   </div>
                 )}
 
                 {idx === 1 && (
-                  <div className="mt-5 rounded-xl bg-[#07090E] p-4 border border-white/10 text-[10px] text-slate-300 space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
-                      <span className="font-bold text-[9px] uppercase tracking-wider text-slate-400">
-                        Zero-Trust Mesh
+                  <div className="mt-6 rounded-2xl bg-[#0B0F19] p-4 border border-slate-800 text-xs text-slate-300 space-y-2.5 font-mono shadow-inner">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-2 text-[10px]">
+                      <span className="font-bold uppercase tracking-wider text-[#F2CFAB]">
+                        Zero-Trust Mesh Telemetry
                       </span>
-                      <span className="text-[9px] font-bold text-emerald-400">Enforced</span>
+                      <span className="font-bold text-emerald-400">Active & Shielded</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-                      <span className="text-[10px] text-slate-200">12,400 IAM Policies validated</span>
+                    <div className="flex items-center gap-2 text-xs text-slate-200">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+                      <span>14,800 micro-segmentation policies enforced</span>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-                <span className="text-xs font-semibold text-slate-400">Explore platform features</span>
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-copper">
-                  View Specs
-                  <ArrowUpRight className="h-3.5 w-3.5" />
+              <div className="mt-8 flex items-center justify-between border-t border-slate-200/80 pt-4">
+                <span className="text-xs font-semibold text-slate-500 font-mono">Platform architecture & specs</span>
+                <span className="inline-flex items-center gap-1 text-xs font-extrabold text-[#9E6229] group-hover:text-slate-950 transition-colors">
+                  <span>View Specifications</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
               </div>
             </Link>

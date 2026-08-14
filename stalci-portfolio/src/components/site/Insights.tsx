@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen, Clock } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal } from "@/lib/animations";
 import { posts as staticPosts, type Post } from "@/lib/blog-data";
@@ -31,8 +31,8 @@ export function Insights() {
   const latest = blogs.slice(0, 3);
 
   return (
-    <section id="blog" className="relative bg-[#F8FAFC] py-24 sm:py-32 text-slate-900 border-t border-slate-200">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="blog" className="relative bg-white py-24 sm:py-32 text-slate-900 border-t border-slate-200 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
             eyebrow="Blog & Technical Insights"
@@ -42,32 +42,47 @@ export function Insights() {
           />
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-3">
+        <div className="mt-14 grid gap-6 sm:grid-cols-3">
           {latest.map((p) => (
             <Link
               key={p.slug}
               to="/blog/$slug"
               params={{ slug: p.slug }}
-              className="flex flex-col rounded-2xl border border-slate-200/90 bg-white p-6 transition-all duration-300 hover:border-amber-500/70 hover:shadow-lg group"
+              className="flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-[#F8FAFC] p-7 shadow-2xs transition-all duration-300 hover:-translate-y-1.5 hover:border-[#D89B5B]/80 hover:shadow-xl hover:bg-white group"
             >
-              <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-amber-700">
-                {p.category}
-              </span>
-              <h3 className="mt-3 text-base font-bold leading-snug text-slate-900 group-hover:text-amber-700 transition-colors">
-                {p.title}
-              </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{p.excerpt}</p>
-              <span className="mt-4 text-xs text-slate-400 font-mono font-semibold">{p.readingTime}</span>
+              <div>
+                <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono font-bold uppercase tracking-wider text-[#9E6229]">
+                  <BookOpen className="h-3 w-3" />
+                  {p.category}
+                </span>
+                <h3 className="mt-3.5 text-lg font-bold leading-snug text-slate-950 group-hover:text-[#9E6229] transition-colors">
+                  {p.title}
+                </h3>
+                <p className="mt-2.5 flex-1 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
+                  {p.excerpt}
+                </p>
+              </div>
+
+              <div className="mt-7 pt-4 border-t border-slate-200/70 flex items-center justify-between">
+                <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-mono font-medium">
+                  <Clock className="h-3 w-3 text-[#9E6229]" />
+                  {p.readingTime}
+                </span>
+                <span className="text-xs font-black text-[#9E6229] group-hover:text-slate-950 inline-flex items-center gap-1">
+                  Read Article <ArrowRight className="h-3 w-3" />
+                </span>
+              </div>
             </Link>
           ))}
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-12 text-center">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-sm font-bold text-amber-700 hover:text-amber-800 transition-colors"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-7 py-3 text-xs font-bold text-slate-800 shadow-2xs hover:bg-[#F8FAFC] hover:border-[#D89B5B]/80 hover:text-[#9E6229] transition-all"
           >
-            Explore all articles <ArrowRight className="h-4 w-4" />
+            <span>Explore All Engineering Publications</span>
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </div>

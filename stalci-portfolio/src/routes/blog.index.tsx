@@ -3,7 +3,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { SectionHeading } from "@/components/site/Brand";
 import { posts as fallbackPosts } from "@/lib/blog-data";
-import { ArrowRight, BookOpen, Clock, User } from "lucide-react";
+import { ArrowRight, BookOpen, Clock, User, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBlogs } from "@/lib/api";
 
@@ -53,16 +53,18 @@ function BlogIndex() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
-        <div className="mx-auto max-w-6xl px-5 lg:px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
-            <BookOpen className="h-3.5 w-3.5" />
+      <div className="relative bg-white pt-32 pb-20 sm:pt-36 sm:pb-24 border-b border-slate-200 overflow-hidden">
+        <div className="grid-lines-light absolute inset-0 opacity-60 pointer-events-none" />
+
+        <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-2xs">
+            <BookOpen className="h-3.5 w-3.5 text-amber-600" />
             STALCI Engineering Publications
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 leading-tight">
             Engineering Insights & Deep Dives
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed">
             Practical writing on deterministic AI agents, multi-cloud kernel telemetry, zero-trust identity meshes, and enterprise systems engineering.
           </p>
         </div>
@@ -70,19 +72,20 @@ function BlogIndex() {
 
       <main className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-5 lg:px-8">
+          
           {/* Featured Article */}
           {featured && (
             <Link
               to="/blog/$slug"
               params={{ slug: featured.slug }}
-              className="group block rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-10 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-amber-500/70"
+              className="group block rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-10 shadow-2xs transition-all duration-300 hover:border-amber-500/70 hover:shadow-xl"
             >
               <div className="flex items-center gap-3">
-                <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
                   {featured.category} · Featured
                 </span>
                 <span className="text-xs text-slate-500 font-mono flex items-center gap-1">
-                  <Clock className="h-3 w-3" /> {featured.readingTime}
+                  <Clock className="h-3 w-3 text-amber-600" /> {featured.readingTime}
                 </span>
               </div>
               <h2 className="mt-4 text-xl sm:text-3xl font-extrabold text-slate-950 group-hover:text-amber-700 transition-colors leading-tight">
@@ -92,11 +95,12 @@ function BlogIndex() {
                 {featured.excerpt}
               </p>
               <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                <span className="text-xs font-semibold text-slate-700 flex items-center gap-1.5 font-mono">
                   <User className="h-3.5 w-3.5 text-amber-600" /> {featured.author}
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-sm font-bold text-amber-700 group-hover:translate-x-1 transition-transform">
-                  Read full paper <ArrowRight className="h-4 w-4" />
+                  <span>Read Full Technical Paper</span>
+                  <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
             </Link>
@@ -109,11 +113,11 @@ function BlogIndex() {
                 key={p.slug}
                 to="/blog/$slug"
                 params={{ slug: p.slug }}
-                className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-amber-500/70"
+                className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xs transition-all duration-300 hover:border-amber-500/70 hover:shadow-md hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
                       {p.category}
                     </span>
                     <span className="text-[11px] text-slate-500 font-mono">{p.readingTime}</span>
@@ -126,9 +130,9 @@ function BlogIndex() {
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                  <span className="truncate max-w-[150px] font-medium">{p.author}</span>
-                  <span className="font-mono">
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
+                  <span className="truncate max-w-[140px] font-medium">{p.author}</span>
+                  <span>
                     {new Date(p.date).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",

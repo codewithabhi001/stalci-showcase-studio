@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Quote, Star, PlusCircle, CheckCircle2, X, Send, MessageSquarePlus } from "lucide-react";
+import { Quote, Star, CheckCircle2, X, Send, MessageSquarePlus } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 import { motion } from "framer-motion";
@@ -75,8 +75,8 @@ export function Testimonials() {
       : staticTestimonials;
 
   return (
-    <section className="relative overflow-hidden bg-white py-24 sm:py-32 text-slate-900 border-t border-slate-200">
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+    <section className="relative overflow-hidden bg-[#F8FAFC] py-24 sm:py-32 text-slate-900 border-t border-slate-200">
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 z-10">
         <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <SectionHeading
             eyebrow="Client Success & Feedback"
@@ -91,10 +91,10 @@ export function Testimonials() {
               setModalOpen(true);
               setSubmitted(false);
             }}
-            className="self-start md:self-auto shrink-0 inline-flex items-center gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold px-5 py-2.5 transition-all shadow-md cursor-pointer"
+            className="self-start md:self-auto shrink-0 inline-flex items-center gap-2 rounded-full bg-slate-900 hover:bg-[#9E6229] text-white text-xs sm:text-sm font-bold px-6 py-3 transition-all shadow-sm cursor-pointer"
           >
             <MessageSquarePlus className="h-4 w-4" />
-            Share Client Review
+            <span>Share Client Review</span>
           </button>
         </div>
 
@@ -102,21 +102,21 @@ export function Testimonials() {
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-7 transition-all duration-300 hover:shadow-lg hover:border-amber-500/70"
+              className="flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-8 shadow-2xs transition-all duration-300 hover:-translate-y-1.5 hover:border-[#D89B5B]/80 hover:shadow-xl"
             >
               <div>
-                <div className="flex gap-1 text-amber-500 mb-4">
+                <div className="flex gap-1 text-[#D89B5B] mb-4">
                   {Array.from({ length: t.rating || 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-amber-500 text-amber-500" />
+                    <Star key={i} className="h-4 w-4 fill-[#D89B5B] text-[#D89B5B]" />
                   ))}
                 </div>
-                <Quote className="h-8 w-8 text-amber-600/30 mb-3" />
+                <Quote className="h-7 w-7 text-[#D89B5B]/40 mb-3" />
                 <p className="text-sm leading-relaxed text-slate-700 italic">"{t.quote}"</p>
               </div>
 
-              <div className="mt-6 pt-5 border-t border-slate-200">
-                <p className="text-sm font-bold text-slate-900">{t.name}</p>
-                <p className="text-xs text-amber-700 mt-0.5 font-semibold">{t.role}</p>
+              <div className="mt-7 pt-5 border-t border-slate-100">
+                <p className="text-sm font-bold text-slate-950">{t.name}</p>
+                <p className="text-xs text-[#9E6229] mt-0.5 font-bold font-mono">{t.role}</p>
               </div>
             </motion.div>
           ))}
@@ -125,14 +125,14 @@ export function Testimonials() {
 
       {/* Review Submission Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
           <div
             data-lenis-prevent
-            className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 sm:p-8 animate-pop max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-lg bg-white text-slate-900 rounded-3xl shadow-2xl border border-slate-200 p-6 sm:p-8 animate-pop max-h-[90vh] overflow-y-auto"
           >
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg border border-slate-200 text-slate-400 hover:text-slate-900 cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 rounded-xl border border-slate-200 text-slate-500 hover:text-slate-950 bg-slate-100 cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
@@ -146,7 +146,7 @@ export function Testimonials() {
                 </p>
                 <button
                   onClick={() => setModalOpen(false)}
-                  className="mt-6 rounded-xl bg-slate-900 text-white text-xs font-bold px-6 py-2.5 shadow-sm cursor-pointer"
+                  className="mt-6 rounded-xl bg-slate-900 text-white text-xs font-bold px-6 py-2.5 shadow-sm cursor-pointer hover:bg-[#9E6229] transition-colors"
                 >
                   Close Window
                 </button>
@@ -154,13 +154,15 @@ export function Testimonials() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Client Partner Review</span>
+                  <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-[#9E6229]">
+                    Client Partner Review
+                  </span>
                   <h3 className="text-lg font-bold text-slate-950 mt-0.5">Submit Project Feedback</h3>
                 </div>
 
                 {/* Rating Selector */}
                 <div>
-                  <label className="text-xs font-bold text-slate-900 block mb-1.5">Rating (1 to 5 Stars)</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1.5 font-mono">Rating (1 to 5 Stars)</label>
                   <div className="flex items-center gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -172,36 +174,36 @@ export function Testimonials() {
                         <Star
                           className={`h-6 w-6 ${
                             star <= rating
-                              ? "fill-amber-500 text-amber-500"
+                              ? "fill-[#D89B5B] text-[#D89B5B]"
                               : "fill-slate-100 text-slate-300"
                           }`}
                         />
                       </button>
                     ))}
-                    <span className="ml-2 text-xs font-bold text-slate-700">{rating} / 5 Stars</span>
+                    <span className="ml-2 text-xs font-mono font-bold text-slate-700">{rating} / 5 Stars</span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-slate-900 block mb-1">Your Name or Organization</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">Your Name & Title / Organization</label>
                   <input
                     type="text"
                     placeholder="e.g. Sarah Jenkins (CTO, TechCorp)"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600"
+                    className="w-full rounded-xl border border-slate-300 bg-white p-3 text-xs text-slate-900 outline-none focus:border-[#D89B5B] shadow-2xs"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-slate-900 block mb-1">Feedback / Experience *</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">Feedback / Experience *</label>
                   <textarea
                     rows={4}
                     required
                     placeholder="Share your experience working with the STALCI engineering squad..."
                     value={comments}
                     onChange={(e) => setComments(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 outline-none focus:border-amber-600 resize-none"
+                    className="w-full rounded-xl border border-slate-300 bg-white p-3 text-xs text-slate-900 outline-none focus:border-[#D89B5B] resize-none shadow-2xs"
                   />
                 </div>
 
@@ -209,7 +211,7 @@ export function Testimonials() {
                   <button
                     type="submit"
                     disabled={feedbackMutation.isPending}
-                    className="w-full rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full rounded-xl bg-slate-900 hover:bg-[#9E6229] text-white font-bold py-3 text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     <Send className="h-3.5 w-3.5" />
                     {feedbackMutation.isPending ? "Submitting Review..." : "Submit Review"}

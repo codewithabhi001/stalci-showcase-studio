@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { getPost, posts as staticPosts } from "@/lib/blog-data";
-import { ArrowLeft, Clock, User, Calendar, Share2, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, User, Calendar, Share2, ArrowRight, Sparkles } from "lucide-react";
 import { fetchBlogBySlug, fetchBlogs } from "@/lib/api";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -51,12 +51,12 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function PostNotFound() {
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900">
       <Nav solid />
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-40 text-center">
-        <h1 className="text-2xl font-bold text-slate-900">Article not found</h1>
-        <p className="mt-2 text-sm text-slate-600">The requested engineering paper does not exist or has been archived.</p>
-        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-bold text-white shadow-md">
+        <h1 className="text-3xl font-extrabold text-slate-950">Article not found</h1>
+        <p className="mt-3 text-sm text-slate-600">The requested engineering paper does not exist or has been archived.</p>
+        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-slate-900 px-6 py-2.5 text-xs font-bold text-white shadow-md hover:bg-amber-600 transition-colors">
           Back to all articles
         </Link>
       </main>
@@ -74,34 +74,36 @@ function BlogPost() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
-        <div className="mx-auto max-w-4xl px-5 lg:px-8">
+      <div className="relative bg-white pt-32 pb-20 sm:pt-36 sm:pb-24 border-b border-slate-200 overflow-hidden">
+        <div className="grid-lines-light absolute inset-0 opacity-60 pointer-events-none" />
+
+        <div className="mx-auto max-w-4xl px-5 lg:px-8 relative z-10">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-400 hover:text-amber-300 transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-700 hover:text-slate-950 transition-colors mb-6"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to all articles
           </Link>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-amber-400 bg-amber-500/10 border border-amber-500/30 px-3 py-0.5 rounded-full">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-amber-800 bg-amber-50 border border-amber-200 px-3 py-0.5 rounded-full">
               {post.category}
             </span>
-            <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
-              <Clock className="h-3 w-3" /> {post.readingTime}
+            <span className="text-xs text-slate-500 font-mono flex items-center gap-1">
+              <Clock className="h-3 w-3 text-amber-600" /> {post.readingTime}
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 leading-tight">
             {post.title}
           </h1>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-400 border-t border-white/10 pt-4">
-            <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <User className="h-3.5 w-3.5 text-amber-400" /> {post.author}
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500 border-t border-slate-100 pt-4 font-mono">
+            <span className="font-semibold text-slate-800 flex items-center gap-1.5">
+              <User className="h-3.5 w-3.5 text-amber-600" /> {post.author}
             </span>
             <span>•</span>
-            <span className="font-mono">
+            <span>
               Published {new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
             </span>
           </div>
@@ -115,29 +117,30 @@ function BlogPost() {
             {post.body.map((para: string, i: number) => {
               if (para.startsWith("### ")) {
                 return (
-                  <h3 key={i} className="text-xl sm:text-2xl font-bold text-slate-950 pt-4 pb-1 border-b border-slate-100">
+                  <h3 key={i} className="text-xl sm:text-2xl font-bold text-slate-950 pt-6 pb-2 border-b border-slate-100">
                     {para.replace("### ", "")}
                   </h3>
                 );
               }
               return (
-                <p key={i} className="text-base leading-relaxed text-slate-700">
+                <p key={i} className="text-base leading-relaxed text-slate-700 font-normal">
                   {para}
                 </p>
               );
             })}
 
             {/* CTA Box */}
-            <div className="mt-12 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-7 sm:p-9 shadow-lg">
-              <h3 className="text-lg font-bold text-white">Engineering a Mission-Critical Architecture?</h3>
+            <div className="mt-12 rounded-2xl bg-slate-900 text-white p-7 sm:p-9 shadow-lg">
+              <h3 className="text-lg sm:text-xl font-bold text-white">Engineering a Mission-Critical Architecture?</h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 STALCI's principal engineers and SRE architects can review your current technical topology and outline an actionable delivery plan.
               </p>
               <a
                 href="/#contact"
-                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 px-5 py-2.5 text-xs font-bold text-slate-950 transition-all shadow-md"
+                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 px-6 py-2.5 text-xs font-bold text-slate-950 transition-all shadow-md cursor-pointer"
               >
-                Schedule Technical Review <ArrowRight className="h-3.5 w-3.5" />
+                <span>Schedule Technical Review</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </div>
           </div>
@@ -151,15 +154,14 @@ function BlogPost() {
                   key={p.slug}
                   to="/blog/$slug"
                   params={{ slug: p.slug }}
-                  className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all hover:shadow-md hover:border-amber-500/70"
+                  className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-2xs transition-all hover:border-amber-500/60 hover:shadow-md hover:-translate-y-1"
                 >
-                  <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-amber-700">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-amber-700">
                     {p.category}
                   </span>
-                  <h4 className="mt-2 text-sm font-bold leading-snug text-slate-900 line-clamp-2">
+                  <h4 className="mt-2 text-sm font-bold leading-snug text-slate-950 line-clamp-2">
                     {p.title}
                   </h4>
-                  <span className="mt-3 text-xs text-slate-500 font-mono block">{p.readingTime}</span>
                 </Link>
               ))}
             </div>

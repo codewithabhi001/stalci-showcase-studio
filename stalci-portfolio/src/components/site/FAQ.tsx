@@ -45,7 +45,7 @@ export function FAQ() {
   const staggerRef = useStaggerReveal({ staggerChildren: 0.1 });
 
   return (
-    <section id="faq" className="relative bg-white py-24 sm:py-32 overflow-hidden text-slate-900 border-t border-slate-200">
+    <section id="faq" className="relative bg-[#F8FAFC] py-24 sm:py-32 overflow-hidden text-slate-900 border-t border-slate-200">
       <div className="mx-auto max-w-3xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
@@ -56,7 +56,7 @@ export function FAQ() {
           />
         </div>
 
-        <div className="mt-12 max-w-2xl mx-auto relative">
+        <div className="mt-14 max-w-2xl mx-auto relative">
           <div ref={staggerRef}>
             <Accordion
               type="single"
@@ -72,29 +72,29 @@ export function FAQ() {
                   <motion.div
                     key={f.q}
                     variants={{
-                      hidden: { opacity: 0, y: 20 },
+                      hidden: { opacity: 0, y: 16 },
                       visible: { opacity: 1, y: 0 },
                     }}
                     className="relative"
                   >
                     <AccordionItem
                       value={f.q}
-                      className="border border-slate-200/90 rounded-2xl bg-[#F8FAFC] px-5 sm:px-6 overflow-hidden transition-all duration-300 hover:border-amber-500/70 hover:shadow-md"
+                      className="border border-slate-200/90 rounded-2xl bg-white px-5 sm:px-6 overflow-hidden transition-all duration-300 hover:border-[#D89B5B]/80 hover:shadow-md"
                     >
-                      {/* Animated Amber Accent Line */}
+                      {/* Animated Bronze Accent Line */}
                       <motion.div
-                        className="absolute left-0 top-0 bottom-0 w-1 bg-amber-600 rounded-l-2xl origin-top"
+                        className="absolute left-0 top-0 bottom-0 w-1 bg-[#D89B5B] rounded-l-2xl origin-top"
                         initial={{ scaleY: 0 }}
                         animate={{ scaleY: isOpen ? 1 : 0 }}
-                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       />
 
-                      <AccordionTrigger className="hover:no-underline py-5 sm:py-6 group">
-                        <div className="flex items-center text-left gap-4">
-                          <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-amber-300/80 text-xs sm:text-sm font-bold text-amber-700 mr-2 sm:mr-4 shadow-2xs">
+                      <AccordionTrigger className="hover:no-underline py-5 sm:py-6 group text-slate-950">
+                        <div className="flex items-center text-left gap-3.5">
+                          <span className="shrink-0 flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDF6ED] border border-[#EED7BF] font-mono text-xs sm:text-sm font-black text-[#9E6229] group-hover:bg-[#9E6229] group-hover:text-white transition-colors shadow-2xs">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-sm sm:text-[0.95rem] font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
+                          <span className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-[#9E6229] transition-colors leading-snug">
                             {f.q}
                           </span>
                         </div>
@@ -111,11 +111,11 @@ export function FAQ() {
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{
-                                height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-                                opacity: { duration: 0.3, delay: isOpen ? 0.1 : 0 },
+                                height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                                opacity: { duration: 0.25, delay: isOpen ? 0.08 : 0 },
                               }}
                             >
-                              <div className="pb-6 pl-14 sm:pl-18 pr-4 text-sm leading-relaxed text-slate-600">
+                              <div className="pb-6 pl-11 sm:pl-12 pr-4 text-xs sm:text-sm leading-relaxed text-slate-600">
                                 {f.a}
                               </div>
                             </motion.div>

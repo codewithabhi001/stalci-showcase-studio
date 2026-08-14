@@ -8,7 +8,7 @@ import { fetchIndustries } from "@/lib/api";
 import { mapIndustry } from "@/lib/api-mapper";
 
 export function Industries() {
-  const gridRef = useStaggerReveal({ stagger: 0.05, y: 24 });
+  const gridRef = useStaggerReveal({ stagger: 0.05, y: 20 });
 
   const { data: apiIndustries } = useQuery({
     queryKey: ["industries"],
@@ -19,8 +19,8 @@ export function Industries() {
     apiIndustries && apiIndustries.length > 0 ? apiIndustries.map(mapIndustry) : staticIndustries;
 
   return (
-    <section id="industries" className="border-t border-slate-200 bg-white py-24 sm:py-32 text-slate-900">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="industries" className="relative bg-[#F8FAFC] py-24 sm:py-32 text-slate-900 border-t border-slate-200 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
         <SectionHeading
           eyebrow="Industries & Domains"
           title="Domain Depth Across Global Sectors"
@@ -28,26 +28,26 @@ export function Industries() {
           tone="light"
         />
 
-        <div ref={gridRef} className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div ref={gridRef} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((i) => (
             <Link
               key={i.slug}
               to="/industries/$slug"
               params={{ slug: i.slug }}
-              className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/70 hover:shadow-lg"
+              className="group flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-7 shadow-2xs transition-all duration-300 hover:-translate-y-1.5 hover:border-[#D89B5B]/80 hover:shadow-xl"
             >
               <div>
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-slate-200 text-amber-700 shadow-2xs group-hover:bg-amber-600 group-hover:text-white transition-colors">
-                  <i.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FDF6ED] border border-[#EED7BF] text-[#9E6229] shadow-2xs group-hover:bg-[#9E6229] group-hover:text-white transition-colors">
+                  <i.icon className="h-6 w-6" strokeWidth={1.8} />
                 </span>
-                <h3 className="mt-4 flex items-center gap-1.5 text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors">
+                <h3 className="mt-5 flex items-center gap-1.5 text-lg font-bold text-slate-950 group-hover:text-[#9E6229] transition-colors">
                   {i.title}
                 </h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{i.summary}</p>
+                <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600">{i.summary}</p>
               </div>
-              <span className="mt-4 inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                View Frameworks
-                <ArrowUpRight className="h-3 w-3" />
+              <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-extrabold text-[#9E6229] group-hover:text-slate-950 transition-all duration-200">
+                <span>View Architecture Frameworks</span>
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </Link>
           ))}

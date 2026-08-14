@@ -199,19 +199,21 @@ function Terms() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
-        <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
-            <Scale className="h-3.5 w-3.5" />
+      <div className="relative bg-white pt-32 pb-20 sm:pt-36 sm:pb-24 border-b border-slate-200 overflow-hidden">
+        <div className="grid-lines-light absolute inset-0 opacity-60 pointer-events-none" />
+
+        <div className="mx-auto max-w-5xl px-5 lg:px-8 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-2xs">
+            <Scale className="h-3.5 w-3.5 text-amber-600" />
             Enterprise Master Terms
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 leading-tight">
             {titleText}
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
             The legal and operational framework governing software engineering engagements, sovereign cloud architecture, IP rights, and SLAs delivered by STALCI Global Technologies.
           </p>
-          <div className="mt-6 flex items-center gap-4 text-xs text-slate-400 font-mono">
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500 font-mono border-t border-slate-100 pt-4">
             <span>Version: 2026.2</span>
             <span>•</span>
             <span>Effective: {pageData?.updatedAt ? new Date(pageData.updatedAt).toLocaleDateString() : 'August 2026'}</span>
@@ -229,10 +231,10 @@ function Terms() {
               <div
                 key={s.id}
                 id={s.id}
-                className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all hover:shadow-md"
+                className="rounded-3xl bg-white border border-slate-200/90 shadow-2xs p-6 sm:p-9 transition-all hover:border-amber-500/60 hover:shadow-md"
               >
                 <h2 className="text-lg sm:text-xl font-bold text-slate-950 flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                  <span className="h-2 w-2 rounded-full bg-amber-600 shrink-0" />
+                  <span className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
                   <span>{s.h}</span>
                 </h2>
                 <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-slate-700">
@@ -243,7 +245,7 @@ function Terms() {
                     <ul className="mt-3 space-y-2 pl-2">
                       {s.list.map((li, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-slate-700">
-                          <span className="text-amber-700 font-bold mt-0.5">•</span>
+                          <span className="text-amber-600 font-bold mt-0.5">•</span>
                           <span>{li}</span>
                         </li>
                       ))}
@@ -254,19 +256,19 @@ function Terms() {
             ))}
 
             {/* Legal Support Card */}
-            <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                   <Mail className="h-5 w-5 text-amber-400" />
                   Have Contractual Questions?
                 </h3>
-                <p className="mt-2 text-sm text-slate-300 max-w-xl">
+                <p className="mt-2 text-sm text-slate-300 max-w-xl leading-relaxed">
                   Our enterprise legal counsel is available to review custom Master Service Agreements (MSAs), security questionnaires, and Data Processing Addendums.
                 </p>
               </div>
               <a
                 href="mailto:legal@stalci.com"
-                className="shrink-0 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 text-sm transition-all shadow-md"
+                className="shrink-0 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 text-xs sm:text-sm transition-all shadow-md cursor-pointer"
               >
                 Contact Legal Team
               </a>
