@@ -273,9 +273,12 @@ const categories = [
   "Dev Tools",
 ] as const;
 
+const isDarkIcon = (slug: string) =>
+  ["nextdotjs", "ollama", "vercel", "vault", "apachekafka", "expo"].includes(slug);
+
 export function TechStack() {
-  const [activeCategory, setActiveCategory] = useState<TechItem["category"]>("Languages");
-  const [selectedTech, setSelectedTech] = useState<TechItem | null>(techItems[0]);
+  const [activeCategory, setActiveCategory] = useState<string>("Languages");
+  const [selectedTech, setSelectedTech] = useState<TechItem>(techItems[0]);
 
   const filteredItems = techItems.filter((item) => item.category === activeCategory);
 
@@ -350,7 +353,7 @@ export function TechStack() {
                         <img
                           src={`/icons/${tech.iconSlug}.svg`}
                           alt={`${tech.name} logo`}
-                          className="h-full w-full object-contain"
+                          className={`h-full w-full object-contain ${isDarkIcon(tech.iconSlug) ? "brightness-0 invert" : ""}`}
                           onError={(e) => {
                             (e.target as HTMLElement).style.display = "none";
                           }}
@@ -382,7 +385,7 @@ export function TechStack() {
                     <img
                       src={`/icons/${selectedTech.iconSlug}.svg`}
                       alt={selectedTech.name}
-                      className="h-full w-full object-contain"
+                      className={`h-full w-full object-contain ${isDarkIcon(selectedTech.iconSlug) ? "brightness-0 invert" : ""}`}
                     />
                   </div>
                   <div>
