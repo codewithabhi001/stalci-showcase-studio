@@ -31,8 +31,8 @@ export function Insights() {
   const latest = blogs.slice(0, 3);
 
   return (
-    <section id="blog" className="relative bg-[#F8FAFC] py-20 sm:py-28 text-black border-t border-zinc-200/90">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="blog" className="relative bg-[#F8FAFC] py-14 sm:py-20 text-black border-t border-zinc-200/90">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div ref={headingRef}>
           <SectionHeading
             eyebrow="Blog & Technical Insights"

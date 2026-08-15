@@ -5,6 +5,7 @@ import { RoiShowcase } from "@/components/site/RoiShowcase";
 import { StatsBento } from "@/components/site/StatsBento";
 import { Services } from "@/components/site/Services";
 import { TechStack } from "@/components/site/TechStack";
+import { SectionBreaker } from "@/components/site/SectionBreaker";
 import { ProjectsShowcase } from "@/components/site/ProjectsShowcase";
 import { About } from "@/components/site/About";
 import { Industries } from "@/components/site/Industries";
@@ -46,12 +47,46 @@ function Index() {
         <StatsBento />
         <Services />
         <TechStack />
+
+        {/* ─── Section Breaker 1: Engineering to Case Studies Transition ─── */}
+        <SectionBreaker
+          badge="⚡ Engineering Velocity &amp; Precision"
+          title="Let's Move Your Project From"
+          titleHighlight="'Someday'"
+          titleEnd="to 'Sprint One'"
+          subtitle="We've shipped 700+ enterprise systems across 50+ toolchains. Tell us what you're engineering, and our principal architects will return with a deterministic sprint blueprint."
+          buttonText="Start Your Project Blueprint"
+          variant="grid"
+        />
+
         <ProjectsShowcase />
         <About />
         <Industries />
         <Products />
+
+        {/* ─── Section Breaker 2: Platforms to Methodology Transition ─── */}
+        <SectionBreaker
+          badge="✦ Autonomous AI &amp; Cloud Scale"
+          title="The Future Doesn't Wait."
+          titleHighlight="Neither Should You."
+          subtitle="You've got the vision. We've got the architects, the sovereign AI engineers, and 120+ specialists to build it. Book a 30-minute call and let's sketch the blueprint together."
+          buttonText="Schedule a Strategic Discovery"
+          variant="glow"
+        />
+
         <Process />
         <WhyStalci />
+
+        {/* ─── Section Breaker 3: Advantage to Client Proof Transition ─── */}
+        <SectionBreaker
+          badge="🛡️ 100% Contractual SLA Guarantee"
+          title="Ready to Scale With"
+          titleHighlight="Zero Technical Debt?"
+          subtitle="Experience predictable engineering sprints, enterprise zero-trust security standards, and dedicated senior squad allocation with complete intellectual property ownership."
+          buttonText="Consult With Principal Architects"
+          variant="wave"
+        />
+
         <Testimonials />
         <Insights />
         <FAQ />

@@ -168,8 +168,8 @@ export function Industries() {
     apiIndustries && apiIndustries.length > 0 ? apiIndustries.map(mapIndustry) : staticIndustries;
 
   return (
-    <section id="industries" className="border-t border-zinc-200/90 bg-white py-20 sm:py-28 text-black">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="industries" className="border-t border-zinc-200/90 bg-white py-14 sm:py-20 text-black">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Industries & Domains"
           title="Domain Depth Across Global Sectors"

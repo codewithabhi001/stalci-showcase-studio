@@ -169,8 +169,8 @@ export function ProjectsShowcase() {
   });
 
   return (
-    <section id="projects" className="bg-[#FFFFFF] py-20 sm:py-28 text-black border-t border-zinc-200/90 relative">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="projects" className="bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 relative">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <SectionHeading

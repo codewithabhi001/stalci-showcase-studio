@@ -358,8 +358,8 @@ export function TechStack() {
   const filteredItems = techItems.filter((item) => item.category === activeCategory);
 
   return (
-    <section id="tech-stack" className="relative bg-white py-20 sm:py-28 overflow-hidden text-black border-t border-zinc-200/90">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
+    <section id="tech-stack" className="relative bg-white py-14 sm:py-20 overflow-hidden text-black border-t border-zinc-200/90">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
         <SectionHeading

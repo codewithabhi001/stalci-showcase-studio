@@ -1,150 +1,149 @@
 import { motion } from "framer-motion";
-import { SectionHeading } from "./Brand";
-import { Sparkles, TrendingUp, ShieldCheck, Zap, Globe, Cpu } from "lucide-react";
+import { BadgePill } from "./Brand";
+
+const bentoCards = [
+  // ─── Row 1 ───
+  {
+    id: "projects",
+    number: "700+",
+    description: "Projects delivered successfully using 50+ modern technologies and frameworks.",
+    numPosition: "top",
+    colSpan: "lg:col-span-4",
+    glow: "from-amber-500/10 via-transparent to-transparent",
+    borderGlow: "hover:border-amber-500/30",
+  },
+  {
+    id: "talent",
+    number: "120+",
+    description: "In-house principal architects & engineers with average 5+ years of deep domain experience.",
+    numPosition: "bottom",
+    colSpan: "lg:col-span-3",
+    glow: "from-emerald-500/10 via-transparent to-transparent",
+    borderGlow: "hover:border-emerald-500/30",
+  },
+  {
+    id: "reach",
+    number: "24Mn+",
+    description: "Active end users served globally daily with 99.99% verified uptime across distributed edge clusters.",
+    numPosition: "top",
+    colSpan: "lg:col-span-5",
+    glow: "from-blue-600/15 via-indigo-500/10 to-transparent",
+    borderGlow: "hover:border-blue-500/30",
+  },
+
+  // ─── Row 2 ───
+  {
+    id: "ai-specialists",
+    number: "60%",
+    description: "Senior-level AI specialists & principal system architects on direct staff.",
+    numPosition: "top",
+    colSpan: "lg:col-span-4",
+    glow: "from-orange-500/10 via-transparent to-transparent",
+    borderGlow: "hover:border-orange-500/30",
+  },
+  {
+    id: "retention",
+    number: "99%",
+    description: "Verified client satisfaction rating and multi-year recurring enterprise business.",
+    numPosition: "bottom",
+    colSpan: "lg:col-span-4",
+    glow: "from-blue-500/10 via-transparent to-transparent",
+    borderGlow: "hover:border-blue-500/30",
+  },
+  {
+    id: "industries",
+    number: "20+",
+    description: "Specialized global industry verticals served across 25+ countries worldwide.",
+    numPosition: "top",
+    colSpan: "lg:col-span-4",
+    glow: "from-purple-500/10 via-rose-500/5 to-transparent",
+    borderGlow: "hover:border-purple-500/30",
+  },
+];
 
 export function StatsBento() {
   return (
-    <section className="relative bg-[#FFFFFF] py-20 sm:py-28 text-black overflow-hidden border-t border-zinc-200/90">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section className="relative bg-[#FFFFFF] py-14 sm:py-20 text-black overflow-hidden border-t border-zinc-200/90">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* ─── High-Contrast Obsidian Bento Telemetry Enclave (Reference Style) ─── */}
-        <div className="relative rounded-3xl border border-zinc-800 bg-[#09090B] text-white p-6 sm:p-12 shadow-2xl overflow-hidden">
+        {/* ─── High-Contrast Obsidian Bento Telemetry Enclave (Exact Reference Match) ─── */}
+        <div className="relative rounded-[32px] sm:rounded-[40px] border border-zinc-800 bg-[#0B0D13] text-white p-6 sm:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden">
           
-          {/* Ambient Lighting Accents */}
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+          {/* Subtle Ambient Lighting */}
+          <div className="absolute top-0 right-1/4 w-[28rem] h-[28rem] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+          <div className="absolute bottom-0 left-1/4 w-[28rem] h-[28rem] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
 
           {/* Section Header */}
-          <SectionHeading
-            tone="dark"
-            eyebrow="Verified Global Scale & Telemetry"
-            title="The Engineering Precision Behind Our Dominance"
-            subtitle="Built on deep systems architecture, in-house principal talent, and verified SLA performance across 700+ enterprise deployments."
-          />
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <div className="flex justify-center">
+              <BadgePill tone="dark" variant="gradient">
+                <span>Proven by </span>
+                <span className="font-bold text-white">Performance &amp; Trust</span>
+              </BadgePill>
+            </div>
 
-          {/* Bento Grid Layout */}
+            <h2 className="font-display text-2xl sm:text-[34px] font-bold text-white tracking-tight leading-[1.2]">
+              The Data Behind the <span className="font-extrabold text-white">Dominance</span>
+            </h2>
+
+            <p className="text-xs sm:text-[13.5px] text-zinc-400 font-normal leading-relaxed max-w-xl mx-auto">
+              Built on proven expertise, in-house talent, and cross-industry experience, we create reliable digital solutions designed for long-term growth.
+            </p>
+          </div>
+
+          {/* ─── Clean 6-Card Asymmetric Bento Grid (Exact Reference Match) ─── */}
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 relative z-10">
-            
-            {/* Card 1: 700+ Projects */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="lg:col-span-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-col justify-between min-h-[160px] backdrop-blur-md hover:border-white/25 hover:bg-white/[0.06] transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  Shipped Systems
-                </span>
-                <Globe className="h-4 w-4 text-indigo-400" />
-              </div>
-              <div className="my-2">
-                <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-                  700+
-                </span>
-              </div>
-              <p className="text-xs text-neutral-400 font-normal leading-relaxed">
-                Platforms delivered with 0 catastrophic outages across 50+ toolchains.
-              </p>
-            </motion.div>
+            {bentoCards.map((card, idx) => {
+              const isNumTop = card.numPosition === "top";
 
-            {/* Card 2: 120+ In-house Experts */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.06 }}
-              className="lg:col-span-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-col justify-between min-h-[160px] backdrop-blur-md hover:border-white/25 hover:bg-white/[0.06] transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  Engineering Talent
-                </span>
-                <Cpu className="h-4 w-4 text-emerald-400" />
-              </div>
-              <div className="my-2">
-                <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-                  120+
-                </span>
-              </div>
-              <p className="text-xs text-neutral-400 font-normal leading-relaxed">
-                In-house principal architects & AI research engineers.
-              </p>
-            </motion.div>
+              return (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                  className={`${card.colSpan} relative rounded-3xl border border-white/10 bg-[#131722]/80 p-6 sm:p-7 flex flex-col justify-between min-h-[160px] sm:min-h-[175px] backdrop-blur-md ${card.borderGlow} hover:bg-[#161B28] transition-all duration-300 overflow-hidden group`}
+                >
+                  {/* Subtle Inner Ambient Glow */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${card.glow} pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity`} />
 
-            {/* Card 3: 24Mn+ End Users */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.12 }}
-              className="sm:col-span-2 lg:col-span-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-col justify-between min-h-[160px] backdrop-blur-md hover:border-white/25 hover:bg-white/[0.06] transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  Global Reach
-                </span>
-                <Zap className="h-4 w-4 text-amber-400" />
-              </div>
-              <div className="my-2">
-                <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-                  24Mn+
-                </span>
-              </div>
-              <p className="text-xs text-neutral-400 font-normal leading-relaxed">
-                End users served daily with 99.99% verified uptime.
-              </p>
-            </motion.div>
+                  {isNumTop ? (
+                    <>
+                      {/* Top: Large Bold Number */}
+                      <div className="relative z-10">
+                        <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight block">
+                          {card.number}
+                        </span>
+                      </div>
 
-            {/* Card 4: 99.4% Client Retention */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.18 }}
-              className="lg:col-span-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-col justify-between min-h-[160px] backdrop-blur-md hover:border-white/25 hover:bg-white/[0.06] transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  Client Retention Rate
-                </span>
-                <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              </div>
-              <div className="my-2">
-                <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-                  99.4%
-                </span>
-              </div>
-              <p className="text-xs text-neutral-400 font-normal leading-relaxed">
-                Multi-year enterprise partnerships with zero vendor lock-in and 100% IP ownership.
-              </p>
-            </motion.div>
+                      {/* Bottom: Clear Description */}
+                      <div className="relative z-10 mt-6">
+                        <p className="text-xs sm:text-[13px] leading-relaxed text-zinc-300 font-normal">
+                          {card.description}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Top: Clear Description */}
+                      <div className="relative z-10 mb-6">
+                        <p className="text-xs sm:text-[13px] leading-relaxed text-zinc-300 font-normal">
+                          {card.description}
+                        </p>
+                      </div>
 
-            {/* Card 5: < 14ms Edge Latency */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.24 }}
-              className="lg:col-span-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-col justify-between min-h-[160px] backdrop-blur-md hover:border-white/25 hover:bg-white/[0.06] transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                  Global P99 Edge Latency
-                </span>
-                <TrendingUp className="h-4 w-4 text-indigo-400" />
-              </div>
-              <div className="my-2">
-                <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-                  &lt; 14.2ms
-                </span>
-              </div>
-              <p className="text-xs text-neutral-400 font-normal leading-relaxed">
-                Sub-millisecond cold starts and distributed edge caching across 280+ global PoPs.
-              </p>
-            </motion.div>
-
+                      {/* Bottom: Large Bold Number */}
+                      <div className="relative z-10">
+                        <span className="font-display text-4xl sm:text-5xl font-extrabold text-white tracking-tight block">
+                          {card.number}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
 
         </div>

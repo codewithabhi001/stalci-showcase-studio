@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X } from "lucide-react";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
+import { BadgePill } from "./Brand";
 
 const faqs = [
   {
@@ -47,28 +48,30 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="relative bg-[#FFFFFF] py-20 sm:py-28 text-black border-t border-zinc-200/90 overflow-hidden">
+    <section id="faq" className="relative bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 overflow-hidden">
       {/* ─── Architectural Clean Grid Overlay on Left (As in reference image) ─── */}
       <div 
         className="absolute left-0 top-0 bottom-0 w-1/3 -z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_right,#000_30%,transparent_100%)] pointer-events-none" 
         aria-hidden 
       />
 
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* ─── Left Column: Section Header (Image 2 Match) ─── */}
           <div ref={headingRef} className="lg:col-span-5 space-y-4">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-red-200/80 bg-red-50/50 px-3.5 py-1 text-[11px] font-mono text-zinc-800 shadow-2xs">
-              <span>Built on</span>
-              <span className="font-bold text-zinc-950">Transparency & Trust</span>
+            <div>
+              <BadgePill tone="light" variant="gradient">
+                <span>Built on </span>
+                <span className="font-bold text-zinc-950">Transparency & Trust</span>
+              </BadgePill>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-zinc-950 leading-[1.14] tracking-tight">
+            <h2 className="font-display text-2xl sm:text-[32px] font-bold text-zinc-950 leading-[1.2] tracking-tight">
               Your <span className="font-extrabold text-black">Questions</span>, Answered with <span className="font-extrabold text-black">Clarity</span>
             </h2>
 
-            <p className="text-xs sm:text-sm text-zinc-600 font-normal leading-relaxed">
+            <p className="text-xs sm:text-[13px] text-zinc-600 font-normal leading-relaxed">
               Most teams have the same questions before signing. Here are honest answers to the ones that come up most: pricing, process, security, and who owns the code.
             </p>
           </div>

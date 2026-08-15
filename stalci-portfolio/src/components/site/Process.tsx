@@ -1,36 +1,28 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SectionHeading } from "./Brand";
-import {
-  Compass,
-  Layers,
-  Zap,
-  ShieldAlert,
-  Activity,
-  CheckCircle2,
-  ArrowRight,
+import { 
+  CheckCircle2, 
+  ArrowRight, 
+  Layers, 
+  Cpu, 
+  Code2, 
+  Terminal, 
+  Zap, 
+  Sparkles, 
   ShieldCheck,
+  Search,
+  Workflow,
+  Rocket
 } from "lucide-react";
+import { SectionHeading } from "./Brand";
+import { motion, AnimatePresence } from "framer-motion";
 
-interface ProcessStep {
-  n: string;
-  title: string;
-  badge: string;
-  duration: string;
-  icon: any;
-  copy: string;
-  deliverables: string[];
-  tools: string[];
-  slaTarget: string;
-}
-
-const steps: ProcessStep[] = [
+const steps = [
   {
     n: "01",
     title: "Strategic Discovery & Threat Modeling",
-    badge: "Foundation Phase",
     duration: "Week 1 – 2",
-    icon: Compass,
+    badge: "Foundation Phase",
+    slaTarget: "100% Architecture Audit Sign-off",
     copy: "Deep-dive technical audits, security perimeter analysis, and stakeholder roadmap formulation before writing a single line of code.",
     deliverables: [
       "Architecture Threat Matrix & Risk Assessment",
@@ -38,72 +30,72 @@ const steps: ProcessStep[] = [
       "Regulatory Compliance & Data Privacy Plan",
       "Zero-Trust Ingress & Network Blueprint",
     ],
-    tools: ["ISO 27001", "OWASP Top 10", "Threat Modeling", "Figma"],
-    slaTarget: "100% Architecture Audit Sign-off",
+    tools: ["ISO 27001", "OWASP Top 10", "Threat Modeling", "Figma", "Notion RFCs"],
+    metric: "0 Architectural Blinds",
   },
   {
     n: "02",
     title: "Systems Architecture & Schema Specification",
-    badge: "Specification Phase",
     duration: "Week 2 – 3",
-    icon: Layers,
-    copy: "Blueprint high-concurrency microservices, GraphQL/REST API gateways, database schemas, and multi-region failover protocols.",
+    badge: "System Blueprint",
+    slaTarget: "Deterministic API Contract",
+    copy: "Blueprint high-concurrency microservices, GraphQL/REST API contracts, distributed event streams, and database schemas with strict type guarantees.",
     deliverables: [
-      "Microservices Interaction Topology Graph",
-      "PostgreSQL / pgvector Database ERD & Indexes",
-      "Strict OpenAPI 3.1 & gRPC Contract Definitions",
-      "Event Bus & In-Memory Cache Invalidation Protocols",
+      "OpenAPI 3.1 & GraphQL Schema Definitions",
+      "Normalized PostgreSQL / MongoDB DB Models",
+      "Kafka / RabbitMQ Event Architecture",
+      "High-Fidelity Interaction Wireframes",
     ],
-    tools: ["NestJS & Go", "PostgreSQL", "Apache Kafka", "Redis"],
-    slaTarget: "100% Type-Safe Contracts",
+    tools: ["TypeScript", "Prisma ORM", "Docker", "PostgreSQL", "Swagger"],
+    metric: "100% Type-Safe API",
   },
   {
     n: "03",
     title: "High-Velocity Agile Sprints & CI/CD",
-    badge: "Engineering Phase",
     duration: "Sprint Iterations",
-    icon: Zap,
-    copy: "Bi-weekly sprint increments with strict 100% type-safety, automated unit/integration testing, and automated GitHub Actions pipelines.",
+    badge: "Execution Pod",
+    slaTarget: "Bi-Weekly Production Ships",
+    copy: "Bi-weekly sprint increments with strict 100% type-safety, automated unit & integration testing, and ephemeral branch environments for stakeholder review.",
     deliverables: [
-      "Production-Ready Code Increments Shipped Every 14 Days",
-      "Automated CI/CD Test Coverage (>95%)",
-      "Continuous Dynamic Security Testing (DAST/SAST)",
-      "Strict Code Reviews by Principal Engineers",
+      "Continuous Preview Environments per PR",
+      "Deterministic Test Coverage (> 85%)",
+      "Real-time Burndown Telemetry Dashboard",
+      "Production-Grade Clean Code Commits",
     ],
-    tools: ["GitHub Actions", "Vitest & Playwright", "Docker Containers", "TypeScript"],
-    slaTarget: "Zero Broken Builds Policy",
+    tools: ["GitHub Actions", "Turborepo", "Vitest", "Playwright", "SonarQube"],
+    metric: "14-Day Sprint Cadence",
   },
   {
     n: "04",
     title: "Hardened Production Rollout & Telemetry",
-    badge: "Hardening Phase",
     duration: "Deployment Sprint",
-    icon: ShieldAlert,
-    copy: "Chaos testing, automated pentesting, canary zero-downtime deployments, and real-time observability telemetry setup.",
+    badge: "Zero-Downtime",
+    slaTarget: "99.99% Cutover SLA",
+    copy: "Chaos testing, automated pentesting, canary zero-downtime deployments, and real-time observability telemetry across distributed clusters.",
     deliverables: [
-      "Zero-Downtime Blue/Green Canary Deployment",
-      "Kernel eBPF & APM Observability Dashboards",
-      "Penetration Test Sign-off & Audit Log",
-      "Disaster Recovery & Multi-AZ Automated Failover Verification",
+      "Zero-Downtime Blue/Green Deployments",
+      "Automated Vulnerability Penetration Report",
+      "Distributed Trace Logging & APM Integration",
+      "Rollback Automation & Disaster Recovery SOP",
     ],
-    tools: ["Kubernetes", "Cloudflare WAF", "eBPF", "Prometheus"],
-    slaTarget: "Zero-Downtime Deployment",
+    tools: ["Kubernetes", "Datadog", "Grafana", "AWS / Cloudflare", "Terraform"],
+    metric: "< 14ms Global Latency",
   },
   {
     n: "05",
     title: "Scale, SRE & 24/7 SLA Support",
-    badge: "Enterprise SLA",
     duration: "Continuous 24/7",
-    icon: Activity,
-    copy: "24/7 proactive NOC monitoring, FinOps cloud cost optimization, automated horizontal scaling, and enterprise SLA guarantees.",
+    badge: "Managed Operations",
+    slaTarget: "< 15min Incident Response",
+    copy: "24/7 proactive NOC monitoring, FinOps cloud cost optimization, continuous model retraining, and dedicated principal engineering support.",
     deliverables: [
-      "99.99% Production Uptime SLA Guarantee",
-      "FinOps Infrastructure Cost Optimization",
-      "Dedicated SRE Incident Response Pod (< 15 min MTTR)",
-      "Quarterly Architectural Roadmapping & Security Reviews",
+      "24/7 Active Incident Escalation Team",
+      "Monthly Cloud FinOps Cost Audits",
+      "Automated Security Patching Pipelines",
+      "Quarterly Scalability Benchmarks",
     ],
-    tools: ["Grafana", "K8s Auto-Scaler", "Datadog APM", "Vault"],
-    slaTarget: "99.99% Uptime Guarantee",
+    tools: ["PagerDuty", "AWS Cost Explorer", "Prometheus", "OpenTelemetry"],
+    metric: "99.9% Uptime Guarantee",
   },
 ];
 
@@ -114,9 +106,9 @@ export function Process() {
   return (
     <section
       id="process"
-      className="relative bg-[#FAFAFD] py-20 sm:py-28 overflow-hidden text-black border-t border-zinc-200/90"
+      className="relative bg-[#FAFAFD] py-14 sm:py-20 overflow-hidden text-black border-t border-zinc-200/90"
     >
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
         <SectionHeading
@@ -141,16 +133,16 @@ export function Process() {
                     onClick={() => setActiveStep(idx)}
                     className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-start gap-3.5 cursor-pointer relative ${
                       isActive
-                        ? "bg-black text-white border-black shadow-md"
-                        : "bg-white text-zinc-800 border-zinc-200/90 hover:border-zinc-400 hover:shadow-2xs"
+                        ? "bg-zinc-950 text-white border-zinc-950 shadow-md"
+                        : "bg-white text-zinc-800 border-zinc-200/90 hover:border-zinc-300 hover:shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
                     }`}
                   >
                     {/* Node Number */}
                     <div
                       className={`h-9 w-9 rounded-xl flex items-center justify-center font-mono font-bold text-xs shrink-0 transition-colors ${
                         isActive
-                          ? "bg-white text-zinc-950 font-bold"
-                          : "bg-zinc-100 text-zinc-700 border border-zinc-200"
+                          ? "bg-white text-zinc-950 font-bold shadow-xs"
+                          : "bg-zinc-100 text-zinc-700 border border-zinc-200/80"
                       }`}
                     >
                       {s.n}
@@ -165,11 +157,11 @@ export function Process() {
                         >
                           {s.title}
                         </h4>
-                        <span className={`text-[10px] font-mono shrink-0 ${isActive ? "text-neutral-400" : "text-zinc-500"}`}>
+                        <span className={`text-[10px] font-mono shrink-0 ${isActive ? "text-zinc-400" : "text-zinc-500"}`}>
                           {s.duration}
                         </span>
                       </div>
-                      <p className={`mt-0.5 text-xs line-clamp-1 font-normal ${isActive ? "text-neutral-300" : "text-zinc-500"}`}>
+                      <p className={`mt-1 text-xs line-clamp-1 font-normal ${isActive ? "text-zinc-300" : "text-zinc-500"}`}>
                         {s.copy}
                       </p>
                     </div>
@@ -179,7 +171,7 @@ export function Process() {
             </div>
           </div>
 
-          {/* Right Column: Step Detail Card */}
+          {/* Right Column: Step Detail Card with Soft Gray Shadow */}
           <div className="lg:col-span-7">
             <AnimatePresence mode="wait">
               <motion.div
@@ -188,25 +180,25 @@ export function Process() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
-                className="rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-sm text-black"
+                className="rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-black"
               >
                 {/* Step Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 pb-4">
                   <div className="flex items-center gap-3">
-                    <span className="h-10 w-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-950 flex items-center justify-center font-mono font-bold text-sm">
+                    <span className="h-10 w-10 rounded-2xl bg-zinc-950 text-white flex items-center justify-center font-mono font-bold text-sm shadow-xs">
                       {currentStep.n}
                     </span>
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600">
                         Phase {currentStep.n} &bull; {currentStep.badge}
                       </span>
-                      <h3 className="text-lg sm:text-xl font-bold text-zinc-950 leading-tight">
+                      <h3 className="text-base sm:text-lg font-bold text-zinc-950 leading-tight">
                         {currentStep.title}
                       </h3>
                     </div>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-zinc-100 border border-zinc-200 text-[11px] font-mono font-bold text-zinc-800 self-start sm:self-auto">
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-emerald-50 border border-emerald-200 text-[11px] font-mono font-bold text-emerald-800 self-start sm:self-auto shadow-2xs">
                     <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
                     {currentStep.slaTarget}
                   </span>
@@ -217,18 +209,18 @@ export function Process() {
                   {currentStep.copy}
                 </p>
 
-                {/* Key Deliverables Checklist */}
+                {/* Key Deliverables Grid */}
                 <div className="mt-6">
                   <h5 className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-800 mb-3 flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Key Phase Deliverables
                   </h5>
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {currentStep.deliverables.map((item, idx) => (
                       <div
                         key={idx}
-                        className="flex items-start gap-2.5 p-3 rounded-xl bg-[#FAFAFC] border border-zinc-200/80 text-xs text-zinc-700 font-medium"
+                        className="flex items-start gap-2.5 p-3 rounded-2xl bg-zinc-50 border border-zinc-200/80 text-xs text-zinc-700 font-medium"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-zinc-950 shrink-0 mt-1.5" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-indigo-600 shrink-0 mt-1.5" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -250,7 +242,7 @@ export function Process() {
 
                   <button
                     onClick={() => setActiveStep((prev) => (prev + 1) % steps.length)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-950 hover:text-copper transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-950 hover:text-indigo-600 transition-colors cursor-pointer"
                   >
                     <span>Next: Phase {steps[(activeStep + 1) % steps.length].n}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
