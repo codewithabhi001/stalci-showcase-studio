@@ -5,25 +5,25 @@ type Variant = "primary" | "secondary" | "ghost" | "danger" | "copper-outline";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl font-semibold whitespace-nowrap transition-all duration-200 disabled:opacity-55 disabled:pointer-events-none active:scale-[0.98] cursor-pointer";
+  "relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl font-semibold whitespace-nowrap transition-all duration-150 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] cursor-pointer";
 
 const variants: Record<Variant, string> = {
   primary:
-    "text-white bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#818CF8] hover:brightness-105 shadow-[0_4px_20px_rgba(99,102,241,0.3)] font-bold border border-copper/40",
+    "text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs font-semibold border border-indigo-700/50",
   secondary:
-    "text-ink bg-surface border border-line-strong hover:bg-surface-2 hover:border-copper/40 hover:text-copper shadow-2xs",
+    "text-zinc-950 bg-white border border-zinc-200/90 hover:bg-zinc-50 hover:border-zinc-400 shadow-2xs",
   ghost:
-    "text-muted hover:bg-surface-2 hover:text-ink transition-colors",
+    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 transition-colors",
   danger:
-    "text-red-600 bg-red-500/10 border border-red-500/20 hover:bg-red-600 hover:text-white transition-colors",
+    "text-red-700 bg-red-50 border border-red-200/80 hover:bg-red-600 hover:text-white transition-colors",
   "copper-outline":
-    "text-copper-deep bg-copper/10 border border-copper/40 hover:bg-copper/20 hover:border-copper transition-all shadow-2xs",
+    "text-indigo-600 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 transition-all shadow-2xs",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-8 px-3 text-[12.5px]",
-  md: "h-9.5 px-4 text-xs sm:text-[13px]",
-  lg: "h-11 px-5 text-sm",
+  sm: "h-8 px-3 text-[12px]",
+  md: "h-9 px-4 text-xs sm:text-[13px]",
+  lg: "h-10.5 px-5 text-sm",
 };
 
 export function Button({
@@ -51,8 +51,8 @@ export function IconButton({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { label: string; tone?: "neutral" | "danger" }) {
   const toneCls =
     tone === "danger"
-      ? "text-faint hover:bg-red-500/15 hover:text-red-400 border border-transparent hover:border-red-500/30"
-      : "text-faint hover:bg-surface-2 hover:text-copper border border-transparent hover:border-copper/30";
+      ? "text-zinc-400 hover:bg-red-50 hover:text-red-600 border border-transparent hover:border-red-200"
+      : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-950 border border-transparent hover:border-zinc-200";
   return (
     <button
       aria-label={label}
@@ -64,4 +64,3 @@ export function IconButton({
     </button>
   );
 }
-

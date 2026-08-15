@@ -1,57 +1,55 @@
 @import "tailwindcss";
 
-/* ─── STALCI Signature Sovereign Light & Copper Admin Design System ───
-   Pure Sovereign Light Canvas + Radiant Copper Gold Accents.
-   Aligned 1:1 with STALCI Portfolio Sovereign Palette.
+/* ─── STALCI Sovereign Clean Admin Design System ───
+   Pure Sovereign Light Canvas + Crisp Neutral Zinc Typography + Elegant Indigo Brand Accent.
+   Standardized 1:1 with STALCI Clean Portfolio Design Language.
 */
 
 @theme inline {
-  /* Sovereign Violet / Deep Indigo Accent Palette */
-  --color-copper: #6366F1;
-  --color-copper-soft: #818CF8;
-  --color-copper-deep: #4F46E5;
-  --color-copper-wash: rgba(99, 102, 241, 0.12);
+  /* Sovereign Indigo / Blue Brand Accent Palette */
+  --color-copper: #4F46E5;
+  --color-copper-soft: #6366F1;
+  --color-copper-deep: #4338CA;
+  --color-copper-wash: rgba(79, 70, 229, 0.08);
 
-  /* Sovereign Pure Light Surfaces */
-  --color-canvas: #F8FAFC;
+  /* Sovereign Pure Light Neutral Surfaces */
+  --color-canvas: #FAFAFC;
   --color-surface: #FFFFFF;
-  --color-surface-2: #F8FAFC;
-  --color-surface-3: #F1F5F9;
-  --color-line: rgba(0, 0, 0, 0.06);
-  --color-line-strong: rgba(0, 0, 0, 0.10);
+  --color-surface-2: #F4F4F5;
+  --color-surface-3: #E4E4E7;
+  --color-line: rgba(0, 0, 0, 0.08);
+  --color-line-strong: rgba(0, 0, 0, 0.14);
   
-  /* Text & Typographic Hierarchy */
-  --color-ink: #0F172A;
-  --color-ink-2: #334155;
-  --color-muted: #64748B;
-  --color-faint: #94A3B8;
+  /* Text & Typographic Hierarchy (Pure Neutral Zinc) */
+  --color-ink: #09090B;
+  --color-ink-2: #27272A;
+  --color-muted: #52525B;
+  --color-faint: #A1A1AA;
 
   /* Semantic Feedback Colors */
   --color-success: #10B981;
-  --color-success-wash: rgba(16, 185, 129, 0.12);
+  --color-success-wash: rgba(16, 185, 129, 0.10);
   --color-warn: #F59E0B;
-  --color-warn-wash: rgba(245, 158, 11, 0.12);
+  --color-warn-wash: rgba(245, 158, 11, 0.10);
   --color-danger: #EF4444;
-  --color-danger-wash: rgba(239, 68, 68, 0.12);
+  --color-danger-wash: rgba(239, 68, 68, 0.10);
   --color-info: #3B82F6;
-  --color-info-wash: rgba(59, 130, 246, 0.12);
+  --color-info-wash: rgba(59, 130, 246, 0.10);
 
   /* Typography */
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
   --radius: 0.875rem;
-  --gradient-copper: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #818CF8 100%);
-  --gradient-ink: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow-pop: 0 16px 36px -8px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  --shadow-modal: 0 32px 80px -20px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.1);
-  --shadow-glow: 0 0 60px -10px rgba(99, 102, 241, 0.25);
-  --shadow-lift: 0 20px 45px -15px rgba(99, 102, 241, 0.2);
+  --gradient-copper: linear-gradient(135deg, #4338CA 0%, #4F46E5 50%, #6366F1 100%);
+  --gradient-ink: linear-gradient(180deg, #FFFFFF 0%, #FAFAFC 100%);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-pop: 0 12px 32px -4px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 24px 64px -12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.10);
 }
 
 * {
@@ -67,26 +65,26 @@ html {
 body {
   min-height: 100%;
   height: 100%;
-  background-color: #F8FAFC;
-  color: #0F172A;
+  background-color: #FAFAFC;
+  color: #09090B;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 /* Explicit Light Mode High-Contrast Utility Classes */
-.text-ink { color: #0F172A !important; }
-.text-ink-2 { color: #334155 !important; }
-.text-muted { color: #64748B !important; }
-.text-faint { color: #94A3B8 !important; }
-.text-copper { color: #6366F1 !important; }
-.text-copper-deep { color: #4F46E5 !important; }
+.text-ink { color: #09090B !important; }
+.text-ink-2 { color: #27272A !important; }
+.text-muted { color: #52525B !important; }
+.text-faint { color: #A1A1AA !important; }
+.text-copper { color: #4F46E5 !important; }
+.text-copper-deep { color: #4338CA !important; }
 .text-copper-soft { color: #6366F1 !important; }
 
-.bg-canvas { background-color: #F8FAFC !important; }
+.bg-canvas { background-color: #FAFAFC !important; }
 .bg-surface { background-color: #FFFFFF !important; }
-.bg-surface-2 { background-color: #F8FAFC !important; }
-.bg-surface-3 { background-color: #F1F5F9 !important; }
+.bg-surface-2 { background-color: #F4F4F5 !important; }
+.bg-surface-3 { background-color: #E4E4E7 !important; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -102,210 +100,89 @@ h1, h2, h3, h4 {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.16);
-  border-radius: 999px;
+  background: #E4E4E7;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(216, 155, 91, 0.7);
+  background: #A1A1AA;
 }
 
-/* Utility class for robust mouse wheel scrolling */
-.scrollable-y {
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+/* ─── Universal Interactive Form Input Primitives ─── */
+.field {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-line);
+  background-color: #FFFFFF;
+  padding: 0 0.875rem;
+  font-size: 0.8125rem;
+  color: #09090B;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.15s ease-in-out;
+  outline: none;
+}
+.field:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+.field:focus {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  background-color: #FFFFFF;
+}
+.field::placeholder {
+  color: #A1A1AA;
+}
+.field:disabled {
+  background-color: #F4F4F5;
+  color: #A1A1AA;
+  cursor: not-allowed;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-copper);
-  outline-offset: 2px;
-  border-radius: 6px;
+textarea.field {
+  height: auto;
+  min-height: 5.5rem;
+  padding: 0.625rem 0.875rem;
 }
 
-/* ─── Component Utilities ─── */
-@layer components {
-  .eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-faint);
-  }
-
-  .card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-card);
-  }
-
-  .field {
-    width: 100%;
-    border-radius: 10px;
-    border: 1px solid var(--color-line-strong);
-    background: var(--color-surface-2);
-    padding: 0.625rem 0.875rem;
-    font-size: 0.875rem;
-    color: var(--color-ink);
-    outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-  }
-  .field::placeholder {
-    color: var(--color-faint);
-  }
-  .field:focus {
-    border-color: var(--color-copper);
-    background: var(--color-surface);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-  }
-
-  select.field option {
-    background: #FFFFFF;
-    color: #0F172A;
-  }
-}
-
-/* ─── Brand Gradient & Glow Utilities ─── */
-.text-copper-gradient {
-  background: var(--gradient-copper);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.surface-ink {
-  background: var(--gradient-ink);
-  color: var(--color-ink);
-}
-
-.hero-glow {
-  background:
-    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(99, 102, 241, 0.12), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99, 102, 241, 0.05), transparent 70%),
-    var(--gradient-ink);
+/* ─── Universal Card & Elevation Utilities ─── */
+.card {
+  border-radius: 1rem;
+  border: 1px solid var(--color-line);
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease-in-out;
 }
 
 .card-lift {
-  transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+  transition: all 0.2s ease-in-out;
 }
 .card-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lift);
-  border-color: rgba(99, 102, 241, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #71717A;
 }
 
-.glass-dark {
-  background: rgba(15, 23, 42, 0.95);
-  color: #FFFFFF;
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ─── Animations ─── */
-@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slide-in-right { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
-@keyframes slide-up-sm { from { opacity: 0; transform: translateY(6px) scale(0.98); } to { opacity: 1; transform: none; } }
-@keyframes shimmer { 100% { transform: translateX(100%); } }
-@keyframes floatOrb {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.25; }
-  50% { transform: translate(-50%, -55%) scale(1.15); opacity: 0.45; }
-}
-@keyframes shine {
-  100% { transform: translateX(200%) skewX(-12deg); }
-}
-
-.animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-fade-in { animation: fade-in 0.3s ease both; }
-.animate-slide-in-right { animation: slide-in-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-pop { animation: slide-up-sm 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-float-orb { animation: floatOrb 12s ease-in-out infinite; }
-.animate-shine { animation: shine 1.5s ease-in-out infinite; }
-
-.perspective-grid {
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
-}
-
-.gradient-border {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(0, 0, 0, 0.05), rgba(99, 102, 241, 0.6));
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
-    pointer-events: none;
+/* Animations */
+@keyframes fadeUp {
+  from {
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transform: translateY(8px);
   }
-  &:hover::before {
+  to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.glow-copper {
-  box-shadow: 0 0 40px -8px rgba(99, 102, 241, 0.35);
+.animate-fade-up {
+  animation: fadeUp 0.3s ease-out forwards;
 }
-
-.skeleton {
-  position: relative;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
-}
-.skeleton::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
-  animation: shimmer 1.4s infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
-
-/* ─── Print Styles for Invoices ─── */
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  aside, nav, header, .no-print, [role="dialog"] > div:not(.print-target) {
-    display: none !important;
-  }
-  .print-target {
-    display: block !important;
-    position: static !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-}
-
