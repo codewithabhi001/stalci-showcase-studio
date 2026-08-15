@@ -250,7 +250,7 @@ export default function InvoiceTemplatesPage() {
                     <h3 className="font-bold text-ink text-sm flex items-center gap-2">
                       {tpl.name}
                       {tpl.isDefault && (
-                        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-copper-wash text-copper-deep border border-copper/20">
+                        <span className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase bg-copper/15 text-copper-soft border border-copper/30 font-mono">
                           Default
                         </span>
                       )}
@@ -274,7 +274,7 @@ export default function InvoiceTemplatesPage() {
                   {!tpl.isDefault && (
                     <button
                       onClick={() => setDefaultMutation.mutate(tpl.id)}
-                      className="px-2 py-1 rounded-lg text-[11px] font-semibold text-muted hover:text-ink hover:bg-canvas transition-colors border border-line"
+                      className="px-2 py-1 rounded-lg text-[11px] font-semibold text-muted hover:text-ink hover:bg-surface-2 transition-colors border border-line cursor-pointer"
                       title="Set as system default"
                     >
                       Make Default
@@ -282,7 +282,7 @@ export default function InvoiceTemplatesPage() {
                   )}
                   <button
                     onClick={() => handleOpenEdit(tpl)}
-                    className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-canvas transition-colors"
+                    className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-surface-2 transition-colors cursor-pointer"
                     title="Edit template settings"
                   >
                     <Edit2 className="h-3.5 w-3.5" />
@@ -290,7 +290,7 @@ export default function InvoiceTemplatesPage() {
                   {!tpl.isDefault && (
                     <button
                       onClick={() => setDeletingTemplateId(tpl.id)}
-                      className="p-1.5 rounded-lg border border-line text-muted hover:text-red-600 hover:bg-red-50 transition-colors"
+                      className="p-1.5 rounded-lg border border-line text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                       title="Delete template"
                     >
                       <Trash2 className="h-3.5 w-3.5" />

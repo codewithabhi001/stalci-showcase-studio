@@ -130,7 +130,7 @@ export default function PagesAdmin() {
           </p>
         </div>
 
-        <Button onClick={handleOpenCreate} className="text-xs font-bold gap-1.5 bg-copper text-slate-950 hover:bg-copper-soft shadow-sm">
+        <Button onClick={handleOpenCreate} className="text-xs font-bold gap-1.5 bg-copper text-[#080A0F] hover:bg-copper-soft shadow-sm">
           <Plus className="h-4 w-4" /> Create New Page
         </Button>
       </div>
@@ -200,7 +200,7 @@ export default function PagesAdmin() {
                         </button>
                         <button
                           onClick={() => setDeletingId(p.id)}
-                          className="p-1.5 rounded-lg border border-line text-muted hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                           title="Delete page"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -230,7 +230,7 @@ export default function PagesAdmin() {
             <Button
               onClick={handleSubmit}
               disabled={updateMut.isPending || createMut.isPending || !formData.title || !formData.slug}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               {editingPage ? "Save & Publish Changes" : "Create Page"}
             </Button>
@@ -292,7 +292,7 @@ export default function PagesAdmin() {
                 type="button"
                 onClick={() => setPreviewTab("edit")}
                 className={`px-3 py-1 rounded text-xs font-bold cursor-pointer transition-all ${
-                  previewTab === "edit" ? "bg-copper text-slate-950" : "text-muted hover:text-ink"
+                  previewTab === "edit" ? "bg-copper text-[#080A0F]" : "text-muted hover:text-ink"
                 }`}
               >
                 Markdown Editor
@@ -301,7 +301,7 @@ export default function PagesAdmin() {
                 type="button"
                 onClick={() => setPreviewTab("preview")}
                 className={`px-3 py-1 rounded text-xs font-bold cursor-pointer transition-all ${
-                  previewTab === "preview" ? "bg-copper text-slate-950" : "text-muted hover:text-ink"
+                  previewTab === "preview" ? "bg-copper text-[#080A0F]" : "text-muted hover:text-ink"
                 }`}
               >
                 Live Preview

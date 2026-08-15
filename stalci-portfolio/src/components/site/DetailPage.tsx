@@ -22,11 +22,11 @@ export function DetailPage({
   const Icon = entry.icon;
 
   return (
-    <div className="min-h-screen bg-[#080A12] text-white">
+    <div className="min-h-screen bg-[#000000] text-white">
       <Nav solid />
       <main>
         {/* Header */}
-        <section className="relative overflow-hidden bg-[#080B12] pb-14 pt-24 sm:pb-16 sm:pt-28 border-b border-white/10">
+        <section className="relative overflow-hidden bg-[#000000] pb-14 pt-24 sm:pb-16 sm:pt-28 border-b border-white/10">
           <div className="relative mx-auto max-w-5xl px-5 lg:px-8">
             <a
               href={backTo}
@@ -40,7 +40,7 @@ export function DetailPage({
               <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 border border-white/10">
                 <Icon className="h-5 w-5 text-white" strokeWidth={1.5} />
               </span>
-              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
+              <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper">
                 {entry.tag}
               </p>
             </div>
@@ -54,7 +54,7 @@ export function DetailPage({
 
             <dl className="mt-8 grid max-w-xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-3">
               {entry.outcomes.map((o) => (
-                <div key={o.label} className="bg-[#0E1320] px-4 py-4">
+                <div key={o.label} className="bg-[#0F0F0F] px-4 py-4">
                   <dt className="text-lg font-bold text-white">{o.value}</dt>
                   <dd className="mt-0.5 text-[11px] leading-snug text-slate-400">{o.label}</dd>
                 </div>
@@ -77,7 +77,7 @@ export function DetailPage({
                 {entry.capabilities.map((c) => (
                   <div
                     key={c.title}
-                    className="rounded-xl border border-white/10 bg-[#0E1320] p-4 hover:border-white/20 transition-colors"
+                    className="rounded-xl border border-white/10 bg-[#0F0F0F] p-4 hover:border-white/20 transition-colors"
                   >
                     <h3 className="text-xs sm:text-sm font-semibold text-white">{c.title}</h3>
                     <p className="mt-1 text-xs leading-relaxed text-slate-400">{c.copy}</p>
@@ -87,27 +87,27 @@ export function DetailPage({
             </div>
 
             <aside className="space-y-6">
-              <div className="rounded-2xl border border-white/10 bg-[#0E1320] p-5">
+              <div className="rounded-2xl border border-white/10 bg-[#0F0F0F] p-5">
                 <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300">Key Deliverables</h3>
                 <ul className="mt-3.5 space-y-2.5">
                   {entry.deliverables.map((d) => (
                     <li key={d} className="flex gap-2 text-xs text-slate-400">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white" strokeWidth={2} />
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-copper" strokeWidth={2} />
                       {d}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-[#0E1320] p-5">
-                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300">Technology Stack</h3>
-                <div className="mt-3.5 flex flex-wrap gap-1.5">
-                  {entry.stack.map((s) => (
+              <div className="rounded-2xl border border-white/10 bg-[#0F0F0F] p-5">
+                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300">Tech & Tooling</h3>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {entry.tools.map((t) => (
                     <span
-                      key={s}
+                      key={t}
                       className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-slate-300"
                     >
-                      {s}
+                      {t}
                     </span>
                   ))}
                 </div>
@@ -135,7 +135,7 @@ export function DetailPage({
                   <Link
                     key={r.slug}
                     to={`${relatedBase}/${r.slug}` as string}
-                    className="group rounded-xl border border-white/10 bg-[#0E1320] p-4 transition-colors hover:border-white/20"
+                    className="group rounded-xl border border-white/10 bg-[#0F0F0F] p-4 transition-colors hover:border-white/20"
                   >
                     <RIcon className="h-4.5 w-4.5 text-white" strokeWidth={1.5} />
                     <h3 className="mt-2.5 text-xs sm:text-sm font-semibold text-white">{r.title}</h3>

@@ -142,12 +142,12 @@ export default function RbacPage() {
                 onClick={() => handleSimulate(r)}
                 className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                   isSelected
-                    ? "border-copper bg-copper text-slate-950 font-bold shadow-md"
+                    ? "border-copper bg-copper text-[#080A0F] font-bold shadow-md"
                     : "border-line bg-surface hover:border-copper/60 text-ink"
                 }`}
               >
                 <div className="text-xs font-bold">{def.label}</div>
-                <div className={`text-[10px] mt-0.5 line-clamp-1 ${isSelected ? "text-slate-900" : "text-muted"}`}>
+                <div className={`text-[10px] mt-0.5 line-clamp-1 ${isSelected ? "text-[#080A0F]/80" : "text-muted"}`}>
                   {def.role}
                 </div>
               </button>
@@ -310,7 +310,7 @@ export default function RbacPage() {
                 assignMut.mutate({ employeeId: Number(selectedEmpId), roleId: assigningRole.id })
               }
               disabled={assignMut.isPending || !selectedEmpId}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Confirm Role Assignment
             </Button>
@@ -354,7 +354,7 @@ export default function RbacPage() {
                 })
               }
               disabled={permMut.isPending}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Permission Matrix
             </Button>

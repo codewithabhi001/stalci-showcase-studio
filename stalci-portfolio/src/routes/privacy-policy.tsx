@@ -183,7 +183,7 @@ function PrivacyPolicy() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
+      <div className="bg-[#000000] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
             <ShieldCheck className="h-3.5 w-3.5" />
@@ -238,7 +238,7 @@ function PrivacyPolicy() {
             ))}
 
             {/* DPO Support Card */}
-            <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="rounded-2xl bg-gradient-to-br from-black to-[#0A0A0A] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                   <Mail className="h-5 w-5 text-emerald-400" />

@@ -59,23 +59,23 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] sm:pt-[20vh] px-4">
       <div
-        className="absolute inset-0 bg-ink/40 backdrop-blur-md transition-opacity"
+        className="absolute inset-0 bg-black/75 backdrop-blur-md transition-opacity"
         onClick={() => setOpen(false)}
       />
 
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-canvas shadow-2xl ring-1 ring-line animate-fade-up">
-        <div className="flex items-center border-b border-line px-4 bg-surface/30">
+      <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-surface shadow-2xl border border-line animate-fade-up">
+        <div className="flex items-center border-b border-line px-4 bg-surface-2/60">
           <Search className="h-[18px] w-[18px] text-copper shrink-0" />
           <input
             ref={inputRef}
-            className="flex h-16 w-full bg-transparent px-4 text-[16px] border-none text-ink placeholder:text-muted"
+            className="flex h-16 w-full bg-transparent px-4 text-[16px] border-none text-white placeholder:text-muted font-sans"
             style={{ outline: "none", boxShadow: "none" }}
             placeholder="Search pages, clients, invoices, settings..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
           />
-          <span className="hidden sm:inline-flex h-6 items-center rounded border border-line bg-canvas px-2 text-[10px] font-bold text-muted shadow-sm">
+          <span className="hidden sm:inline-flex h-6 items-center rounded border border-line bg-surface-2 px-2 text-[10px] font-bold text-faint shadow-xs font-mono">
             ESC
           </span>
         </div>
@@ -89,12 +89,12 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
                   <button
                     key={i}
                     onClick={() => handleNavigate(item.href)}
-                    className="flex w-full items-center gap-3.5 rounded-xl px-4 py-3.5 text-left transition-all hover:bg-surface-2 group focus:bg-surface-2 focus:outline-none"
+                    className="flex w-full items-center gap-3.5 rounded-xl px-4 py-3 text-left transition-all hover:bg-surface-2 group focus:bg-surface-2 focus:outline-none cursor-pointer"
                   >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface group-hover:bg-canvas transition-colors border border-line-strong group-hover:border-line">
-                      <Icon className="h-4 w-4 text-muted group-hover:text-copper transition-colors" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-2 group-hover:bg-copper/15 transition-colors border border-line group-hover:border-copper/40">
+                      <Icon className="h-4 w-4 text-faint group-hover:text-copper transition-colors" />
                     </div>
-                    <span className="flex-1 text-[14.5px] font-medium text-ink-2 group-hover:text-ink transition-colors">
+                    <span className="flex-1 text-[14px] font-medium text-ink-2 group-hover:text-white transition-colors">
                       {item.label}
                     </span>
                     <ArrowRight className="h-4 w-4 text-faint opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-copper" />
@@ -106,7 +106,7 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
             <div className="py-16 text-center">
               <Search className="mx-auto h-8 w-8 text-faint mb-3" />
               <p className="text-[14px] text-muted">
-                No results found for <span className="font-semibold text-ink">"{query}"</span>
+                No results found for <span className="font-semibold text-white">"{query}"</span>
               </p>
             </div>
           )}

@@ -126,7 +126,7 @@ export default function FeedbackAdmin() {
                     </td>
 
                     <td className="px-5 py-4 text-slate-700 max-w-md">
-                      <p className="line-clamp-2 text-xs leading-relaxed">{item.comments}</p>
+                      <p className="line-clamp-2 text-xs leading-relaxed text-ink-2">{item.comments}</p>
                     </td>
 
                     <td className="px-5 py-4 font-mono text-muted text-xs">

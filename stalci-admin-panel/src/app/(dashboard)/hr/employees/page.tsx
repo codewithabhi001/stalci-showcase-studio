@@ -200,7 +200,7 @@ export default function EmployeesPage() {
         </div>
 
         {currentRole !== "RECRUITER" && (
-          <Button onClick={handleOpenCreate} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+          <Button onClick={handleOpenCreate} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
             <Plus className="h-4 w-4" /> Add New Employee
           </Button>
         )}
@@ -383,10 +383,10 @@ export default function EmployeesPage() {
             </Button>
             <Button
               onClick={handleSubmit}
-              disabled={createMut.isPending || updateMut.isPending || !formData.name || !formData.email}
-              className="bg-copper text-slate-950 font-bold"
+              disabled={createMut.isPending || updateMut.isPending || !formData.name}
+              className="bg-copper text-[#080A0F] font-bold"
             >
-              {editingEmp ? "Save Changes" : "Create & Initialize Onboarding"}
+              {editingEmp ? "Save Employee Changes" : "Create Employee Record"}
             </Button>
           </div>
         }

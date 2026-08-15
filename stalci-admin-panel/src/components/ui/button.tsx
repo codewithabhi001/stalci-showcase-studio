@@ -8,10 +8,10 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-[10px] font-semibold whitespace-nowrap transition-all duration-150 disabled:opacity-55 disabled:pointer-events-none active:scale-[0.98]";
 
 const variants: Record<Variant, string> = {
-  primary: "text-white bg-copper hover:bg-copper-deep shadow-xs",
-  secondary: "text-ink-2 bg-surface border border-line-strong hover:bg-canvas hover:text-ink",
-  ghost: "text-muted hover:bg-canvas hover:text-ink",
-  danger: "text-danger bg-danger-wash border border-danger/20 hover:bg-danger hover:text-white",
+  primary: "text-black bg-copper hover:bg-copper-soft shadow-xs font-bold transition-all",
+  secondary: "text-ink bg-surface border border-line-strong hover:bg-surface-2 hover:border-copper/40 hover:text-white transition-all",
+  ghost: "text-muted hover:bg-surface-2 hover:text-ink transition-colors",
+  danger: "text-red-400 bg-red-500/10 border border-red-500/20 hover:bg-red-600 hover:text-white transition-colors",
 };
 
 const sizes: Record<Size, string> = {

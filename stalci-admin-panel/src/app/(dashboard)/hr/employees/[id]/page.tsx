@@ -161,7 +161,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
       <div className="rounded-3xl border border-line bg-surface p-6 sm:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
-            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-amber-500 to-copper text-slate-950 flex items-center justify-center font-extrabold text-2xl shadow-lg border border-white/20 shrink-0">
+            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-amber-500 to-copper text-[#080A0F] flex items-center justify-center font-extrabold text-2xl shadow-lg border border-white/20 shrink-0">
               {emp.name.slice(0, 2).toUpperCase()}
             </div>
             <div>
@@ -268,7 +268,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
                 activeTab === tab.id
-                  ? "bg-copper text-slate-950 shadow-sm"
+                  ? "bg-copper text-[#080A0F] shadow-sm"
                   : "text-muted hover:text-ink hover:bg-surface-2"
               }`}
             >
@@ -549,30 +549,28 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
       {activeTab === "attendance" && (
         <div className="space-y-6">
           <div className="rounded-2xl border border-line bg-surface p-6 space-y-4">
-            <h3 className="text-sm font-bold text-ink">Recent Attendance Logs</h3>
+            <h3 className="text-sm font-bold text-ink">Recent Attendance Records</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-line text-muted uppercase text-[10px] font-bold">
                     <th className="py-2.5">Date</th>
                     <th className="py-2.5">Status</th>
-                    <th className="py-2.5">Check In</th>
-                    <th className="py-2.5">Check Out</th>
+                    <th className="py-2.5">Check-In Time</th>
                     <th className="py-2.5">Notes</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line">
-                  {emp.attendanceRecords?.map((att: any) => (
+                  {emp.attendances?.slice(0, 10).map((att: any) => (
                     <tr key={att.id}>
-                      <td className="py-3 font-mono font-semibold">{new Date(att.date).toLocaleDateString()}</td>
+                      <td className="py-3 font-mono">{new Date(att.date).toLocaleDateString()}</td>
                       <td className="py-3">
-                        <Badge tone={att.status === "PRESENT" ? "success" : att.status === "WFH" ? "info" : "warning"}>
+                        <Badge tone={att.status === "PRESENT" ? "success" : att.status === "WFH" ? "info" : "neutral"}>
                           {att.status}
                         </Badge>
                       </td>
-                      <td className="py-3 font-mono text-muted">{att.checkIn || "09:00 AM"}</td>
-                      <td className="py-3 font-mono text-muted">{att.checkOut || "06:00 PM"}</td>
-                      <td className="py-3 text-muted">{att.notes || "Standard Shift"}</td>
+                      <td className="py-3 font-mono text-muted">{att.checkInTime ? new Date(att.checkInTime).toLocaleTimeString() : "--"}</td>
+                      <td className="py-3 text-muted">{att.notes || "Standard shift"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -590,7 +588,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
                     <p className="text-[11px] text-muted font-mono">
                       {new Date(leave.startDate).toLocaleDateString()} to {new Date(leave.endDate).toLocaleDateString()}
                     </p>
-                    <p className="text-xs text-slate-600 mt-1">Reason: {leave.reason}</p>
+                    <p className="text-xs text-muted mt-1">Reason: {leave.reason}</p>
                   </div>
                   <Badge tone={leave.status === "APPROVED" ? "success" : leave.status === "REJECTED" ? "danger" : "warning"}>
                     {leave.status}
@@ -626,7 +624,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
                     <td className="py-3 font-mono">${pay.basicSalary?.toLocaleString()}</td>
                     <td className="py-3 font-mono">${((pay.hra || 0) + (pay.allowances || 0))?.toLocaleString()}</td>
                     <td className="py-3 font-mono text-red-600">-${pay.taxDeductions?.toLocaleString()}</td>
-                    <td className="py-3 font-mono font-bold text-emerald-600">${pay.netSalary?.toLocaleString()}</td>
+                    <td className="py-3 font-mono font-bold text-emerald-400">${pay.netSalary?.toLocaleString()}</td>
                     <td className="py-3 font-mono text-[10px] text-muted">{pay.referenceNumber}</td>
                     <td className="py-3"><Badge tone="success">{pay.status}</Badge></td>
                   </tr>
@@ -652,9 +650,9 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
                     <span className="font-mono text-muted">{new Date(h.effectiveDate).toLocaleDateString()}</span>
                   </div>
                   <p className="text-xs text-muted">
-                    Remuneration: ${h.previousSalary?.toLocaleString()} → <strong className="text-emerald-600">${h.newSalary?.toLocaleString()}</strong>
+                    Remuneration: ${h.previousSalary?.toLocaleString()} → <strong className="text-emerald-400">${h.newSalary?.toLocaleString()}</strong>
                   </p>
-                  <p className="text-xs text-slate-600">Rationale: {h.reason}</p>
+                  <p className="text-xs text-muted">Rationale: {h.reason}</p>
                 </div>
               ))
             )}
@@ -721,7 +719,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
                 updateBankMut.mutate(bankFormData);
               }}
               disabled={updateBankMut.isPending}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Bank & Statutory Details
             </Button>
@@ -877,7 +875,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
                 addDocMut.mutate(docFormData);
               }}
               disabled={addDocMut.isPending || !docFormData.documentName}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Upload & Verify Document
             </Button>

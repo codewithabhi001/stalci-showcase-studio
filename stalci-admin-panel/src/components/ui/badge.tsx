@@ -4,13 +4,13 @@ import React from "react";
 type Tone = "neutral" | "success" | "warning" | "warn" | "danger" | "info" | "copper";
 
 const tones: Record<Tone, string> = {
-  neutral: "bg-canvas text-muted border-line",
-  success: "bg-success-wash text-success border-success/15",
-  warning: "bg-warn-wash text-warn border-warn/15",
-  warn: "bg-warn-wash text-warn border-warn/15",
-  danger: "bg-danger-wash text-danger border-danger/15",
-  info: "bg-info-wash text-info border-info/15",
-  copper: "bg-copper-wash text-copper-deep border-copper/20",
+  neutral: "bg-surface-2 text-muted border-line",
+  success: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+  warning: "bg-amber-500/15 text-amber-300 border-amber-500/30",
+  warn: "bg-amber-500/15 text-amber-300 border-amber-500/30",
+  danger: "bg-red-500/15 text-red-400 border-red-500/30",
+  info: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+  copper: "bg-copper/15 text-copper-soft border-copper/35",
 };
 
 export function Badge({

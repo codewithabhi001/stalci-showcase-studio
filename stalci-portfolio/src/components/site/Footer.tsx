@@ -61,10 +61,10 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#05070D] text-white relative isolate overflow-hidden border-t border-white/10">
+    <footer className="bg-[#000000] text-white relative isolate overflow-hidden border-t border-white/10">
       
       {/* Top Subtle Ambient Lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50rem] h-[15rem] bg-slate-800/10 blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50rem] h-[15rem] bg-white/[0.02] blur-[120px] pointer-events-none -z-10" />
 
       <div ref={containerReveal} className="mx-auto max-w-6xl px-5 py-16 lg:px-8 relative z-10">
         

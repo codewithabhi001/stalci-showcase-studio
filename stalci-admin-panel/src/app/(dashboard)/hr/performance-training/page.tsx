@@ -119,11 +119,11 @@ export default function PerformanceTrainingPage() {
 
         <div className="flex items-center gap-2">
           {activeTab === "performance" ? (
-            <Button onClick={() => setIsRevOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+            <Button onClick={() => setIsRevOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
               <Star className="h-4 w-4" /> Submit Performance Review
             </Button>
           ) : (
-            <Button onClick={() => setIsTrainOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+            <Button onClick={() => setIsTrainOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
               <Plus className="h-4 w-4" /> Enroll in Training
             </Button>
           )}
@@ -136,7 +136,7 @@ export default function PerformanceTrainingPage() {
           onClick={() => setActiveTab("performance")}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             activeTab === "performance"
-              ? "bg-copper text-slate-950 shadow-sm"
+              ? "bg-copper text-[#080A0F] shadow-sm"
               : "bg-surface border border-line text-muted hover:text-ink"
           }`}
         >
@@ -146,7 +146,7 @@ export default function PerformanceTrainingPage() {
           onClick={() => setActiveTab("training")}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             activeTab === "training"
-              ? "bg-copper text-slate-950 shadow-sm"
+              ? "bg-copper text-[#080A0F] shadow-sm"
               : "bg-surface border border-line text-muted hover:text-ink"
           }`}
         >
@@ -185,10 +185,10 @@ export default function PerformanceTrainingPage() {
 
                 <div className="text-xs space-y-2 pt-2 border-t border-line">
                   <p className="text-muted"><strong className="text-ink">Review Period:</strong> {rev.reviewPeriod}</p>
-                  <p className="text-slate-700 leading-relaxed"><strong className="text-ink">Goals:</strong> {rev.goalsKpi}</p>
-                  <p className="text-slate-700 leading-relaxed"><strong className="text-ink">Feedback:</strong> {rev.managerFeedback}</p>
+                  <p className="text-ink-2 leading-relaxed"><strong className="text-ink">Goals:</strong> {rev.goalsKpi}</p>
+                  <p className="text-ink-2 leading-relaxed"><strong className="text-ink">Feedback:</strong> {rev.managerFeedback}</p>
                   {rev.promotionRecommendation && (
-                    <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px]">
+                    <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px]">
                       <strong>Recommendation:</strong> {rev.promotionRecommendation}
                     </div>
                   )}
@@ -348,7 +348,7 @@ export default function PerformanceTrainingPage() {
                 trainMut.mutate(trainData);
               }}
               disabled={trainMut.isPending || !trainData.employeeId}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Confirm Enrollment
             </Button>
@@ -402,7 +402,7 @@ export default function PerformanceTrainingPage() {
                 editingRev && updateRevMut.mutate({ id: editingRev.id, data: editingRev });
               }}
               disabled={updateRevMut.isPending || !editingRev?.reviewPeriod}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Appraisal Changes
             </Button>
@@ -488,7 +488,7 @@ export default function PerformanceTrainingPage() {
                 editingTrain && updateTrainMut.mutate({ id: editingTrain.id, data: editingTrain });
               }}
               disabled={updateTrainMut.isPending || !editingTrain?.courseTitle}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Training Updates
             </Button>

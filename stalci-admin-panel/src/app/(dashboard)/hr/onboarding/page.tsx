@@ -125,7 +125,7 @@ export default function OnboardingPage() {
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-copper text-slate-950 flex items-center justify-center font-bold text-sm shrink-0">
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-copper text-[#080A0F] flex items-center justify-center font-bold text-sm shrink-0">
                       {emp.name.slice(0, 2).toUpperCase()}
                     </div>
                     <div>
@@ -148,7 +148,7 @@ export default function OnboardingPage() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-copper text-slate-950 flex items-center justify-center font-bold text-sm shrink-0">
+                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-copper text-[#080A0F] flex items-center justify-center font-bold text-sm shrink-0">
                     {emp.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
@@ -197,7 +197,7 @@ export default function OnboardingPage() {
               <div className="flex justify-end">
                 <Button
                   onClick={() => setIsAddOpen(true)}
-                  className="bg-copper text-slate-950 font-bold text-xs gap-1"
+                  className="bg-copper text-[#080A0F] font-bold text-xs gap-1"
                 >
                   <Plus className="h-3.5 w-3.5" /> Add Custom Task
                 </Button>
@@ -240,7 +240,7 @@ export default function OnboardingPage() {
                           </Badge>
                           <button
                             onClick={() => deleteMut.mutate(task.id)}
-                            className="p-1 text-muted hover:text-red-600 cursor-pointer"
+                            className="p-1 text-muted hover:text-red-400 cursor-pointer"
                             title="Delete Task"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
@@ -273,7 +273,7 @@ export default function OnboardingPage() {
                 addMut.mutate(taskData);
               }}
               disabled={addMut.isPending || !taskData.taskName}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Add Task
             </Button>

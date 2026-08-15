@@ -122,11 +122,11 @@ export default function AttendanceLeavePage() {
 
         <div className="flex items-center gap-2">
           {activeTab === "attendance" ? (
-            <Button onClick={() => setIsLogOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+            <Button onClick={() => setIsLogOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
               <Clock className="h-4 w-4" /> Log Attendance
             </Button>
           ) : (
-            <Button onClick={() => setIsLeaveOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+            <Button onClick={() => setIsLeaveOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
               <Plus className="h-4 w-4" /> Apply for Leave
             </Button>
           )}
@@ -139,7 +139,7 @@ export default function AttendanceLeavePage() {
           onClick={() => setActiveTab("attendance")}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             activeTab === "attendance"
-              ? "bg-copper text-slate-950 shadow-sm"
+              ? "bg-copper text-[#080A0F] shadow-sm"
               : "bg-surface border border-line text-muted hover:text-ink"
           }`}
         >
@@ -149,7 +149,7 @@ export default function AttendanceLeavePage() {
           onClick={() => setActiveTab("leaves")}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
             activeTab === "leaves"
-              ? "bg-copper text-slate-950 shadow-sm"
+              ? "bg-copper text-[#080A0F] shadow-sm"
               : "bg-surface border border-line text-muted hover:text-ink"
           }`}
         >
@@ -234,7 +234,7 @@ export default function AttendanceLeavePage() {
                 onClick={() => setLeaveStatusFilter(st)}
                 className={`px-3 py-1 rounded-lg text-xs font-bold cursor-pointer ${
                   leaveStatusFilter === st
-                    ? "bg-copper text-slate-950"
+                    ? "bg-copper text-[#080A0F]"
                     : "bg-surface border border-line text-muted"
                 }`}
               >
@@ -333,7 +333,7 @@ export default function AttendanceLeavePage() {
                 logMut.mutate(logData);
               }}
               disabled={logMut.isPending || !logData.employeeId}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Attendance
             </Button>
@@ -401,7 +401,7 @@ export default function AttendanceLeavePage() {
                 leaveMut.mutate(leaveData);
               }}
               disabled={leaveMut.isPending || !leaveData.employeeId || !leaveData.reason}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Submit Request
             </Button>

@@ -74,17 +74,17 @@ function BlogPost() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
+      <div className="bg-[#000000] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-4xl px-5 lg:px-8">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-amber-400 hover:text-amber-300 transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-copper hover:text-copper-soft transition-colors mb-6"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to all articles
           </Link>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-amber-400 bg-amber-500/10 border border-amber-500/30 px-3 py-0.5 rounded-full">
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-copper bg-copper/10 border border-copper/30 px-3 py-0.5 rounded-full">
               {post.category}
             </span>
             <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
@@ -98,7 +98,7 @@ function BlogPost() {
 
           <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-400 border-t border-white/10 pt-4">
             <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-              <User className="h-3.5 w-3.5 text-amber-400" /> {post.author}
+              <User className="h-3.5 w-3.5 text-copper" /> {post.author}
             </span>
             <span>•</span>
             <span className="font-mono">
@@ -128,14 +128,14 @@ function BlogPost() {
             })}
 
             {/* CTA Box */}
-            <div className="mt-12 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-7 sm:p-9 shadow-lg">
+            <div className="mt-12 rounded-2xl bg-gradient-to-br from-black to-[#0A0A0A] border border-white/10 text-white p-7 sm:p-9 shadow-lg">
               <h3 className="text-lg font-bold text-white">Engineering a Mission-Critical Architecture?</h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 STALCI's principal engineers and SRE architects can review your current technical topology and outline an actionable delivery plan.
               </p>
               <a
                 href="/#contact"
-                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 px-5 py-2.5 text-xs font-bold text-slate-950 transition-all shadow-md"
+                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-copper hover:bg-copper-soft px-5 py-2.5 text-xs font-bold text-black transition-all shadow-md"
               >
                 Schedule Technical Review <ArrowRight className="h-3.5 w-3.5" />
               </a>

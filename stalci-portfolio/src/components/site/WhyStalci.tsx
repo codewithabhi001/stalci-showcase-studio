@@ -19,11 +19,11 @@ export function WhyStalci() {
   const gridRef = useStaggerReveal();
 
   return (
-    <section className="bg-[#080B12] relative isolate overflow-hidden py-20 sm:py-28 border-t border-white/10 text-white">
+    <section className="bg-white relative isolate overflow-hidden py-20 sm:py-28 border-t border-slate-200/80 text-slate-900">
       <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
         <div ref={headerRef as any}>
           <SectionHeading
-            tone="dark"
+            tone="light"
             eyebrow="The STALCI Advantage"
             title="Strategic Transformation Partners"
             subtitle="Transcending traditional vendor models to forge enduring alliances that drive enterprise agility and sustainable innovation."
@@ -37,14 +37,14 @@ export function WhyStalci() {
           {reasons.map((r) => (
             <motion.div
               key={r.title}
-              className="rounded-2xl border border-white/10 bg-[#0E1320] p-6 transition-all duration-200 hover:border-white/20 hover:bg-[#121827]"
+              className="rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-6 transition-all duration-200 hover:border-slate-400/60 hover:shadow-md hover:bg-white"
             >
               <div className="flex flex-col items-start">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[#161E30] border border-white/10 text-slate-200">
-                  <r.icon className="h-5 w-5" strokeWidth={1.5} />
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white border border-slate-200 text-copper shadow-2xs">
+                  <r.icon className="h-5 w-5" strokeWidth={1.8} />
                 </div>
-                <h3 className="text-base font-semibold text-white tracking-tight">{r.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-400">{r.copy}</p>
+                <h3 className="text-base font-bold text-slate-900 tracking-tight">{r.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-slate-600">{r.copy}</p>
               </div>
             </motion.div>
           ))}
