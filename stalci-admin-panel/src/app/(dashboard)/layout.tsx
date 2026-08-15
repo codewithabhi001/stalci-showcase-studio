@@ -125,38 +125,38 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const Sidebar = (
-    <div className="flex h-screen max-h-screen flex-col bg-canvas text-ink border-r border-line select-none overflow-hidden">
+    <div className="flex h-screen max-h-screen flex-col bg-surface/95 backdrop-blur-xl text-ink border-r border-line select-none overflow-hidden">
       {/* Top Fixed Brand Header */}
-      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-line bg-surface">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-xl bg-copper/15 border border-copper/30 flex items-center justify-center p-1.5 shadow-2xs">
+      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-line bg-surface/80 backdrop-blur-md">
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="h-8.5 w-8.5 rounded-xl bg-copper/15 border border-copper/35 flex items-center justify-center p-1.5 shadow-[0_0_15px_rgba(216,155,91,0.2)] group-hover:border-copper transition-all">
             <img src="/stalci-mark.png" alt="STALCI mark" className="h-full w-full object-contain" />
           </div>
           <div>
             <span className="text-[13px] font-bold tracking-tight text-white block leading-tight font-display">
               STALCI STUDIO
             </span>
-            <span className="text-[9px] text-copper tracking-widest uppercase font-mono font-bold">
-              Enterprise Control
+            <span className="text-[8.5px] text-copper tracking-widest uppercase font-mono font-bold">
+              Executive OS v3.0
             </span>
           </div>
         </Link>
-        <span className="rounded-full bg-copper/10 px-2 py-0.5 text-[9.5px] font-bold text-copper-soft border border-copper/25 font-mono">
-          v3.0 OS
+        <span className="rounded-full bg-copper/10 px-2 py-0.5 text-[9.5px] font-bold text-copper-soft border border-copper/30 font-mono shadow-2xs">
+          PRO
         </span>
       </div>
 
       {/* Quick Search Button */}
-      <div className="px-3 pt-3 pb-2 shrink-0 bg-canvas">
+      <div className="px-3 pt-3 pb-2 shrink-0 bg-canvas/40">
         <button
           onClick={() => setCommandOpen(true)}
-          className="flex w-full items-center justify-between rounded-xl border border-line bg-surface px-3 py-1.5 text-[11.5px] text-muted transition-all hover:border-copper/50 hover:text-white shadow-2xs cursor-pointer"
+          className="flex w-full items-center justify-between rounded-xl border border-line bg-surface-2/60 px-3 py-1.5 text-[11.5px] text-muted transition-all hover:border-copper/40 hover:text-white hover:bg-surface-2 shadow-2xs cursor-pointer group"
         >
           <span className="flex items-center gap-2">
-            <Search className="h-3.5 w-3.5 text-copper" />
+            <Search className="h-3.5 w-3.5 text-copper transition-transform group-hover:scale-110" />
             Quick jump...
           </span>
-          <kbd className="rounded border border-line bg-surface-2 px-1.5 py-0.5 text-[9px] font-mono text-faint font-semibold">
+          <kbd className="rounded border border-line bg-surface px-1.5 py-0.5 text-[9px] font-mono text-faint font-semibold">
             ⌘K
           </kbd>
         </button>
@@ -178,7 +178,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           return (
             <div key={sec.title} className="space-y-1">
-              <p className="px-2.5 text-[9.5px] font-mono font-bold uppercase tracking-[0.18em] text-faint mb-1">
+              <p className="px-2.5 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-faint mb-1.5">
                 {sec.title}
               </p>
               <div className="space-y-0.5">
@@ -189,14 +189,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`flex items-center gap-2.5 rounded-xl px-2.5 py-1.5 text-[12px] transition-all duration-150 ${
+                      className={`flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[12px] transition-all duration-150 ${
                         active
-                          ? "bg-copper/15 text-copper-soft font-bold border border-copper/30 shadow-xs shadow-copper/10"
-                          : "text-muted hover:bg-surface-2 hover:text-white font-medium border border-transparent"
+                          ? "bg-copper/15 text-copper-soft font-bold border border-copper/35 shadow-[0_2px_12px_rgba(216,155,91,0.15)]"
+                          : "text-muted hover:bg-surface-2/80 hover:text-white font-medium border border-transparent"
                       }`}
                     >
-                      <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-copper" : "text-faint"}`} />
-                      <span className="truncate">{link.label}</span>
+                      <div className="flex items-center gap-2.5 truncate">
+                        <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-copper" : "text-faint"}`} />
+                        <span className="truncate">{link.label}</span>
+                      </div>
+                      {active && <span className="h-1.5 w-1.5 rounded-full bg-copper shadow-[0_0_8px_#D89B5B]" />}
                     </Link>
                   );
                 })}
@@ -207,7 +210,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </nav>
 
       {/* Bottom Pinned Footer */}
-      <div className="p-3 shrink-0 border-t border-line bg-surface space-y-1.5">
+      <div className="p-3 shrink-0 border-t border-line bg-surface/90 backdrop-blur-md space-y-1.5">
         <a
           href="http://localhost:8080"
           target="_blank"
@@ -235,7 +238,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   );
 
   return (
-    <div className="min-h-screen bg-canvas text-ink">
+    <div className="min-h-screen bg-canvas text-ink relative selection:bg-copper/20 selection:text-copper-soft">
+      {/* Background ambient lighting orb */}
+      <div
+        className="pointer-events-none fixed -right-32 -top-32 h-[450px] w-[450px] rounded-full opacity-10 blur-[130px] z-0"
+        style={{ background: "#D89B5B" }}
+      />
+
       {/* Desktop sidebar */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-64">
         {Sidebar}
@@ -245,7 +254,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity"
+            className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity"
             onClick={() => setMobileOpen(false)}
           />
           <div className="fixed inset-y-0 left-0 w-72 max-w-[85vw] shadow-2xl">
@@ -255,9 +264,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       )}
 
       {/* Main content wrapper */}
-      <div className="lg:pl-64 flex min-h-screen flex-col">
+      <div className="lg:pl-64 flex min-h-screen flex-col relative z-10">
         {/* Top App Bar */}
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-surface/90 px-4 sm:px-6 backdrop-blur-md">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-surface/85 px-4 sm:px-6 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileOpen(true)}
@@ -267,12 +276,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </button>
 
             {/* Breadcrumb */}
-            <div className="flex items-center gap-1.5 text-xs text-muted">
+            <div className="flex items-center gap-2 text-xs text-muted">
               <Link href="/" className="hover:text-ink transition-colors font-medium">
                 Studio
               </Link>
               <ChevronRight className="h-3 w-3 text-faint" />
-              <span className="font-semibold text-ink">{current?.label || "Dashboard"}</span>
+              <span className="font-semibold text-white">{current?.label || "Dashboard"}</span>
+            </div>
+
+            {/* Live Operational Status Pill */}
+            <div className="hidden sm:flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-400 border border-emerald-500/25 ml-2 shadow-[0_0_10px_rgba(16,185,129,0.15)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Operational</span>
             </div>
           </div>
 
@@ -283,11 +298,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Search trigger */}
             <button
               onClick={() => setCommandOpen(true)}
-              className="hidden sm:flex items-center gap-2 rounded-lg border border-line bg-canvas px-3 py-1.5 text-xs text-muted hover:border-copper/40 hover:text-ink transition-colors cursor-pointer"
+              className="hidden sm:flex items-center gap-2 rounded-xl border border-line bg-canvas px-3 py-1.5 text-xs text-muted hover:border-copper/40 hover:text-white transition-all cursor-pointer shadow-2xs"
             >
               <Search className="h-3.5 w-3.5 text-copper" />
               <span>Search...</span>
-              <kbd className="rounded border border-line bg-surface px-1.5 py-0.5 text-[10px] font-mono text-faint">
+              <kbd className="rounded border border-line bg-surface px-1.5 py-0.5 text-[9.5px] font-mono text-faint">
                 ⌘K
               </kbd>
             </button>

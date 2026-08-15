@@ -185,14 +185,19 @@ export default function DataTable({
       {/* Page header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="eyebrow">Manage</p>
-          <h1 className="mt-1.5 text-[26px] font-semibold leading-tight text-ink">{entity}</h1>
-          <p className="mt-1.5 max-w-xl text-[13px] leading-relaxed text-muted">
-            {description ?? `Create, edit and organise ${entity.toLowerCase()} shown across the Stalci portfolio.`}
+          <div className="flex items-center gap-2">
+            <span className="eyebrow">Studio Management</span>
+            <span className="text-[10px] font-mono font-bold text-copper bg-copper/10 px-2 py-0.5 rounded-full border border-copper/30">
+              {filtered.length} records
+            </span>
+          </div>
+          <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold leading-tight text-white font-display">{entity}</h1>
+          <p className="mt-1.5 max-w-xl text-xs sm:text-[13px] leading-relaxed text-muted">
+            {description ?? `Create, edit and organize ${entity.toLowerCase()} shown across the Stalci portfolio.`}
           </p>
         </div>
         {onCreate && (
-          <Button onClick={openCreate}>
+          <Button onClick={openCreate} variant="primary" className="shadow-[0_4px_20px_rgba(216,155,91,0.3)]">
             <Plus className="h-4 w-4" strokeWidth={2.5} />
             New {entity.replace(/s$/, "")}
           </Button>
@@ -200,8 +205,8 @@ export default function DataTable({
       </div>
 
       {/* Toolbar + table */}
-      <div className="card overflow-hidden">
-        <div className="flex flex-col gap-3 border-b border-line px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="card overflow-hidden rounded-3xl border border-line bg-surface/90 shadow-card backdrop-blur-xl">
+        <div className="flex flex-col gap-3 border-b border-line px-5 py-4 sm:flex-row sm:items-center sm:justify-between bg-surface-2/40">
           <div className="relative w-full sm:max-w-xs">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
             <input
@@ -212,12 +217,20 @@ export default function DataTable({
               }}
               placeholder={`Search ${entity.toLowerCase()}…`}
               aria-label={`Search ${entity}`}
-              className="field pl-9"
+              className="field pl-9 pr-8"
             />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-muted hover:text-white"
+              >
+                ×
+              </button>
+            )}
           </div>
           <div className="flex items-center gap-3 text-[13px] text-muted">
-            <span className="hidden sm:inline">
-              {isLoading ? "Loading…" : `${filtered.length} record${filtered.length === 1 ? "" : "s"}`}
+            <span className="hidden sm:inline font-mono text-[11px]">
+              {isLoading ? "Loading telemetry…" : `Showing ${paged.length} of ${filtered.length} entries`}
             </span>
             <select
               value={pageSize}
@@ -226,7 +239,7 @@ export default function DataTable({
                 setPage(1);
               }}
               aria-label="Rows per page"
-              className="field h-9 w-auto py-0 text-[13px]"
+              className="field h-9 w-auto py-0 text-[12px] font-mono"
             >
               {PAGE_SIZES.map((s) => (
                 <option key={s} value={s}>
@@ -242,11 +255,11 @@ export default function DataTable({
         ) : filtered.length === 0 ? (
           <EmptyState
             icon={Inbox}
-            title={search ? "No matching records" : `No ${entity.toLowerCase()} yet`}
+            title={search ? "No matching records found" : `No ${entity.toLowerCase()} available`}
             message={
               search
-                ? "Try a different search term or clear the filter to see everything."
-                : `Once you add ${entity.toLowerCase()}, they will appear here and sync to the live site.`
+                ? "Try adjusting your search criteria or clear the query filter."
+                : `Once you add ${entity.toLowerCase()}, they will appear here and sync across the live portfolio.`
             }
             action={
               search ? (
@@ -254,7 +267,7 @@ export default function DataTable({
                   Clear search
                 </Button>
               ) : onCreate ? (
-                <Button size="sm" onClick={openCreate}>
+                <Button size="sm" variant="primary" onClick={openCreate}>
                   <Plus className="h-4 w-4" /> Add the first one
                 </Button>
               ) : undefined
@@ -264,30 +277,30 @@ export default function DataTable({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse text-left">
               <thead>
-                <tr className="border-b border-line bg-surface-2">
+                <tr className="border-b border-line bg-surface-2/70">
                   {columns.map((c) => (
-                    <th key={c.key} className="px-5 py-3">
+                    <th key={c.key} className="px-5 py-3.5">
                       <button
                         onClick={() => toggleSort(c.key)}
-                        className="eyebrow inline-flex items-center gap-1.5 hover:text-ink-2"
+                        className="eyebrow inline-flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
                       >
                         {c.label}
                         <ArrowUpDown className={`h-3 w-3 ${sortKey === c.key ? "text-copper" : "opacity-40"}`} />
                       </button>
                     </th>
                   ))}
-                  <th className="eyebrow px-5 py-3 text-right">Actions</th>
+                  <th className="eyebrow px-5 py-3.5 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-line">
                 {paged.map((item: any) => (
-                  <tr key={item.id} className="group transition-colors hover:bg-surface-2">
+                  <tr key={item.id} className="group transition-colors hover:bg-surface-2/80">
                     {columns.map((c) => (
-                      <td key={c.key} className="max-w-[320px] truncate px-5 py-3.5 text-[13.5px] text-ink-2">
+                      <td key={c.key} className="max-w-[320px] truncate px-5 py-4 text-[13.5px] text-ink-2 font-sans">
                         {c.render ? c.render(item[c.key], item) : String(item[c.key] ?? "—")}
                       </td>
                     ))}
-                    <td className="whitespace-nowrap px-5 py-3.5 text-right">
+                    <td className="whitespace-nowrap px-5 py-4 text-right">
                       <div className="inline-flex items-center gap-1 opacity-70 transition-opacity group-hover:opacity-100">
                         {onUpdate && formFields && (
                           <IconButton label="Edit" onClick={() => openEdit(item)}>
@@ -307,11 +320,11 @@ export default function DataTable({
         )}
 
         {!isLoading && filtered.length > 0 && (
-          <div className="flex items-center justify-between border-t border-line px-5 py-3.5">
-            <p className="text-[13px] text-muted">
+          <div className="flex items-center justify-between border-t border-line px-5 py-3.5 bg-surface-2/30">
+            <p className="text-[12.5px] text-muted font-mono">
               Page {currentPage} of {totalPages}
             </p>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <Button variant="secondary" size="sm" disabled={currentPage <= 1} onClick={() => setPage(currentPage - 1)}>
                 <ChevronLeft className="h-4 w-4" /> Prev
               </Button>
@@ -329,13 +342,13 @@ export default function DataTable({
           open={drawerOpen}
           onClose={closeDrawer}
           title={`${editItem ? "Edit" : "New"} ${entity.replace(/s$/, "")}`}
-          description={editItem ? "Update the details and save your changes." : "Fill in the details to publish a new record."}
+          description={editItem ? "Update the record parameters and save your changes." : "Fill in the details below to publish a new record to the live portfolio."}
           footer={
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2.5">
               <Button variant="secondary" onClick={closeDrawer} type="button">
                 Cancel
               </Button>
-              <Button type="submit" form="datatable-form" loading={saving}>
+              <Button type="submit" form="datatable-form" loading={saving} variant="primary">
                 {editItem ? "Save changes" : "Create"}
               </Button>
             </div>
@@ -370,15 +383,15 @@ export default function DataTable({
                     ))}
                   </select>
                 ) : f.type === "checkbox" ? (
-                  <label className="flex items-center gap-2.5 py-1 text-[13px] text-ink-2">
+                  <label className="flex items-center gap-2.5 py-1 text-[13px] text-ink-2 cursor-pointer">
                     <input
                       id={`f-${f.key}`}
                       type="checkbox"
                       checked={!!formData[f.key]}
                       onChange={(e) => setFormData({ ...formData, [f.key]: e.target.checked })}
-                      className="h-4 w-4 accent-[var(--color-copper)]"
+                      className="h-4 w-4 accent-[#D89B5B] rounded cursor-pointer"
                     />
-                    Active / published
+                    <span>Active / published status</span>
                   </label>
                 ) : (
                   <input
@@ -400,7 +413,7 @@ export default function DataTable({
       <ConfirmDialog
         open={!!pendingDelete}
         title={`Delete this ${entity.replace(/s$/, "").toLowerCase()}?`}
-        message="This action is permanent and will immediately remove the record from the live site."
+        message="This action is permanent and will immediately remove the record from the live portfolio system."
         loading={deleteMut.isPending}
         onCancel={() => setPendingDelete(null)}
         onConfirm={() => pendingDelete && deleteMut.mutate(pendingDelete.id)}

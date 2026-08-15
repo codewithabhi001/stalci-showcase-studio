@@ -204,11 +204,55 @@ h1, h2, h3, h4 {
 @keyframes slide-in-right { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
 @keyframes slide-up-sm { from { opacity: 0; transform: translateY(6px) scale(0.98); } to { opacity: 1; transform: none; } }
 @keyframes shimmer { 100% { transform: translateX(100%); } }
+@keyframes floatOrb {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.25; }
+  50% { transform: translate(-50%, -55%) scale(1.15); opacity: 0.45; }
+}
+@keyframes shine {
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
 
 .animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-fade-in { animation: fade-in 0.3s ease both; }
 .animate-slide-in-right { animation: slide-in-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-pop { animation: slide-up-sm 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-float-orb { animation: floatOrb 12s ease-in-out infinite; }
+.animate-shine { animation: shine 1.5s ease-in-out infinite; }
+
+.perspective-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
+}
+
+.gradient-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(216, 155, 91, 0.6), rgba(255, 255, 255, 0.05), rgba(216, 155, 91, 0.6));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.glow-copper {
+  box-shadow: 0 0 40px -8px rgba(216, 155, 91, 0.35);
+}
 
 .skeleton {
   position: relative;
