@@ -118,7 +118,7 @@ export default function RbacPage() {
       </div>
 
       {/* Live Role Switcher Simulator Banner */}
-      <div className="rounded-2xl border border-copper/40 bg-gradient-to-r from-copper/10 via-surface to-canvas p-6 space-y-4 shadow-sm">
+      <div className="rounded-2xl border border-line bg-surface p-6 space-y-4 shadow-card">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-5 w-5 text-copper" />
@@ -142,12 +142,12 @@ export default function RbacPage() {
                 onClick={() => handleSimulate(r)}
                 className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                   isSelected
-                    ? "border-copper bg-copper text-[#080A0F] font-bold shadow-md"
-                    : "border-line bg-surface hover:border-copper/60 text-ink"
+                    ? "border-copper bg-copper text-white font-bold shadow-md"
+                    : "border-line bg-surface-2/60 hover:bg-surface hover:border-copper/40 text-ink"
                 }`}
               >
                 <div className="text-xs font-bold">{def.label}</div>
-                <div className={`text-[10px] mt-0.5 line-clamp-1 ${isSelected ? "text-[#080A0F]/80" : "text-muted"}`}>
+                <div className={`text-[10px] mt-0.5 line-clamp-1 ${isSelected ? "text-white/80" : "text-muted"}`}>
                   {def.role}
                 </div>
               </button>
@@ -249,7 +249,7 @@ export default function RbacPage() {
 
                   <Button
                     onClick={() => handleSimulate(r.name as RoleType)}
-                    className="h-7 text-xs font-bold bg-copper text-slate-950 hover:bg-copper-deep"
+                    className="h-7 text-xs font-bold bg-copper text-white hover:bg-copper-deep"
                   >
                     Simulate Role ↗
                   </Button>
@@ -282,7 +282,7 @@ export default function RbacPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {filteredPermissions.map((p: any) => (
-            <div key={p.id} className="p-3 rounded-xl border border-line bg-canvas space-y-1">
+            <div key={p.id} className="p-3 rounded-xl border border-line bg-surface-2/40 space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-ink">{p.name}</span>
                 <Badge tone="copper" className="text-[9px] font-mono">{p.category}</Badge>
@@ -310,7 +310,7 @@ export default function RbacPage() {
                 assignMut.mutate({ employeeId: Number(selectedEmpId), roleId: assigningRole.id })
               }
               disabled={assignMut.isPending || !selectedEmpId}
-              className="bg-copper text-[#080A0F] font-bold"
+              className="bg-copper text-white font-bold"
             >
               Confirm Role Assignment
             </Button>

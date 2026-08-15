@@ -34,32 +34,32 @@ export default function LoginPage() {
       <div className="absolute inset-0 perspective-grid opacity-30 pointer-events-none" />
       <div
         className="pointer-events-none absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full opacity-20 blur-[150px] animate-float-orb"
-        style={{ background: "#D89B5B" }}
+        style={{ background: "#6366F1" }}
       />
       <div
         className="pointer-events-none absolute -left-40 -bottom-40 h-[500px] w-[500px] rounded-full opacity-15 blur-[140px]"
-        style={{ background: "#D89B5B" }}
+        style={{ background: "#6366F1" }}
       />
 
       {/* Brand showcase panel */}
-      <div className="relative hidden flex-col justify-between p-12 lg:flex bg-[#050608]/90 border-r border-line backdrop-blur-xl z-10">
+      <div className="relative hidden flex-col justify-between p-12 lg:flex bg-surface/90 border-r border-line backdrop-blur-xl z-10">
         <div className="relative flex items-center gap-3">
           <div className="h-10 w-10 rounded-2xl bg-copper/15 border border-copper/35 flex items-center justify-center p-2 shadow-[0_0_20px_rgba(216,155,91,0.25)]">
             <img src="/stalci-mark.png" alt="Stalci Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <span className="text-[15px] font-bold tracking-tight text-white font-display">STALCI STUDIO</span>
-            <span className="text-[9.5px] text-copper block uppercase font-mono font-bold tracking-widest">
+            <span className="text-[15px] font-bold tracking-tight text-ink font-display">STALCI STUDIO</span>
+            <span className="text-[9.5px] text-copper-deep block uppercase font-mono font-bold tracking-widest">
               Executive Console OS
             </span>
           </div>
         </div>
 
         <div className="relative max-w-md space-y-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-copper/15 px-3 py-1 text-[11px] font-bold text-copper-soft border border-copper/35 font-mono shadow-[0_0_15px_rgba(216,155,91,0.2)]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-copper/15 px-3 py-1 text-[11px] font-bold text-copper-deep border border-copper/35 font-mono shadow-[0_0_15px_rgba(216,155,91,0.2)]">
             <Sparkles className="h-3 w-3 text-copper animate-pulse" /> Portfolio Showcase OS
           </span>
-          <h2 className="text-[34px] font-bold leading-[1.15] tracking-tight text-white font-display">
+          <h2 className="text-[34px] font-bold leading-[1.15] tracking-tight text-ink font-display">
             The sovereign control room for your entire enterprise.
           </h2>
           <p className="text-[14.5px] leading-relaxed text-muted">
@@ -69,7 +69,7 @@ export default function LoginPage() {
 
         <div className="relative flex items-center justify-between text-[12px] text-faint font-mono pt-4 border-t border-line">
           <span>© {new Date().getFullYear()} STALCI Global Technologies</span>
-          <span className="flex items-center gap-1.5 text-emerald-400">
+          <span className="flex items-center gap-1.5 text-emerald-700">
             <ShieldCheck className="h-3.5 w-3.5" /> 256-Bit Encrypted
           </span>
         </div>
@@ -79,14 +79,14 @@ export default function LoginPage() {
       <div className="flex items-center justify-center bg-canvas/80 px-5 py-14 relative z-10 backdrop-blur-md">
         <form
           onSubmit={handleLogin}
-          className="card w-full max-w-[420px] p-8 sm:p-9 border border-line bg-surface/90 shadow-[0_16px_48px_rgba(0,0,0,0.8)] backdrop-blur-xl rounded-3xl space-y-5 relative"
+          className="card w-full max-w-[420px] p-8 sm:p-9 border border-line bg-surface/90 shadow-card backdrop-blur-xl rounded-3xl space-y-5 relative"
         >
           <div className="lg:hidden mb-4 flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-copper/15 border border-copper/35 flex items-center justify-center p-2">
               <img src="/stalci-mark.png" alt="Stalci Logo" className="h-full w-full object-contain" />
             </div>
             <div>
-              <span className="text-[15px] font-bold text-white font-display">STALCI STUDIO</span>
+              <span className="text-[15px] font-bold text-ink font-display">STALCI STUDIO</span>
               <span className="text-[9px] text-copper block uppercase font-mono font-bold tracking-widest">
                 Executive Console
               </span>
@@ -94,27 +94,27 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-white font-display">Sign in</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-ink font-display">Sign in</h1>
             <p className="mt-1 text-[13px] text-muted">Enter administrative credentials to access command telemetry.</p>
           </div>
 
           {/* Quick Demo Fill Shortcut */}
           <div className="p-3 rounded-2xl bg-copper/10 border border-copper/30 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 text-xs text-copper-soft">
+            <div className="flex items-center gap-2 text-xs text-copper-deep">
               <KeyRound className="h-3.5 w-3.5 text-copper shrink-0" />
               <span className="font-mono text-[11px] truncate">admin@stalci.com / stalci2026</span>
             </div>
             <button
               type="button"
               onClick={fillDemo}
-              className="shrink-0 text-[11px] font-bold text-black bg-copper hover:bg-copper-soft px-2.5 py-1 rounded-lg transition-colors font-mono cursor-pointer"
+              className="shrink-0 text-[11px] font-bold text-white bg-copper hover:bg-copper-deep px-2.5 py-1 rounded-lg transition-colors font-mono cursor-pointer"
             >
               Fill Demo
             </button>
           </div>
 
           {error && (
-            <div role="alert" className="rounded-xl border border-red-500/30 bg-red-500/15 px-3.5 py-2.5 text-[12.5px] text-red-400 font-medium animate-pop">
+            <div role="alert" className="rounded-xl border border-red-500/30 bg-red-500/15 px-3.5 py-2.5 text-[12.5px] text-red-700 font-medium animate-pop">
               {error}
             </div>
           )}
@@ -158,7 +158,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-faint hover:text-white transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-faint hover:text-ink transition-colors cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -169,10 +169,10 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="relative overflow-hidden inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#B4783B] via-[#D89B5B] to-[#F0BC86] text-sm font-bold text-black shadow-[0_4px_20px_rgba(216,155,91,0.35)] transition-all hover:brightness-110 active:scale-[0.99] disabled:opacity-60 cursor-pointer border border-copper/40"
+            className="relative overflow-hidden inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#818CF8] text-sm font-bold text-white shadow-[0_4px_20px_rgba(99,102,241,0.35)] transition-all hover:brightness-110 active:scale-[0.99] disabled:opacity-60 cursor-pointer border border-copper/40"
           >
             {loading ? (
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
             ) : (
               <>
                 Sign in to Console <ArrowRight className="h-4 w-4 stroke-[2.5]" />

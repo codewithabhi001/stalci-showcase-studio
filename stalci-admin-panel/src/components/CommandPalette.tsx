@@ -59,7 +59,7 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] sm:pt-[20vh] px-4">
       <div
-        className="absolute inset-0 bg-black/75 backdrop-blur-md transition-opacity"
+        className="absolute inset-0 bg-black/40 backdrop-blur-md transition-opacity"
         onClick={() => setOpen(false)}
       />
 
@@ -68,7 +68,7 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
           <Search className="h-[18px] w-[18px] text-copper shrink-0" />
           <input
             ref={inputRef}
-            className="flex h-16 w-full bg-transparent px-4 text-[16px] border-none text-white placeholder:text-muted font-sans"
+            className="flex h-16 w-full bg-transparent px-4 text-[16px] border-none text-ink placeholder:text-muted font-sans"
             style={{ outline: "none", boxShadow: "none" }}
             placeholder="Search pages, clients, invoices, settings..."
             value={query}
@@ -94,7 +94,7 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-2 group-hover:bg-copper/15 transition-colors border border-line group-hover:border-copper/40">
                       <Icon className="h-4 w-4 text-faint group-hover:text-copper transition-colors" />
                     </div>
-                    <span className="flex-1 text-[14px] font-medium text-ink-2 group-hover:text-white transition-colors">
+                    <span className="flex-1 text-[14px] font-medium text-ink-2 group-hover:text-ink transition-colors">
                       {item.label}
                     </span>
                     <ArrowRight className="h-4 w-4 text-faint opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-copper" />
@@ -106,7 +106,7 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
             <div className="py-16 text-center">
               <Search className="mx-auto h-8 w-8 text-faint mb-3" />
               <p className="text-[14px] text-muted">
-                No results found for <span className="font-semibold text-white">"{query}"</span>
+                No results found for <span className="font-semibold text-ink">"{query}"</span>
               </p>
             </div>
           )}

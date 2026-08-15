@@ -54,7 +54,7 @@ export function NotificationsPopover() {
       <button 
         onClick={() => setOpen(!open)}
         aria-label="Notifications" 
-        className={`relative rounded-lg p-1.5 transition-colors cursor-pointer ${open ? 'bg-surface-2 text-white' : 'text-muted hover:bg-surface hover:text-white'}`}
+        className={`relative rounded-lg p-1.5 transition-colors cursor-pointer ${open ? 'bg-surface-2 text-ink' : 'text-muted hover:bg-surface-2 hover:text-ink'}`}
       >
         <Bell className="h-[17px] w-[17px]" />
         {unreadCount > 0 && (
@@ -65,11 +65,11 @@ export function NotificationsPopover() {
       {open && (
         <div className="absolute right-0 top-full mt-2 w-80 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl z-50 animate-fade-up origin-top-right">
           <div className="flex items-center justify-between border-b border-line px-4 py-3 bg-surface-2/80">
-            <h3 className="text-[13px] font-bold text-white font-display">Notifications</h3>
+            <h3 className="text-[13px] font-bold text-ink font-display">Notifications</h3>
             {unreadCount > 0 && (
               <button 
                 onClick={() => markReadMut.mutate()}
-                className="flex items-center gap-1 text-[11px] font-bold text-copper hover:text-copper-soft transition-colors disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-1 text-[11px] font-bold text-copper-deep hover:text-copper transition-colors disabled:opacity-50 cursor-pointer"
                 disabled={markReadMut.isPending}
               >
                 <Check className="h-3.5 w-3.5" />
@@ -98,7 +98,7 @@ export function NotificationsPopover() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start gap-4">
-                          <p className="text-[13px] font-semibold text-white">{notif.title}</p>
+                          <p className="text-[13px] font-semibold text-ink">{notif.title}</p>
                           <span className="text-[10.5px] text-faint whitespace-nowrap font-mono">
                             {new Date(notif.createdAt).toLocaleDateString()}
                           </span>

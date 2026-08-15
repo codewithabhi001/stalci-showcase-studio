@@ -35,11 +35,11 @@ export function ProfileDropdown() {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2.5 rounded-xl p-1.5 hover:bg-surface-2 transition-colors group cursor-pointer border border-transparent hover:border-line"
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-copper/15 border border-copper/30 text-[12px] font-bold text-copper-soft group-hover:border-copper transition-colors shadow-xs">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-copper/15 border border-copper/30 text-[12px] font-bold text-copper-deep group-hover:border-copper transition-colors shadow-xs">
           {isLoading ? "?" : (profile?.name || "A").charAt(0).toUpperCase()}
         </span>
         <div className="hidden sm:flex flex-col items-start truncate max-w-[120px]">
-          <span className="text-[12.5px] font-semibold text-white group-hover:text-copper transition-colors truncate w-full text-left">
+          <span className="text-[12.5px] font-semibold text-ink group-hover:text-copper transition-colors truncate w-full text-left">
             {isLoading ? "Loading..." : (profile?.name || "Admin")}
           </span>
           <span className="text-[10px] text-muted truncate w-full text-left font-mono">
@@ -51,15 +51,15 @@ export function ProfileDropdown() {
       {open && (
         <div className="absolute top-full right-0 mt-2 w-56 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl z-50 animate-fade-up origin-top-right">
           <div className="px-4 py-3 border-b border-line bg-surface-2/80">
-            <p className="text-[13px] font-bold text-white truncate font-display">{profile?.name || "Admin User"}</p>
+            <p className="text-[13px] font-bold text-ink truncate font-display">{profile?.name || "Admin User"}</p>
             <p className="text-[11px] text-muted truncate font-mono">{profile?.email || "admin@stalci.com"}</p>
           </div>
           
           <div className="p-1.5 space-y-0.5">
-            <Link href="/profile" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:bg-surface-2 hover:text-white">
+            <Link href="/profile" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink">
               <User className="h-4 w-4 text-faint" /> Profile
             </Link>
-            <Link href="/settings" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:bg-surface-2 hover:text-white">
+            <Link href="/settings" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink">
               <Settings className="h-4 w-4 text-faint" /> Settings
             </Link>
           </div>
@@ -70,7 +70,7 @@ export function ProfileDropdown() {
                 handleSignOut();
                 window.location.href = '/login';
               }}
-              className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] font-medium text-red-400 transition-colors hover:bg-red-500/10 cursor-pointer"
+              className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] font-medium text-red-600 transition-colors hover:bg-red-500/10 hover:text-red-700 cursor-pointer"
             >
               <LogOut className="h-4 w-4" /> Log out
             </button>

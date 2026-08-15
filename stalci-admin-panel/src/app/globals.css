@@ -1,40 +1,40 @@
 @import "tailwindcss";
 
-/* ─── STALCI Signature Sovereign Dark & Copper Admin Design System ───
-   Deep Midnight Ink Surfaces + Radiant Copper Gold Accents.
+/* ─── STALCI Signature Sovereign Light & Copper Admin Design System ───
+   Pure Sovereign Light Canvas + Radiant Copper Gold Accents.
    Aligned 1:1 with STALCI Portfolio Sovereign Palette.
 */
 
 @theme inline {
-  /* Copper Accent Palette */
-  --color-copper: #D89B5B;
-  --color-copper-soft: #F0BC86;
-  --color-copper-deep: #B4783B;
-  --color-copper-wash: rgba(216, 155, 91, 0.12);
+  /* Sovereign Violet / Deep Indigo Accent Palette */
+  --color-copper: #6366F1;
+  --color-copper-soft: #818CF8;
+  --color-copper-deep: #4F46E5;
+  --color-copper-wash: rgba(99, 102, 241, 0.12);
 
-  /* Pure Obsidian Jet Black Surfaces */
-  --color-canvas: #000000;
-  --color-surface: #0A0A0C;
-  --color-surface-2: #121216;
-  --color-surface-3: #18181E;
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.14);
+  /* Sovereign Pure Light Surfaces */
+  --color-canvas: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F8FAFC;
+  --color-surface-3: #F1F5F9;
+  --color-line: rgba(0, 0, 0, 0.06);
+  --color-line-strong: rgba(0, 0, 0, 0.10);
   
   /* Text & Typographic Hierarchy */
-  --color-ink: #FFFFFF;
-  --color-ink-2: #E2E8F0;
-  --color-muted: #94A3B8;
-  --color-faint: #64748B;
+  --color-ink: #0F172A;
+  --color-ink-2: #334155;
+  --color-muted: #64748B;
+  --color-faint: #94A3B8;
 
   /* Semantic Feedback Colors */
   --color-success: #10B981;
-  --color-success-wash: rgba(16, 185, 129, 0.14);
+  --color-success-wash: rgba(16, 185, 129, 0.12);
   --color-warn: #F59E0B;
-  --color-warn-wash: rgba(245, 158, 11, 0.14);
+  --color-warn-wash: rgba(245, 158, 11, 0.12);
   --color-danger: #EF4444;
-  --color-danger-wash: rgba(239, 68, 68, 0.16);
+  --color-danger-wash: rgba(239, 68, 68, 0.12);
   --color-info: #3B82F6;
-  --color-info-wash: rgba(59, 130, 246, 0.14);
+  --color-info-wash: rgba(59, 130, 246, 0.12);
 
   /* Typography */
   --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -44,14 +44,14 @@
 
 :root {
   --radius: 0.875rem;
-  --gradient-copper: linear-gradient(135deg, #B4783B 0%, #D89B5B 50%, #F0BC86 100%);
-  --gradient-ink: linear-gradient(180deg, #0A0A0C 0%, #000000 100%);
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.07);
-  --shadow-pop: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  --shadow-modal: 0 32px 80px -20px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.12);
-  --shadow-glow: 0 0 60px -10px rgba(216, 155, 91, 0.25);
-  --shadow-lift: 0 20px 45px -15px rgba(0, 0, 0, 0.8);
+  --gradient-copper: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #818CF8 100%);
+  --gradient-ink: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-pop: 0 16px 36px -8px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 32px 80px -20px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 60px -10px rgba(99, 102, 241, 0.25);
+  --shadow-lift: 0 20px 45px -15px rgba(99, 102, 241, 0.2);
 }
 
 * {
@@ -61,25 +61,39 @@
 html {
   min-height: 100%;
   height: 100%;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   min-height: 100%;
   height: 100%;
-  background-color: var(--color-canvas);
-  color: var(--color-ink);
+  background-color: #F8FAFC;
+  color: #0F172A;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+/* Explicit Light Mode High-Contrast Utility Classes */
+.text-ink { color: #0F172A !important; }
+.text-ink-2 { color: #334155 !important; }
+.text-muted { color: #64748B !important; }
+.text-faint { color: #94A3B8 !important; }
+.text-copper { color: #6366F1 !important; }
+.text-copper-deep { color: #4F46E5 !important; }
+.text-copper-soft { color: #6366F1 !important; }
+
+.bg-canvas { background-color: #F8FAFC !important; }
+.bg-surface { background-color: #FFFFFF !important; }
+.bg-surface-2 { background-color: #F8FAFC !important; }
+.bg-surface-3 { background-color: #F1F5F9 !important; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
 }
 
-/* ─── Custom Dark Sleek Scrollbar ─── */
+/* ─── Custom Light Sleek Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -88,11 +102,11 @@ h1, h2, h3, h4 {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.16);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(216, 155, 91, 0.5);
+  background: rgba(216, 155, 91, 0.7);
 }
 
 /* Utility class for robust mouse wheel scrolling */
@@ -130,7 +144,7 @@ h1, h2, h3, h4 {
     width: 100%;
     border-radius: 10px;
     border: 1px solid var(--color-line-strong);
-    background: var(--color-surface);
+    background: var(--color-surface-2);
     padding: 0.625rem 0.875rem;
     font-size: 0.875rem;
     color: var(--color-ink);
@@ -142,13 +156,13 @@ h1, h2, h3, h4 {
   }
   .field:focus {
     border-color: var(--color-copper);
-    background: var(--color-surface-2);
-    box-shadow: 0 0 0 3px rgba(216, 155, 91, 0.2);
+    background: var(--color-surface);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
   }
 
   select.field option {
-    background: #0E131F;
-    color: #FFFFFF;
+    background: #FFFFFF;
+    color: #0F172A;
   }
 }
 
@@ -167,8 +181,8 @@ h1, h2, h3, h4 {
 
 .hero-glow {
   background:
-    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(216, 155, 91, 0.18), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(216, 155, 91, 0.06), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(99, 102, 241, 0.12), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(99, 102, 241, 0.05), transparent 70%),
     var(--gradient-ink);
 }
 
@@ -181,18 +195,19 @@ h1, h2, h3, h4 {
 .card-lift:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lift);
-  border-color: rgba(216, 155, 91, 0.45);
+  border-color: rgba(99, 102, 241, 0.45);
 }
 
 .glass {
-  background: rgba(14, 19, 31, 0.7);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .glass-dark {
-  background: rgba(8, 10, 15, 0.88);
+  background: rgba(15, 23, 42, 0.95);
+  color: #FFFFFF;
   backdrop-filter: blur(20px) saturate(1.2);
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -221,8 +236,8 @@ h1, h2, h3, h4 {
 
 .perspective-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 50%, #000 70%, transparent 100%);
@@ -236,7 +251,7 @@ h1, h2, h3, h4 {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(216, 155, 91, 0.6), rgba(255, 255, 255, 0.05), rgba(216, 155, 91, 0.6));
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(0, 0, 0, 0.05), rgba(99, 102, 241, 0.6));
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -251,13 +266,13 @@ h1, h2, h3, h4 {
 }
 
 .glow-copper {
-  box-shadow: 0 0 40px -8px rgba(216, 155, 91, 0.35);
+  box-shadow: 0 0 40px -8px rgba(99, 102, 241, 0.35);
 }
 
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.06);
   border-radius: 8px;
 }
 .skeleton::after {
@@ -265,7 +280,7 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
   animation: shimmer 1.4s infinite;
 }
 
@@ -293,3 +308,4 @@ h1, h2, h3, h4 {
     border: none !important;
   }
 }
+

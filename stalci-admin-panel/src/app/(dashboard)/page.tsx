@@ -97,14 +97,14 @@ export default function Dashboard() {
         <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-copper/15 px-3 py-0.5 text-[11px] font-bold text-copper-soft border border-copper/35 font-mono shadow-[0_0_15px_rgba(216,155,91,0.2)]">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-copper/15 px-3 py-0.5 text-[11px] font-bold text-copper-deep border border-copper/35 font-mono shadow-2xs">
                 <Sparkles className="h-3 w-3 text-copper animate-pulse" /> STALCI OS v3.0
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-emerald-400 border border-emerald-500/30">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live Telemetry
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-emerald-700 border border-emerald-500/30">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" /> Live Telemetry
               </span>
             </div>
-            <h1 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-white font-display">
+            <h1 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-ink font-display">
               Executive Command Center
             </h1>
             <p className="mt-1.5 max-w-2xl text-xs sm:text-sm text-muted leading-relaxed">
@@ -150,7 +150,7 @@ export default function Dashboard() {
                   <Icon className="h-4 w-4" />
                 </span>
               </div>
-              <p className="mt-3 text-2xl sm:text-[26px] font-bold tracking-tight text-white font-display">
+              <p className="mt-3 text-2xl sm:text-[26px] font-bold tracking-tight text-ink font-display">
                 {statsLoading ? "..." : c.value}
               </p>
               
@@ -181,9 +181,9 @@ export default function Dashboard() {
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-line">
               <div>
-                <h2 className="text-base font-bold text-white font-display flex items-center gap-2">
+                <h2 className="text-base font-bold text-ink font-display flex items-center gap-2">
                   Revenue & Billing Telemetry
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
                 </h2>
                 <p className="text-xs text-muted">Monthly closed billing performance</p>
               </div>
@@ -214,7 +214,7 @@ export default function Dashboard() {
                   return (
                     <div key={item.month} className="flex-1 flex flex-col items-center gap-2 group/bar cursor-pointer">
                       <div className="relative w-full flex items-end justify-center h-36">
-                        <span className="opacity-0 group-hover/bar:opacity-100 absolute -top-8 text-[10px] font-bold bg-surface-2 text-white border border-copper/40 px-2 py-0.5 rounded-lg shadow-lg transition-all duration-200 whitespace-nowrap z-20 font-mono scale-95 group-hover/bar:scale-100">
+                        <span className="opacity-0 group-hover/bar:opacity-100 absolute -top-8 text-[10px] font-bold bg-surface-2 text-ink border border-copper/40 px-2 py-0.5 rounded-lg shadow-lg transition-all duration-200 whitespace-nowrap z-20 font-mono scale-95 group-hover/bar:scale-100">
                           ${(item.value / 1000).toFixed(0)}k
                         </span>
                         <div
@@ -241,7 +241,7 @@ export default function Dashboard() {
                 <span className="h-2.5 w-2.5 rounded-md bg-copper/20 border border-copper/40" /> Pending Billing
               </span>
             </div>
-            <Link href="/invoices" className="text-copper font-bold hover:text-copper-soft hover:underline inline-flex items-center gap-1.5 transition-all">
+            <Link href="/invoices" className="text-copper-deep font-bold hover:text-copper hover:underline inline-flex items-center gap-1.5 transition-all">
               Invoicing Center <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -252,10 +252,10 @@ export default function Dashboard() {
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-line">
               <div>
-                <h2 className="text-base font-bold text-white font-display">Active Delivery</h2>
+                <h2 className="text-base font-bold text-ink font-display">Active Delivery</h2>
                 <p className="text-xs text-muted">Live sprint milestones</p>
               </div>
-              <Link href="/projects" className="text-xs font-bold text-copper hover:text-copper-soft hover:underline">
+              <Link href="/projects" className="text-xs font-bold text-copper-deep hover:text-copper hover:underline">
                 View all ({projects.length})
               </Link>
             </div>
@@ -265,7 +265,7 @@ export default function Dashboard() {
                 <div key={p.id} className="p-3.5 rounded-2xl bg-surface-2/70 border border-line space-y-2 hover:border-copper/40 transition-colors">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h4 className="text-xs font-bold text-white line-clamp-1">{p.title}</h4>
+                      <h4 className="text-xs font-bold text-ink line-clamp-1">{p.title}</h4>
                       <p className="text-[11px] text-muted">{p.client?.company || "Direct Enterprise Client"}</p>
                     </div>
                     <Badge tone={p.priority === "URGENT" ? "danger" : p.priority === "HIGH" ? "warn" : "neutral"} dot>
@@ -275,11 +275,11 @@ export default function Dashboard() {
                   <div className="space-y-1">
                     <div className="flex justify-between text-[10px] text-muted font-mono font-medium">
                       <span>Completion</span>
-                      <span className="text-copper-soft font-bold">{p.progress}%</span>
+                      <span className="text-copper-deep font-bold">{p.progress}%</span>
                     </div>
                     <div className="w-full bg-surface-3 rounded-full h-1.5 overflow-hidden">
                       <div
-                        className="bg-gradient-to-r from-copper-deep to-copper h-1.5 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(216,155,91,0.5)]"
+                        className="bg-gradient-to-r from-copper-deep to-copper h-1.5 rounded-full transition-all duration-500 shadow-2xs"
                         style={{ width: `${p.progress}%` }}
                       />
                     </div>
@@ -306,10 +306,10 @@ export default function Dashboard() {
         <div className="rounded-3xl border border-line bg-surface/90 p-6 shadow-card">
           <div className="flex items-center justify-between pb-4 border-b border-line">
             <div>
-              <h2 className="text-base font-bold text-white font-display">Recent Billing Statements</h2>
+              <h2 className="text-base font-bold text-ink font-display">Recent Billing Statements</h2>
               <p className="text-xs text-muted">Latest client invoices & payment status</p>
             </div>
-            <Link href="/invoices" className="text-xs font-bold text-copper hover:text-copper-soft hover:underline">
+            <Link href="/invoices" className="text-xs font-bold text-copper-deep hover:text-copper hover:underline">
               View all ({invoices.length})
             </Link>
           </div>
@@ -323,7 +323,7 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-white font-mono">{inv.invoiceNumber}</span>
+                      <span className="text-xs font-bold text-ink font-mono">{inv.invoiceNumber}</span>
                       <Badge tone={inv.status === "PAID" ? "success" : inv.status === "SENT" ? "info" : "warn"} dot>
                         {inv.status}
                       </Badge>
@@ -335,7 +335,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="text-right">
-                  <span className="text-xs font-bold text-white block font-mono">
+                  <span className="text-xs font-bold text-ink block font-mono">
                     ${Number(inv.total || 0).toLocaleString()}
                   </span>
                   <span className="text-[10px] text-muted font-mono">
@@ -354,10 +354,10 @@ export default function Dashboard() {
         <div className="rounded-3xl border border-line bg-surface/90 p-6 shadow-card">
           <div className="flex items-center justify-between pb-4 border-b border-line">
             <div>
-              <h2 className="text-base font-bold text-white font-display">Incoming Leads & Inquiries</h2>
+              <h2 className="text-base font-bold text-ink font-display">Incoming Leads & Inquiries</h2>
               <p className="text-xs text-muted">Direct submissions from stalci.com portfolio</p>
             </div>
-            <Link href="/inquiries" className="text-xs font-bold text-copper hover:text-copper-soft hover:underline">
+            <Link href="/inquiries" className="text-xs font-bold text-copper-deep hover:text-copper hover:underline">
               Manage leads ({inquiries.length})
             </Link>
           </div>
@@ -367,7 +367,7 @@ export default function Dashboard() {
               <div key={inq.id} className="py-3 flex items-start justify-between gap-3 group">
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-bold text-white">{inq.name}</span>
+                    <span className="text-xs font-bold text-ink">{inq.name}</span>
                     {inq.company && (
                       <span className="text-[11px] text-muted">({inq.company})</span>
                     )}
@@ -408,11 +408,11 @@ export default function Dashboard() {
               <CheckCircle2 className="h-4 w-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white font-display">Live Portfolio CMS Telemetry</h2>
+              <h2 className="text-base font-bold text-ink font-display">Live Portfolio CMS Telemetry</h2>
               <p className="text-xs text-muted">Real-time content sync across STALCI Showcase Studio</p>
             </div>
           </div>
-          <span className="text-[11px] font-mono font-bold text-copper bg-copper/10 px-2.5 py-1 rounded-full border border-copper/30">
+          <span className="text-[11px] font-mono font-bold text-copper-deep bg-copper/10 px-2.5 py-1 rounded-full border border-copper/30">
             Synced with Portfolio
           </span>
         </div>
@@ -431,7 +431,7 @@ export default function Dashboard() {
                   <ArrowUpRight className="h-3.5 w-3.5 text-faint group-hover:text-copper transition-colors" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white group-hover:text-copper-soft transition-colors">{w.label}</h4>
+                  <h4 className="text-xs font-bold text-ink group-hover:text-copper transition-colors">{w.label}</h4>
                   <p className="text-[11px] text-muted font-mono mt-0.5">{w.count}</p>
                 </div>
               </Link>

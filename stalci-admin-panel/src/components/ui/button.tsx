@@ -9,15 +9,15 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "text-black bg-gradient-to-r from-[#B4783B] via-[#D89B5B] to-[#F0BC86] hover:brightness-110 shadow-[0_4px_20px_rgba(216,155,91,0.3)] font-bold border border-copper/40",
+    "text-white bg-gradient-to-r from-[#4F46E5] via-[#6366F1] to-[#818CF8] hover:brightness-105 shadow-[0_4px_20px_rgba(99,102,241,0.3)] font-bold border border-copper/40",
   secondary:
-    "text-ink bg-surface border border-line-strong hover:bg-surface-2 hover:border-copper/40 hover:text-white shadow-2xs",
+    "text-ink bg-surface border border-line-strong hover:bg-surface-2 hover:border-copper/40 hover:text-copper shadow-2xs",
   ghost:
     "text-muted hover:bg-surface-2 hover:text-ink transition-colors",
   danger:
-    "text-red-400 bg-red-500/10 border border-red-500/20 hover:bg-red-600 hover:text-white transition-colors",
+    "text-red-600 bg-red-500/10 border border-red-500/20 hover:bg-red-600 hover:text-white transition-colors",
   "copper-outline":
-    "text-copper-soft bg-copper/10 border border-copper/40 hover:bg-copper/20 hover:border-copper transition-all shadow-2xs",
+    "text-copper-deep bg-copper/10 border border-copper/40 hover:bg-copper/20 hover:border-copper transition-all shadow-2xs",
 };
 
 const sizes: Record<Size, string> = {

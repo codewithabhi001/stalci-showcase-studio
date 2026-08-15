@@ -187,11 +187,11 @@ export default function DataTable({
         <div>
           <div className="flex items-center gap-2">
             <span className="eyebrow">Studio Management</span>
-            <span className="text-[10px] font-mono font-bold text-copper bg-copper/10 px-2 py-0.5 rounded-full border border-copper/30">
+            <span className="text-[10px] font-mono font-bold text-copper-deep bg-copper/10 px-2 py-0.5 rounded-full border border-copper/30">
               {filtered.length} records
             </span>
           </div>
-          <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold leading-tight text-white font-display">{entity}</h1>
+          <h1 className="mt-1.5 text-2xl sm:text-[28px] font-bold leading-tight text-ink font-display">{entity}</h1>
           <p className="mt-1.5 max-w-xl text-xs sm:text-[13px] leading-relaxed text-muted">
             {description ?? `Create, edit and organize ${entity.toLowerCase()} shown across the Stalci portfolio.`}
           </p>
@@ -205,8 +205,8 @@ export default function DataTable({
       </div>
 
       {/* Toolbar + table */}
-      <div className="card overflow-hidden rounded-3xl border border-line bg-surface/90 shadow-card backdrop-blur-xl">
-        <div className="flex flex-col gap-3 border-b border-line px-5 py-4 sm:flex-row sm:items-center sm:justify-between bg-surface-2/40">
+      <div className="card overflow-hidden rounded-3xl border border-line bg-surface shadow-card backdrop-blur-xl">
+        <div className="flex flex-col gap-3 border-b border-line px-5 py-4 sm:flex-row sm:items-center sm:justify-between bg-surface-2/20">
           <div className="relative w-full sm:max-w-xs">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
             <input
@@ -222,7 +222,7 @@ export default function DataTable({
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-muted hover:text-white"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-muted hover:text-ink"
               >
                 ×
               </button>
@@ -277,12 +277,12 @@ export default function DataTable({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse text-left">
               <thead>
-                <tr className="border-b border-line bg-surface-2/70">
+                <tr className="border-b border-line bg-surface-2/40">
                   {columns.map((c) => (
                     <th key={c.key} className="px-5 py-3.5">
                       <button
                         onClick={() => toggleSort(c.key)}
-                        className="eyebrow inline-flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+                        className="eyebrow inline-flex items-center gap-1.5 hover:text-ink transition-colors cursor-pointer"
                       >
                         {c.label}
                         <ArrowUpDown className={`h-3 w-3 ${sortKey === c.key ? "text-copper" : "opacity-40"}`} />
