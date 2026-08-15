@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Cpu, Cloud, Shield, Code2, Smartphone, Palette, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Cpu, Cloud, Shield, Code2, Smartphone, CheckCircle2, ArrowUpRight, Activity, Zap, Server, Database } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { motion } from "framer-motion";
 
@@ -12,7 +11,7 @@ interface ServiceStory {
   description: string;
   projects: string[];
   tools: { name: string; iconSlug: string }[];
-  visualType: "web" | "mobile" | "ai" | "cloud" | "security" | "uiux";
+  visualType: "web" | "mobile" | "ai" | "cloud";
   bgTone: string;
   reverse: boolean;
 }
@@ -97,36 +96,78 @@ const serviceStories: ServiceStory[] = [
 function StoryVisual({ type }: { type: ServiceStory["visualType"] }) {
   if (type === "web") {
     return (
-      <div className="relative w-full h-full min-h-[260px] sm:min-h-[300px] rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-sm flex flex-col justify-between overflow-hidden">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-2.5">
+      <div className="relative w-full rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-md flex flex-col justify-between overflow-hidden">
+        {/* Browser Topbar */}
+        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-zinc-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-zinc-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-zinc-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
           </div>
-          <span className="text-[10px] font-mono text-zinc-500 font-semibold">app.stalci.io</span>
-        </div>
-
-        <div className="grid grid-cols-3 gap-3 my-auto py-2">
-          <div className="rounded-xl bg-zinc-50 border border-zinc-200/80 p-3 space-y-1">
-            <span className="text-[10px] font-mono text-zinc-500 block">TTFB Latency</span>
-            <span className="text-sm font-bold text-zinc-950">&lt; 18ms</span>
+          <div className="rounded-md bg-zinc-100 px-3 py-0.5 text-[10.5px] font-mono text-zinc-600 font-semibold border border-zinc-200">
+            https://console.stalci.io/analytics
           </div>
-          <div className="rounded-xl bg-zinc-50 border border-zinc-200/80 p-3 space-y-1">
-            <span className="text-[10px] font-mono text-zinc-500 block">Core Vitals</span>
-            <span className="text-sm font-bold text-emerald-600">100 / 100</span>
-          </div>
-          <div className="rounded-xl bg-zinc-50 border border-zinc-200/80 p-3 space-y-1">
-            <span className="text-[10px] font-mono text-zinc-500 block">Concurrency</span>
-            <span className="text-sm font-bold text-zinc-950">50k+ Req/s</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2.5 border-t border-zinc-100">
-          <span className="flex items-center gap-1.5 text-emerald-700 font-semibold">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Type-Safe SSR
+          <span className="text-[10px] font-mono text-emerald-600 font-bold flex items-center gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live
           </span>
-          <span>Next.js 16 Edge</span>
+        </div>
+
+        {/* High-Fidelity Dashboard Body */}
+        <div className="py-4 space-y-4">
+          {/* KPI Row */}
+          <div className="grid grid-cols-3 gap-2.5">
+            <div className="rounded-xl bg-zinc-50 border border-zinc-200/90 p-2.5">
+              <span className="text-[10px] font-mono text-zinc-500 block">Total Revenue</span>
+              <span className="text-sm sm:text-base font-bold text-zinc-950 font-display">$184,250</span>
+              <span className="text-[9.5px] text-emerald-600 font-semibold font-mono block">+24.5% MoM</span>
+            </div>
+            <div className="rounded-xl bg-zinc-50 border border-zinc-200/90 p-2.5">
+              <span className="text-[10px] font-mono text-zinc-500 block">TTFB Latency</span>
+              <span className="text-sm sm:text-base font-bold text-zinc-950 font-display">14.2ms</span>
+              <span className="text-[9.5px] text-blue-600 font-semibold font-mono block">Edge Cached</span>
+            </div>
+            <div className="rounded-xl bg-zinc-50 border border-zinc-200/90 p-2.5">
+              <span className="text-[10px] font-mono text-zinc-500 block">Core Vitals</span>
+              <span className="text-sm sm:text-base font-bold text-emerald-600 font-display">100 / 100</span>
+              <span className="text-[9.5px] text-zinc-500 font-mono block">Lighthouse</span>
+            </div>
+          </div>
+
+          {/* SVG Analytics Graph */}
+          <div className="rounded-xl bg-zinc-50/80 border border-zinc-200/90 p-3">
+            <div className="flex items-center justify-between text-[11px] font-bold text-zinc-800 mb-2">
+              <span className="flex items-center gap-1.5">
+                <Activity className="h-3.5 w-3.5 text-indigo-600" /> Real-Time Concurrency Throughput
+              </span>
+              <span className="font-mono text-zinc-500 text-[10px]">50,000 req/sec</span>
+            </div>
+            <svg viewBox="0 0 300 70" className="w-full h-16 overflow-visible">
+              <defs>
+                <linearGradient id="grad-web" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#4F46E5" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="#4F46E5" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M 0 50 Q 50 20, 100 35 T 200 15 T 300 25 L 300 70 L 0 70 Z"
+                fill="url(#grad-web)"
+              />
+              <path
+                d="M 0 50 Q 50 20, 100 35 T 200 15 T 300 25"
+                fill="none"
+                stroke="#4F46E5"
+                strokeWidth="2.5"
+              />
+              <circle cx="200" cy="15" r="3.5" fill="#4F46E5" />
+              <circle cx="300" cy="25" r="3.5" fill="#4F46E5" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Footer info */}
+        <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2.5 border-t border-zinc-100">
+          <span className="font-semibold text-zinc-900">Next.js 16 App Router</span>
+          <span>Zero Re-Render Virtual DOM</span>
         </div>
       </div>
     );
@@ -134,28 +175,48 @@ function StoryVisual({ type }: { type: ServiceStory["visualType"] }) {
 
   if (type === "ai") {
     return (
-      <div className="relative w-full h-full min-h-[260px] sm:min-h-[300px] rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-sm flex flex-col justify-between overflow-hidden">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-2.5">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
-            <Cpu className="h-3.5 w-3.5" /> Sovereign RAG VPC Enclave
+      <div className="relative w-full rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-md flex flex-col justify-between overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+          <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+            <Cpu className="h-3.5 w-3.5" /> Sovereign RAG Vector Enclave
           </span>
-          <span className="text-[10px] font-mono text-zinc-400">Zero Retention</span>
+          <span className="text-[10px] font-mono text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
+            Zero Retention
+          </span>
         </div>
 
-        <div className="space-y-2 my-auto py-2 text-xs">
-          <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/80 flex items-center justify-between">
-            <span className="text-zinc-600 font-medium">Vector Embedding Speed</span>
-            <span className="font-mono font-bold text-zinc-950">14.2ms / Batch</span>
+        {/* Node Pipeline Flow */}
+        <div className="py-4 space-y-3 text-xs">
+          <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="font-bold text-zinc-950">Embedding Model</span>
+            </div>
+            <span className="font-mono text-zinc-600 text-[11px]">text-embedding-3-large (3072 dims)</span>
           </div>
-          <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/80 flex items-center justify-between">
-            <span className="text-zinc-600 font-medium">Cosine Similarity Match</span>
-            <span className="font-mono font-bold text-emerald-600">0.968 (pgvector)</span>
+
+          <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-indigo-500" />
+              <span className="font-bold text-zinc-950">Vector Similarity Search</span>
+            </div>
+            <span className="font-mono text-emerald-600 font-bold text-[11px]">0.984 Cosine Match</span>
+          </div>
+
+          <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-amber-500" />
+              <span className="font-bold text-zinc-950">Inference Runtime</span>
+            </div>
+            <span className="font-mono text-zinc-600 text-[11px]">Llama-3-70B (Private VPC)</span>
           </div>
         </div>
 
+        {/* Live Metrics */}
         <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2.5 border-t border-zinc-100">
-          <span className="text-zinc-950 font-bold">PyTorch 2.x CUDA</span>
-          <span>FastAPI Engine</span>
+          <span className="text-zinc-950 font-bold">98.4 tokens/sec</span>
+          <span className="text-emerald-700 font-bold">P99: 8.2ms</span>
         </div>
       </div>
     );
@@ -163,55 +224,83 @@ function StoryVisual({ type }: { type: ServiceStory["visualType"] }) {
 
   if (type === "cloud") {
     return (
-      <div className="relative w-full h-full min-h-[260px] sm:min-h-[300px] rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-sm flex flex-col justify-between overflow-hidden">
-        <div className="flex items-center justify-between border-b border-zinc-100 pb-2.5">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5">
-            <Cloud className="h-3.5 w-3.5 text-zinc-600" /> Multi-Region Pods
+      <div className="relative w-full rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-md flex flex-col justify-between overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+          <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5">
+            <Cloud className="h-3.5 w-3.5 text-zinc-600" /> Multi-Region Pod Topology
           </span>
-          <span className="text-[10px] font-mono text-emerald-600 font-bold">99.99% Uptime</span>
+          <span className="text-[10px] font-mono text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+            99.99% SLA Uptime
+          </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 my-auto py-2">
-          <div className="p-3 rounded-xl bg-zinc-50 border border-zinc-200/80 space-y-1">
-            <span className="text-[10px] font-mono text-zinc-500">US-East Primary</span>
-            <span className="text-xs font-bold text-zinc-950 block">48 Active Replicas</span>
+        {/* Region Nodes */}
+        <div className="grid grid-cols-2 gap-3 py-4">
+          <div className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 space-y-1.5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500">
+              <span>US-East (N. Virginia)</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <span className="text-sm font-bold text-zinc-950 block">48 Active Pods</span>
+            <div className="h-1.5 w-full rounded-full bg-zinc-200 overflow-hidden">
+              <div className="h-full w-[85%] bg-indigo-600 rounded-full" />
+            </div>
           </div>
-          <div className="p-3 rounded-xl bg-zinc-50 border border-zinc-200/80 space-y-1">
-            <span className="text-[10px] font-mono text-zinc-500">EU-West Mirror</span>
-            <span className="text-xs font-bold text-zinc-950 block">Failover Ready</span>
+
+          <div className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 space-y-1.5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-zinc-500">
+              <span>EU-Central (Frankfurt)</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <span className="text-sm font-bold text-zinc-950 block">32 Active Pods</span>
+            <div className="h-1.5 w-full rounded-full bg-zinc-200 overflow-hidden">
+              <div className="h-full w-[60%] bg-emerald-600 rounded-full" />
+            </div>
           </div>
         </div>
 
+        {/* Footer */}
         <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2.5 border-t border-zinc-100">
-          <span>Terraform Automated</span>
-          <span className="text-zinc-950 font-bold">Zero-Downtime</span>
+          <span>Terraform Declarative IaC</span>
+          <span className="text-zinc-950 font-bold">Automated Canary 100%</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-full min-h-[260px] sm:min-h-[300px] rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-sm flex flex-col justify-between overflow-hidden">
-      <div className="flex items-center justify-between border-b border-zinc-100 pb-2.5">
-        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5">
+    <div className="relative w-full rounded-2xl bg-white p-5 border border-zinc-200/90 shadow-md flex flex-col justify-between overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
+        <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-zinc-800 flex items-center gap-1.5">
           <Smartphone className="h-3.5 w-3.5 text-zinc-600" /> Native Mobile Runtime
         </span>
-        <span className="text-[10px] font-mono text-zinc-500">iOS & Android</span>
+        <span className="text-[10px] font-mono text-zinc-500">iOS Swift & Kotlin</span>
       </div>
 
-      <div className="flex items-center justify-center my-auto py-3">
-        <div className="w-40 rounded-2xl bg-zinc-50 border border-zinc-200 p-3 space-y-2 shadow-2xs">
-          <div className="h-3 w-16 bg-zinc-200 rounded-full" />
-          <div className="h-12 w-full bg-white rounded-xl border border-zinc-200/80 flex items-center justify-center text-xs font-bold text-zinc-950">
-            60–120 FPS
+      {/* Simulated Mobile Card Display */}
+      <div className="py-4 flex justify-center">
+        <div className="w-full max-w-[240px] rounded-2xl bg-zinc-950 text-white p-4 shadow-lg space-y-3">
+          <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
+            <span>STALCI WALLET</span>
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
           </div>
-          <div className="h-2 w-24 bg-zinc-200 rounded-full" />
+          <div>
+            <span className="text-[10px] text-zinc-400 block">Available Balance</span>
+            <span className="text-xl font-bold font-display text-white">$48,250.00</span>
+          </div>
+          <div className="pt-2 border-t border-zinc-800 flex items-center justify-between text-[9px] font-mono text-zinc-400">
+            <span>ProMotion 120 FPS</span>
+            <span className="text-emerald-400 font-bold">Biometric Secured</span>
+          </div>
         </div>
       </div>
 
+      {/* Footer */}
       <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-2.5 border-t border-zinc-100">
-        <span>Swift 6 & Kotlin</span>
-        <span className="text-zinc-950 font-bold">Offline-First</span>
+        <span>Offline-First Sync</span>
+        <span className="text-zinc-950 font-bold">Cross-Platform 60–120 FPS</span>
       </div>
     </div>
   );
@@ -316,7 +405,7 @@ export function Services() {
                   </div>
                 </div>
 
-                {/* UI Mockup Column */}
+                {/* Rich UI Mockup Visual Column */}
                 <div className="lg:col-span-6 h-full">
                   <StoryVisual type={story.visualType} />
                 </div>

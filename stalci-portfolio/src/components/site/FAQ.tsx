@@ -2,121 +2,123 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { SectionHeading } from "./Brand";
+import { Plus, X } from "lucide-react";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 
 const faqs = [
   {
-    q: "How does STALCI ensure enterprise delivery success and mitigate risks?",
-    a: "We employ a rigorous, milestone-driven agile methodology. Every engagement begins with a comprehensive technical audit and discovery phase. We assign dedicated, cross-functional pods led by senior architects, ensuring transparent communication, continuous integration, and proactive risk management throughout the product lifecycle.",
+    q: "Is your AI-enabled process just a gimmick?",
+    a: "Nope. The high-level systems thinking and architecture come strictly from our senior human engineers—that is what you are paying for. AI co-pilots and internal LLM agents take care of repetitive scaffolding, type validation, and test generation, so the core engineering team spends 100% of their time on domain logic and performance optimization.",
   },
   {
-    q: "What is your typical onboarding process for a new enterprise client?",
-    a: "Our onboarding is designed to be seamless and non-disruptive. Within the first two weeks, we conduct deep-dive workshops with your stakeholders, establish secure communication channels, integrate with your existing CI/CD pipelines, and define clear SLAs and KPIs. A dedicated Delivery Manager ensures alignment from day one.",
+    q: "How involved will our team need to be during the project?",
+    a: "As involved as you want to be. We operate in bi-weekly sprint cadences with asynchronous Loom walkthroughs, live staging environments, and dedicated Slack/Teams channels. You have full visibility without the burden of micromanagement.",
   },
   {
-    q: "Do you provide post-deployment support and 24/7 SLA maintenance?",
-    a: "Absolutely. We offer comprehensive, SLA-backed managed services. This includes 24/7 proactive monitoring, rapid incident response, continuous security patching, and scheduled performance optimizations to ensure your digital assets remain resilient and scale effortlessly as your user base grows.",
+    q: "Is your advanced architecture process more expensive?",
+    a: "We offer fixed-scope milestones for predictable deliverables and dedicated monthly pods for continuous innovation. Because we eliminate architectural rework and technical debt upfront, our total cost of ownership is significantly lower than traditional agencies.",
   },
   {
-    q: "How does STALCI handle data security, GDPR and SOC 2 compliance?",
-    a: "Security is embedded into our engineering DNA. We follow DevSecOps practices with automated vulnerability scanning, penetration testing, and strict access controls. Our infrastructure designs are compliant with global standards including SOC 2 Type II, ISO 27001, GDPR, and HIPAA, ensuring your enterprise data is unequivocally protected.",
+    q: "What kind of enterprises and companies do you work with?",
+    a: "We work with high-growth venture-backed startups, mid-market SaaS platforms, and Fortune 500 enterprises across FinTech, HealthTech, Supply Chain, and Sovereign AI infrastructure.",
   },
   {
-    q: "Can STALCI integrate with our legacy on-premise systems and ERPs?",
-    a: "Yes. Our engineering teams specialize in complex digital transformations. We routinely build secure middleware, design robust APIs, and implement hybrid-cloud architectures that allow modern applications to seamlessly and securely communicate with legacy mainframes and on-premise databases without business disruption.",
+    q: "How do you ensure the security and privacy of our proprietary IP?",
+    a: "We operate under strict bilateral NDAs. All source code, design files, neural models, and infrastructure definitions are 100% your exclusive intellectual property from day one with zero vendor lock-in. Our team adheres to SOC 2 Type II, ISO 27001, and GDPR compliance standards.",
   },
   {
-    q: "What intellectual property (IP) rights do we retain as a client?",
-    a: "Our standard engagement model is work-for-hire. Upon project completion and settlement, you retain 100% exclusive ownership of all intellectual property, source code, design assets, and infrastructure configurations created during the engagement. We ensure full IP transfer with zero vendor lock-in.",
+    q: "Can STALCI take over and refactor an existing codebase or cloud stack?",
+    a: "Yes. Over 40% of our engagements involve modernizing legacy stacks, eliminating technical debt, scaling slow databases, or migrating monolithic apps to multi-cloud Kubernetes architectures without service downtime.",
+  },
+  {
+    q: "What does your UI/UX and product design process look like?",
+    a: "We build function-first, accessible, and high-conversion design systems in Figma. Every micro-interaction, token, and responsive breakpoint is mapped 1:1 to production React/Tailwind components for zero design-to-code drift.",
   },
 ];
 
 export function FAQ() {
-  const [value, setValue] = useState<string>("");
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const headingRef = useScrollReveal({ distance: 30 });
-  const staggerRef = useStaggerReveal({ staggerChildren: 0.08 });
+  const headingRef = useScrollReveal({ distance: 20 });
+  const staggerRef = useStaggerReveal({ staggerChildren: 0.06 });
+
+  const toggleFaq = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <section id="faq" className="relative bg-white py-20 sm:py-28 overflow-hidden text-black border-t border-zinc-200/90">
-      <div className="mx-auto max-w-3xl px-5 lg:px-8 relative z-10">
-        <div ref={headingRef}>
-          <SectionHeading
-            eyebrow="Frequently Asked Questions"
-            title="Enterprise FAQs"
-            subtitle="Everything engineering leaders and CTOs ask before initiating our technical discovery sprint."
-            tone="light"
-          />
-        </div>
+    <section id="faq" className="relative bg-[#FFFFFF] py-20 sm:py-28 text-black border-t border-zinc-200/90 overflow-hidden">
+      {/* ─── Architectural Clean Grid Overlay on Left (As in reference image) ─── */}
+      <div 
+        className="absolute left-0 top-0 bottom-0 w-1/3 -z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_right,#000_30%,transparent_100%)] pointer-events-none" 
+        aria-hidden 
+      />
 
-        <div className="mt-10 max-w-2xl mx-auto relative">
-          <div ref={staggerRef}>
-            <Accordion
-              type="single"
-              collapsible
-              className="w-full space-y-3"
-              value={value}
-              onValueChange={setValue}
-            >
-              {faqs.map((f, i) => {
-                const isOpen = value === f.q;
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* ─── Left Column: Section Header (Image 2 Match) ─── */}
+          <div ref={headingRef} className="lg:col-span-5 space-y-4">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-red-200/80 bg-red-50/50 px-3.5 py-1 text-[11px] font-mono text-zinc-800 shadow-2xs">
+              <span>Built on</span>
+              <span className="font-bold text-zinc-950">Transparency & Trust</span>
+            </div>
 
-                return (
-                  <motion.div
-                    key={f.q}
-                    variants={{
-                      hidden: { opacity: 0, y: 15 },
-                      visible: { opacity: 1, y: 0 },
-                    }}
-                    className="relative"
-                  >
-                    <AccordionItem
-                      value={f.q}
-                      className="border border-zinc-200 rounded-xl bg-[#F8FAFC] px-4 sm:px-5 overflow-hidden transition-all duration-200 hover:border-zinc-400"
-                    >
-                      <AccordionTrigger className="hover:no-underline py-4 group">
-                        <div className="flex items-center text-left gap-3">
-                          <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-white border border-zinc-200 text-xs font-mono font-bold text-zinc-700">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span className="text-xs sm:text-sm font-semibold text-zinc-950">
-                            {f.q}
-                          </span>
-                        </div>
-                      </AccordionTrigger>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-zinc-950 leading-[1.14] tracking-tight">
+              Your <span className="font-extrabold text-black">Questions</span>, Answered with <span className="font-extrabold text-black">Clarity</span>
+            </h2>
 
-                      <AccordionContent
-                        forceMount
-                        className="overflow-hidden data-[state=closed]:animate-none data-[state=open]:animate-none p-0"
-                      >
-                        <AnimatePresence initial={false}>
-                          {isOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <div className="pb-4 pl-10 pr-3 text-xs sm:text-sm leading-relaxed text-zinc-600">
-                                {f.a}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </motion.div>
-                );
-              })}
-            </Accordion>
+            <p className="text-xs sm:text-sm text-zinc-600 font-normal leading-relaxed">
+              Most teams have the same questions before signing. Here are honest answers to the ones that come up most: pricing, process, security, and who owns the code.
+            </p>
           </div>
+
+          {/* ─── Right Column: Clean Accordion List (Image 2 Match) ─── */}
+          <div ref={staggerRef} className="lg:col-span-7 divide-y divide-zinc-200/80">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+
+              return (
+                <div key={index} className="py-4 first:pt-0 last:pb-0">
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="flex w-full items-center justify-between text-left gap-4 py-2 group cursor-pointer"
+                  >
+                    <span className={`text-xs sm:text-sm font-bold transition-colors ${
+                      isOpen ? "text-zinc-950 font-extrabold" : "text-zinc-800 group-hover:text-zinc-950"
+                    }`}>
+                      {faq.q}
+                    </span>
+
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center text-zinc-500 group-hover:text-zinc-950 transition-colors">
+                      {isOpen ? (
+                        <X className="h-4 w-4 stroke-[2]" />
+                      ) : (
+                        <Plus className="h-4 w-4 stroke-[2]" />
+                      )}
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <p className="pt-2 pb-3 text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
       </div>
     </section>
