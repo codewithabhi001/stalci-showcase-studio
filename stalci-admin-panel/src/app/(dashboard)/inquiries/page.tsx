@@ -138,7 +138,7 @@ export default function InquiriesPage() {
         <div className="flex items-center gap-2">
           <Button
             onClick={() => setIsCreateOpen(true)}
-            className="text-xs font-bold gap-1.5 bg-copper text-slate-950 hover:bg-copper-soft shadow-sm"
+            className="text-xs font-bold gap-1.5 bg-copper text-[#080A0F] hover:bg-copper-soft shadow-sm"
           >
             <Plus className="h-4 w-4" /> Add Inquiry Lead
           </Button>
@@ -167,7 +167,7 @@ export default function InquiriesPage() {
               onClick={() => setStatusFilter(st)}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 statusFilter === st
-                  ? "bg-copper text-slate-950 shadow-xs"
+                  ? "bg-copper text-[#080A0F] shadow-xs"
                   : "text-muted hover:text-ink"
               }`}
             >
@@ -245,7 +245,7 @@ export default function InquiriesPage() {
                         onChange={(e) =>
                           updateMut.mutate({ id: inq.id, data: { status: e.target.value } })
                         }
-                        className="rounded-lg border border-line bg-canvas px-2.5 py-1 text-xs font-bold text-ink outline-none cursor-pointer"
+                        className="rounded-lg border border-line bg-surface px-2.5 py-1 text-xs font-bold text-ink outline-none cursor-pointer"
                       >
                         <option value="NEW">NEW</option>
                         <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -278,7 +278,7 @@ export default function InquiriesPage() {
 
                         <button
                           onClick={() => setDeletingId(inq.id)}
-                          className="p-1.5 rounded-lg border border-line text-muted hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg border border-line text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
                           title="Delete Lead"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -313,7 +313,7 @@ export default function InquiriesPage() {
                       data: { status: e.target.value },
                     })
                   }
-                  className="rounded-xl border border-line bg-canvas px-3 py-1.5 text-xs font-bold text-ink outline-none cursor-pointer"
+                  className="rounded-xl border border-line bg-surface px-3 py-1.5 text-xs font-bold text-ink outline-none cursor-pointer"
                 >
                   <option value="NEW">NEW</option>
                   <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -333,7 +333,7 @@ export default function InquiriesPage() {
 
                 <Button
                   onClick={() => handleReplyEmail(selectedInquiry)}
-                  className="text-xs gap-1.5 bg-copper text-slate-950 hover:bg-copper-soft font-bold"
+                  className="text-xs gap-1.5 bg-copper text-[#080A0F] hover:bg-copper-soft font-bold"
                 >
                   <Send className="h-3.5 w-3.5" /> Reply to Client
                 </Button>
@@ -383,7 +383,7 @@ export default function InquiriesPage() {
                 </div>
                 <div>
                   <span className="text-muted block text-[11px]">Estimated Budget</span>
-                  <span className="font-bold text-emerald-700 font-mono">
+                  <span className="font-bold text-emerald-400 font-mono">
                     {selectedInquiry.budget || "Flexible / Not Stated"}
                   </span>
                 </div>
@@ -432,7 +432,7 @@ export default function InquiriesPage() {
             <Button
               onClick={() => createMut.mutate(newForm)}
               disabled={createMut.isPending || !newForm.name || !newForm.email || !newForm.message}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Inquiry Lead
             </Button>

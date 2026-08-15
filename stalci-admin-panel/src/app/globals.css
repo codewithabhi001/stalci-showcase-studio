@@ -1,54 +1,67 @@
 @import "tailwindcss";
 
-/* ─── Stalci Admin Design System ───
-   Premium SaaS console. Neutral warm-slate surfaces + a single copper accent.
+/* ─── STALCI Signature Sovereign Dark & Copper Admin Design System ───
+   Deep Midnight Ink Surfaces + Radiant Copper Gold Accents.
+   Aligned 1:1 with STALCI Portfolio Sovereign Palette.
 */
 
 @theme inline {
-  /* Accent */
-  --color-copper: #c17f42;
-  --color-copper-soft: #e0a86a;
-  --color-copper-deep: #96602c;
-  --color-copper-wash: #fdf3e8;
+  /* Copper Accent Palette */
+  --color-copper: #D89B5B;
+  --color-copper-soft: #F0BC86;
+  --color-copper-deep: #B4783B;
+  --color-copper-wash: rgba(216, 155, 91, 0.12);
 
-  /* Surfaces & neutrals */
-  --color-canvas: #f7f7f8;
-  --color-surface: #ffffff;
-  --color-surface-2: #fafafa;
-  --color-line: #e8e8ea;
-  --color-line-strong: #d8d8dc;
-  --color-ink: #17181b;
-  --color-ink-2: #45474d;
-  --color-muted: #7c7f87;
-  --color-faint: #a5a8b0;
+  /* Pure Obsidian Jet Black Surfaces */
+  --color-canvas: #000000;
+  --color-surface: #0A0A0C;
+  --color-surface-2: #121216;
+  --color-surface-3: #18181E;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+  
+  /* Text & Typographic Hierarchy */
+  --color-ink: #FFFFFF;
+  --color-ink-2: #E2E8F0;
+  --color-muted: #94A3B8;
+  --color-faint: #64748B;
 
-  /* Semantic */
-  --color-success: #15803d;
-  --color-success-wash: #eefaf1;
-  --color-warn: #b45309;
-  --color-warn-wash: #fef6e7;
-  --color-danger: #dc2626;
-  --color-danger-wash: #fef2f2;
-  --color-info: #1d4ed8;
-  --color-info-wash: #eff4ff;
+  /* Semantic Feedback Colors */
+  --color-success: #10B981;
+  --color-success-wash: rgba(16, 185, 129, 0.14);
+  --color-warn: #F59E0B;
+  --color-warn-wash: rgba(245, 158, 11, 0.14);
+  --color-danger: #EF4444;
+  --color-danger-wash: rgba(239, 68, 68, 0.16);
+  --color-info: #3B82F6;
+  --color-info-wash: rgba(59, 130, 246, 0.14);
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
+  /* Typography */
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
-  --shadow-xs: 0 1px 2px rgba(16, 18, 22, 0.05);
-  --shadow-card: 0 1px 2px rgba(16, 18, 22, 0.04), 0 8px 24px -16px rgba(16, 18, 22, 0.18);
-  --shadow-pop: 0 12px 32px -12px rgba(16, 18, 22, 0.2), 0 2px 8px rgba(16, 18, 22, 0.06);
-  --shadow-modal: 0 32px 80px -24px rgba(16, 18, 22, 0.32);
-  --radius: 14px;
+  --radius: 0.875rem;
+  --gradient-copper: linear-gradient(135deg, #B4783B 0%, #D89B5B 50%, #F0BC86 100%);
+  --gradient-ink: linear-gradient(180deg, #0A0A0C 0%, #000000 100%);
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --shadow-pop: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --shadow-modal: 0 32px 80px -20px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  --shadow-glow: 0 0 60px -10px rgba(216, 155, 91, 0.25);
+  --shadow-lift: 0 20px 45px -15px rgba(0, 0, 0, 0.8);
 }
 
-* { border-color: var(--color-line); }
+* {
+  border-color: var(--color-line);
+}
 
 html {
   min-height: 100%;
   height: 100%;
+  color-scheme: dark;
 }
 
 body {
@@ -61,13 +74,26 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 { letter-spacing: -0.018em; }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
 
-/* Custom Sleek Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(140, 145, 160, 0.3); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(140, 145, 160, 0.55); }
+/* ─── Custom Dark Sleek Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(216, 155, 91, 0.5);
+}
 
 /* Utility class for robust mouse wheel scrolling */
 .scrollable-y {
@@ -82,12 +108,13 @@ h1, h2, h3, h4 { letter-spacing: -0.018em; }
   border-radius: 6px;
 }
 
-/* ─── Utilities ─── */
+/* ─── Component Utilities ─── */
 @layer components {
   .eyebrow {
-    font-size: 0.66rem;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-faint);
   }
@@ -108,16 +135,70 @@ h1, h2, h3, h4 { letter-spacing: -0.018em; }
     font-size: 0.875rem;
     color: var(--color-ink);
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
   }
-  .field::placeholder { color: var(--color-faint); }
+  .field::placeholder {
+    color: var(--color-faint);
+  }
   .field:focus {
     border-color: var(--color-copper);
-    box-shadow: 0 0 0 3px rgba(193, 127, 66, 0.15);
+    background: var(--color-surface-2);
+    box-shadow: 0 0 0 3px rgba(216, 155, 91, 0.2);
+  }
+
+  select.field option {
+    background: #0E131F;
+    color: #FFFFFF;
   }
 }
 
-/* ─── Animation ─── */
+/* ─── Brand Gradient & Glow Utilities ─── */
+.text-copper-gradient {
+  background: var(--gradient-copper);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.surface-ink {
+  background: var(--gradient-ink);
+  color: var(--color-ink);
+}
+
+.hero-glow {
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(216, 155, 91, 0.18), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(216, 155, 91, 0.06), transparent 70%),
+    var(--gradient-ink);
+}
+
+.card-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: rgba(216, 155, 91, 0.45);
+}
+
+.glass {
+  background: rgba(14, 19, 31, 0.7);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-dark {
+  background: rgba(8, 10, 15, 0.88);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Animations ─── */
 @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slide-in-right { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
@@ -132,7 +213,7 @@ h1, h2, h3, h4 { letter-spacing: -0.018em; }
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: #eeeef1;
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 8px;
 }
 .skeleton::after {
@@ -140,7 +221,7 @@ h1, h2, h3, h4 { letter-spacing: -0.018em; }
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
   animation: shimmer 1.4s infinite;
 }
 

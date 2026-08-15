@@ -44,7 +44,7 @@ export function Drawer({
     <div className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6 no-print">
       {/* Backdrop */}
       <div
-        className="animate-fade-in absolute inset-0 bg-ink/60 backdrop-blur-[3px] transition-opacity"
+        className="animate-fade-in absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity"
         onClick={onClose}
       />
 
@@ -72,13 +72,13 @@ export function Drawer({
         {/* Sticky Header */}
         <header className="flex items-start justify-between gap-4 border-b border-line px-6 py-4.5 shrink-0 bg-surface">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-ink tracking-tight">{title}</h2>
+            <h2 className="text-base sm:text-lg font-bold text-white tracking-tight font-display">{title}</h2>
             {description && <p className="mt-0.5 text-xs text-muted leading-relaxed">{description}</p>}
           </div>
           <button
             onClick={onClose}
             aria-label="Close dialog"
-            className="rounded-lg p-1.5 text-muted hover:bg-canvas hover:text-ink transition-colors cursor-pointer"
+            className="rounded-lg p-1.5 text-muted hover:bg-surface-2 hover:text-white transition-colors cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>

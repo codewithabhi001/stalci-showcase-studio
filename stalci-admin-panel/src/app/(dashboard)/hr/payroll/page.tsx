@@ -393,7 +393,7 @@ export default function PayrollPage() {
               onClick={() => setStatusFilter(st)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 statusFilter === st
-                  ? "bg-copper text-slate-950 shadow-sm"
+                  ? "bg-copper text-[#080A0F] shadow-sm"
                   : "text-muted hover:text-ink hover:bg-canvas"
               }`}
             >
@@ -526,7 +526,7 @@ export default function PayrollPage() {
                 updateMut.mutate({ id: editingPay.id, data: editFormData })
               }
               disabled={updateMut.isPending}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Salary Adjustment
             </Button>

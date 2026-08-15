@@ -46,14 +46,14 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[96svh] w-full flex-col items-center justify-center overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 bg-[#06080F] text-white"
+      className="relative isolate flex min-h-[96svh] w-full flex-col items-center justify-center overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 bg-[#000000] text-white"
     >
       {/* ─── Rich Luxury Tech Atmosphere Background ─── */}
       
       {/* 1. Subtle Radial Gradient Aurora Orbs */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[65rem] h-[35rem] bg-gradient-to-b from-slate-700/20 via-slate-800/10 to-transparent blur-[120px] pointer-events-none -z-20" />
-      <div className="absolute top-1/3 left-1/4 w-[28rem] h-[28rem] bg-blue-900/10 rounded-full blur-[140px] pointer-events-none -z-20" />
-      <div className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] bg-amber-900/10 rounded-full blur-[140px] pointer-events-none -z-20" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[65rem] h-[35rem] bg-gradient-to-b from-white/[0.04] via-white/[0.01] to-transparent blur-[120px] pointer-events-none -z-20" />
+      <div className="absolute top-1/3 left-1/4 w-[28rem] h-[28rem] bg-copper/10 rounded-full blur-[140px] pointer-events-none -z-20" />
+      <div className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none -z-20" />
 
       {/* 2. Precision Perspective Grid Overlay */}
       <div 
@@ -141,7 +141,7 @@ export function Hero() {
                 key={idx}
                 src={img}
                 alt="Client avatar"
-                className="h-7 w-7 rounded-full border border-[#06080F] object-cover"
+                className="h-7 w-7 rounded-full border-2 border-black object-cover"
               />
             ))}
           </div>

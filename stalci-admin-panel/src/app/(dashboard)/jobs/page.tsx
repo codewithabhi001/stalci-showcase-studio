@@ -118,7 +118,7 @@ export default function JobsAdmin() {
             onClick={() => setActiveTab("roles")}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               activeTab === "roles"
-                ? "bg-copper text-slate-950 shadow-xs"
+                ? "bg-copper text-[#080A0F] shadow-xs"
                 : "text-muted hover:text-ink"
             }`}
           >
@@ -129,7 +129,7 @@ export default function JobsAdmin() {
             onClick={() => setActiveTab("applications")}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               activeTab === "applications"
-                ? "bg-copper text-slate-950 shadow-xs"
+                ? "bg-copper text-[#080A0F] shadow-xs"
                 : "text-muted hover:text-ink"
             }`}
           >
@@ -345,7 +345,7 @@ export default function JobsAdmin() {
               <div className="flex items-center gap-2">
                 <Button
                   onClick={() => handleSendCandidateEmail(selectedCandidate, emailTemplate)}
-                  className="text-xs font-bold gap-1.5 bg-copper text-slate-950 hover:bg-copper-soft"
+                  className="text-xs font-bold gap-1.5 bg-copper text-[#080A0F] hover:bg-copper-soft"
                 >
                   <Send className="h-3.5 w-3.5" /> Send {emailTemplate.toUpperCase()} Email
                 </Button>

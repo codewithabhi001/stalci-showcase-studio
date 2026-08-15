@@ -28,19 +28,19 @@ export function CreateDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button 
         onClick={() => setOpen(!open)}
-        className="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-ink px-3.5 text-[13px] font-medium text-white hover:bg-ink-2 hover:-translate-y-[1px] transition-all shadow-sm focus:outline-none"
+        className="flex h-9 shrink-0 items-center gap-1.5 rounded-lg bg-copper px-3.5 text-[13px] font-bold text-black hover:bg-copper-soft hover:-translate-y-[1px] transition-all shadow-xs focus:outline-none cursor-pointer"
       >
-        <Plus className="h-4 w-4 text-copper-soft" />
+        <Plus className="h-4 w-4 text-black" />
         Create
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-xl border border-line bg-canvas shadow-xl z-50 animate-fade-up origin-top-right">
-          <div className="px-3 py-2 border-b border-line bg-surface/50">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-muted">Quick Actions</p>
+        <div className="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl z-50 animate-fade-up origin-top-right">
+          <div className="px-3 py-2 border-b border-line bg-surface-2/80">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-muted font-mono">Quick Actions</p>
           </div>
           
-          <div className="p-1.5">
+          <div className="p-1.5 space-y-0.5">
             {ACTIONS.map((action, i) => {
               const Icon = action.icon;
               return (
@@ -48,9 +48,9 @@ export function CreateDropdown() {
                   key={i}
                   href={action.href} 
                   onClick={() => setOpen(false)}
-                  className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-medium text-ink-2 hover:bg-surface-2 hover:text-ink transition-colors group"
+                  className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-medium text-ink-2 hover:bg-surface-2 hover:text-white transition-colors group"
                 >
-                  <Icon className="h-4 w-4 text-muted group-hover:text-copper transition-colors" />
+                  <Icon className="h-4 w-4 text-faint group-hover:text-copper transition-colors" />
                   {action.label}
                 </Link>
               )

@@ -177,7 +177,7 @@ export default function OffersPage() {
           </p>
         </div>
 
-        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Create Offer Letter
         </Button>
       </div>
@@ -291,7 +291,7 @@ export default function OffersPage() {
                 createMut.mutate(formData);
               }}
               disabled={createMut.isPending || !formData.candidateName}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Generate Offer Letter
             </Button>
@@ -391,7 +391,7 @@ export default function OffersPage() {
                 editingOffer && updateOfferMut.mutate({ id: editingOffer.id, data: editingOffer });
               }}
               disabled={updateOfferMut.isPending || !editingOffer?.candidateName}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Offer Changes
             </Button>

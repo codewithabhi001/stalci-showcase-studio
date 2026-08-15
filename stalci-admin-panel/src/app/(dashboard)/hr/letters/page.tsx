@@ -185,7 +185,7 @@ export default function LetterTemplatesPage() {
           </p>
         </div>
 
-        <Button onClick={handleOpenCreate} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={handleOpenCreate} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Create Letter Template
         </Button>
       </div>
@@ -214,7 +214,7 @@ export default function LetterTemplatesPage() {
                   <p className="text-xs text-muted font-mono truncate">{tpl.subject || "Official Document"}</p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-canvas border border-line text-[11px] text-slate-600 line-clamp-4 leading-relaxed font-mono">
+                <div className="p-3 rounded-xl bg-canvas border border-line text-[11px] text-muted line-clamp-4 leading-relaxed font-mono">
                   {tpl.bodyTemplate.replace(/<[^>]*>?/gm, "")}
                 </div>
               </div>
@@ -267,7 +267,7 @@ export default function LetterTemplatesPage() {
               <div className="flex items-center gap-2">
                 <Button
                   onClick={() => handlePrintTemplate(previewTpl)}
-                  className="bg-copper text-slate-950 font-bold text-xs gap-1"
+                  className="bg-copper text-[#080A0F] font-bold text-xs gap-1"
                 >
                   <Printer className="h-3.5 w-3.5" /> Print A4 Document
                 </Button>
@@ -314,7 +314,7 @@ export default function LetterTemplatesPage() {
             <Button
               onClick={handleSubmit}
               disabled={createMut.isPending || updateMut.isPending || !formData.name}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Template
             </Button>

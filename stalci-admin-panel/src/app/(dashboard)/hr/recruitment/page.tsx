@@ -146,7 +146,7 @@ export default function RecruitmentPipelinePage() {
           </p>
         </div>
 
-        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Add Candidate
         </Button>
       </div>
@@ -166,7 +166,7 @@ export default function RecruitmentPipelinePage() {
             onClick={() => setStageFilter(s.id)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               stageFilter === s.id
-                ? "bg-copper text-slate-950 shadow-sm"
+                ? "bg-copper text-[#080A0F] shadow-sm"
                 : "bg-surface border border-line text-muted hover:text-ink"
             }`}
           >
@@ -230,7 +230,7 @@ export default function RecruitmentPipelinePage() {
                 {cand.skills && (
                   <div className="pt-2 border-t border-line">
                     <span className="text-[10px] text-muted font-bold block mb-1">SKILLS</span>
-                    <p className="text-[11px] text-slate-700 leading-snug line-clamp-2">{cand.skills}</p>
+                    <p className="text-[11px] text-ink-2 leading-snug line-clamp-2">{cand.skills}</p>
                   </div>
                 )}
               </div>
@@ -361,7 +361,7 @@ export default function RecruitmentPipelinePage() {
             <Button
               onClick={handleCreate}
               disabled={createMut.isPending || !formData.name || !formData.email}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Add to Pipeline
             </Button>
@@ -432,7 +432,7 @@ export default function RecruitmentPipelinePage() {
                 editingCand && updateCandMut.mutate({ id: editingCand.id, data: editingCand });
               }}
               disabled={updateCandMut.isPending || !editingCand?.name}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Candidate Updates
             </Button>

@@ -100,7 +100,7 @@ export default function HrDashboardPage() {
         <div className="flex items-center gap-2">
           <Link
             href="/hr/employees"
-            className="px-3.5 py-2 rounded-xl bg-copper text-slate-950 text-xs font-bold hover:bg-copper-soft transition-colors flex items-center gap-1.5 shadow-sm"
+            className="px-3.5 py-2 rounded-xl bg-copper text-[#080A0F] text-xs font-bold hover:bg-copper-soft transition-colors flex items-center gap-1.5 shadow-sm"
           >
             <UserPlus className="h-4 w-4" /> Manage Employees
           </Link>

@@ -53,9 +53,9 @@ function BlogIndex() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
+      <div className="bg-[#000000] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-6xl px-5 lg:px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-copper/10 border border-copper/30 text-copper text-xs font-bold uppercase tracking-wider mb-4">
             <BookOpen className="h-3.5 w-3.5" />
             STALCI Engineering Publications
           </div>

@@ -43,17 +43,17 @@ export function ConfirmDialog({
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 no-print">
-      <div className="animate-fade-in absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={handleClose} />
+      <div className="animate-fade-in absolute inset-0 bg-black/75 backdrop-blur-md" onClick={handleClose} />
       <div
         role="alertdialog"
         aria-modal="true"
         className="animate-pop relative w-full max-w-[420px] rounded-2xl border border-line bg-surface p-6"
         style={{ boxShadow: "var(--shadow-modal)" }}
       >
-        <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-danger-wash text-danger">
+        <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/15 text-red-400 border border-red-500/30">
           <AlertTriangle className="h-5 w-5" />
         </span>
-        <h3 className="text-base font-semibold text-ink">{title}</h3>
+        <h3 className="text-base font-bold text-white font-display">{title}</h3>
         <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{displayMessage}</p>
         <div className="mt-6 flex justify-end gap-2">
           <Button variant="secondary" onClick={handleClose}>

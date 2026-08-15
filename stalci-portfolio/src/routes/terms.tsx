@@ -199,9 +199,9 @@ function Terms() {
       <Nav solid />
 
       {/* Header Banner */}
-      <div className="bg-[#080A0F] text-white pt-32 pb-20 border-b border-white/10">
+      <div className="bg-[#000000] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-copper/10 border border-copper/30 text-copper text-xs font-bold uppercase tracking-wider mb-4">
             <Scale className="h-3.5 w-3.5" />
             Enterprise Master Terms
           </div>
@@ -232,7 +232,7 @@ function Terms() {
                 className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all hover:shadow-md"
               >
                 <h2 className="text-lg sm:text-xl font-bold text-slate-950 flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                  <span className="h-2 w-2 rounded-full bg-amber-600 shrink-0" />
+                  <span className="h-2 w-2 rounded-full bg-copper shrink-0" />
                   <span>{s.h}</span>
                 </h2>
                 <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-slate-700">
@@ -243,7 +243,7 @@ function Terms() {
                     <ul className="mt-3 space-y-2 pl-2">
                       {s.list.map((li, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-slate-700">
-                          <span className="text-amber-700 font-bold mt-0.5">•</span>
+                          <span className="text-copper font-bold mt-0.5">•</span>
                           <span>{li}</span>
                         </li>
                       ))}
@@ -254,10 +254,10 @@ function Terms() {
             ))}
 
             {/* Legal Support Card */}
-            <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-[#0E131F] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="rounded-2xl bg-gradient-to-br from-black to-[#0A0A0A] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-amber-400" />
+                  <Mail className="h-5 w-5 text-copper" />
                   Have Contractual Questions?
                 </h3>
                 <p className="mt-2 text-sm text-slate-300 max-w-xl">

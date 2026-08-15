@@ -429,12 +429,14 @@ export default function InvoicesAdmin() {
                       }
                       className={`text-[11px] font-bold px-2 py-1 rounded-md border cursor-pointer ${
                         inv.status === "PAID"
-                          ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                          ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
                           : inv.status === "SENT"
-                          ? "bg-blue-50 text-blue-800 border-blue-200"
+                          ? "bg-blue-500/15 text-blue-400 border-blue-500/30"
                           : inv.status === "PENDING"
-                          ? "bg-amber-50 text-amber-800 border-amber-200"
-                          : "bg-slate-50 text-slate-800 border-slate-200"
+                          ? "bg-amber-500/15 text-amber-300 border-amber-500/30"
+                          : inv.status === "OVERDUE"
+                          ? "bg-red-500/15 text-red-400 border-red-500/30"
+                          : "bg-surface-2 text-muted border-line"
                       }`}
                     >
                       <option value="DRAFT">DRAFT</option>
@@ -459,35 +461,28 @@ export default function InvoicesAdmin() {
                     <div className="flex items-center justify-end gap-1.5">
                       <button
                         onClick={() => setPreviewingInvoice(inv)}
-                        className="p-1.5 rounded-lg border border-line text-muted hover:text-copper hover:bg-copper-wash transition-colors"
-                        title="Live Interactive Invoice Preview & Print"
+                        className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-surface-2 transition-colors cursor-pointer"
+                        title="Preview & Print Official Invoice"
                       >
-                        <Eye className="h-3.5 w-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleQuickSend(inv)}
-                        className="p-1.5 rounded-lg border border-line text-muted hover:text-copper-deep hover:bg-copper-wash transition-colors"
-                        title="Send Invoice to Client via Email"
-                      >
-                        <Send className="h-3.5 w-3.5" />
+                        <Eye className="h-3.5 w-3.5 text-copper" />
                       </button>
                       <button
                         onClick={() => duplicateMutation.mutate(inv.id)}
-                        className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-canvas transition-colors"
+                        className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-surface-2 transition-colors cursor-pointer"
                         title="Duplicate Invoice"
                       >
                         <Copy className="h-3.5 w-3.5" />
                       </button>
                       <button
                         onClick={() => handleOpenEdit(inv)}
-                        className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-canvas transition-colors"
+                        className="p-1.5 rounded-lg border border-line text-muted hover:text-ink hover:bg-surface-2 transition-colors cursor-pointer"
                         title="Edit Invoice"
                       >
                         <Edit2 className="h-3.5 w-3.5" />
                       </button>
                       <button
                         onClick={() => setDeletingInvoiceId(inv.id)}
-                        className="p-1.5 rounded-lg border border-line text-muted hover:text-red-600 hover:bg-red-50 transition-colors"
+                        className="p-1.5 rounded-lg border border-line text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                         title="Delete Invoice"
                       >
                         <Trash2 className="h-3.5 w-3.5" />

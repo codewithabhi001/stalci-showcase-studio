@@ -19,13 +19,13 @@ export function Products() {
     apiProducts && apiProducts.length > 0 ? apiProducts.map(mapProduct) : staticProducts;
 
   return (
-    <section id="products" className="bg-[#080B12] py-20 sm:py-28 text-white border-t border-white/10">
+    <section id="products" className="bg-white py-20 sm:py-28 text-slate-900 border-t border-slate-200/80">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="Our Products"
           title="Platforms We Build & Run Ourselves"
           subtitle="Four products born out of client engagements — now available as licensed platforms."
-          tone="dark"
+          tone="light"
         />
 
         <div ref={gridRef} className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -34,64 +34,64 @@ export function Products() {
               key={p.slug}
               to="/products/$slug"
               params={{ slug: p.slug }}
-              className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0E1320] p-5 sm:p-6 transition-all duration-200 hover:border-white/25 hover:bg-[#121827]"
+              className="group flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-5 sm:p-6 transition-all duration-200 hover:border-slate-400/60 hover:shadow-md hover:bg-white"
             >
               <div>
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#161E30] border border-white/10 text-white">
-                    <p.icon className="h-4.5 w-4.5" strokeWidth={1.5} />
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-900 shadow-2xs">
+                    <p.icon className="h-4.5 w-4.5 text-copper" strokeWidth={1.8} />
                   </span>
-                  <ArrowUpRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-white transition-colors" />
+                  <ArrowUpRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-slate-900 transition-colors" />
                 </div>
-                <h3 className="mt-4 text-base font-bold text-white">
+                <h3 className="mt-4 text-base font-bold text-slate-900">
                   {p.title}
                 </h3>
-                <p className="mt-0.5 text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                <p className="mt-0.5 text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
                   {p.tag}
                 </p>
-                <p className="mt-2 text-xs leading-relaxed text-slate-300">{p.summary}</p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-600">{p.summary}</p>
 
                 {/* Inline mockups */}
                 {idx === 0 && (
-                  <div className="mt-4 rounded-xl bg-[#080B12] p-3 border border-white/10 text-[10px] text-slate-300">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-1.5 mb-2">
-                      <span className="font-bold text-white text-[9px] uppercase tracking-wider">
+                  <div className="mt-4 rounded-xl bg-white p-3 border border-slate-200 text-[10px] text-slate-700 shadow-2xs">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-1.5 mb-2">
+                      <span className="font-bold text-slate-900 text-[9px] uppercase tracking-wider">
                         Multi-Cloud Billing
                       </span>
-                      <span className="text-[9px] text-emerald-400 font-bold">-35% Saved</span>
+                      <span className="text-[9px] text-emerald-600 font-bold">-35% Saved</span>
                     </div>
                     <div className="space-y-1.5">
-                      <div className="flex justify-between items-center text-slate-400">
+                      <div className="flex justify-between items-center text-slate-500">
                         <span>AWS EKS Cluster</span>
-                        <span className="text-white font-mono">$1,420/mo</span>
+                        <span className="text-slate-900 font-mono font-semibold">$1,420/mo</span>
                       </div>
-                      <div className="flex justify-between items-center text-slate-400">
+                      <div className="flex justify-between items-center text-slate-500">
                         <span>GCP BigQuery Datasets</span>
-                        <span className="text-white font-mono">$840/mo</span>
+                        <span className="text-slate-900 font-mono font-semibold">$840/mo</span>
                       </div>
                     </div>
                   </div>
                 )}
 
                 {idx === 1 && (
-                  <div className="mt-4 rounded-xl bg-[#080B12] p-3 border border-white/10 text-[10px] text-slate-300 space-y-1.5">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-1">
-                      <span className="font-bold text-[9px] uppercase tracking-wider text-slate-400">
+                  <div className="mt-4 rounded-xl bg-white p-3 border border-slate-200 text-[10px] text-slate-700 space-y-1.5 shadow-2xs">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-1">
+                      <span className="font-bold text-[9px] uppercase tracking-wider text-slate-500">
                         Zero-Trust Mesh
                       </span>
-                      <span className="text-[9px] font-bold text-emerald-400">Enforced</span>
+                      <span className="text-[9px] font-bold text-emerald-600">Enforced</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      <span className="text-[10px] text-slate-200">12,400 IAM Policies validated</span>
+                      <span className="text-[10px] text-slate-700">12,400 IAM Policies validated</span>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3">
-                <span className="text-[11px] text-slate-400">Explore platform features</span>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-white group-hover:underline">
+              <div className="mt-5 flex items-center justify-between border-t border-slate-200/80 pt-3">
+                <span className="text-[11px] text-slate-500">Explore platform features</span>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-900 group-hover:underline">
                   View Specs
                   <ArrowUpRight className="h-3 w-3" />
                 </span>

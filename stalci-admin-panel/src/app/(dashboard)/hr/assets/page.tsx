@@ -123,7 +123,7 @@ export default function AssetsPage() {
           </p>
         </div>
 
-        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Add Asset to Inventory
         </Button>
       </div>
@@ -136,7 +136,7 @@ export default function AssetsPage() {
             onClick={() => setStatusFilter(st)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               statusFilter === st
-                ? "bg-copper text-slate-950 shadow-sm"
+                ? "bg-copper text-[#080A0F] shadow-sm"
                 : "bg-surface border border-line text-muted hover:text-ink"
             }`}
           >
@@ -178,7 +178,7 @@ export default function AssetsPage() {
                     <div>Condition: <strong className="text-ink">{asset.condition}</strong></div>
                     {asset.cost && <div>Value: <strong className="font-mono text-ink">${asset.cost?.toLocaleString()}</strong></div>}
                     {asset.assignedTo && (
-                      <div className="text-emerald-700 font-semibold pt-1">
+                      <div className="text-emerald-400 font-semibold pt-1">
                         Assigned to: {asset.assignedTo.name} ({asset.assignedTo.employeeCode})
                       </div>
                     )}
@@ -190,7 +190,7 @@ export default function AssetsPage() {
                     <div className="flex items-center gap-2 w-full">
                       <Button
                         onClick={() => setAssigningAsset(asset)}
-                        className="h-8 text-xs font-bold bg-copper text-slate-950 gap-1 flex-1"
+                        className="h-8 text-xs font-bold bg-copper text-[#080A0F] gap-1 flex-1"
                       >
                         <UserCheck className="h-3.5 w-3.5" /> Assign to Employee
                       </Button>
@@ -252,7 +252,7 @@ export default function AssetsPage() {
                 assignMut.mutate({ id: assigningAsset.id, employeeId: Number(selectedEmpId) })
               }
               disabled={assignMut.isPending || !selectedEmpId}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Confirm Assignment
             </Button>
@@ -293,7 +293,7 @@ export default function AssetsPage() {
                 createMut.mutate(formData);
               }}
               disabled={createMut.isPending || !formData.name || !formData.serialNumber}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Add Asset
             </Button>
@@ -357,7 +357,7 @@ export default function AssetsPage() {
                 editingAsset && updateAssetMut.mutate({ id: editingAsset.id, data: editingAsset });
               }}
               disabled={updateAssetMut.isPending || !editingAsset?.name}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Asset Updates
             </Button>

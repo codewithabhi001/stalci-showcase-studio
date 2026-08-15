@@ -157,7 +157,7 @@ export default function ExitsPage() {
           </p>
         </div>
 
-        <Button onClick={() => setIsExitOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={() => setIsExitOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Initiate Employee Exit
         </Button>
       </div>
@@ -235,7 +235,7 @@ export default function ExitsPage() {
 
                     <td className="px-5 py-4">
                       {exit.employee?.finalSettlement ? (
-                        <div className="font-mono font-bold text-emerald-600 text-sm">
+                        <div className="font-mono font-bold text-emerald-400 text-sm">
                           ${exit.employee.finalSettlement.netPayableAmount?.toLocaleString()} USD
                         </div>
                       ) : (
@@ -247,7 +247,7 @@ export default function ExitsPage() {
                       <div className="flex items-center justify-end gap-1.5">
                         <Button
                           onClick={() => handleOpenSettlement(exit.employee)}
-                          className="h-8 text-xs font-bold bg-copper text-slate-950 gap-1"
+                          className="h-8 text-xs font-bold bg-copper text-[#080A0F] gap-1"
                         >
                           <DollarSign className="h-3.5 w-3.5" /> Calculate F&F
                         </Button>
@@ -354,7 +354,7 @@ export default function ExitsPage() {
                 exitMut.mutate(exitData);
               }}
               disabled={exitMut.isPending || !exitData.employeeId}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Start Exit Clearance
             </Button>

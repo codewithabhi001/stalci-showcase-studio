@@ -34,8 +34,8 @@ export function Nav({ solid = false }: { solid?: boolean }) {
         <div
           className={`flex items-center justify-between rounded-full px-4 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 ${
             scrolled
-              ? "bg-[#090C15]/90 backdrop-blur-2xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
-              : "bg-[#090C15]/70 backdrop-blur-xl border border-white/10 shadow-lg"
+              ? "bg-[#000000]/95 backdrop-blur-2xl border border-white/15 shadow-[0_12px_40px_rgba(0,0,0,0.8)]"
+              : "bg-[#000000]/80 backdrop-blur-xl border border-white/10 shadow-lg"
           }`}
         >
           {/* Left: Wordmark Logo */}

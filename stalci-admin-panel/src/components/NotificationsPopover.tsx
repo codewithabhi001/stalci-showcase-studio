@@ -54,22 +54,22 @@ export function NotificationsPopover() {
       <button 
         onClick={() => setOpen(!open)}
         aria-label="Notifications" 
-        className={`relative rounded-lg p-1.5 transition-colors ${open ? 'bg-surface text-ink' : 'text-muted hover:bg-black/5 hover:text-ink'}`}
+        className={`relative rounded-lg p-1.5 transition-colors cursor-pointer ${open ? 'bg-surface-2 text-white' : 'text-muted hover:bg-surface hover:text-white'}`}
       >
         <Bell className="h-[17px] w-[17px]" />
         {unreadCount > 0 && (
-          <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-copper ring-2 ring-canvas" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-copper ring-2 ring-surface" />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 overflow-hidden rounded-xl border border-line bg-canvas shadow-xl z-50 animate-fade-up origin-top-right">
-          <div className="flex items-center justify-between border-b border-line px-4 py-3 bg-surface/50">
-            <h3 className="text-[13px] font-semibold text-ink">Notifications</h3>
+        <div className="absolute right-0 top-full mt-2 w-80 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl z-50 animate-fade-up origin-top-right">
+          <div className="flex items-center justify-between border-b border-line px-4 py-3 bg-surface-2/80">
+            <h3 className="text-[13px] font-bold text-white font-display">Notifications</h3>
             {unreadCount > 0 && (
               <button 
                 onClick={() => markReadMut.mutate()}
-                className="flex items-center gap-1 text-[11.5px] font-medium text-copper hover:text-copper-deep transition-colors disabled:opacity-50"
+                className="flex items-center gap-1 text-[11px] font-bold text-copper hover:text-copper-soft transition-colors disabled:opacity-50 cursor-pointer"
                 disabled={markReadMut.isPending}
               >
                 <Check className="h-3.5 w-3.5" />
@@ -92,18 +92,18 @@ export function NotificationsPopover() {
                   const Icon = ICON_MAP[notif.type] || Info;
                   const color = COLOR_MAP[notif.type] || COLOR_MAP.INFO;
                   return (
-                    <div key={notif.id} className={`flex gap-3 px-4 py-3.5 transition-colors hover:bg-surface-2 ${!notif.isRead ? 'bg-surface/30' : ''}`}>
+                    <div key={notif.id} className={`flex gap-3 px-4 py-3.5 transition-colors hover:bg-surface-2 ${!notif.isRead ? 'bg-copper/5' : ''}`}>
                       <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${color}`}>
                         <Icon className="h-4 w-4" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start gap-4">
-                          <p className="text-[13px] font-semibold text-ink">{notif.title}</p>
-                          <span className="text-[11px] text-muted whitespace-nowrap">
+                          <p className="text-[13px] font-semibold text-white">{notif.title}</p>
+                          <span className="text-[10.5px] text-faint whitespace-nowrap font-mono">
                             {new Date(notif.createdAt).toLocaleDateString()}
                           </span>
                         </div>
-                        <p className="mt-0.5 text-[12.5px] text-ink-2 leading-snug">{notif.message}</p>
+                        <p className="mt-0.5 text-[12px] text-muted leading-snug">{notif.message}</p>
                       </div>
                     </div>
                   );
@@ -111,8 +111,8 @@ export function NotificationsPopover() {
               </div>
             )}
           </div>
-          <div className="border-t border-line bg-surface/50 p-2">
-            <Button variant="secondary" className="w-full justify-center h-8 text-[12.5px]">
+          <div className="border-t border-line bg-surface-2/60 p-2">
+            <Button variant="secondary" className="w-full justify-center h-8 text-[12px]">
               View all activity
             </Button>
           </div>

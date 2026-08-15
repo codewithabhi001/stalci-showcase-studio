@@ -119,7 +119,7 @@ const serviceItems: ServiceItem[] = [
 function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
   if (type === "code") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#0B0D14] p-5 flex flex-col justify-between border border-white/10 shadow-sm overflow-hidden">
+      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-between border border-white/10 shadow-sm overflow-hidden">
         <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
@@ -130,7 +130,7 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
         </div>
 
         <div className="my-auto flex flex-col items-center justify-center py-4">
-          <div className="h-20 w-24 rounded-xl bg-[#141A26] border border-white/15 shadow-md flex items-center justify-center">
+          <div className="h-20 w-24 rounded-xl bg-[#111111] border border-white/15 shadow-md flex items-center justify-center">
             <span className="font-mono text-2xl font-bold text-white tracking-wider">
               &lt;/&gt;
             </span>
@@ -150,13 +150,13 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "mobile") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#0B0D14] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="relative w-32 h-48 rounded-[20px] bg-[#141A26] border border-white/15 p-2 flex flex-col justify-between shadow-md">
+      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
+        <div className="relative w-32 h-48 rounded-[20px] bg-[#111111] border border-white/15 p-2 flex flex-col justify-between shadow-md">
           <div className="mx-auto w-10 h-2 rounded-full bg-black/60" />
           <div className="space-y-1.5 p-1 my-auto">
             <div className="h-4 w-full rounded bg-white/5" />
             <div className="h-10 w-full rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-center">
-              <div className="h-5 w-5 rounded-full bg-blue-500/20 border border-blue-400/40" />
+              <div className="h-5 w-5 rounded-full bg-copper/20 border border-copper/40" />
             </div>
             <div className="h-3 w-full rounded bg-white/5" />
           </div>
@@ -168,13 +168,13 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "uiux") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#0B0D14] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
+      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
         <div className="relative w-36 h-40 flex flex-col justify-center items-center">
-          <div className="absolute top-2 w-32 h-16 rounded-xl bg-[#141A26] border border-white/5 opacity-50 transform -rotate-3" />
-          <div className="relative w-36 rounded-xl bg-[#182030] border border-white/15 p-3 space-y-2 shadow-md">
+          <div className="absolute top-2 w-32 h-16 rounded-xl bg-[#111111] border border-white/5 opacity-50 transform -rotate-3" />
+          <div className="relative w-36 rounded-xl bg-[#161616] border border-white/15 p-3 space-y-2 shadow-md">
             <div className="flex justify-between items-center border-b border-white/10 pb-1">
               <span className="h-1.5 w-8 bg-slate-300 rounded-full" />
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+              <span className="h-1.5 w-1.5 rounded-full bg-copper" />
             </div>
             <div className="h-2 w-full bg-white/10 rounded-full" />
             <div className="h-1.5 w-2/3 bg-slate-400/40 rounded-full" />
@@ -186,8 +186,8 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "ai") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#0B0D14] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="h-24 w-24 rounded-2xl bg-[#141A26] border border-white/15 flex flex-col items-center justify-center shadow-md">
+      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
+        <div className="h-24 w-24 rounded-2xl bg-[#111111] border border-white/15 flex flex-col items-center justify-center shadow-md">
           <Cpu className="h-9 w-9 text-slate-200" strokeWidth={1.5} />
           <span className="mt-1 text-[8.5px] font-mono font-bold text-slate-400">AI CORE</span>
         </div>
@@ -197,8 +197,8 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "cloud") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#0B0D14] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="h-24 w-28 rounded-2xl bg-[#141A26] border border-white/15 flex flex-col items-center justify-center shadow-md">
+      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
+        <div className="h-24 w-28 rounded-2xl bg-[#111111] border border-white/15 flex flex-col items-center justify-center shadow-md">
           <Cloud className="h-9 w-9 text-slate-200" strokeWidth={1.5} />
           <span className="mt-1 text-[8.5px] font-mono font-bold text-slate-400">MULTI-CLOUD</span>
         </div>
@@ -207,8 +207,8 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
   }
 
   return (
-    <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#0B0D14] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-      <div className="h-24 w-24 rounded-2xl bg-[#141A26] border border-white/15 flex flex-col items-center justify-center shadow-md">
+    <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
+      <div className="h-24 w-24 rounded-2xl bg-[#111111] border border-white/15 flex flex-col items-center justify-center shadow-md">
         <Shield className="h-9 w-9 text-slate-200" strokeWidth={1.5} />
         <span className="mt-1 text-[8.5px] font-mono font-bold text-slate-400">ZERO TRUST</span>
       </div>

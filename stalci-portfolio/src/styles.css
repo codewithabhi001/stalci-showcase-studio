@@ -61,9 +61,9 @@
 :root {
   --radius: 0.875rem;
 
-  /* STALCI Signature Sovereign Dark & Copper Palette */
-  --ink: #07090E;
-  --ink-soft: #0E131F;
+  /* STALCI Signature Pure Obsidian Black & Radiant Copper Palette */
+  --ink: #000000;
+  --ink-soft: #0A0A0A;
   --ink-line: rgba(255, 255, 255, 0.08);
   --on-ink: #FFFFFF;
   --on-ink-muted: #94A3B8;
@@ -72,17 +72,17 @@
   --copper-soft: #F0BC86;
   --copper-deep: #B4783B;
 
-  --background: #080A0F;
+  --background: #000000;
   --foreground: #FFFFFF;
-  --card: #0E131F;
+  --card: #0A0A0A;
   --card-foreground: #FFFFFF;
-  --popover: #0E131F;
+  --popover: #0A0A0A;
   --popover-foreground: #FFFFFF;
   --primary: #D89B5B;
-  --primary-foreground: #080A0F;
-  --secondary: #141A29;
+  --primary-foreground: #000000;
+  --secondary: #121212;
   --secondary-foreground: #FFFFFF;
-  --muted: #111624;
+  --muted: #0F0F0F;
   --muted-foreground: #94A3B8;
   --accent: rgba(216, 155, 91, 0.12);
   --accent-foreground: #D89B5B;
@@ -98,33 +98,33 @@
   --chart-4: #8B5CF6;
   --chart-5: #F59E0B;
 
-  --sidebar: #080A0F;
+  --sidebar: #000000;
   --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #D89B5B;
-  --sidebar-primary-foreground: #080A0F;
+  --sidebar-primary-foreground: #000000;
   --sidebar-accent: rgba(216, 155, 91, 0.1);
   --sidebar-accent-foreground: #D89B5B;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #D89B5B;
 
   --gradient-copper: linear-gradient(135deg, #B4783B 0%, #D89B5B 50%, #F0BC86 100%);
-  --gradient-ink: linear-gradient(180deg, #0E131F 0%, #07090E 100%);
-  --shadow-lift: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
+  --gradient-ink: linear-gradient(180deg, #0D0D0D 0%, #000000 100%);
+  --shadow-lift: 0 20px 45px -15px rgba(0, 0, 0, 0.9);
   --shadow-glow: 0 0 80px -10px rgba(216, 155, 91, 0.35);
 }
 
 .dark {
-  --background: #080A0F;
+  --background: #000000;
   --foreground: #FFFFFF;
-  --card: #0E131F;
+  --card: #0A0A0A;
   --card-foreground: #FFFFFF;
-  --popover: #0E131F;
+  --popover: #0A0A0A;
   --popover-foreground: #FFFFFF;
   --primary: #D89B5B;
-  --primary-foreground: #080A0F;
-  --secondary: #141A29;
+  --primary-foreground: #000000;
+  --secondary: #121212;
   --secondary-foreground: #FFFFFF;
-  --muted: #111624;
+  --muted: #0F0F0F;
   --muted-foreground: #94A3B8;
   --accent: rgba(216, 155, 91, 0.12);
   --accent-foreground: #D89B5B;

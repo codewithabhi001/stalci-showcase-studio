@@ -197,7 +197,7 @@ export default function InternshipsPage() {
           </p>
         </div>
 
-        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-slate-950 font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Enroll Intern / Fellowship
         </Button>
       </div>
@@ -230,10 +230,10 @@ export default function InternshipsPage() {
                       <div>{intern.employee?.name}</div>
                       <div className="text-[10px] font-mono text-muted">{intern.employee?.employeeCode}</div>
                     </td>
-                    <td className="px-5 py-4 text-slate-700">{intern.institute}</td>
+                    <td className="px-5 py-4 text-ink-2">{intern.institute}</td>
                     <td className="px-5 py-4 text-ink font-medium max-w-xs">{intern.projectTitle}</td>
                     <td className="px-5 py-4 text-copper font-semibold">{intern.mentorName}</td>
-                    <td className="px-5 py-4 font-mono font-bold text-emerald-600">${intern.stipend?.toLocaleString()} / mo</td>
+                    <td className="px-5 py-4 font-mono font-bold text-emerald-400">${intern.stipend?.toLocaleString()} / mo</td>
                     <td className="px-5 py-4 font-mono text-muted text-xs">
                       {new Date(intern.startDate).toLocaleDateString()} - {new Date(intern.endDate).toLocaleDateString()}
                     </td>
@@ -301,7 +301,7 @@ export default function InternshipsPage() {
                 createMut.mutate(formData);
               }}
               disabled={createMut.isPending || !formData.employeeId || !formData.projectTitle}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Enroll Intern Fellowship
             </Button>
@@ -421,7 +421,7 @@ export default function InternshipsPage() {
                 editingIntern && updateInternMut.mutate({ id: editingIntern.id, data: editingIntern });
               }}
               disabled={updateInternMut.isPending || !editingIntern?.projectTitle}
-              className="bg-copper text-slate-950 font-bold"
+              className="bg-copper text-[#080A0F] font-bold"
             >
               Save Internship Updates
             </Button>

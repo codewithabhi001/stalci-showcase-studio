@@ -283,14 +283,12 @@ export function TechStack() {
   const filteredItems = techItems.filter((item) => item.category === activeCategory);
 
   return (
-    <section id="tech-stack" className="relative bg-[#080B12] py-24 sm:py-32 overflow-hidden text-white border-t border-white/10">
-      <div className="absolute inset-0 perspective-grid opacity-30 pointer-events-none" />
-
+    <section id="tech-stack" className="relative bg-[#FAFAFC] py-24 sm:py-32 overflow-hidden text-slate-900 border-t border-slate-200/80">
       <div className="mx-auto max-w-5xl px-5 lg:px-8 relative z-10">
         
         {/* Section Heading */}
         <SectionHeading
-          tone="dark"
+          tone="light"
           eyebrow="Advanced Tech Portfolio"
           title="Using The Right Tools For Powerful Results"
           subtitle="We pick the right stack for your specific project requirements and ensure maximum performance."
@@ -310,8 +308,8 @@ export function TechStack() {
                 }}
                 className={`relative rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "bg-white text-slate-950 font-bold shadow-sm"
-                    : "bg-[#101522] text-slate-300 border border-white/10 hover:border-white/30 hover:text-white"
+                    ? "bg-slate-900 text-white font-bold shadow-sm"
+                    : "bg-white text-slate-600 border border-slate-200 hover:border-slate-400 hover:text-slate-900 shadow-2xs"
                 }`}
               >
                 <span>{cat}</span>
@@ -343,24 +341,24 @@ export function TechStack() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.25, delay: idx * 0.03 }}
-                      className={`relative w-24 h-28 sm:w-28 sm:h-32 hex-cell flex flex-col items-center justify-center p-3 cursor-pointer transition-all duration-200 ${
+                      className={`relative w-24 h-28 sm:w-28 sm:h-32 rounded-2xl flex flex-col items-center justify-center p-3 cursor-pointer transition-all duration-200 ${
                         isSelected
-                          ? "bg-[#1E2738] border border-white/40 shadow-md scale-105"
-                          : "bg-[#101522] border border-white/10 hover:bg-[#161D2C] hover:border-white/25"
+                          ? "bg-white border-2 border-slate-900 shadow-md scale-105"
+                          : "bg-white border border-slate-200/90 shadow-2xs hover:border-slate-400 hover:shadow-xs"
                       }`}
                     >
-                      <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-black/40 border border-white/10 p-1.5 flex items-center justify-center mb-1.5 shadow-inner">
+                      <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-slate-50 border border-slate-200 p-1.5 flex items-center justify-center mb-1.5">
                         <img
                           src={`/icons/${tech.iconSlug}.svg`}
                           alt={`${tech.name} logo`}
-                          className={`h-full w-full object-contain ${isDarkIcon(tech.iconSlug) ? "brightness-0 invert" : ""}`}
+                          className="h-full w-full object-contain"
                           onError={(e) => {
                             (e.target as HTMLElement).style.display = "none";
                           }}
                         />
                       </div>
 
-                      <span className="text-[10px] sm:text-[11px] font-semibold text-slate-200 tracking-tight text-center leading-tight">
+                      <span className="text-[10px] sm:text-[11px] font-semibold text-slate-800 tracking-tight text-center leading-tight">
                         {tech.label}
                       </span>
                     </motion.button>
@@ -377,47 +375,47 @@ export function TechStack() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="mt-10 w-full max-w-xl rounded-2xl border border-white/15 bg-[#0D121C] p-5 sm:p-6 shadow-xl relative overflow-hidden"
+              className="mt-10 w-full max-w-xl rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-md relative overflow-hidden text-slate-900"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-[#161D2B] border border-white/10 p-2 flex items-center justify-center shrink-0">
+                  <div className="h-10 w-10 rounded-xl bg-slate-50 border border-slate-200 p-2 flex items-center justify-center shrink-0">
                     <img
                       src={`/icons/${selectedTech.iconSlug}.svg`}
                       alt={selectedTech.name}
-                      className={`h-full w-full object-contain ${isDarkIcon(selectedTech.iconSlug) ? "brightness-0 invert" : ""}`}
+                      className="h-full w-full object-contain"
                     />
                   </div>
                   <div>
-                    <h4 className="font-display text-base sm:text-lg font-bold text-white leading-tight">
+                    <h4 className="font-display text-base sm:text-lg font-bold text-slate-950 leading-tight">
                       {selectedTech.name}
                     </h4>
-                    <span className="text-[11px] font-mono text-slate-400 font-medium">
+                    <span className="text-[11px] font-mono text-slate-500 font-medium">
                       {selectedTech.badge} &bull; {selectedTech.category}
                     </span>
                   </div>
                 </div>
 
-                <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-white/5 border border-white/10 text-[10px] font-mono font-semibold text-slate-300">
-                  <Sparkles className="h-3 w-3 text-slate-300" />
+                <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 bg-slate-100 border border-slate-200 text-[10px] font-mono font-semibold text-slate-700">
+                  <Sparkles className="h-3 w-3 text-copper" />
                   {selectedTech.proficiency}% Production Grade
                 </span>
               </div>
 
-              <p className="mt-3 text-xs leading-relaxed text-slate-300">
+              <p className="mt-3 text-xs leading-relaxed text-slate-600">
                 {selectedTech.description}
               </p>
 
               {/* Progress bar */}
-              <div className="mt-4 pt-3 border-t border-white/10">
-                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1">
+              <div className="mt-4 pt-3 border-t border-slate-100">
+                <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 mb-1">
                   <span>Production SLA Readiness</span>
-                  <span className="font-semibold text-white">{selectedTech.proficiency}%</span>
+                  <span className="font-semibold text-slate-900">{selectedTech.proficiency}%</span>
                 </div>
-                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
                   <div
                     style={{ width: `${selectedTech.proficiency}%` }}
-                    className="h-full bg-white rounded-full"
+                    className="h-full bg-copper rounded-full"
                   />
                 </div>
               </div>

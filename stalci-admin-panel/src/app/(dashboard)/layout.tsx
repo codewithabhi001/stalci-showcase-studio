@@ -129,34 +129,34 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Top Fixed Brand Header */}
       <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-line bg-surface">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center p-1.5 shadow-2xs">
+          <div className="h-8 w-8 rounded-xl bg-copper/15 border border-copper/30 flex items-center justify-center p-1.5 shadow-2xs">
             <img src="/stalci-mark.png" alt="STALCI mark" className="h-full w-full object-contain" />
           </div>
           <div>
-            <span className="text-[13px] font-extrabold tracking-tight text-slate-900 block leading-tight">
+            <span className="text-[13px] font-bold tracking-tight text-white block leading-tight font-display">
               STALCI STUDIO
             </span>
-            <span className="text-[9px] text-amber-800 tracking-widest uppercase font-mono font-bold">
+            <span className="text-[9px] text-copper tracking-widest uppercase font-mono font-bold">
               Enterprise Control
             </span>
           </div>
         </Link>
-        <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[9.5px] font-bold text-amber-800 border border-amber-200/80">
+        <span className="rounded-full bg-copper/10 px-2 py-0.5 text-[9.5px] font-bold text-copper-soft border border-copper/25 font-mono">
           v3.0 OS
         </span>
       </div>
 
       {/* Quick Search Button */}
-      <div className="px-3 pt-3 pb-2 shrink-0 bg-[#FAFAFD]">
+      <div className="px-3 pt-3 pb-2 shrink-0 bg-canvas">
         <button
           onClick={() => setCommandOpen(true)}
-          className="flex w-full items-center justify-between rounded-xl border border-slate-200/80 bg-white px-3 py-1.5 text-[11.5px] text-slate-500 transition-all hover:border-amber-500 hover:text-slate-900 shadow-2xs cursor-pointer"
+          className="flex w-full items-center justify-between rounded-xl border border-line bg-surface px-3 py-1.5 text-[11.5px] text-muted transition-all hover:border-copper/50 hover:text-white shadow-2xs cursor-pointer"
         >
           <span className="flex items-center gap-2">
-            <Search className="h-3.5 w-3.5 text-amber-700" />
+            <Search className="h-3.5 w-3.5 text-copper" />
             Quick jump...
           </span>
-          <kbd className="rounded border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-[9px] font-mono text-slate-500 font-semibold">
+          <kbd className="rounded border border-line bg-surface-2 px-1.5 py-0.5 text-[9px] font-mono text-faint font-semibold">
             ⌘K
           </kbd>
         </button>
@@ -170,7 +170,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             e.currentTarget.scrollTop += e.deltaY;
           }
         }}
-        className="flex-1 min-h-0 h-[calc(100vh-140px)] overflow-y-scroll overflow-x-hidden scrollable-y px-2.5 py-2 space-y-4 overscroll-contain pb-16 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-300/60 [&::-webkit-scrollbar-thumb]:rounded-full"
+        className="flex-1 min-h-0 h-[calc(100vh-140px)] overflow-y-scroll overflow-x-hidden scrollable-y px-2.5 py-2 space-y-4 overscroll-contain pb-16 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full"
       >
         {navSections.map((sec) => {
           const visibleLinks = sec.links.filter((l) => canAccessRoute(l.href));
@@ -178,7 +178,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           return (
             <div key={sec.title} className="space-y-1">
-              <p className="px-2.5 text-[9.5px] font-mono font-extrabold uppercase tracking-[0.16em] text-slate-400 mb-1">
+              <p className="px-2.5 text-[9.5px] font-mono font-bold uppercase tracking-[0.18em] text-faint mb-1">
                 {sec.title}
               </p>
               <div className="space-y-0.5">
@@ -191,11 +191,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       href={link.href}
                       className={`flex items-center gap-2.5 rounded-xl px-2.5 py-1.5 text-[12px] transition-all duration-150 ${
                         active
-                          ? "bg-slate-900 text-white font-bold shadow-sm shadow-slate-900/20"
-                          : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 font-medium"
+                          ? "bg-copper/15 text-copper-soft font-bold border border-copper/30 shadow-xs shadow-copper/10"
+                          : "text-muted hover:bg-surface-2 hover:text-white font-medium border border-transparent"
                       }`}
                     >
-                      <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-amber-400" : "text-amber-700"}`} />
+                      <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-copper" : "text-faint"}`} />
                       <span className="truncate">{link.label}</span>
                     </Link>
                   );
@@ -207,25 +207,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </nav>
 
       {/* Bottom Pinned Footer */}
-      <div className="p-3 shrink-0 border-t border-slate-200/80 bg-white space-y-1.5">
+      <div className="p-3 shrink-0 border-t border-line bg-surface space-y-1.5">
         <a
           href="http://localhost:8080"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors border border-slate-200/60"
+          className="flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-ink-2 hover:bg-surface-2 hover:text-white transition-colors border border-line"
         >
           <span className="flex items-center gap-2">
-            <ExternalLink className="h-3.5 w-3.5 text-amber-700" />
+            <ExternalLink className="h-3.5 w-3.5 text-copper" />
             Live Portfolio
           </span>
-          <span className="text-[9.5px] font-mono font-bold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">
+          <span className="text-[9.5px] font-mono font-bold text-copper bg-copper/10 px-1.5 py-0.5 rounded border border-copper/30">
             :8080 ↗
           </span>
         </a>
 
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-rose-600 hover:bg-rose-50 hover:text-rose-700 transition-colors cursor-pointer"
+          className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors cursor-pointer"
         >
           <LogOut className="h-3.5 w-3.5" />
           Sign out
@@ -245,7 +245,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity"
             onClick={() => setMobileOpen(false)}
           />
           <div className="fixed inset-y-0 left-0 w-72 max-w-[85vw] shadow-2xl">
