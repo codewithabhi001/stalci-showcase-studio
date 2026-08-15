@@ -53,26 +53,26 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-[#FAFAFC] relative isolate overflow-hidden py-20 sm:py-28 text-slate-900 border-t border-slate-200/80">
+    <section id="contact" className="bg-[#FAFAFC] relative isolate overflow-hidden py-20 sm:py-28 text-black border-t border-zinc-200/90">
       <div className="relative mx-auto grid max-w-5xl gap-10 px-5 lg:grid-cols-2 lg:px-8">
         <div ref={staggerRef}>
           <BadgePill tone="light">Engage STALCI</BadgePill>
-          <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+          <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-950 leading-tight">
             Architect Your Digital Transformation.
           </h2>
-          <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600">
+          <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-600">
             Detail your enterprise initiative, platform architecture, or cloud migration. A Principal Solutions Architect will connect with you within one business day.
           </p>
 
           <ul className="mt-8 space-y-4">
             {details.map((d) => (
               <li key={d.label} className="flex items-start gap-3.5">
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-copper shadow-2xs">
+                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-zinc-200 bg-white text-copper shadow-2xs">
                   <d.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-bold">{d.label}</p>
-                  <p className="mt-0.5 truncate text-xs sm:text-sm font-semibold text-slate-800">{d.value}</p>
+                  <p className="text-[10px] uppercase font-mono tracking-wider text-zinc-500 font-bold">{d.label}</p>
+                  <p className="mt-0.5 truncate text-xs sm:text-sm font-semibold text-zinc-900">{d.value}</p>
                 </div>
               </li>
             ))}
@@ -81,7 +81,7 @@ export function Contact() {
 
         <div 
           ref={formRevealRef}
-          className="relative rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-md"
+          className="relative rounded-2xl border border-zinc-200/90 bg-white p-6 sm:p-7 shadow-md"
         >
           <AnimatePresence mode="wait">
             {sent ? (
@@ -93,8 +93,8 @@ export function Contact() {
                 className="flex h-full flex-col items-center justify-center gap-3 py-10 text-center"
               >
                 <CheckCircle2 className="h-10 w-10 text-emerald-600" strokeWidth={1.5} />
-                <h3 className="text-base font-bold text-slate-950">Inquiry Received</h3>
-                <p className="max-w-xs text-xs text-slate-600">
+                <h3 className="text-base font-bold text-zinc-950">Inquiry Received</h3>
+                <p className="max-w-xs text-xs text-zinc-600">
                   A STALCI Principal Architect will contact you within one business day.
                 </p>
               </motion.div>
@@ -119,12 +119,12 @@ export function Contact() {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Field label="Company" name="company" placeholder="Company Ltd." />
                   <div>
-                    <label className="text-[11px] font-semibold text-slate-700 block mb-1">
+                    <label className="text-[11px] font-semibold text-zinc-700 block mb-1">
                       Service Practice
                     </label>
                     <select
                       name="service"
-                      className="w-full rounded-lg border border-slate-200 bg-[#F8FAFC] px-3 py-2 text-xs text-slate-900 outline-none focus:border-slate-400 focus:bg-white"
+                      className="w-full rounded-lg border border-zinc-200 bg-[#F8FAFC] px-3 py-2 text-xs text-zinc-900 outline-none focus:border-zinc-400 focus:bg-white"
                       defaultValue="Custom Software"
                     >
                       {[
@@ -137,7 +137,7 @@ export function Contact() {
                         "Automation",
                         "Managed IT",
                       ].map((o) => (
-                        <option key={o} value={o} className="bg-white text-slate-900">
+                        <option key={o} value={o} className="bg-white text-zinc-900">
                           {o}
                         </option>
                       ))}
@@ -145,12 +145,12 @@ export function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-[11px] font-semibold text-slate-700 block mb-1">Project Details</label>
+                  <label className="text-[11px] font-semibold text-zinc-700 block mb-1">Project Details</label>
                   <textarea
                     rows={3}
                     name="message"
                     placeholder="Describe your enterprise scope, timeline, and goals..."
-                    className="w-full rounded-lg border border-slate-200 bg-[#F8FAFC] px-3 py-2 text-xs text-slate-900 outline-none focus:border-slate-400 focus:bg-white placeholder:text-slate-400"
+                    className="w-full rounded-lg border border-zinc-200 bg-[#F8FAFC] px-3 py-2 text-xs text-zinc-900 outline-none focus:border-zinc-400 focus:bg-white placeholder:text-zinc-400"
                     required
                   />
                 </div>
@@ -159,7 +159,7 @@ export function Contact() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-xs font-bold text-white bg-black hover:bg-zinc-800 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
                   >
                     {submitting ? "Initiating..." : "Initiate Consultation"}
                     <Send className="h-3.5 w-3.5" />
@@ -187,13 +187,13 @@ function Field({
 }) {
   return (
     <div>
-      <label className="text-[11px] font-semibold text-slate-700 block mb-1">{label}</label>
+      <label className="text-[11px] font-semibold text-zinc-700 block mb-1">{label}</label>
       <input
         type={type}
         name={name}
         placeholder={placeholder}
         required
-        className="w-full rounded-lg border border-slate-200 bg-[#F8FAFC] px-3 py-2 text-xs text-slate-900 outline-none focus:border-slate-400 focus:bg-white placeholder:text-slate-400"
+        className="w-full rounded-lg border border-zinc-200 bg-[#F8FAFC] px-3 py-2 text-xs text-zinc-900 outline-none focus:border-zinc-400 focus:bg-white placeholder:text-zinc-400"
       />
     </div>
   );

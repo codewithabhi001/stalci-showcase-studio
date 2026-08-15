@@ -77,13 +77,13 @@ export function Footer() {
               <Wordmark />
             </div>
             
-            <p className="max-w-sm text-xs leading-relaxed text-slate-400 font-normal">
+            <p className="max-w-sm text-xs leading-relaxed text-neutral-400 font-normal">
               STALCI is a global engineering studio delivering mission-critical custom software, sovereign AI systems, multi-cloud platforms, and cybersecurity resilience.
             </p>
 
             {/* Status & Compliance Badge */}
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono text-slate-300">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono text-neutral-300">
                 <span className="flex h-1.5 w-1.5 relative">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -91,8 +91,8 @@ export function Footer() {
                 <span>Global Uptime 99.99%</span>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono text-slate-400">
-                <ShieldCheck className="h-3.5 w-3.5 text-slate-400" />
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] font-mono text-neutral-400">
+                <ShieldCheck className="h-3.5 w-3.5 text-neutral-400" />
                 <span>ISO 27001 / SOC 2 Ready</span>
               </div>
             </div>
@@ -107,7 +107,7 @@ export function Footer() {
                   rel="noreferrer"
                   aria-label={`STALCI ${item.label} channel`}
                   title={item.label}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition-all hover:border-white/30 hover:text-white hover:bg-white/10 bg-white/[0.03]"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-neutral-400 transition-all hover:border-white/30 hover:text-white hover:bg-white/10 bg-white/[0.03]"
                 >
                   <item.icon className="h-3.5 w-3.5" />
                 </a>
@@ -119,7 +119,7 @@ export function Footer() {
           <div ref={staggerColumnsRef} className="grid gap-8 sm:grid-cols-3 lg:gap-14">
             {columns.map((c) => (
               <div key={c.title}>
-                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-200">
+                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-200">
                   {c.title}
                 </h4>
                 <ul className="mt-4 space-y-2.5">
@@ -127,7 +127,7 @@ export function Footer() {
                     <li key={l.name}>
                       <a
                         href={l.href}
-                        className="text-xs text-slate-400 transition-colors hover:text-white inline-block"
+                        className="text-xs text-neutral-400 transition-colors hover:text-white inline-block"
                       >
                         {l.name}
                       </a>
@@ -142,10 +142,10 @@ export function Footer() {
 
         {/* Bottom Copyright & Legal Links */}
         <div className="mt-14 relative flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">
-          <p className="text-[11px] text-slate-500 font-mono">
+          <p className="text-[11px] text-neutral-500 font-mono">
             © {new Date().getFullYear()} STALCI Global Inc. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-[11px] text-slate-400 font-mono">
+          <div className="flex items-center gap-6 text-[11px] text-neutral-400 font-mono">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>

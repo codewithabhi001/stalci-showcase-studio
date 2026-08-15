@@ -394,8 +394,8 @@ html.lenis body {
 .pill-badge-gradient {
   position: relative;
   border-radius: 9999px;
-  background: linear-gradient(#0C101B, #0C101B) padding-box,
-              linear-gradient(135deg, #FF6B6B, #4ECDC4, #FFE66D, #D89B5B) border-box;
+  background: linear-gradient(#000000, #000000) padding-box,
+              linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(216, 155, 91, 0.5), rgba(255, 255, 255, 0.1)) border-box;
   border: 1px solid transparent;
   color: #FFFFFF;
 }
@@ -404,9 +404,9 @@ html.lenis body {
   position: relative;
   border-radius: 9999px;
   background: linear-gradient(#FFFFFF, #FFFFFF) padding-box,
-              linear-gradient(135deg, #D89B5B, #F0BC86, #3B82F6, #D89B5B) border-box;
+              linear-gradient(135deg, #D89B5B, #F0BC86, #18181b, #D89B5B) border-box;
   border: 1.5px solid transparent;
-  color: #334155;
+  color: #18181b;
 }
 
 /* ─── Watermark Number ─── */

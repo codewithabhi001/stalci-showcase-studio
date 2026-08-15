@@ -74,7 +74,7 @@ export function Hero() {
           className="flex flex-col items-center justify-center gap-3.5"
         >
           <Monogram />
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1 text-[11px] font-mono text-slate-300 backdrop-blur-md shadow-inner">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1 text-[11px] font-mono text-neutral-300 backdrop-blur-md shadow-inner">
             <span className="flex h-1.5 w-1.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -91,7 +91,7 @@ export function Hero() {
           className="mt-6 text-balance text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-white max-w-3xl mx-auto"
         >
           Architecting Sovereign <br className="hidden sm:inline" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-neutral-400">
             AI & Multi-Cloud Systems
           </span>
         </motion.h1>
@@ -101,7 +101,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.16 }}
-          className="mt-5 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed text-slate-400 font-normal"
+          className="mt-5 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed text-neutral-400 font-normal"
         >
           {heroSubtitle}
         </motion.p>
@@ -115,7 +115,7 @@ export function Hero() {
         >
           <a
             href="#projects"
-            className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-xs font-bold text-slate-950 bg-white hover:bg-slate-200 transition-all shadow-md hover:scale-[1.02] active:scale-98"
+            className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-xs font-bold text-zinc-950 bg-white hover:bg-neutral-200 transition-all shadow-md hover:scale-[1.02] active:scale-98"
           >
             <span>Explore Case Studies</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -133,7 +133,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.32 }}
-          className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 text-[11px] text-slate-400"
+          className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3 text-[11px] text-neutral-400"
         >
           <div className="flex items-center -space-x-2">
             {avatars.map((img, idx) => (
@@ -151,7 +151,7 @@ export function Hero() {
                 <Star key={i} className="h-3 w-3 fill-amber-400/90" />
               ))}
             </div>
-            <span className="text-slate-300 font-medium">
+            <span className="text-neutral-300 font-medium">
               Trusted by 140+ enterprise partners worldwide
             </span>
           </div>
@@ -162,18 +162,18 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-[11px] text-slate-400 font-mono"
+          className="mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-[11px] text-neutral-400 font-mono"
         >
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-3.5 w-3.5 text-slate-300" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-neutral-300" />
             <span>100% Type-Safe TypeScript</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-3.5 w-3.5 text-slate-300" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-neutral-300" />
             <span>99.99% Production SLA Uptime</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-3.5 w-3.5 text-slate-300" />
+            <CheckCircle2 className="h-3.5 w-3.5 text-neutral-300" />
             <span>Zero-Trust Cybersecurity</span>
           </div>
         </motion.div>

@@ -37,7 +37,7 @@ const roiCards = [
 
 export function RoiShowcase() {
   return (
-    <section className="relative bg-[#FAFAFC] py-20 sm:py-28 text-slate-900 border-t border-slate-200/80 overflow-hidden">
+    <section className="relative bg-[#FAFAFC] py-20 sm:py-28 text-black border-t border-zinc-200/90 overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
         <SectionHeading
           tone="light"
@@ -60,21 +60,21 @@ export function RoiShowcase() {
             >
               {/* Visual Multiplier Card */}
               <div className="relative group">
-                <div className="relative rounded-2xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-xs hover:border-slate-400/60 hover:shadow-md transition-all duration-300 min-h-[170px] flex flex-col justify-between overflow-hidden">
+                <div className="relative rounded-2xl bg-white border border-zinc-200/90 p-6 sm:p-8 shadow-xs hover:border-zinc-400 hover:shadow-md transition-all duration-300 min-h-[170px] flex flex-col justify-between overflow-hidden">
                   
                   {/* Icon & Tag */}
                   <div className="relative z-10">
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white shadow-xs">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white shadow-xs">
                       <item.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
                     </div>
-                    <span className="block mt-2.5 text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400">
+                    <span className="block mt-2.5 text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500">
                       {item.tag}
                     </span>
                   </div>
 
                   {/* Watermark Multiplier */}
                   <div className="absolute bottom-1 right-5 sm:right-6 z-0">
-                    <span className="font-display text-6xl sm:text-7xl font-extrabold text-slate-100/90 select-none tracking-tighter leading-none">
+                    <span className="font-display text-6xl sm:text-7xl font-extrabold text-zinc-100 select-none tracking-tighter leading-none">
                       {item.multiplier}
                     </span>
                   </div>
@@ -83,10 +83,10 @@ export function RoiShowcase() {
 
               {/* Text Narrative Column */}
               <div className="flex flex-col justify-center space-y-2">
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug tracking-tight">
+                <h3 className="text-base sm:text-lg font-bold text-zinc-950 leading-snug tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
+                <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 font-normal">
                   {item.description}
                 </p>
               </div>

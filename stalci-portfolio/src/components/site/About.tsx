@@ -1,36 +1,47 @@
-import { Lightbulb, Award, ShieldCheck, Users, Globe2 } from "lucide-react";
+import { Lightbulb, Award, ShieldCheck, Users, Globe2, CheckCircle2 } from "lucide-react";
 import { SectionHeading } from "./Brand";
-import { useScrollReveal, useStaggerReveal, useParallax, useCountUp } from "@/lib/animations";
+import { useScrollReveal, useStaggerReveal, useParallax } from "@/lib/animations";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSiteConfigMap, fetchStats } from "@/lib/api";
 
 const values = [
-  { icon: Lightbulb, title: "Innovation & Speed", copy: "We architect scalable solutions that accelerate enterprise time-to-market without compromising resilience." },
-  { icon: Award, title: "Engineering Excellence", copy: "Uncompromising software craftsmanship and rigorous code quality for mission-critical IT systems." },
-  { icon: ShieldCheck, title: "Zero-Trust Integrity", copy: "Transparent IT governance, automated regulatory compliance, and predictable delivery milestones." },
-  { icon: Users, title: "Embedded Collaboration", copy: "Seamlessly integrating alongside your core engineering team as a dedicated high-velocity agile pod." },
-  { icon: Globe2, title: "Measurable Business Impact", copy: "Strategic technology programs governed by tangible operational KPIs and bottom-line growth." },
+  { 
+    icon: Lightbulb, 
+    title: "Continuous Innovation & Speed", 
+    tag: "High Velocity",
+    copy: "We architect scalable distributed systems that accelerate enterprise time-to-market without compromising resilience.",
+    metricLabel: "Cadence",
+    metricValue: "Bi-weekly Sprints",
+  },
+  { 
+    icon: Award, 
+    title: "100% Type-Safe Craftsmanship", 
+    tag: "Zero Regressions",
+    copy: "Uncompromising code quality with strict static typing, automated integration suites, and principal code reviews.",
+    metricLabel: "Test Coverage",
+    metricValue: "> 95% Automated",
+  },
+  { 
+    icon: ShieldCheck, 
+    title: "Zero-Trust Security & Compliance", 
+    tag: "ISO 27001 / SOC 2",
+    copy: "Transparent IT governance, automated regulatory compliance, dynamic IAM pruning, and cryptographic safety.",
+    metricLabel: "Standard",
+    metricValue: "FIDO2 & Enclaves",
+  },
+  { 
+    icon: Users, 
+    title: "Embedded Agile Squads", 
+    tag: "Dedicated Pod",
+    copy: "Seamlessly integrating alongside your core engineering leadership as a dedicated high-velocity agile pod.",
+    metricLabel: "Team Model",
+    metricValue: "100% Senior Staff",
+  },
 ];
-
-function StatItem({ stat }: { stat: { value: string; label: string } }) {
-  const numericVal = parseInt(stat.value.replace(/[^0-9]/g, ""), 10) || 100;
-  const suffix = stat.value.includes("%") ? "%" : stat.value.includes("+") ? "+" : "";
-
-  const ref = useCountUp(numericVal, { suffix }) as any;
-
-  return (
-    <div className="bg-white rounded-xl px-4 py-4 border border-slate-200 shadow-2xs hover:border-slate-400 transition-colors">
-      <dt ref={ref} className="text-2xl sm:text-3xl font-bold text-slate-900">
-        0{suffix}
-      </dt>
-      <dd className="mt-1 text-[11px] font-medium leading-snug text-slate-500">{stat.label}</dd>
-    </div>
-  );
-}
 
 export function About() {
   const textRevealRef = useScrollReveal({ direction: "up", distance: 30 }) as any;
-  const staggerRef = useStaggerReveal({ staggerChildren: 0.08 }) as any;
+  const staggerRef = useStaggerReveal({ staggerChildren: 0.06 }) as any;
   const parallaxRef = useParallax(0.02) as any;
 
   const { data: config = {} } = useQuery({
@@ -60,10 +71,13 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="bg-[#F8FAFC] py-20 sm:py-28 relative text-slate-900 border-t border-slate-200/80">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
-        <div className="grid items-start gap-10 lg:grid-cols-2">
-          <div ref={textRevealRef}>
+    <section id="about" className="border-t border-zinc-200/90 bg-white py-20 sm:py-28 text-black">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+        
+        <div className="grid items-start gap-10 lg:grid-cols-12">
+          
+          {/* Left Column: Heading, Body & Metric Counters */}
+          <div ref={textRevealRef} className="lg:col-span-6 space-y-6">
             <SectionHeading
               align="left"
               eyebrow="About STALCI"
@@ -71,37 +85,79 @@ export function About() {
               subtitle={aboutSubtitle}
               tone="light"
             />
-            <p className="mt-5 text-xs sm:text-sm leading-relaxed text-slate-600">
+            
+            <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 font-normal">
               {aboutBody}
             </p>
 
-            <dl className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {dynamicStats.map((s) => (
-                <StatItem key={s.label} stat={s} />
-              ))}
-            </dl>
-          </div>
-
-          <div ref={parallaxRef}>
-            <div ref={staggerRef} className="grid gap-3.5 sm:grid-cols-2">
-              {values.map((v, i) => (
-                <div
-                  key={v.title}
-                  className={
-                    "rounded-xl bg-white p-5 border border-slate-200 shadow-2xs hover:border-slate-400 transition-colors " +
-                    (i === 0 || i === 3 || i === 4 ? "sm:col-span-2" : "sm:col-span-1")
-                  }
-                >
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 border border-slate-200 text-slate-800">
-                    <v.icon className="h-4.5 w-4.5" strokeWidth={1.8} />
-                  </span>
-                  <h3 className="mt-3 text-sm font-bold text-slate-900">{v.title}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">{v.copy}</p>
-                </div>
-              ))}
+            {/* Metric Counters Grid */}
+            <div className="pt-3">
+              <dl className="grid grid-cols-2 gap-3 sm:gap-4">
+                {dynamicStats.map((stat, i) => (
+                  <div 
+                    key={i}
+                    className="rounded-2xl bg-zinc-50/70 p-4 border border-zinc-200/90 shadow-2xs hover:border-zinc-400 transition-all"
+                  >
+                    <dt className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight font-display">
+                      {stat.value}
+                    </dt>
+                    <dd className="mt-1 text-[11px] font-mono text-zinc-500 font-medium leading-snug">
+                      {stat.label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
+
+          {/* Right Column: Clean Value Cards */}
+          <div ref={parallaxRef} className="lg:col-span-6">
+            <div ref={staggerRef} className="grid gap-4 sm:grid-cols-2">
+              {values.map((v) => {
+                const Icon = v.icon;
+                return (
+                  <div
+                    key={v.title}
+                    className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200/90 bg-white p-5 transition-all duration-200 hover:border-zinc-400 hover:shadow-md hover:-translate-y-0.5"
+                  >
+                    <div>
+                      {/* Top Row: Icon + Tag */}
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-zinc-50 border border-zinc-200/90 text-zinc-950 shadow-2xs">
+                          <Icon className="h-5 w-5 text-zinc-950" strokeWidth={1.8} />
+                        </div>
+                        
+                        <span className="inline-flex items-center rounded-full bg-zinc-100 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-800 border border-zinc-200">
+                          {v.tag}
+                        </span>
+                      </div>
+
+                      {/* Title & Summary */}
+                      <h3 className="mt-3.5 text-sm sm:text-base font-bold text-zinc-950 tracking-tight">
+                        {v.title}
+                      </h3>
+                      <p className="mt-1.5 text-xs leading-relaxed text-zinc-600 font-normal">
+                        {v.copy}
+                      </p>
+                    </div>
+
+                    {/* Bottom Metric */}
+                    <div className="mt-4 flex items-center justify-between border-t border-zinc-100 pt-3 text-[11px] font-mono">
+                      <span className="text-zinc-400 font-bold uppercase text-[9.5px]">
+                        {v.metricLabel}
+                      </span>
+                      <span className="font-bold text-zinc-950">
+                        {v.metricValue}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
   );

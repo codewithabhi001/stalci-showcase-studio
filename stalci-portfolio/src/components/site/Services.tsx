@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Cpu, Cloud, Shield } from "lucide-react";
+import { ArrowRight, Cpu, Cloud, Shield, Code2, Smartphone, Palette } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { motion } from "framer-motion";
 
@@ -90,7 +90,7 @@ const serviceItems: ServiceItem[] = [
     projects: ["Multi-Region Clusters", "Kubernetes Platforms", "FinOps Cloud Optimization"],
     toolsSubtitle: "Enterprise cloud platforms and declarative infrastructure.",
     tools: [
-      { name: "AWS", iconSlug: "googlecloud" },
+      { name: "AWS", iconSlug: "aws" },
       { name: "Docker", iconSlug: "docker" },
       { name: "Kubernetes", iconSlug: "kubernetes" },
       { name: "Terraform", iconSlug: "terraform" },
@@ -119,30 +119,28 @@ const serviceItems: ServiceItem[] = [
 function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
   if (type === "code") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-between border border-white/10 shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+      <div className="relative w-full h-full min-h-[200px] sm:min-h-[230px] rounded-2xl bg-[#FAFAFC] p-5 flex flex-col justify-between border border-zinc-200/90 shadow-2xs overflow-hidden">
+        <div className="flex items-center justify-between border-b border-zinc-200/80 pb-2.5">
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-zinc-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-zinc-300" />
+            <span className="h-2.5 w-2.5 rounded-full bg-zinc-300" />
           </div>
-          <span className="text-[10px] font-mono text-slate-400">App.tsx</span>
+          <span className="text-[10px] font-mono text-zinc-500 font-semibold">App.tsx</span>
         </div>
 
         <div className="my-auto flex flex-col items-center justify-center py-4">
-          <div className="h-20 w-24 rounded-xl bg-[#111111] border border-white/15 shadow-md flex items-center justify-center">
-            <span className="font-mono text-2xl font-bold text-white tracking-wider">
-              &lt;/&gt;
-            </span>
+          <div className="h-16 w-20 rounded-xl bg-white border border-zinc-200 shadow-2xs flex items-center justify-center">
+            <Code2 className="h-8 w-8 text-zinc-950" strokeWidth={1.8} />
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-2 border-t border-white/5">
-          <span className="text-emerald-400 font-medium flex items-center gap-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            100/100 Vitals
+        <div className="flex items-center justify-between text-[10px] font-mono text-zinc-600 pt-2 border-t border-zinc-200/80">
+          <span className="text-emerald-700 font-bold flex items-center gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+            100/100 Core Vitals
           </span>
-          <span>Next.js 16</span>
+          <span className="text-zinc-500">React 19 / Next.js 16</span>
         </div>
       </div>
     );
@@ -150,17 +148,10 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "mobile") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="relative w-32 h-48 rounded-[20px] bg-[#111111] border border-white/15 p-2 flex flex-col justify-between shadow-md">
-          <div className="mx-auto w-10 h-2 rounded-full bg-black/60" />
-          <div className="space-y-1.5 p-1 my-auto">
-            <div className="h-4 w-full rounded bg-white/5" />
-            <div className="h-10 w-full rounded-lg bg-white/[0.03] border border-white/5 flex items-center justify-center">
-              <div className="h-5 w-5 rounded-full bg-copper/20 border border-copper/40" />
-            </div>
-            <div className="h-3 w-full rounded bg-white/5" />
-          </div>
-          <div className="mx-auto w-10 h-1 rounded-full bg-white/20" />
+      <div className="relative w-full h-full min-h-[200px] sm:min-h-[230px] rounded-2xl bg-[#FAFAFC] p-5 flex flex-col justify-center items-center border border-zinc-200/90 shadow-2xs overflow-hidden">
+        <div className="h-20 w-20 rounded-2xl bg-white border border-zinc-200 shadow-2xs flex flex-col items-center justify-center">
+          <Smartphone className="h-8 w-8 text-zinc-950" strokeWidth={1.8} />
+          <span className="mt-1 text-[9px] font-mono font-bold text-zinc-600">iOS & Android</span>
         </div>
       </div>
     );
@@ -168,17 +159,10 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "uiux") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="relative w-36 h-40 flex flex-col justify-center items-center">
-          <div className="absolute top-2 w-32 h-16 rounded-xl bg-[#111111] border border-white/5 opacity-50 transform -rotate-3" />
-          <div className="relative w-36 rounded-xl bg-[#161616] border border-white/15 p-3 space-y-2 shadow-md">
-            <div className="flex justify-between items-center border-b border-white/10 pb-1">
-              <span className="h-1.5 w-8 bg-slate-300 rounded-full" />
-              <span className="h-1.5 w-1.5 rounded-full bg-copper" />
-            </div>
-            <div className="h-2 w-full bg-white/10 rounded-full" />
-            <div className="h-1.5 w-2/3 bg-slate-400/40 rounded-full" />
-          </div>
+      <div className="relative w-full h-full min-h-[200px] sm:min-h-[230px] rounded-2xl bg-[#FAFAFC] p-5 flex flex-col justify-center items-center border border-zinc-200/90 shadow-2xs overflow-hidden">
+        <div className="h-20 w-20 rounded-2xl bg-white border border-zinc-200 shadow-2xs flex flex-col items-center justify-center">
+          <Palette className="h-8 w-8 text-zinc-950" strokeWidth={1.8} />
+          <span className="mt-1 text-[9px] font-mono font-bold text-zinc-600">Design System</span>
         </div>
       </div>
     );
@@ -186,10 +170,10 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "ai") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="h-24 w-24 rounded-2xl bg-[#111111] border border-white/15 flex flex-col items-center justify-center shadow-md">
-          <Cpu className="h-9 w-9 text-slate-200" strokeWidth={1.5} />
-          <span className="mt-1 text-[8.5px] font-mono font-bold text-slate-400">AI CORE</span>
+      <div className="relative w-full h-full min-h-[200px] sm:min-h-[230px] rounded-2xl bg-[#FAFAFC] p-5 flex flex-col justify-center items-center border border-zinc-200/90 shadow-2xs overflow-hidden">
+        <div className="h-20 w-20 rounded-2xl bg-white border border-zinc-200 shadow-2xs flex flex-col items-center justify-center">
+          <Cpu className="h-8 w-8 text-zinc-950" strokeWidth={1.8} />
+          <span className="mt-1 text-[9px] font-mono font-bold text-zinc-600">AI Core</span>
         </div>
       </div>
     );
@@ -197,20 +181,20 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
   if (type === "cloud") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-        <div className="h-24 w-28 rounded-2xl bg-[#111111] border border-white/15 flex flex-col items-center justify-center shadow-md">
-          <Cloud className="h-9 w-9 text-slate-200" strokeWidth={1.5} />
-          <span className="mt-1 text-[8.5px] font-mono font-bold text-slate-400">MULTI-CLOUD</span>
+      <div className="relative w-full h-full min-h-[200px] sm:min-h-[230px] rounded-2xl bg-[#FAFAFC] p-5 flex flex-col justify-center items-center border border-zinc-200/90 shadow-2xs overflow-hidden">
+        <div className="h-20 w-20 rounded-2xl bg-white border border-zinc-200 shadow-2xs flex flex-col items-center justify-center">
+          <Cloud className="h-8 w-8 text-zinc-950" strokeWidth={1.8} />
+          <span className="mt-1 text-[9px] font-mono font-bold text-zinc-600">Multi-Cloud</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-full min-h-[220px] sm:min-h-[250px] rounded-2xl bg-[#000000] p-5 flex flex-col justify-center items-center border border-white/10 shadow-sm overflow-hidden">
-      <div className="h-24 w-24 rounded-2xl bg-[#111111] border border-white/15 flex flex-col items-center justify-center shadow-md">
-        <Shield className="h-9 w-9 text-slate-200" strokeWidth={1.5} />
-        <span className="mt-1 text-[8.5px] font-mono font-bold text-slate-400">ZERO TRUST</span>
+    <div className="relative w-full h-full min-h-[200px] sm:min-h-[230px] rounded-2xl bg-[#FAFAFC] p-5 flex flex-col justify-center items-center border border-zinc-200/90 shadow-2xs overflow-hidden">
+      <div className="h-20 w-20 rounded-2xl bg-white border border-zinc-200 shadow-2xs flex flex-col items-center justify-center">
+        <Shield className="h-8 w-8 text-zinc-950" strokeWidth={1.8} />
+        <span className="mt-1 text-[9px] font-mono font-bold text-zinc-600">Zero-Trust</span>
       </div>
     </div>
   );
@@ -218,8 +202,8 @@ function ServiceVisual({ type }: { type: ServiceItem["visualType"] }) {
 
 export function Services() {
   return (
-    <section id="services" className="bg-[#FFFFFF] py-20 sm:py-28 text-slate-900 border-t border-slate-200/80">
-      <div className="mx-auto max-w-5xl px-5 lg:px-8">
+    <section id="services" className="bg-[#FFFFFF] py-20 sm:py-28 text-black border-t border-zinc-200/90">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8">
         <SectionHeading
           eyebrow="What We Build & Deliver"
           title="Enterprise IT Services, End-to-End"
@@ -227,49 +211,49 @@ export function Services() {
           tone="light"
         />
 
-        <div className="mt-14 space-y-8 sm:space-y-10">
+        <div className="mt-14 space-y-6 sm:space-y-8">
           {serviceItems.map((service, idx) => (
             <motion.div
               key={service.slug}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: idx * 0.06 }}
-              className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs hover:border-slate-400/60 hover:shadow-md transition-all duration-300"
+              transition={{ duration: 0.35, delay: idx * 0.05 }}
+              className="rounded-3xl border border-zinc-200/90 bg-[#FFFFFF] p-6 sm:p-8 shadow-xs hover:border-zinc-400 hover:shadow-md transition-all duration-200"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                 
-                {/* Left Visual Box (lg:col-span-5) */}
-                <div className="lg:col-span-5 h-full">
+                {/* Left Visual Box (lg:col-span-4) */}
+                <div className="lg:col-span-4 h-full">
                   <ServiceVisual type={service.visualType} />
                 </div>
 
-                {/* Right Narrative (lg:col-span-7) */}
-                <div className="lg:col-span-7 flex flex-col justify-between space-y-5">
+                {/* Right Narrative (lg:col-span-8) */}
+                <div className="lg:col-span-8 flex flex-col justify-between space-y-4">
                   
                   {/* Titles */}
                   <div>
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-zinc-950 tracking-tight">
                       {service.title}
                     </h3>
-                    <h4 className="mt-0.5 text-xs sm:text-sm font-semibold text-slate-700">
+                    <h4 className="mt-0.5 text-xs sm:text-sm font-semibold text-copper">
                       {service.tagline}
                     </h4>
-                    <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-zinc-600 font-normal">
                       {service.description}
                     </p>
                   </div>
 
                   {/* Projects */}
                   <div>
-                    <span className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-900 mb-2">
-                      Projects
+                    <span className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-950 mb-1.5">
+                      Projects & Workloads
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {service.projects.map((proj) => (
                         <span
                           key={proj}
-                          className="rounded-full border border-slate-200 bg-slate-50 px-3 py-0.5 text-[11px] font-medium text-slate-700"
+                          className="rounded-full border border-zinc-200 bg-[#FAFAFC] px-3 py-0.5 text-[11px] font-medium text-zinc-700"
                         >
                           {proj}
                         </span>
@@ -279,17 +263,14 @@ export function Services() {
 
                   {/* Tools We Use */}
                   <div>
-                    <span className="block text-[11px] font-mono font-bold uppercase tracking-wider text-slate-900 mb-0.5">
-                      Tools We use
+                    <span className="block text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-950 mb-1">
+                      Toolchain
                     </span>
-                    <p className="text-[11px] text-slate-500 mb-2.5">
-                      {service.toolsSubtitle}
-                    </p>
                     <div className="flex flex-wrap items-center gap-1.5">
                       {service.tools.map((tool) => (
                         <div
                           key={tool.name}
-                          className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-800 shadow-2xs"
+                          className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-[#FAFAFC] px-2.5 py-1 text-[11px] font-medium text-zinc-800 shadow-2xs"
                         >
                           <img
                             src={`/icons/${tool.iconSlug}.svg`}
@@ -306,13 +287,13 @@ export function Services() {
                   </div>
 
                   {/* Button */}
-                  <div className="pt-1">
+                  <div className="pt-2">
                     <Link
                       to="/services/$slug"
                       params={{ slug: service.slug }}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold text-white hover:bg-slate-800 transition-colors shadow-xs"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-black px-5 py-2 text-xs font-semibold text-white hover:bg-zinc-800 transition-colors shadow-xs"
                     >
-                      <span>Explore More</span>
+                      <span>Explore Capability</span>
                       <ArrowRight className="h-3 w-3" />
                     </Link>
                   </div>

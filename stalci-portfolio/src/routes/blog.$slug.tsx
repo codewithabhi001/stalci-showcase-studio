@@ -54,9 +54,9 @@ function PostNotFound() {
     <div className="min-h-screen bg-[#F8FAFC]">
       <Nav solid />
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-40 text-center">
-        <h1 className="text-2xl font-bold text-slate-900">Article not found</h1>
-        <p className="mt-2 text-sm text-slate-600">The requested engineering paper does not exist or has been archived.</p>
-        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-bold text-white shadow-md">
+        <h1 className="text-2xl font-bold text-zinc-950">Article not found</h1>
+        <p className="mt-2 text-sm text-zinc-600">The requested engineering paper does not exist or has been archived.</p>
+        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-black px-5 py-2.5 text-sm font-bold text-white shadow-md">
           Back to all articles
         </Link>
       </main>
@@ -70,7 +70,7 @@ function BlogPost() {
   const related = staticPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900">
+    <div className="min-h-screen bg-[#F8FAFC] text-black">
       <Nav solid />
 
       {/* Header Banner */}
@@ -87,7 +87,7 @@ function BlogPost() {
             <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-copper bg-copper/10 border border-copper/30 px-3 py-0.5 rounded-full">
               {post.category}
             </span>
-            <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
+            <span className="text-xs text-neutral-400 font-mono flex items-center gap-1">
               <Clock className="h-3 w-3" /> {post.readingTime}
             </span>
           </div>
@@ -96,8 +96,8 @@ function BlogPost() {
             {post.title}
           </h1>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-400 border-t border-white/10 pt-4">
-            <span className="font-semibold text-slate-200 flex items-center gap-1.5">
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-neutral-400 border-t border-white/10 pt-4">
+            <span className="font-semibold text-neutral-200 flex items-center gap-1.5">
               <User className="h-3.5 w-3.5 text-copper" /> {post.author}
             </span>
             <span>•</span>
@@ -111,17 +111,17 @@ function BlogPost() {
       {/* Article Body */}
       <main className="py-16 sm:py-24">
         <article className="mx-auto max-w-4xl px-5 lg:px-8">
-          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm p-8 sm:p-12 space-y-6">
+          <div className="rounded-3xl bg-white border border-zinc-200/90 shadow-sm p-8 sm:p-12 space-y-6">
             {post.body.map((para: string, i: number) => {
               if (para.startsWith("### ")) {
                 return (
-                  <h3 key={i} className="text-xl sm:text-2xl font-bold text-slate-950 pt-4 pb-1 border-b border-slate-100">
+                  <h3 key={i} className="text-xl sm:text-2xl font-bold text-zinc-950 pt-4 pb-1 border-b border-zinc-100">
                     {para.replace("### ", "")}
                   </h3>
                 );
               }
               return (
-                <p key={i} className="text-base leading-relaxed text-slate-700">
+                <p key={i} className="text-base leading-relaxed text-zinc-700">
                   {para}
                 </p>
               );
@@ -130,7 +130,7 @@ function BlogPost() {
             {/* CTA Box */}
             <div className="mt-12 rounded-2xl bg-gradient-to-br from-black to-[#0A0A0A] border border-white/10 text-white p-7 sm:p-9 shadow-lg">
               <h3 className="text-lg font-bold text-white">Engineering a Mission-Critical Architecture?</h3>
-              <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="mt-2 text-xs sm:text-sm text-neutral-300 leading-relaxed">
                 STALCI's principal engineers and SRE architects can review your current technical topology and outline an actionable delivery plan.
               </p>
               <a
@@ -144,22 +144,22 @@ function BlogPost() {
 
           {/* Related Articles */}
           <div className="mt-16">
-            <h2 className="text-lg font-bold text-slate-950 mb-6">Related Technical Papers</h2>
+            <h2 className="text-lg font-bold text-zinc-950 mb-6">Related Technical Papers</h2>
             <div className="grid gap-4 sm:grid-cols-3">
               {related.map((p) => (
                 <Link
                   key={p.slug}
                   to="/blog/$slug"
                   params={{ slug: p.slug }}
-                  className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all hover:shadow-md hover:border-amber-500/70"
+                  className="rounded-2xl border border-zinc-200/90 bg-white p-5 shadow-xs transition-all hover:shadow-md hover:border-zinc-400"
                 >
-                  <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-amber-700">
+                  <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-copper">
                     {p.category}
                   </span>
-                  <h4 className="mt-2 text-sm font-bold leading-snug text-slate-900 line-clamp-2">
+                  <h4 className="mt-2 text-sm font-bold leading-snug text-zinc-950 line-clamp-2">
                     {p.title}
                   </h4>
-                  <span className="mt-3 text-xs text-slate-500 font-mono block">{p.readingTime}</span>
+                  <span className="mt-3 text-xs text-zinc-500 font-mono block">{p.readingTime}</span>
                 </Link>
               ))}
             </div>

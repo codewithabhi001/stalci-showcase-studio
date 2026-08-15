@@ -37,8 +37,8 @@ export function BadgePill({
     <span
       className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-[11px] sm:text-xs font-medium tracking-wide transition-all ${
         isDark
-          ? "border border-white/15 bg-white/[0.04] text-slate-200 backdrop-blur-md"
-          : "border border-slate-300/80 bg-slate-100/90 text-slate-800"
+          ? "border border-white/15 bg-white/[0.04] text-neutral-200 backdrop-blur-md"
+          : "border border-zinc-300/80 bg-zinc-100/90 text-zinc-900 font-semibold"
       } ${className}`}
     >
       {children}
@@ -67,7 +67,7 @@ export function SectionHeading({
     <div
       className={
         (align === "center" ? "mx-auto max-w-2xl text-center " : "max-w-2xl ") +
-        (isDark ? "text-white" : "text-slate-900")
+        (isDark ? "text-white" : "text-black")
       }
     >
       <div className="mb-3">
@@ -78,7 +78,7 @@ export function SectionHeading({
 
       <h2
         className={`font-display text-2xl sm:text-3xl md:text-4xl font-extrabold leading-snug tracking-tight ${
-          isDark ? "text-white" : "text-slate-900"
+          isDark ? "text-white" : "text-zinc-950"
         }`}
       >
         {title}
@@ -87,7 +87,7 @@ export function SectionHeading({
       {subtitle ? (
         <p
           className={`mt-3 text-xs sm:text-sm leading-relaxed ${
-            isDark ? "text-slate-400" : "text-slate-600"
+            isDark ? "text-neutral-400" : "text-zinc-600 font-normal"
           }`}
         >
           {subtitle}
@@ -97,7 +97,7 @@ export function SectionHeading({
       <div
         ref={lineRef}
         className={
-          "mt-5 h-[1.5px] w-12 bg-slate-400/40 rounded-full " +
+          "mt-5 h-[1.5px] w-12 bg-zinc-300 rounded-full " +
           (align === "center" ? "mx-auto" : "")
         }
       />

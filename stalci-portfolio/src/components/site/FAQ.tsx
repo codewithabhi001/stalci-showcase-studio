@@ -45,7 +45,7 @@ export function FAQ() {
   const staggerRef = useStaggerReveal({ staggerChildren: 0.08 });
 
   return (
-    <section id="faq" className="relative bg-white py-20 sm:py-28 overflow-hidden text-slate-900 border-t border-slate-200/80">
+    <section id="faq" className="relative bg-white py-20 sm:py-28 overflow-hidden text-black border-t border-zinc-200/90">
       <div className="mx-auto max-w-3xl px-5 lg:px-8 relative z-10">
         <div ref={headingRef}>
           <SectionHeading
@@ -79,14 +79,14 @@ export function FAQ() {
                   >
                     <AccordionItem
                       value={f.q}
-                      className="border border-slate-200 rounded-xl bg-[#F8FAFC] px-4 sm:px-5 overflow-hidden transition-all duration-200 hover:border-slate-400"
+                      className="border border-zinc-200 rounded-xl bg-[#F8FAFC] px-4 sm:px-5 overflow-hidden transition-all duration-200 hover:border-zinc-400"
                     >
                       <AccordionTrigger className="hover:no-underline py-4 group">
                         <div className="flex items-center text-left gap-3">
-                          <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-white border border-slate-200 text-xs font-mono font-bold text-slate-700">
+                          <span className="flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-white border border-zinc-200 text-xs font-mono font-bold text-zinc-700">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-xs sm:text-sm font-semibold text-slate-900">
+                          <span className="text-xs sm:text-sm font-semibold text-zinc-950">
                             {f.q}
                           </span>
                         </div>
@@ -104,7 +104,7 @@ export function FAQ() {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
                             >
-                              <div className="pb-4 pl-10 pr-3 text-xs sm:text-sm leading-relaxed text-slate-600">
+                              <div className="pb-4 pl-10 pr-3 text-xs sm:text-sm leading-relaxed text-zinc-600">
                                 {f.a}
                               </div>
                             </motion.div>

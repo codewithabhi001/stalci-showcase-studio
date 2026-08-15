@@ -49,7 +49,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
               <a
                 key={l.href}
                 href={l.href}
-                className="rounded-full px-3 py-1 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.06] transition-all"
+                className="rounded-full px-3 py-1 text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/[0.06] transition-all"
               >
                 {l.label}
               </a>
@@ -60,7 +60,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
           <div className="flex items-center gap-3">
             
             {/* Live Pods Availability Indicator */}
-            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-mono text-slate-300">
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-mono text-neutral-300">
               <span className="flex h-1.5 w-1.5 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -71,7 +71,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
             {/* Start a Project CTA Button */}
             <a
               href="/#contact"
-              className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold text-slate-950 hover:bg-slate-200 transition-all shadow-sm hover:scale-[1.02] active:scale-98"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold text-zinc-950 hover:bg-neutral-200 transition-all shadow-sm hover:scale-[1.02] active:scale-98"
             >
               <span>Get in Touch</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -96,7 +96,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="mt-2 rounded-3xl border border-white/15 bg-[#090C15]/98 backdrop-blur-2xl p-4 shadow-2xl lg:hidden"
+              className="mt-2 rounded-3xl border border-white/15 bg-black/98 backdrop-blur-2xl p-4 shadow-2xl lg:hidden"
             >
               <div className="flex flex-col gap-1">
                 {links.map((l) => (
@@ -104,7 +104,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="rounded-xl px-4 py-2.5 text-xs font-medium text-slate-200 hover:bg-white/10 hover:text-white transition-colors"
+                    className="rounded-xl px-4 py-2.5 text-xs font-medium text-neutral-200 hover:bg-white/10 hover:text-white transition-colors"
                   >
                     {l.label}
                   </a>
@@ -113,7 +113,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                   <a
                     href="/#contact"
                     onClick={() => setOpen(false)}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-slate-950 shadow-sm"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-zinc-950 shadow-sm"
                   >
                     <span>Initiate Project Inquiry</span>
                     <ArrowUpRight className="h-3.5 w-3.5" />

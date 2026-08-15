@@ -179,7 +179,7 @@ function PrivacyPolicy() {
   const sections = parseMarkdownSections(pageData?.content || '');
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900">
+    <div className="min-h-screen bg-[#F8FAFC] text-black">
       <Nav solid />
 
       {/* Header Banner */}
@@ -192,10 +192,10 @@ function PrivacyPolicy() {
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
             {titleText}
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-neutral-300 max-w-3xl leading-relaxed">
             Our comprehensive commitment to zero-trust data protection, sovereign AI privacy, cryptographic encryption standards, and client confidentiality.
           </p>
-          <div className="mt-6 flex items-center gap-4 text-xs text-slate-400 font-mono">
+          <div className="mt-6 flex items-center gap-4 text-xs text-neutral-400 font-mono">
             <span>Standard: ISO 27001 / SOC 2</span>
             <span>•</span>
             <span>Last Updated: {pageData?.updatedAt ? new Date(pageData.updatedAt).toLocaleDateString() : 'August 2026'}</span>
@@ -213,20 +213,20 @@ function PrivacyPolicy() {
               <div
                 key={s.id}
                 id={s.id}
-                className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all hover:shadow-md"
+                className="rounded-2xl bg-white border border-zinc-200/90 shadow-sm p-6 sm:p-9 transition-all hover:shadow-md"
               >
-                <h2 className="text-lg sm:text-xl font-bold text-slate-950 flex items-center gap-2.5 pb-3 border-b border-slate-100">
+                <h2 className="text-lg sm:text-xl font-bold text-zinc-950 flex items-center gap-2.5 pb-3 border-b border-zinc-100">
                   <span className="h-2 w-2 rounded-full bg-emerald-600 shrink-0" />
                   <span>{s.h}</span>
                 </h2>
-                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-slate-700">
+                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-zinc-700">
                   {s.p.map((para, idx) => (
                     <p key={idx}>{para}</p>
                   ))}
                   {s.list && (
                     <ul className="mt-3 space-y-2 pl-2">
                       {s.list.map((li, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-slate-700">
+                        <li key={idx} className="flex items-start gap-2 text-zinc-700">
                           <span className="text-emerald-700 font-bold mt-0.5">•</span>
                           <span>{li}</span>
                         </li>
@@ -244,13 +244,13 @@ function PrivacyPolicy() {
                   <Mail className="h-5 w-5 text-emerald-400" />
                   Data Protection Office (DPO)
                 </h3>
-                <p className="mt-2 text-sm text-slate-300 max-w-xl">
+                <p className="mt-2 text-sm text-neutral-300 max-w-xl">
                   For GDPR data subject requests, SOC 2 compliance certifications, or custom DPA signatures, contact our dedicated security team.
                 </p>
               </div>
               <a
                 href="mailto:privacy@stalci.com"
-                className="shrink-0 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-3 text-sm transition-all shadow-md"
+                className="shrink-0 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold px-6 py-3 text-sm transition-all shadow-md"
               >
                 Contact Data Protection Officer
               </a>

@@ -30,7 +30,7 @@ export function DetailPage({
           <div className="relative mx-auto max-w-5xl px-5 lg:px-8">
             <a
               href={backTo}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition-colors hover:text-white"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400 transition-colors hover:text-white"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               {backLabel}
@@ -48,7 +48,7 @@ export function DetailPage({
             <h1 className="mt-4 max-w-2xl text-2xl sm:text-4xl font-extrabold leading-tight tracking-tight text-white">
               {entry.title}
             </h1>
-            <p className="mt-3 max-w-xl text-xs sm:text-sm leading-relaxed text-slate-400">
+            <p className="mt-3 max-w-xl text-xs sm:text-sm leading-relaxed text-neutral-400">
               {entry.summary}
             </p>
 
@@ -56,7 +56,7 @@ export function DetailPage({
               {entry.outcomes.map((o) => (
                 <div key={o.label} className="bg-[#0F0F0F] px-4 py-4">
                   <dt className="text-lg font-bold text-white">{o.value}</dt>
-                  <dd className="mt-0.5 text-[11px] leading-snug text-slate-400">{o.label}</dd>
+                  <dd className="mt-0.5 text-[11px] leading-snug text-neutral-400">{o.label}</dd>
                 </div>
               ))}
             </dl>
@@ -68,7 +68,7 @@ export function DetailPage({
           <div className="grid gap-10 lg:grid-cols-[1fr_18rem]">
             <div>
               <h2 className="text-lg font-bold text-white">Overview</h2>
-              <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-300">
+              <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-neutral-300">
                 {entry.overview}
               </p>
 
@@ -80,7 +80,7 @@ export function DetailPage({
                     className="rounded-xl border border-white/10 bg-[#0F0F0F] p-4 hover:border-white/20 transition-colors"
                   >
                     <h3 className="text-xs sm:text-sm font-semibold text-white">{c.title}</h3>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-400">{c.copy}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-neutral-400">{c.copy}</p>
                   </div>
                 ))}
               </div>
@@ -88,10 +88,10 @@ export function DetailPage({
 
             <aside className="space-y-6">
               <div className="rounded-2xl border border-white/10 bg-[#0F0F0F] p-5">
-                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300">Key Deliverables</h3>
+                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-300">Key Deliverables</h3>
                 <ul className="mt-3.5 space-y-2.5">
                   {entry.deliverables.map((d) => (
-                    <li key={d} className="flex gap-2 text-xs text-slate-400">
+                    <li key={d} className="flex gap-2 text-xs text-neutral-400">
                       <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-copper" strokeWidth={2} />
                       {d}
                     </li>
@@ -100,12 +100,12 @@ export function DetailPage({
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-[#0F0F0F] p-5">
-                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-300">Tech & Tooling</h3>
+                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-300">Tech & Tooling</h3>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {entry.tools.map((t) => (
                     <span
                       key={t}
-                      className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-slate-300"
+                      className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-neutral-300"
                     >
                       {t}
                     </span>
@@ -115,7 +115,7 @@ export function DetailPage({
 
               <a
                 href="/#contact"
-                className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-slate-950 bg-white hover:bg-slate-200 transition-colors shadow-sm"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-zinc-950 bg-white hover:bg-neutral-200 transition-colors shadow-sm"
               >
                 Discuss this with us
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -139,7 +139,7 @@ export function DetailPage({
                   >
                     <RIcon className="h-4.5 w-4.5 text-white" strokeWidth={1.5} />
                     <h3 className="mt-2.5 text-xs sm:text-sm font-semibold text-white">{r.title}</h3>
-                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-400">
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-neutral-400">
                       {r.summary}
                     </p>
                   </Link>

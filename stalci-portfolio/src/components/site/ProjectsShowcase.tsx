@@ -169,7 +169,7 @@ export function ProjectsShowcase() {
   });
 
   return (
-    <section id="projects" className="bg-[#FFFFFF] py-20 sm:py-28 text-slate-900 border-t border-slate-200/80 relative">
+    <section id="projects" className="bg-[#FFFFFF] py-20 sm:py-28 text-black border-t border-zinc-200/90 relative">
       <div className="mx-auto max-w-6xl px-5 lg:px-8">
         
         {/* Section Heading */}
@@ -195,14 +195,14 @@ export function ProjectsShowcase() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? "bg-slate-900 text-white font-semibold shadow-xs"
-                    : "bg-slate-50 text-slate-600 border border-slate-200 hover:border-slate-400 hover:text-slate-900"
+                    ? "bg-black text-white font-semibold shadow-xs"
+                    : "bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-400 hover:text-black"
                 }`}
               >
                 <span>{cat}</span>
                 <span
                   className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
-                    isSelected ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
+                    isSelected ? "bg-white/20 text-white" : "bg-zinc-200 text-zinc-700"
                   }`}
                 >
                   {count}
@@ -222,11 +222,11 @@ export function ProjectsShowcase() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
               onClick={() => setActiveCaseStudy(p)}
-              className="group rounded-2xl bg-white border border-slate-200/90 p-5 shadow-xs hover:border-slate-400/60 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
+              className="group rounded-2xl bg-white border border-zinc-200/90 p-5 shadow-xs hover:border-zinc-400 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
             >
               <div>
                 {/* Thumbnail */}
-                <div className="relative h-48 w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-100">
+                <div className="relative h-48 w-full rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
                   <img
                     src={p.imageUrl}
                     alt={p.title}
@@ -237,34 +237,34 @@ export function ProjectsShowcase() {
                     }}
                   />
                   <div className="absolute top-2.5 left-2.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-950/85 text-white backdrop-blur-md">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black/85 text-white backdrop-blur-md">
                       {p.category}
                     </span>
                   </div>
-                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/80 text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/80 text-zinc-800 opacity-0 group-hover:opacity-100 transition-opacity">
                     <Maximize2 className="h-3.5 w-3.5" />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="mt-4">
-                  <h3 className="font-display text-lg font-bold text-slate-900 group-hover:text-slate-700 transition-colors">
+                  <h3 className="font-display text-lg font-bold text-zinc-950 group-hover:text-zinc-700 transition-colors">
                     {p.title}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-slate-600 font-normal line-clamp-3">
+                  <p className="mt-1.5 text-xs leading-relaxed text-zinc-600 font-normal line-clamp-3">
                     {p.summary}
                   </p>
                 </div>
               </div>
 
               {/* Bottom Info */}
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-900 group-hover:text-slate-700 flex items-center gap-1">
+              <div className="mt-5 pt-3 border-t border-zinc-100 flex items-center justify-between">
+                <span className="text-xs font-semibold text-zinc-950 group-hover:text-zinc-700 flex items-center gap-1">
                   View Case Study <ChevronRight className="h-3 w-3" />
                 </span>
 
-                <div className="flex items-center gap-1 text-[11px] font-mono text-slate-500">
-                  <Award className="h-3 w-3 text-slate-600" />
+                <div className="flex items-center gap-1 text-[11px] font-mono text-zinc-500">
+                  <Award className="h-3 w-3 text-zinc-600" />
                   <span className="font-medium">{p.metrics[0].value}</span>
                 </div>
               </div>
@@ -283,22 +283,22 @@ export function ProjectsShowcase() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-3xl rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-xl my-6 max-h-[90vh] overflow-hidden flex flex-col"
+              className="relative w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white text-black shadow-xl my-6 max-h-[90vh] overflow-hidden flex flex-col"
             >
               {/* Top Bar */}
-              <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50">
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-zinc-100 bg-zinc-50">
                 <div className="flex items-center gap-2.5">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-900 text-white">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black text-white">
                     {activeCaseStudy.category}
                   </span>
-                  <span className="text-xs font-mono text-slate-500">
+                  <span className="text-xs font-mono text-zinc-500">
                     Client: {activeCaseStudy.client}
                   </span>
                 </div>
 
                 <button
                   onClick={() => setActiveCaseStudy(null)}
-                  className="p-1.5 rounded-full bg-slate-200 text-slate-600 hover:text-slate-950 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-full bg-zinc-200 text-zinc-700 hover:text-black transition-colors cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -307,16 +307,16 @@ export function ProjectsShowcase() {
               {/* Content */}
               <div className="p-5 sm:p-7 overflow-y-auto flex-1 space-y-5">
                 <div>
-                  <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+                  <h2 className="font-display text-xl sm:text-2xl font-bold text-zinc-950 leading-tight">
                     {activeCaseStudy.title}
                   </h2>
-                  <p className="mt-1.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="mt-1.5 text-xs sm:text-sm text-zinc-600 leading-relaxed">
                     {activeCaseStudy.summary}
                   </p>
                 </div>
 
                 {/* Banner */}
-                <div className="h-52 sm:h-64 w-full rounded-xl overflow-hidden border border-slate-200 relative">
+                <div className="h-52 sm:h-64 w-full rounded-xl overflow-hidden border border-zinc-200 relative">
                   <img
                     src={activeCaseStudy.imageUrl}
                     alt={activeCaseStudy.title}
@@ -326,16 +326,16 @@ export function ProjectsShowcase() {
 
                 {/* KPIs */}
                 <div>
-                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800 mb-2.5 flex items-center gap-1.5">
-                    <Award className="h-3.5 w-3.5 text-slate-700" /> Key Performance Indicators (KPIs)
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 mb-2.5 flex items-center gap-1.5">
+                    <Award className="h-3.5 w-3.5 text-zinc-700" /> Key Performance Indicators (KPIs)
                   </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {activeCaseStudy.metrics.map((m, idx) => (
-                      <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-center">
-                        <span className="block font-mono text-lg font-bold text-slate-900">
+                      <div key={idx} className="p-3 rounded-xl bg-zinc-50 border border-zinc-200 text-center">
+                        <span className="block font-mono text-lg font-bold text-zinc-950">
                           {m.value}
                         </span>
-                        <span className="block text-[10px] text-slate-500 uppercase tracking-wider mt-0.5 font-medium">
+                        <span className="block text-[10px] text-zinc-500 uppercase tracking-wider mt-0.5 font-medium">
                           {m.label}
                         </span>
                       </div>
@@ -345,32 +345,32 @@ export function ProjectsShowcase() {
 
                 {/* Scope */}
                 <div>
-                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800 mb-2 flex items-center gap-1.5">
-                    <Layers className="h-3.5 w-3.5 text-slate-700" /> Architecture & Scope
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 mb-2 flex items-center gap-1.5">
+                    <Layers className="h-3.5 w-3.5 text-zinc-700" /> Architecture & Scope
                   </h4>
-                  <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
+                  <p className="text-xs sm:text-sm leading-relaxed text-zinc-600">
                     {activeCaseStudy.fullDescription}
                   </p>
                 </div>
 
                 {/* Client Quote */}
                 {activeCaseStudy.clientFeedback && (
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 italic text-xs sm:text-sm text-slate-700 flex items-start gap-2.5">
-                    <span className="text-xl text-slate-400 font-serif leading-none">“</span>
+                  <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 italic text-xs sm:text-sm text-zinc-700 flex items-start gap-2.5">
+                    <span className="text-xl text-zinc-400 font-serif leading-none">“</span>
                     <p>{activeCaseStudy.clientFeedback}</p>
                   </div>
                 )}
 
                 {/* Technologies */}
                 <div>
-                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800 mb-2 flex items-center gap-1.5">
-                    <Cpu className="h-3.5 w-3.5 text-slate-700" /> Technology Stack
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-800 mb-2 flex items-center gap-1.5">
+                    <Cpu className="h-3.5 w-3.5 text-zinc-700" /> Technology Stack
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {activeCaseStudy.technologies.map((t) => (
                       <span
                         key={t}
-                        className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-slate-100 text-slate-700 border border-slate-200"
+                        className="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-zinc-100 text-zinc-700 border border-zinc-200"
                       >
                         {t}
                       </span>
@@ -380,24 +380,24 @@ export function ProjectsShowcase() {
               </div>
 
               {/* Footer */}
-              <div className="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
+              <div className="px-5 py-3 border-t border-zinc-100 bg-zinc-50 flex items-center justify-between">
                 {activeCaseStudy.liveUrl ? (
                   <a
                     href={activeCaseStudy.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-xs font-semibold text-white bg-black hover:bg-zinc-800 transition-colors"
                   >
                     <span>Visit Live Website</span>
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 ) : (
-                  <span className="text-xs text-slate-500 font-mono">Enterprise Platform</span>
+                  <span className="text-xs text-zinc-500 font-mono">Enterprise Platform</span>
                 )}
 
                 <button
                   onClick={() => setActiveCaseStudy(null)}
-                  className="text-xs font-medium text-slate-500 hover:text-slate-900 cursor-pointer"
+                  className="text-xs font-medium text-zinc-500 hover:text-black cursor-pointer"
                 >
                   Close
                 </button>
