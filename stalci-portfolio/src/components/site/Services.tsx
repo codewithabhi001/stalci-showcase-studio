@@ -163,7 +163,7 @@ export function Services() {
 
         {/* ─── Core Services Cards Stack (Screenshot 3 Match) ─── */}
         <div className="mt-14 space-y-6">
-          {coreServices.map((service, idx) => (
+          {fallbackServices.map((service, idx) => (
             <motion.div
               key={service.slug}
               initial={{ opacity: 0, y: 15 }}
