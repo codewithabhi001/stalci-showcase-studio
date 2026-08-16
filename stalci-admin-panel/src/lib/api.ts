@@ -12,6 +12,33 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+api.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("stalci_access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+});
+
+// --- AUTH & USER APIs ---
+export const loginApi = (data: { email: string; password: string }) =>
+  api.post("/auth/login", data).then((r) => r.data);
+
+export const getMeApi = () => api.get("/auth/me").then((r) => r.data);
+
+export const changePasswordApi = (data: { oldPassword: string; newPassword: string }) =>
+  api.post("/auth/change-password", data).then((r) => r.data);
+
+// --- FILE UPLOAD API ---
+export const uploadFileApi = (fileOrData: FormData | { filename: string; base64: string } | { url: string }) => {
+  if (fileOrData instanceof FormData) {
+    return api.post("/upload", fileOrData, { headers: { "Content-Type": "multipart/form-data" } }).then((r) => r.data);
+  }
+  return api.post("/upload", fileOrData).then((r) => r.data);
+};
+
 // --- CLIENTS ---
 export const fetchClients = () => api.get("/crm/clients").then((r) => r.data);
 export const fetchClientById = (id: number) => api.get(`/crm/clients/${id}`).then((r) => r.data);

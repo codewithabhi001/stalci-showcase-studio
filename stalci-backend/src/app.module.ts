@@ -7,9 +7,11 @@ import { FinanceModule } from './finance/finance.module';
 import { AdminModule } from './admin/admin.module';
 import { ProjectsModule } from './projects/projects.module';
 import { HrModule } from './hr/hr.module';
+import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
-  imports: [CmsModule, CrmModule, FinanceModule, AdminModule, ProjectsModule, HrModule],
+  imports: [CmsModule, CrmModule, FinanceModule, AdminModule, ProjectsModule, HrModule, AuthModule, UploadModule],
   controllers: [AppController],
   providers: [AppService],
 })

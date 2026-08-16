@@ -1,5 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AdminService implements OnModuleInit {
@@ -9,11 +10,12 @@ export class AdminService implements OnModuleInit {
     // Seed default admin if none exists
     const adminCount = await this.prisma.admin.count();
     if (adminCount === 0) {
+      const hashedPassword = await bcrypt.hash('stalci2026', 10);
       await this.prisma.admin.create({
         data: {
-          name: 'Admin User',
+          name: 'Stalci Master Admin',
           email: 'admin@stalci.com',
-          passwordHash: 'hashed_password_mock',
+          passwordHash: hashedPassword,
         },
       });
     }
@@ -42,7 +44,9 @@ export class AdminService implements OnModuleInit {
     const updateData: any = {};
     if (data.name) updateData.name = data.name;
     if (data.email) updateData.email = data.email;
-    if (data.password) updateData.passwordHash = data.password; // Mock hashing
+    if (data.password) {
+      updateData.passwordHash = await bcrypt.hash(data.password, 10);
+    }
     
     return this.prisma.admin.update({
       where: { id: admin.id },

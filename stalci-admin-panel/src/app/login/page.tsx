@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Lock, Mail, ArrowRight, Eye, EyeOff, KeyRound, Sparkles, ShieldCheck } from "lucide-react";
+import { loginApi } from "@/lib/api";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -9,15 +10,28 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    if (email === "admin@stalci.com" && password === "stalci2026") {
-      document.cookie = "stalci_admin=authenticated; path=/; max-age=86400";
-      window.location.href = "/";
-    } else {
-      setError("Invalid credentials. Please check your email and password.");
+
+    try {
+      const res = await loginApi({ email, password });
+      if (res?.accessToken) {
+        localStorage.setItem("stalci_access_token", res.accessToken);
+        if (res?.user) {
+          localStorage.setItem("stalci_user", JSON.stringify(res.user));
+        }
+        document.cookie = "stalci_admin=authenticated; path=/; max-age=86400";
+        window.location.href = "/";
+      } else {
+        setError("Login failed. No token received from server.");
+        setLoading(false);
+      }
+    } catch (err: any) {
+      console.error("Login error:", err);
+      const msg = err?.response?.data?.message || "Invalid credentials. Please check your email and password.";
+      setError(Array.isArray(msg) ? msg.join(", ") : msg);
       setLoading(false);
     }
   };
