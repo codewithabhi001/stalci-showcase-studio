@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./Brand";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProducts } from "@/lib/api";
 
 interface TechIcon {
   name: string;
@@ -18,7 +20,7 @@ interface ProductItem {
   stack: TechIcon[];
 }
 
-const products: ProductItem[] = [
+const fallbackProducts: ProductItem[] = [
   {
     slug: "stalci-ops",
     title: "StalciOps",
@@ -82,6 +84,29 @@ const products: ProductItem[] = [
 ];
 
 export function Products() {
+  const { data: apiProducts } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+
+  const productsList: ProductItem[] =
+    apiProducts && apiProducts.length > 0
+      ? apiProducts.map((p: any) => ({
+          slug: p.slug,
+          title: p.name,
+          tag: p.tag || "Platform",
+          summary: p.description || "",
+          primaryLogo: p.slug.includes("ops") ? "kubernetes" : p.slug.includes("ai") ? "python" : "postgresql",
+          primaryAlt: p.name,
+          metric: p.pricing || "Enterprise Ready",
+          stack: [
+            { name: "TypeScript", slug: "typescript" },
+            { name: "React", slug: "react" },
+            { name: "PostgreSQL", slug: "postgresql" },
+            { name: "Docker", slug: "docker" },
+          ],
+        }))
+      : fallbackProducts;
   return (
     <section id="products" className="border-t border-zinc-200/90 bg-white py-14 sm:py-20 text-black">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -94,7 +119,7 @@ export function Products() {
         />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2">
-          {products.map((p) => (
+          {productsList.map((p) => (
             <Link
               key={p.slug}
               to="/products/$slug"

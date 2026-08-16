@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "./Brand";
 import { Sparkles, ShieldCheck } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTechnologies } from "@/lib/api";
 
 export interface TechItem {
   name: string;

@@ -53,12 +53,16 @@ export function DetailPage({
             </p>
 
             <dl className="mt-8 grid max-w-xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-3">
-              {entry.outcomes.map((o) => (
-                <div key={o.label} className="bg-[#0F0F0F] px-4 py-4">
-                  <dt className="text-lg font-bold text-white">{o.value}</dt>
-                  <dd className="mt-0.5 text-[11px] leading-snug text-neutral-400">{o.label}</dd>
-                </div>
-              ))}
+              {(entry.outcomes || []).map((o: any, idx: number) => {
+                const label = typeof o === "string" ? o : o?.label || `Outcome ${idx + 1}`;
+                const value = typeof o === "string" ? "100%" : o?.value || "Passed";
+                return (
+                  <div key={idx} className="bg-[#0F0F0F] px-4 py-4">
+                    <dt className="text-lg font-bold text-white">{value}</dt>
+                    <dd className="mt-0.5 text-[11px] leading-snug text-neutral-400">{label}</dd>
+                  </div>
+                );
+              })}
             </dl>
           </div>
         </section>
@@ -74,15 +78,19 @@ export function DetailPage({
 
               <h2 className="mt-10 text-lg font-bold text-white">Capabilities & Standards</h2>
               <div className="mt-4 grid gap-3.5 sm:grid-cols-2">
-                {entry.capabilities.map((c) => (
-                  <div
-                    key={c.title}
-                    className="rounded-xl border border-white/10 bg-[#0F0F0F] p-4 hover:border-white/20 transition-colors"
-                  >
-                    <h3 className="text-xs sm:text-sm font-semibold text-white">{c.title}</h3>
-                    <p className="mt-1 text-xs leading-relaxed text-neutral-400">{c.copy}</p>
-                  </div>
-                ))}
+                {(entry.capabilities || []).map((c: any, idx: number) => {
+                  const title = typeof c === "string" ? c : c?.title || `Capability ${idx + 1}`;
+                  const copy = typeof c === "string" ? "Enterprise architectural capability & compliance standard." : c?.copy || "";
+                  return (
+                    <div
+                      key={idx}
+                      className="rounded-xl border border-white/10 bg-[#0F0F0F] p-4 hover:border-white/20 transition-colors"
+                    >
+                      <h3 className="text-xs sm:text-sm font-semibold text-white">{title}</h3>
+                      {copy && <p className="mt-1 text-xs leading-relaxed text-neutral-400">{copy}</p>}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -90,10 +98,10 @@ export function DetailPage({
               <div className="rounded-2xl border border-white/10 bg-[#0F0F0F] p-5">
                 <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-300">Key Deliverables</h3>
                 <ul className="mt-3.5 space-y-2.5">
-                  {entry.deliverables.map((d) => (
-                    <li key={d} className="flex gap-2 text-xs text-neutral-400">
+                  {(entry.deliverables || []).map((d: any, idx: number) => (
+                    <li key={idx} className="flex gap-2 text-xs text-neutral-400">
                       <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-copper" strokeWidth={2} />
-                      {d}
+                      {typeof d === "string" ? d : d?.title || String(d)}
                     </li>
                   ))}
                 </ul>
@@ -102,12 +110,12 @@ export function DetailPage({
               <div className="rounded-2xl border border-white/10 bg-[#0F0F0F] p-5">
                 <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-300">Tech & Tooling</h3>
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  {entry.tools.map((t) => (
+                  {(entry.tools || entry.stack || []).map((t: any, idx: number) => (
                     <span
-                      key={t}
+                      key={idx}
                       className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-neutral-300"
                     >
-                      {t}
+                      {typeof t === "string" ? t : t?.name || String(t)}
                     </span>
                   ))}
                 </div>

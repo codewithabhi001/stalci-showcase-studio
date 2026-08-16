@@ -74,7 +74,26 @@ export function Testimonials() {
   const [submitted, setSubmitted] = useState(false);
   const qc = useQueryClient();
 
-  const activeClient = clientDiaries[activeIndex];
+  const { data: apiTestimonials } = useQuery({
+    queryKey: ["testimonials"],
+    queryFn: fetchTestimonials,
+  });
+
+  const testimonialsList: TestimonialItem[] =
+    apiTestimonials && apiTestimonials.length > 0
+      ? apiTestimonials.map((t: any) => ({
+          id: String(t.id),
+          name: t.clientName,
+          role: t.role || "Executive",
+          company: t.company || "Enterprise Client",
+          location: "Global",
+          image: t.avatarUrl || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
+          hasVideo: false,
+          quote: t.quote,
+        }))
+      : clientDiaries;
+
+  const activeClient = testimonialsList[activeIndex] || testimonialsList[0];
 
   const feedbackMutation = useMutation({
     mutationFn: submitFeedback,

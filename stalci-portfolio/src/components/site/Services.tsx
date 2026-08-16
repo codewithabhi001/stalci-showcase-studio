@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Cpu, Cloud, Shield, Code2, Smartphone, CheckCircle2, ArrowUpRight, Activity, Zap, Server, Database } from "lucide-react";
 import { SectionHeading, BadgePill } from "./Brand";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { fetchServices } from "@/lib/api";
 
 interface CoreService {
   slug: string;
@@ -14,7 +16,7 @@ interface CoreService {
   visualType: "ai" | "web" | "mobile" | "cloud";
 }
 
-const coreServices: CoreService[] = [
+const fallbackServices: CoreService[] = [
   {
     slug: "ai-services",
     title: "AI & ML Development",
@@ -87,26 +89,12 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
   if (type === "ai") {
     return (
       <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
-        {/* Glow backdrop */}
         <div className="absolute w-40 h-40 bg-blue-500/20 rounded-full blur-[60px] pointer-events-none" />
-        
-        {/* 3D Isometric AI Chip Graphic */}
         <div className="relative z-10 flex flex-col items-center">
           <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-blue-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8),0_0_25px_rgba(59,130,246,0.5)] transform -rotate-6 group-hover:rotate-0 transition-transform duration-300">
             <span className="font-display font-black text-3xl text-white tracking-tight drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
               AI
             </span>
-            {/* Glowing connecting pins */}
-            <div className="absolute -left-3 top-1/2 -translate-y-1/2 flex flex-col gap-2">
-              <div className="w-3 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_#3B82F6]" />
-              <div className="w-3 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_#3B82F6]" />
-              <div className="w-3 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_#3B82F6]" />
-            </div>
-            <div className="absolute -right-3 top-1/2 -translate-y-1/2 flex flex-col gap-2">
-              <div className="w-3 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_#3B82F6]" />
-              <div className="w-3 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_#3B82F6]" />
-              <div className="w-3 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_#3B82F6]" />
-            </div>
           </div>
         </div>
       </div>
@@ -116,23 +104,10 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
   if (type === "web") {
     return (
       <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
-        {/* Glow backdrop */}
         <div className="absolute w-40 h-40 bg-indigo-500/20 rounded-full blur-[60px] pointer-events-none" />
-        
-        {/* 3D Isometric Code Window Graphic */}
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-32 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-indigo-500/80 p-2.5 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.8),0_0_25px_rgba(99,102,241,0.5)] transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
-            <div className="flex items-center gap-1">
-              <div className="h-1.5 w-1.5 rounded-full bg-red-400" />
-              <div className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            </div>
-            <div className="flex items-center justify-center py-1">
-              <span className="font-mono font-black text-2xl text-indigo-400 tracking-tight">
-                &lt;/&gt;
-              </span>
-            </div>
-            <div className="h-1 w-12 bg-zinc-700 rounded-full" />
+          <div className="relative h-24 w-32 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-indigo-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8)] transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <Code2 className="h-10 w-10 text-indigo-400" />
           </div>
         </div>
       </div>
@@ -142,17 +117,10 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
   if (type === "mobile") {
     return (
       <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
-        {/* Glow backdrop */}
-        <div className="absolute w-40 h-40 bg-purple-500/20 rounded-full blur-[60px] pointer-events-none" />
-        
-        {/* 3D Mobile Smartphone Graphic */}
+        <div className="absolute w-40 h-40 bg-emerald-500/20 rounded-full blur-[60px] pointer-events-none" />
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-28 w-18 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-purple-500/80 p-2 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.8),0_0_25px_rgba(168,85,247,0.5)] transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
-            <div className="h-1 w-4 bg-zinc-600 rounded-full mx-auto" />
-            <div className="rounded-lg bg-purple-950/60 border border-purple-800/50 p-1 text-center">
-              <span className="text-[8px] font-mono font-bold text-purple-300">120 FPS</span>
-            </div>
-            <div className="h-1 w-6 bg-zinc-700 rounded-full mx-auto" />
+          <div className="relative h-24 w-16 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-emerald-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8)] transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <Smartphone className="h-8 w-8 text-emerald-400" />
           </div>
         </div>
       </div>
@@ -161,24 +129,10 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
 
   return (
     <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
-      {/* Glow backdrop */}
-      <div className="absolute w-40 h-40 bg-emerald-500/20 rounded-full blur-[60px] pointer-events-none" />
-      
-      {/* 3D Cloud Server Cube Graphic */}
+      <div className="absolute w-40 h-40 bg-purple-500/20 rounded-full blur-[60px] pointer-events-none" />
       <div className="relative z-10 flex flex-col items-center">
-        <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-emerald-500/80 p-2.5 flex flex-col justify-around shadow-[0_15px_30px_rgba(0,0,0,0.8),0_0_25px_rgba(16,185,129,0.5)] transform rotate-6 group-hover:rotate-0 transition-transform duration-300">
-          <div className="flex items-center justify-between px-1">
-            <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <div className="h-1 w-10 bg-zinc-700 rounded-full" />
-          </div>
-          <div className="flex items-center justify-between px-1">
-            <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <div className="h-1 w-10 bg-zinc-700 rounded-full" />
-          </div>
-          <div className="flex items-center justify-between px-1">
-            <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <div className="h-1 w-10 bg-zinc-700 rounded-full" />
-          </div>
+        <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-purple-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8)] transform rotate-6 group-hover:rotate-0 transition-transform duration-300">
+          <Cloud className="h-10 w-10 text-purple-400" />
         </div>
       </div>
     </div>
