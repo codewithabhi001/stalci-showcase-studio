@@ -1,4 +1,4 @@
-@import "tailwindcss" source(none);
+﻿@import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
 
@@ -101,205 +101,50 @@
   --ring: #0052FF;
 }
 
-/* ─── Lenis Smooth Scroll ─── */
-html.lenis,
-html.lenis body {
-  height: auto;
+/* ─── Zero-Lag Hardware Acceleration Rules ─── */
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+body {
+  overflow-x: hidden;
+  contain: paint;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+/* GPU Compositor Layer Promotion */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-@layer base {
-  * {
-    border-color: var(--border);
+/* Pure CSS Smooth Marquee (Zero JavaScript CPU Overhead) */
+@keyframes smoothMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
+  100% {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-/* ─── Modern Card Lift & Hover Effects ─── */
-@utility card-lift {
-  transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.08);
-  }
-}
-
-@utility card-lift-dark {
-  transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.9);
-    border-color: rgba(0, 82, 255, 0.4);
-  }
-}
-
-/* ─── Glassmorphism & Surface Utilities ─── */
-@utility glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-}
-
-@utility glass-dark {
-  background: rgba(8, 10, 15, 0.85);
-  backdrop-filter: blur(24px) saturate(1.2);
-  -webkit-backdrop-filter: blur(24px) saturate(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@utility hero-dark-surface {
-  background: radial-gradient(ellipse 65% 50% at 50% 0%, rgba(0, 82, 255, 0.12), transparent 70%),
-              radial-gradient(ellipse 70% 50% at 50% 100%, rgba(37, 99, 235, 0.05), transparent 70%),
-              #000000;
-}
-
-/* ─── Pill Badges ─── */
-.pill-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.3rem 0.875rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.pill-badge-light {
-  border: 1px solid #E2E8F0;
-  background: #F8FAFC;
-  color: #0F172A;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-}
-
-.pill-badge-dark {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
-  color: #FFFFFF;
-  box-shadow: 0 0 20px rgba(0, 82, 255, 0.15);
-}
-
-.pill-badge-gradient {
-  position: relative;
-  border-radius: 9999px;
-  padding: 1px;
-  background: linear-gradient(135deg, #0052FF, #8B5CF6, #0052FF);
-  display: inline-flex;
-}
-
-.pill-badge-gradient-inner-light {
-  background: #FFFFFF;
-  color: #09090B;
-  border-radius: 9999px;
-  padding: 0.25rem 0.85rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-.pill-badge-gradient-inner-dark {
-  background: #000000;
-  color: #FFFFFF;
-  border-radius: 9999px;
-  padding: 0.25rem 0.85rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-/* ─── Marquee Animations ─── */
-@keyframes marquee-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes marquee-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-.animate-marquee-left {
+.animate-smooth-marquee {
   display: flex;
   width: max-content;
-  animation: marquee-left 35s linear infinite;
+  will-change: transform;
+  animation: smoothMarquee 28s linear infinite;
+  transform: translate3d(0, 0, 0);
 }
 
-.animate-marquee-right {
-  display: flex;
-  width: max-content;
-  animation: marquee-right 35s linear infinite;
-}
-
-.animate-marquee-left:hover,
-.animate-marquee-right:hover {
+.animate-smooth-marquee:hover {
   animation-play-state: paused;
 }
 
-/* ─── Shimmer & Glow Effects ─── */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* Eliminate tap delay and micro-flicker */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
-
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(0, 82, 255, 0.15) 50%, transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.glow-blue {
-  box-shadow: 0 0 35px -5px rgba(0, 82, 255, 0.35);
-}
-
-.glow-copper {
-  box-shadow: 0 0 35px -5px rgba(216, 155, 91, 0.35);
-}
-
