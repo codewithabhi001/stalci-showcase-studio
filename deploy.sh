@@ -8,7 +8,8 @@ echo "=========================================="
 cd /software/stalci-showcase-studio
 
 echo "1. Pulling latest code from main branch..."
-git pull origin main
+git fetch origin main
+git reset --hard origin/main
 
 echo "2. Ensuring Postgres container is running..."
 docker start stalci_postgres 2>/dev/null || docker run -d --name stalci_postgres --restart always -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password123 -e POSTGRES_DB=stalci_db -p 5435:5432 postgres:15-alpine
