@@ -178,7 +178,7 @@ export function Services() {
                 </div>
 
                 {/* Delivered Capabilities */}
-                {service.projects && service.projects.length > 0 && (
+                {service.projects && Array.isArray(service.projects) && service.projects.length > 0 && (
                   <div className="pt-1">
                     <div className="flex flex-wrap gap-1">
                       {service.projects.slice(0, 3).map((proj) => (
@@ -197,14 +197,14 @@ export function Services() {
               {/* Bottom Row */}
               <div className="mt-4 pt-3.5 border-t border-zinc-200/80 flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                  {service.tools.slice(0, 3).map((t) => (
+                  {(service.tools || []).slice(0, 3).map((t) => (
                     <div
-                      key={t.name}
+                      key={t.name || t.iconSlug}
                       title={t.name}
                       className="h-5 w-5 rounded bg-white border border-zinc-200 p-0.5 flex items-center justify-center shadow-2xs"
                     >
                       <img
-                        src={`/icons/${t.iconSlug}.svg`}
+                        src={`/icons/${t.iconSlug || t.name?.toLowerCase()}.svg`}
                         alt={t.name}
                         className="h-full w-full object-contain"
                         onError={(e) => {

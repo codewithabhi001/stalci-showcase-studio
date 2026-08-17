@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Star, CheckCircle2, X, MessageSquarePlus, Quote, ArrowRight, Award } from "lucide-react";
@@ -176,9 +176,9 @@ export function Testimonials() {
                     </span>
                   </div>
 
-                  {/* Impact Highlight Badge */}
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-700">
-                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                  {/* Impact Highlight Badge (Clean Slate / Monochrome) */}
+                  <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 border border-zinc-200/90 px-2.5 py-0.5 text-[10.5px] font-mono font-semibold text-zinc-800">
+                    <CheckCircle2 className="h-3 w-3 text-zinc-950" />
                     <span>{item.highlight}</span>
                   </span>
                 </div>
