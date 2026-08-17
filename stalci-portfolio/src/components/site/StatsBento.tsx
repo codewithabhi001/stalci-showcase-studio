@@ -5,17 +5,17 @@ const bentoCards = [
   // ─── Row 1 ───
   {
     id: "projects",
-    number: "700+",
-    description: "Projects delivered successfully using 50+ modern technologies and frameworks.",
+    number: "45+",
+    description: "Digital systems and AI applications shipped with zero post-release regressions.",
     numPosition: "top",
     colSpan: "lg:col-span-4",
-    glow: "from-amber-500/10 via-transparent to-transparent",
-    borderGlow: "hover:border-amber-500/30",
+    glow: "from-blue-500/10 via-transparent to-transparent",
+    borderGlow: "hover:border-blue-500/30",
   },
   {
     id: "talent",
-    number: "120+",
-    description: "In-house principal architects & engineers with average 5+ years of deep domain experience.",
+    number: "15+",
+    description: "Senior full-stack architects, cloud specialists, and ML engineers with deep domain expertise.",
     numPosition: "bottom",
     colSpan: "lg:col-span-3",
     glow: "from-emerald-500/10 via-transparent to-transparent",
@@ -23,28 +23,28 @@ const bentoCards = [
   },
   {
     id: "reach",
-    number: "24Mn+",
-    description: "Active end users served globally daily with 99.99% verified uptime across distributed edge clusters.",
+    number: "99.8%",
+    description: "On-time sprint milestone delivery SLA with deterministic sprint velocity.",
     numPosition: "top",
     colSpan: "lg:col-span-5",
-    glow: "from-blue-600/15 via-indigo-500/10 to-transparent",
-    borderGlow: "hover:border-blue-500/30",
+    glow: "from-indigo-600/15 via-blue-500/10 to-transparent",
+    borderGlow: "hover:border-indigo-500/30",
   },
 
   // ─── Row 2 ───
   {
     id: "ai-specialists",
-    number: "60%",
-    description: "Senior-level AI specialists & principal system architects on direct staff.",
+    number: "2+ Yrs",
+    description: "Of continuous engineering velocity, delivering modern tech to scaleups worldwide.",
     numPosition: "top",
     colSpan: "lg:col-span-4",
-    glow: "from-orange-500/10 via-transparent to-transparent",
-    borderGlow: "hover:border-orange-500/30",
+    glow: "from-amber-500/10 via-transparent to-transparent",
+    borderGlow: "hover:border-amber-500/30",
   },
   {
     id: "retention",
-    number: "99%",
-    description: "Verified client satisfaction rating and multi-year recurring enterprise business.",
+    number: "100%",
+    description: "Complete IP ownership transfer and zero vendor lock-in guarantee for all client assets.",
     numPosition: "bottom",
     colSpan: "lg:col-span-4",
     glow: "from-blue-500/10 via-transparent to-transparent",
@@ -52,8 +52,8 @@ const bentoCards = [
   },
   {
     id: "industries",
-    number: "20+",
-    description: "Specialized global industry verticals served across 25+ countries worldwide.",
+    number: "8+",
+    description: "Core industry verticals including FinTech, HealthTech, AI SaaS, and E-Commerce.",
     numPosition: "top",
     colSpan: "lg:col-span-4",
     glow: "from-purple-500/10 via-rose-500/5 to-transparent",
@@ -67,8 +67,14 @@ export function StatsBento() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* ─── High-Contrast Obsidian Bento Telemetry Enclave (Exact Reference Match) ─── */}
-        <div className="relative rounded-[32px] sm:rounded-[40px] border border-zinc-800 bg-[#0B0D13] text-white p-6 sm:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden">
+        <div className="relative rounded-[32px] sm:rounded-[40px] border border-zinc-800 bg-[#0B0D13] text-white p-6 sm:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.35)] overflow-hidden isolate">
           
+          {/* Subtle Dark Telemetry Dot Grid */}
+          <div 
+            className="absolute inset-0 -z-10 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none opacity-40 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,#000_60%,transparent_100%)]" 
+            aria-hidden 
+          />
+
           {/* Subtle Ambient Lighting */}
           <div className="absolute top-0 right-1/4 w-[28rem] h-[28rem] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
           <div className="absolute bottom-0 left-1/4 w-[28rem] h-[28rem] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />

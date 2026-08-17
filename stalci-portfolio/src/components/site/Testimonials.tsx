@@ -114,7 +114,17 @@ export function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="relative bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 overflow-hidden">
+    <section id="testimonials" className="relative bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 overflow-hidden isolate">
+      {/* Subtle Acoustic Radial Wave Pattern */}
+      <div 
+        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,#F1F5F9_0%,transparent_70%)] pointer-events-none" 
+        aria-hidden 
+      />
+      <div 
+        className="absolute inset-0 -z-10 bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none opacity-50" 
+        aria-hidden 
+      />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ─── Standardized Header Section (Reference Match) ─── */}

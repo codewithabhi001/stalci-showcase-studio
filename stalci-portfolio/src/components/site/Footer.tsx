@@ -23,7 +23,7 @@ export function Footer() {
     <footer className="bg-[#000000] text-white relative isolate overflow-hidden border-t border-white/10 pt-20 sm:pt-24 pb-12">
       
       {/* Top Subtle Ambient Lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60rem] h-[18rem] bg-blue-600/[0.04] blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60rem] h-[18rem] bg-white/[0.02] blur-[140px] pointer-events-none -z-10" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -42,8 +42,8 @@ export function Footer() {
 
             {/* Live System Status Pill */}
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/80 text-[10.5px] font-mono text-emerald-400 font-semibold">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[10.5px] font-mono text-zinc-300 font-medium">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
                 All Systems Operational &bull; 99.99% Uptime
               </span>
             </div>
@@ -51,13 +51,13 @@ export function Footer() {
             {/* Direct Contact Info */}
             <div className="space-y-2.5 text-xs text-zinc-400 pt-1">
               <div className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5 text-blue-500" />
+                <Mail className="h-3.5 w-3.5 text-zinc-400" />
                 <a href="mailto:contact@stalci.com" className="hover:text-white transition-colors">
                   contact@stalci.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="h-3.5 w-3.5 text-blue-500" />
+                <MapPin className="h-3.5 w-3.5 text-zinc-400" />
                 <span>San Francisco &bull; London &bull; Singapore</span>
               </div>
             </div>
@@ -73,7 +73,7 @@ export function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={soc.label}
-                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-zinc-400 hover:text-white hover:bg-[#0052FF] hover:border-[#0052FF] transition-all"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.05] border border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.12] transition-all"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -136,7 +136,7 @@ export function Footer() {
               <ul className="space-y-2.5 text-xs text-zinc-400">
                 <li><a href="/#about" className="hover:text-white transition-colors">About Us</a></li>
                 <li><a href="/#testimonials" className="hover:text-white transition-colors">Client Testimonials</a></li>
-                <li><a href="/careers" className="hover:text-white transition-colors">Careers <span className="text-[9px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">HIRING</span></a></li>
+                <li><a href="/careers" className="hover:text-white transition-colors">Careers <span className="text-[9px] font-mono text-zinc-300 font-bold bg-white/[0.08] px-1.5 py-0.5 rounded border border-white/10">HIRING</span></a></li>
                 <li><a href="/blog" className="hover:text-white transition-colors">Blog &amp; Insights</a></li>
                 <li><a href="/contact" className="hover:text-white transition-colors">Contact Us</a></li>
                 <li><a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a></li>
@@ -155,7 +155,7 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <span>D-U-N-S Number: 860386955</span>
             <span>&bull;</span>
-            <span className="text-emerald-400">SOC 2 Type II / ISO 27001 Certified</span>
+            <span className="text-zinc-400">SOC 2 Type II / ISO 27001 Certified</span>
           </div>
         </div>
 

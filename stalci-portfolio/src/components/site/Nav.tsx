@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { 
   Menu, 
   X, 
@@ -7,61 +7,67 @@ import {
   ArrowRight, 
   Cpu, 
   Layers, 
-  ShieldCheck, 
   Code2,
   Boxes,
   Database,
   CloudLightning,
-  Workflow
+  Workflow,
+  Globe,
+  Smartphone,
+  ShieldCheck,
+  Building2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Wordmark } from "./Brand";
 
 const navLinks = [
   {
-    label: "Sovereign AI",
-    href: "/services/ai-solutions",
-    isFeatured: true,
-    tag: "Neural",
+    label: "Explore AI",
+    href: "/services/ai-services",
+    icon: Sparkles,
     dropdown: [
       {
-        name: "Private LLM Deployments",
-        desc: "Air-gapped enterprise models with zero data leakage",
-        href: "/services/ai-solutions",
+        name: "Sovereign AI & ML Engineering",
+        desc: "Air-gapped private models & custom fine-tuning",
+        href: "/services/ai-services",
         icon: Cpu,
       },
       {
-        name: "Autonomous Workflow Agents",
-        desc: "Self-orchestrating multi-agent business automation",
-        href: "/products/ai-automation-engine",
+        name: "Stalci AI Studio",
+        desc: "Private LLM orchestrator & RAG retrieval engine",
+        href: "/products/stalci-ai-studio",
         icon: Workflow,
       },
       {
-        name: "RAG & Vector Pipelines",
-        desc: "Sub-50ms semantic search over petabyte databases",
-        href: "/services/ai-solutions",
+        name: "Enterprise Data Intelligence",
+        desc: "Semantic search & real-time vector pipelines",
+        href: "/services/data-intelligence",
         icon: Database,
       },
     ],
   },
   {
-    label: "Engineering",
-    href: "/#services",
+    label: "Our Work",
+    href: "/#projects",
+  },
+  {
+    label: "Services",
+    href: "/services/software-engineering",
     dropdown: [
       {
-        name: "Enterprise Software Systems",
+        name: "Enterprise Software Engineering",
         desc: "High-concurrency microservices & resilient APIs",
-        href: "/services/custom-software-development",
+        href: "/services/software-engineering",
         icon: Code2,
       },
       {
-        name: "Web & Mobile Platforms",
-        desc: "Sub-second React, Next.js & native iOS/Android apps",
-        href: "/services/web-development",
-        icon: Layers,
+        name: "High-Performance Mobile Platforms",
+        desc: "Native iOS & Android apps with 120 FPS fluid UI",
+        href: "/services/mobility",
+        icon: Smartphone,
       },
       {
-        name: "Cloud & DevOps Infrastructure",
+        name: "Multi-Cloud & DevOps Architecture",
         desc: "Zero-downtime multi-region Kubernetes clusters",
         href: "/services/cloud-devops",
         icon: CloudLightning,
@@ -69,24 +75,34 @@ const navLinks = [
     ],
   },
   {
-    label: "Case Studies",
-    href: "/#projects",
-  },
-  {
-    label: "Platforms",
+    label: "Solutions",
     href: "/#products",
+    dropdown: [
+      {
+        name: "Stalci AI Studio Accelerator",
+        desc: "Production-ready sovereign LLM & agent framework",
+        href: "/products/stalci-ai-studio",
+        icon: Workflow,
+      },
+      {
+        name: "StalciOps Cloud Fabric",
+        desc: "Automated Kubernetes scaling & FinOps optimization",
+        href: "/products/stalciops",
+        icon: Boxes,
+      },
+    ],
   },
   {
-    label: "Industries",
+    label: "Industry",
     href: "/#industries",
-  },
-  {
-    label: "Studio",
-    href: "/#about",
   },
   {
     label: "Careers",
     href: "/careers",
+  },
+  {
+    label: "Company",
+    href: "/#about",
   },
 ];
 
@@ -105,30 +121,32 @@ export function Nav({ solid = false }: { solid?: boolean }) {
 
   return (
     <header 
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-200 ${
         scrolled 
-          ? "bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-[0_4px_24px_rgba(0,0,0,0.04)]" 
-          : "bg-white border-b border-zinc-200/80 shadow-2xs"
+          ? "bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)]" 
+          : "bg-white border-b border-zinc-200/80"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 sm:h-18 items-center justify-between">
           
-          {/* Left: STALCI Brand Logo + Distinctive Enterprise AI Studio Badge */}
+          {/* Left: STALCI Brand Logo + Clean "We're hiring" Tag */}
           <div className="flex items-center gap-3">
-            <a href="/#top" className="flex items-center gap-2 hover:opacity-85 transition-opacity">
-              <Wordmark tone="light" />
+            <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+              <Wordmark tone="light" markSize={36} />
             </a>
             
-            {/* Unique Studio Pill (Original, Not "We're hiring") */}
-            <div className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-blue-50/80 border border-blue-200/90 px-2.5 py-0.5 text-[10.5px] font-sans font-bold text-blue-700 shadow-2xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF] animate-pulse" />
-              <span>AI &amp; Cloud Studio</span>
-            </div>
+            <a 
+              href="/careers" 
+              className="hidden md:inline-flex items-center gap-1 rounded-full bg-zinc-100 border border-zinc-200/80 px-2.5 py-0.5 text-[10px] font-medium text-zinc-600 hover:text-black hover:bg-zinc-200 transition-colors"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span>We're hiring</span>
+            </a>
           </div>
 
-          {/* Center: Distinctive STALCI Navigation Menu with Custom Flyout Boards */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+          {/* Center: Ultra-Clean Minimalist Navigation Links (No Cluttered Blue Bubble Badges) */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navLinks.map((item) => (
               <div 
                 key={item.label}
@@ -138,61 +156,54 @@ export function Nav({ solid = false }: { solid?: boolean }) {
               >
                 <a
                   href={item.href}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all duration-150 ${
-                    item.isFeatured
-                      ? "bg-blue-50 text-[#0052FF] hover:bg-blue-100/80 font-bold border border-blue-200/60"
-                      : "text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100/80"
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs sm:text-[13.5px] font-medium transition-colors duration-150 cursor-pointer ${
+                    activeDropdown === item.label
+                      ? "text-zinc-950 bg-zinc-100/80"
+                      : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50"
                   }`}
                 >
-                  {item.isFeatured && <Sparkles className="h-3.5 w-3.5 text-[#0052FF]" />}
+                  {item.icon && <item.icon className="h-3.5 w-3.5 text-blue-600" />}
                   <span>{item.label}</span>
-                  {item.tag && (
-                    <span className="rounded-md bg-[#0052FF] text-white px-1 py-0.2 text-[9px] font-mono font-extrabold uppercase">
-                      {item.tag}
-                    </span>
-                  )}
                   {item.dropdown && (
-                    <ChevronDown className={`h-3 w-3 opacity-50 transition-transform duration-200 ${
-                      activeDropdown === item.label ? "rotate-180 text-zinc-950 opacity-100" : ""
+                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                      activeDropdown === item.label ? "rotate-180 text-zinc-950" : "text-zinc-400"
                     }`} />
                   )}
                 </a>
 
-                {/* Custom Flyout Board */}
+                {/* Clean Flyout Board */}
                 {item.dropdown && (
                   <AnimatePresence>
                     {activeDropdown === item.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-0 top-full mt-2 w-84 rounded-3xl bg-white p-3 border border-zinc-200/90 shadow-2xl z-50"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute left-0 top-full pt-2 w-80 z-50"
                       >
-                        <div className="flex flex-col gap-1">
-                          {item.dropdown.map((sub) => {
-                            const SubIcon = sub.icon;
-                            return (
+                        <div className="rounded-2xl border border-zinc-200/90 bg-white p-2.5 shadow-xl text-black">
+                          <div className="space-y-1">
+                            {item.dropdown.map((sub) => (
                               <a
                                 key={sub.name}
                                 href={sub.href}
-                                className="group flex items-start gap-3 rounded-2xl p-2.5 hover:bg-zinc-50 transition-all"
+                                className="group flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-zinc-50 cursor-pointer"
                               >
-                                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-950 shrink-0 group-hover:bg-[#0052FF] group-hover:text-white group-hover:border-[#0052FF] transition-all">
-                                  <SubIcon className="h-4 w-4" />
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 border border-zinc-200/80 text-zinc-800 group-hover:bg-zinc-950 group-hover:text-white transition-colors">
+                                  <sub.icon className="h-4 w-4" />
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                  <span className="text-xs font-bold text-zinc-900 group-hover:text-[#0052FF] transition-colors flex items-center justify-between">
+                                <div>
+                                  <span className="text-xs font-bold text-zinc-950 group-hover:text-black block">
                                     {sub.name}
-                                    <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0052FF]" />
                                   </span>
-                                  <p className="text-[11px] text-zinc-500 font-normal leading-relaxed mt-0.5">
+                                  <span className="text-[11px] text-zinc-500 line-clamp-1 block mt-0.5">
                                     {sub.desc}
-                                  </p>
+                                  </span>
                                 </div>
                               </a>
-                            );
-                          })}
+                            ))}
+                          </div>
                         </div>
                       </motion.div>
                     )}
@@ -202,30 +213,32 @@ export function Nav({ solid = false }: { solid?: boolean }) {
             ))}
           </nav>
 
-          {/* Right: Distinctive CTA Action */}
-          <div className="flex items-center gap-3">
+          {/* Right: Solid Black CTA Pill Button */}
+          <div className="hidden sm:flex items-center gap-3">
             <a
-              href="/#contact"
-              className="relative group inline-flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-5 py-2 text-xs font-bold text-white hover:bg-zinc-900 border border-zinc-800 hover:border-[#0052FF]/60 transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 cursor-pointer"
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-xs sm:text-[13px] font-semibold text-white hover:bg-black transition-all shadow-xs hover:shadow-sm cursor-pointer"
             >
-              <span>Initiate Architecture</span>
-              <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform text-zinc-300" />
+              <span>Consult an Architect</span>
+              <ArrowRight className="h-3.5 w-3.5" />
             </a>
+          </div>
 
-            {/* Mobile Menu Toggle Button */}
+          {/* Mobile Hamburger Toggle Button */}
+          <div className="flex lg:hidden items-center">
             <button
+              onClick={() => setOpen(!open)}
+              className="rounded-lg p-2 text-zinc-700 hover:bg-zinc-100 hover:text-black cursor-pointer"
               aria-label="Toggle navigation menu"
-              onClick={() => setOpen((v) => !v)}
-              className="p-2 rounded-xl border border-zinc-200 text-zinc-900 bg-zinc-50 lg:hidden cursor-pointer hover:bg-zinc-100 transition-colors"
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -233,37 +246,47 @@ export function Nav({ solid = false }: { solid?: boolean }) {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-zinc-200 bg-white px-5 py-4 shadow-xl lg:hidden"
+            className="border-b border-zinc-200 bg-white px-4 py-6 shadow-lg lg:hidden"
           >
-            <nav className="flex flex-col gap-1.5">
+            <div className="space-y-3">
               {navLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2.5 text-xs font-semibold text-zinc-800 hover:bg-zinc-100 transition-colors flex items-center justify-between"
-                >
-                  <span className="flex items-center gap-2">
-                    {item.isFeatured && <Sparkles className="h-3.5 w-3.5 text-[#0052FF]" />}
-                    {item.label}
-                    {item.tag && (
-                      <span className="rounded-md bg-[#0052FF] text-white px-1 py-0.2 text-[9px] font-mono font-extrabold uppercase">
-                        {item.tag}
-                      </span>
-                    )}
-                  </span>
-                  <ArrowRight className="h-3.5 w-3.5 text-zinc-400" />
-                </a>
+                <div key={item.label} className="border-b border-zinc-100 pb-2">
+                  <a
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between text-sm font-semibold text-zinc-900 py-1"
+                  >
+                    <span>{item.label}</span>
+                    {item.dropdown && <ChevronDown className="h-4 w-4 text-zinc-400" />}
+                  </a>
+                  {item.dropdown && (
+                    <div className="mt-2 pl-3 space-y-2">
+                      {item.dropdown.map((sub) => (
+                        <a
+                          key={sub.name}
+                          href={sub.href}
+                          onClick={() => setOpen(false)}
+                          className="block text-xs text-zinc-600 hover:text-black py-0.5"
+                        >
+                          {sub.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
-              <a
-                href="/#contact"
-                onClick={() => setOpen(false)}
-                className="mt-3 rounded-xl bg-zinc-950 py-2.5 text-center text-xs font-bold text-white hover:bg-zinc-900 transition-colors flex items-center justify-center gap-1.5"
-              >
-                <span>Initiate Architecture</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-            </nav>
+
+              <div className="pt-3">
+                <a
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-zinc-950 px-6 py-3 text-xs font-bold text-white shadow-sm"
+                >
+                  <span>Consult an Architect</span>
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

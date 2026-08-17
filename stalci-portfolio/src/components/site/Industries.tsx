@@ -1,257 +1,255 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import { SectionHeading } from "./Brand";
-import { useStaggerReveal } from "@/lib/animations";
-import { industries as staticIndustries, type DetailEntry } from "@/lib/site-data";
-import { useQuery } from "@tanstack/react-query";
-import { fetchIndustries } from "@/lib/api";
-import { mapIndustry } from "@/lib/api-mapper";
+import { BadgePill } from "./Brand";
+import { motion, AnimatePresence } from "framer-motion";
 
-interface TechIcon {
+interface IndustryDetail {
+  id: string;
   name: string;
   slug: string;
+  title: string;
+  summary: string;
+  bullets: string[];
+  imageUrl: string;
 }
 
-interface IndustryMeta {
-  standard: string;
-  metric: string;
-  primaryLogo: string;
-  primaryAlt: string;
-  techIcons: TechIcon[];
-}
-
-const INDUSTRY_METAS: Record<string, IndustryMeta> = {
-  "fintech-banking": {
-    standard: "PCI-DSS v4.0",
-    metric: "5k TPS Sustained",
-    primaryLogo: "stripe",
-    primaryAlt: "Stripe & FinTech Core",
-    techIcons: [
-      { name: "Stripe", slug: "stripe" },
-      { name: "PostgreSQL", slug: "postgresql" },
-      { name: "Kafka", slug: "apachekafka" },
-      { name: "Kubernetes", slug: "kubernetes" },
+const industryList: IndustryDetail[] = [
+  {
+    id: "real-estate",
+    name: "Real Estate",
+    slug: "proptech",
+    title: "Real Estate & PropTech",
+    summary:
+      "We're digitizing the property lifecycle, from immersive AR-powered virtual tours to AI-driven platforms that optimize property management and predict market trends.",
+    bullets: [
+      "AI-driven property valuation models",
+      "IoT for intelligent building management",
+      "VR/AR for immersive property showcases",
+      "Predictive analytics for investment opportunities",
+      "Smart contract-based transaction platforms",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&auto=format&fit=crop&q=80",
   },
-  "healthcare": {
-    standard: "HIPAA / HL7",
-    metric: "100% HIPAA SLA",
-    primaryLogo: "python",
-    primaryAlt: "Python & FHIR",
-    techIcons: [
-      { name: "Python", slug: "python" },
-      { name: "React", slug: "react" },
-      { name: "PostgreSQL", slug: "postgresql" },
-      { name: "Docker", slug: "docker" },
+  {
+    id: "fintech",
+    name: "FinTech",
+    slug: "fintech-banking",
+    title: "FinTech & Banking Infrastructure",
+    summary:
+      "High-throughput transactional ledgers, PCI-DSS compliant payment gateways, and autonomous fraud detection engines running at sub-millisecond execution speeds.",
+    bullets: [
+      "Sub-millisecond ledger and settlement engines",
+      "Automated PCI-DSS v4.0 compliance & tokenization",
+      "Real-time ML fraud detection & anomaly scoring",
+      "Multi-currency neo-banking & automated payouts",
+      "High-frequency market connectivity & analytics",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=900&auto=format&fit=crop&q=80",
   },
-  "retail": {
-    standard: "Headless OMS",
-    metric: "+22% Conversion",
-    primaryLogo: "nextdotjs",
-    primaryAlt: "Next.js Commerce",
-    techIcons: [
-      { name: "Next.js", slug: "nextdotjs" },
-      { name: "Redis", slug: "redis" },
-      { name: "Snowflake", slug: "snowflake" },
-      { name: "TypeScript", slug: "typescript" },
+  {
+    id: "healthcare",
+    name: "Healthcare",
+    slug: "healthcare",
+    title: "Healthcare & Life Sciences",
+    summary:
+      "HIPAA-compliant clinical workflows, FHIR data interoperability pipelines, and AI-augmented diagnostic telemetry built for hospitals and health networks.",
+    bullets: [
+      "100% HIPAA & HL7/FHIR compliant data pipelines",
+      "Real-time clinical telemetry & patient monitoring",
+      "Secure telemedicine platforms with end-to-end encryption",
+      "AI diagnostic assistants for clinical report analysis",
+      "Zero-trust biometric access controls for medical records",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&auto=format&fit=crop&q=80",
   },
-  "education": {
-    standard: "Adaptive AI",
-    metric: "100k+ Concurrency",
-    primaryLogo: "react",
-    primaryAlt: "React LMS",
-    techIcons: [
-      { name: "React", slug: "react" },
-      { name: "Node.js", slug: "nodedotjs" },
-      { name: "PostgreSQL", slug: "postgresql" },
-      { name: "Redis", slug: "redis" },
+  {
+    id: "ecommerce",
+    name: "E-commerce",
+    slug: "retail",
+    title: "E-Commerce & Digital Retail",
+    summary:
+      "Headless storefronts, real-time omnichannel inventory synchronizers, and algorithmic product recommendation engines engineered for high-concurrency peak sales.",
+    bullets: [
+      "Sub-second headless storefronts on Next.js 16",
+      "Real-time multi-warehouse inventory allocation",
+      "AI-driven predictive personalization & upsell engines",
+      "Automated omni-channel checkout & tax calculation",
+      "Resilient high-traffic flash sale scaling architecture",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop&q=80",
   },
-  "manufacturing": {
-    standard: "Industry 4.0",
-    metric: "-25% Downtime",
-    primaryLogo: "grafana",
-    primaryAlt: "Grafana IIoT",
-    techIcons: [
-      { name: "Python", slug: "python" },
-      { name: "Grafana", slug: "grafana" },
-      { name: "Docker", slug: "docker" },
-      { name: "Kubernetes", slug: "kubernetes" },
+  {
+    id: "entertainment",
+    name: "Entertainment",
+    slug: "media-telecom",
+    title: "Media & Entertainment Streaming",
+    summary:
+      "Ultra-low latency live video streaming, edge caching distribution, and dynamic content delivery networks handling millions of concurrent subscribers.",
+    bullets: [
+      "Low-latency HLS/WebRTC video streaming pipelines",
+      "Global edge content distribution on Cloudflare",
+      "Dynamic DRM protection & watermarking algorithms",
+      "Interactive audience engagement & polling engines",
+      "Multi-platform native playback SDKs for mobile & web",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=900&auto=format&fit=crop&q=80",
   },
-  "logistics": {
-    standard: "Live Telematics",
-    metric: "+9% On-Time SLA",
-    primaryLogo: "go",
-    primaryAlt: "Go Telematics",
-    techIcons: [
-      { name: "Go", slug: "go" },
-      { name: "Kafka", slug: "apachekafka" },
-      { name: "React", slug: "react" },
-      { name: "Google Cloud", slug: "googlecloud" },
+  {
+    id: "edtech",
+    name: "EdTech",
+    slug: "education",
+    title: "Education & Adaptive Learning",
+    summary:
+      "Personalized learning management systems, automated assessment engines, and collaborative virtual classrooms supporting global student bodies.",
+    bullets: [
+      "Adaptive learning paths powered by private LLMs",
+      "Automated assignment grading & code sandboxes",
+      "Real-time interactive virtual classroom environments",
+      "Gamified progress tracking & credential verification",
+      "High-concurrency exam proctoring & telemetry",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&auto=format&fit=crop&q=80",
   },
-  "proptech": {
-    standard: "MLS / IDX",
-    metric: "1h Sync Latency",
-    primaryLogo: "elasticsearch",
-    primaryAlt: "Elasticsearch IDX",
-    techIcons: [
-      { name: "Next.js", slug: "nextdotjs" },
-      { name: "Elasticsearch", slug: "elasticsearch" },
-      { name: "Python", slug: "python" },
-      { name: "TailwindCSS", slug: "tailwindcss" },
+  {
+    id: "sports",
+    name: "Sports",
+    slug: "gaming",
+    title: "Gaming & Sports Telemetry",
+    summary:
+      "Real-time sports state management, low-latency live score tickers, and multiplayer game servers engineered in Go and Rust.",
+    bullets: [
+      "Sub-20ms WebSocket state synchronization",
+      "Real-time sports match telemetry & heatmaps",
+      "Scalable matchmaking & leaderboard microservices",
+      "Low-latency push notifications for live events",
+      "Cross-platform state persistence with Redis clusters",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=900&auto=format&fit=crop&q=80",
   },
-  "travel": {
-    standard: "GDS Connect",
-    metric: "<500ms Response",
-    primaryLogo: "redis",
-    primaryAlt: "Redis GDS",
-    techIcons: [
-      { name: "Node.js", slug: "nodedotjs" },
-      { name: "Redis", slug: "redis" },
-      { name: "PostgreSQL", slug: "postgresql" },
-      { name: "Kubernetes", slug: "kubernetes" },
+  {
+    id: "logistics",
+    name: "Logistics",
+    slug: "logistics",
+    title: "Supply Chain & Fleet Logistics",
+    summary:
+      "Autonomous dispatch routing, IoT telematics ingestion pipelines, and predictive supply chain visibility dashboards.",
+    bullets: [
+      "Live GPS fleet telematics & geofencing pipelines",
+      "Dynamic route optimization & fuel reduction models",
+      "Automated bill-of-lading processing with OCR",
+      "Real-time carrier tracking & ETA predictions",
+      "IoT sensor telemetry for cold-chain monitoring",
     ],
+    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&auto=format&fit=crop&q=80",
   },
-  "media-telecom": {
-    standard: "Low-Latency",
-    metric: "<3s Start Time",
-    primaryLogo: "cloudflare",
-    primaryAlt: "Cloudflare Video",
-    techIcons: [
-      { name: "Go", slug: "go" },
-      { name: "Kafka", slug: "apachekafka" },
-      { name: "Cloudflare", slug: "cloudflare" },
-      { name: "React", slug: "react" },
-    ],
-  },
-  "gaming": {
-    standard: "Real-time State",
-    metric: "<20ms Latency",
-    primaryLogo: "rust",
-    primaryAlt: "Rust Engine",
-    techIcons: [
-      { name: "Rust", slug: "rust" },
-      { name: "Go", slug: "go" },
-      { name: "Redis", slug: "redis" },
-      { name: "Docker", slug: "docker" },
-    ],
-  },
-};
-
-const DEFAULT_META: IndustryMeta = {
-  standard: "Enterprise Scale",
-  metric: "99.99% Production SLA",
-  primaryLogo: "typescript",
-  primaryAlt: "Enterprise Tech",
-  techIcons: [
-    { name: "TypeScript", slug: "typescript" },
-    { name: "React", slug: "react" },
-    { name: "PostgreSQL", slug: "postgresql" },
-    { name: "Docker", slug: "docker" },
-  ],
-};
+];
 
 export function Industries() {
-  const gridRef = useStaggerReveal({ stagger: 0.04, y: 20 });
+  const [activeTab, setActiveTab] = useState<string>("real-estate");
 
-  const { data: apiIndustries } = useQuery({
-    queryKey: ["industries"],
-    queryFn: fetchIndustries,
-  });
-
-  const industries: DetailEntry[] =
-    apiIndustries && apiIndustries.length > 0 ? apiIndustries.map(mapIndustry) : staticIndustries;
+  const current = industryList.find((i) => i.id === activeTab) || industryList[0];
 
   return (
-    <section id="industries" className="border-t border-zinc-200/90 bg-white py-14 sm:py-20 text-black">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Industries & Domains"
-          title="Domain Depth Across Global Sectors"
-          subtitle="Reference architectures, zero-trust security frameworks, and compliance patterns proven in your market."
-          tone="light"
-        />
+    <section id="industries" className="border-t border-zinc-200/90 bg-[#FFFFFF] py-16 sm:py-24 text-black relative isolate overflow-hidden">
+      {/* Subtle Crosshatch SVG Mesh */}
+      <div 
+        className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#F1F5F9_1px,transparent_1px),linear-gradient(to_bottom,#F1F5F9_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-80" 
+        aria-hidden 
+      />
 
-        <div ref={gridRef} className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {industries.map((i) => {
-            const meta = INDUSTRY_METAS[i.slug] || DEFAULT_META;
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* ─── Header Section (Screenshot 3 Match) ─── */}
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-[34px] font-bold text-zinc-950 tracking-tight leading-[1.2]">
+            Fluent in the Language of Your <span className="font-extrabold text-black">Industry's Code</span>
+          </h2>
 
-            return (
-              <Link
-                key={i.slug}
-                to="/industries/$slug"
-                params={{ slug: i.slug }}
-                className="group relative flex flex-col justify-between rounded-2xl border border-zinc-200/90 bg-white p-6 transition-all duration-200 hover:border-zinc-400 hover:shadow-md hover:-translate-y-0.5"
+          <p className="text-xs sm:text-[14px] text-zinc-600 font-normal leading-relaxed max-w-2xl mx-auto">
+            Tech is universal, but every industry has its own rules. We've shipped in FinTech, Healthcare, Real Estate, Logistics, EdTech, Media, Sports, and E-commerce, so we already speak your domain's language on day one.
+          </p>
+        </div>
+
+        {/* ─── Category Filter Pills Bar (Screenshot 3 Match) ─── */}
+        <div className="flex justify-center mb-12 overflow-x-auto pb-2">
+          <div className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-white p-1.5 shadow-2xs">
+            {industryList.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                  activeTab === item.id
+                    ? "bg-black text-white shadow-xs"
+                    : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100"
+                }`}
               >
-                <div>
-                  {/* Top Row: Authentic Brand SVG Logo + Clean Monospace Standard Badge */}
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-50 border border-zinc-200/90 p-2.5 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                      <img
-                        src={`/icons/${meta.primaryLogo}.svg`}
-                        alt={meta.primaryAlt}
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                    <span className="inline-flex items-center rounded-full bg-zinc-100 px-2.5 py-1 text-[10.5px] font-mono font-bold uppercase tracking-wider text-zinc-800 border border-zinc-200">
-                      {meta.standard}
-                    </span>
-                  </div>
-
-                  {/* Title & Summary */}
-                  <h3 className="mt-4 text-base sm:text-lg font-bold text-zinc-950 tracking-tight group-hover:text-black transition-colors">
-                    {i.title}
+        {/* ─── Big Showcase Card (Screenshot 3 Match) ─── */}
+        <div className="max-w-6xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="rounded-3xl border border-zinc-200/90 bg-[#FAFAFC] p-8 sm:p-12 shadow-xs hover:border-zinc-300 transition-all"
+            >
+              <div className="grid gap-10 lg:grid-cols-12 items-center">
+                
+                {/* Left Column (60%): Title, Description, Bullets */}
+                <div className="lg:col-span-7 space-y-6">
+                  <h3 className="text-xl sm:text-2xl font-bold text-zinc-950 tracking-tight">
+                    {current.title}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-zinc-600 font-normal line-clamp-2">
-                    {i.summary}
+
+                  <p className="text-xs sm:text-[14px] leading-relaxed text-zinc-600 font-normal">
+                    {current.summary}
                   </p>
 
-                  {/* Real Tech SVG Icons Bar */}
-                  <div className="mt-4 flex items-center gap-2">
-                    <span className="text-[10px] font-mono uppercase text-zinc-400 font-bold">Stack</span>
-                    <div className="flex items-center gap-1.5">
-                      {meta.techIcons.map((tech) => (
-                        <div
-                          key={tech.slug}
-                          title={tech.name}
-                          className="h-6 w-6 rounded-md bg-zinc-50 border border-zinc-200/80 p-1 flex items-center justify-center shadow-2xs"
-                        >
-                          <img
-                            src={`/icons/${tech.slug}.svg`}
-                            alt={tech.name}
-                            className="h-full w-full object-contain"
-                            onError={(e) => {
-                              (e.target as HTMLElement).style.display = "none";
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </div>
+                  <div className="space-y-3 pt-2">
+                    {current.bullets.map((b, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-xs sm:text-[13.5px] text-zinc-800 font-medium">
+                        <span className="h-1.5 w-1.5 rounded-full bg-zinc-950 shrink-0" />
+                        <span>{b}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-4">
+                    <Link
+                      to="/industries/$slug"
+                      params={{ slug: current.slug }}
+                      className="inline-flex items-center gap-2 text-xs font-bold text-zinc-950 hover:text-blue-600 transition-colors"
+                    >
+                      <span>Explore {current.name} Solutions</span>
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
                 </div>
 
-                {/* Footer Metric + Action Link */}
-                <div className="mt-6 pt-3.5 border-t border-zinc-100 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-[9px] uppercase font-mono tracking-wider text-zinc-400 font-bold">Metric</span>
-                    <span className="text-xs font-bold text-zinc-950 font-mono">{meta.metric}</span>
+                {/* Right Column (40%): 3D Architectural / Tech Render Image */}
+                <div className="lg:col-span-5">
+                  <div className="relative h-[280px] sm:h-[340px] w-full rounded-2xl overflow-hidden border border-zinc-200/80 shadow-md bg-zinc-100">
+                    <img
+                      src={current.imageUrl}
+                      alt={current.title}
+                      className="h-full w-full object-cover"
+                    />
                   </div>
-
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-zinc-900 group-hover:text-copper transition-colors">
-                    <span>View Frameworks</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
                 </div>
-              </Link>
-            );
-          })}
+
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
+
       </div>
     </section>
   );

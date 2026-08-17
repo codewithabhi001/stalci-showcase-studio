@@ -1,506 +1,179 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SectionHeading } from "./Brand";
-import { Sparkles, ShieldCheck } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTechnologies } from "@/lib/api";
+import { BadgePill } from "./Brand";
+import { TechIcon } from "./TechIcon";
+import { 
+  ShieldCheck, 
+  CheckCircle2, 
+  Layers, 
+  Cpu, 
+  Server, 
+  Smartphone,
+  Globe,
+  ArrowRight
+} from "lucide-react";
 
-export interface TechItem {
+interface TechItem {
   name: string;
-  label: string;
-  category: "Languages" | "Frameworks and SDKs" | "Cloud and Backend" | "Dev Tools";
+  category: "AI & Neural" | "Cloud & DevOps" | "Full-Stack Web" | "Native Mobile";
   iconSlug: string;
-  proficiency: number;
-  description: string;
-  badge: string;
-  useCase: string;
+  tag: string;
+  desc: string;
+  spec: string;
 }
 
-export const techItems: TechItem[] = [
-  // ─── Languages (8 items) ───
-  {
-    name: "JavaScript",
-    label: "JavaScript",
-    category: "Languages",
-    iconSlug: "javascript",
-    proficiency: 99,
-    description: "Modern ESNext asynchronous runtime, event loop profiling, and universal browser web standards.",
-    badge: "Web Standard",
-    useCase: "Enterprise web platforms, node runtimes, and client hydration",
-  },
-  {
-    name: "TypeScript",
-    label: "TypeScript",
-    category: "Languages",
-    iconSlug: "typescript",
-    proficiency: 99,
-    description: "Strict static typing, compile-time contract validation, generic utilities, and enterprise scale.",
-    badge: "Core Enterprise",
-    useCase: "Type-safe full-stack platforms, client SDKs, and API schemas",
-  },
-  {
-    name: "Python",
-    label: "Python",
-    category: "Languages",
-    iconSlug: "python",
-    proficiency: 98,
-    description: "AI/ML pipelines, PyTorch tensor models, LangChain agentic systems, and FastAPI microservices.",
-    badge: "AI & Systems",
-    useCase: "Sovereign LLMs, RAG retrieval pipelines, and quantitative engines",
-  },
-  {
-    name: "Go (Golang)",
-    label: "Go",
-    category: "Languages",
-    iconSlug: "go",
-    proficiency: 96,
-    description: "High-throughput concurrent microservices, sub-millisecond network routers, and low-footprint daemons.",
-    badge: "High Concurrency",
-    useCase: "Distributed backend engines, streaming proxies, and telemetry daemons",
-  },
-  {
-    name: "Rust",
-    label: "Rust",
-    category: "Languages",
-    iconSlug: "rust",
-    proficiency: 94,
-    description: "Memory-safe systems programming with zero-cost abstractions, WebAssembly binaries, and kernel speed.",
-    badge: "Systems & WASM",
-    useCase: "Cryptographic enclaves, low-latency financial systems, and WASM compute",
-  },
-  {
-    name: "Kotlin",
-    label: "Kotlin",
-    category: "Languages",
-    iconSlug: "kotlin",
-    proficiency: 96,
-    description: "Modern Android ecosystem engineering, coroutine-based concurrency, and type-safe Kotlin Multiplatform.",
-    badge: "Native Mobile",
-    useCase: "Enterprise Android applications and shared multiplatform logic",
-  },
-  {
-    name: "Swift",
-    label: "Swift",
-    category: "Languages",
-    iconSlug: "swift",
-    proficiency: 96,
-    description: "High-performance Apple platforms, SwiftUI reactive state, Combine pipelines, and Metal shaders.",
-    badge: "Apple Ecosystem",
-    useCase: "iOS, macOS, and iPadOS mission-critical client interfaces",
-  },
-  {
-    name: "GraphQL / SQL",
-    label: "GraphQL",
-    category: "Languages",
-    iconSlug: "graphql",
-    proficiency: 97,
-    description: "Declarative schema-driven data graphs, typed queries, and real-time subscription synchronization.",
-    badge: "Data Query Mesh",
-    useCase: "Unified multi-service API layers and single-roundtrip client queries",
-  },
+const techDirectory: TechItem[] = [
+  // AI & Neural
+  { name: "PyTorch", category: "AI & Neural", iconSlug: "pytorch", tag: "Deep Learning", spec: "CUDA 12.4", desc: "Tensor compute & custom fine-tuned LLM architectures" },
+  { name: "Python", category: "AI & Neural", iconSlug: "python", tag: "AI Runtimes", spec: "v3.12 LTS", desc: "LangChain agents, embeddings & vector search pipelines" },
+  { name: "TensorFlow", category: "AI & Neural", iconSlug: "tensorflow", tag: "ML Engine", spec: "Edge Inference", desc: "High-throughput edge model inference & production pipelines" },
+  { name: "Hugging Face", category: "AI & Neural", iconSlug: "huggingface", tag: "Model Hub", spec: "Quantization", desc: "Open-weights quantization & domain-specific adaptation" },
 
-  // ─── Frameworks and SDKs (8 items) ───
-  {
-    name: "React 19",
-    label: "React",
-    category: "Frameworks and SDKs",
-    iconSlug: "react",
-    proficiency: 99,
-    description: "Server components, concurrent rendering, dynamic hydration, and state primitives.",
-    badge: "Frontend Core",
-    useCase: "Enterprise dashboards, customer portals, and high-DPI web apps",
-  },
-  {
-    name: "Next.js 16",
-    label: "Next.js",
-    category: "Frameworks and SDKs",
-    iconSlug: "nextdotjs",
-    proficiency: 99,
-    description: "Streaming SSR, edge middleware, nested layouts, and Core Web Vitals optimization.",
-    badge: "Full-Stack Web",
-    useCase: "High-traffic public web applications and global platforms",
-  },
-  {
-    name: "Node.js",
-    label: "Node.js",
-    category: "Frameworks and SDKs",
-    iconSlug: "nodedotjs",
-    proficiency: 98,
-    description: "V8-powered asynchronous server runtime, high-concurrency event loops, and streaming APIs.",
-    badge: "Server Runtime",
-    useCase: "Real-time socket servers, microservices, and file ingestion",
-  },
-  {
-    name: "NestJS",
-    label: "NestJS",
-    category: "Frameworks and SDKs",
-    iconSlug: "nestjs",
-    proficiency: 97,
-    description: "Enterprise modular backend architecture, dependency injection, and gRPC microservices.",
-    badge: "Enterprise Backend",
-    useCase: "Banking backends, microservice meshes, and modular architectures",
-  },
-  {
-    name: "React Native",
-    label: "React Native",
-    category: "Frameworks and SDKs",
-    iconSlug: "react",
-    proficiency: 98,
-    description: "Cross-platform mobile apps with native UI bridges and 60fps smooth touch gestures.",
-    badge: "Cross-Platform",
-    useCase: "Universal mobile applications across iOS and Android stores",
-  },
-  {
-    name: "Flutter",
-    label: "Flutter",
-    category: "Frameworks and SDKs",
-    iconSlug: "flutter",
-    proficiency: 95,
-    description: "Pixel-perfect compiled mobile and desktop UI powered by Dart and Skia canvas.",
-    badge: "Multi-Platform",
-    useCase: "Bespoke kiosk systems, embedded screens, and mobile apps",
-  },
-  {
-    name: "Tailwind CSS",
-    label: "Tailwind CSS",
-    category: "Frameworks and SDKs",
-    iconSlug: "tailwindcss",
-    proficiency: 99,
-    description: "Utility-first design tokens, responsive layouts, and accessible component themes.",
-    badge: "Design Tokens",
-    useCase: "Consistent design systems, dark/light themes, and UI components",
-  },
-  {
-    name: "SvelteKit",
-    label: "Svelte",
-    category: "Frameworks and SDKs",
-    iconSlug: "svelte",
-    proficiency: 94,
-    description: "Compiler-based reactive UI without virtual DOM overhead, tiny JS bundle footprint, and raw speed.",
-    badge: "Zero-V-DOM",
-    useCase: "Ultra-lightweight embedded web widgets and high-frequency live tickers",
-  },
+  // Full-Stack Web
+  { name: "TypeScript", category: "Full-Stack Web", iconSlug: "typescript", tag: "Type System", spec: "100% AST Safe", desc: "Compile-time type safety & end-to-end schema validation" },
+  { name: "React 19", category: "Full-Stack Web", iconSlug: "react", tag: "UI Framework", spec: "Server Actions", desc: "Server components, streaming SSR & concurrent rendering" },
+  { name: "Next.js 16", category: "Full-Stack Web", iconSlug: "nextdotjs", tag: "Edge Web", spec: "<50ms TTFB", desc: "Edge middleware, dynamic ISR & streaming routes" },
+  { name: "Node.js", category: "Full-Stack Web", iconSlug: "nodedotjs", tag: "Runtime", spec: "Async I/O", desc: "High-concurrency async event-driven microservices" },
+  { name: "Tailwind CSS", category: "Full-Stack Web", iconSlug: "tailwindcss", tag: "Design Tokens", spec: "0-Runtime", desc: "Zero-runtime responsive component design systems" },
+  { name: "PostgreSQL", category: "Full-Stack Web", iconSlug: "postgresql", tag: "Database", spec: "pgvector ACID", desc: "ACID transactions & pgvector similarity embeddings" },
 
-  // ─── Cloud and Backend (8 items) ───
-  {
-    name: "Amazon Web Services",
-    label: "AWS Cloud",
-    category: "Cloud and Backend",
-    iconSlug: "aws",
-    proficiency: 98,
-    description: "Multi-region VPCs, ECS/EKS clusters, serverless Lambda, and S3 global distribution.",
-    badge: "Cloud Foundation",
-    useCase: "Global enterprise cloud infrastructure and disaster-recovery topologies",
-  },
-  {
-    name: "Google Cloud",
-    label: "Google Cloud",
-    category: "Cloud and Backend",
-    iconSlug: "googlecloud",
-    proficiency: 97,
-    description: "GKE Autopilot clusters, BigQuery data warehouses, Vertex AI endpoints, and global networks.",
-    badge: "AI & Cloud",
-    useCase: "Petabyte-scale analytics, AI model hosting, and container clusters",
-  },
-  {
-    name: "Kubernetes",
-    label: "Kubernetes",
-    category: "Cloud and Backend",
-    iconSlug: "kubernetes",
-    proficiency: 98,
-    description: "Automated container orchestration, blue/green rollouts, and multi-cloud Helm deployments.",
-    badge: "Orchestration",
-    useCase: "Self-healing microservice clusters across hybrid and multi-cloud providers",
-  },
-  {
-    name: "Docker",
-    label: "Docker",
-    category: "Cloud and Backend",
-    iconSlug: "docker",
-    proficiency: 99,
-    description: "Deterministic container environments, multi-stage builds, and microservice packaging.",
-    badge: "Containers",
-    useCase: "Application packaging, local developer parity, and CI environments",
-  },
-  {
-    name: "Terraform",
-    label: "Terraform",
-    category: "Cloud and Backend",
-    iconSlug: "terraform",
-    proficiency: 96,
-    description: "Declarative Infrastructure as Code (IaC) and immutable cloud state management.",
-    badge: "IaC Automation",
-    useCase: "Automated multi-environment cloud provisioning and security guardrails",
-  },
-  {
-    name: "PostgreSQL",
-    label: "PostgreSQL",
-    category: "Cloud and Backend",
-    iconSlug: "postgresql",
-    proficiency: 99,
-    description: "ACID compliance, pgvector embeddings, complex indexing, and high-volume transactions.",
-    badge: "Primary RDBMS",
-    useCase: "Core transactional enterprise database and semantic search embeddings",
-  },
-  {
-    name: "Redis",
-    label: "Redis",
-    category: "Cloud and Backend",
-    iconSlug: "redis",
-    proficiency: 98,
-    description: "In-memory caching, distributed locks, rate-limiting, and Pub/Sub message channels.",
-    badge: "In-Memory Store",
-    useCase: "High-throughput session storage, cache acceleration, and job queues",
-  },
-  {
-    name: "Apache Kafka",
-    label: "Kafka",
-    category: "Cloud and Backend",
-    iconSlug: "apachekafka",
-    proficiency: 95,
-    description: "Distributed high-throughput event streaming, log compaction, and event-driven pipelines.",
-    badge: "Event Streaming",
-    useCase: "Financial transaction logs, telemetry pipelines, and async event buses",
-  },
+  // Cloud & DevOps
+  { name: "AWS", category: "Cloud & DevOps", iconSlug: "aws", tag: "Cloud Fabric", spec: "Multi-AZ", desc: "Multi-AZ EKS, RDS Aurora, Serverless & S3 infrastructure" },
+  { name: "Google Cloud", category: "Cloud & DevOps", iconSlug: "googlecloud", tag: "AI Cloud", spec: "TPU Pods", desc: "BigQuery analytics, Kubernetes engine & TPU pods" },
+  { name: "Kubernetes", category: "Cloud & DevOps", iconSlug: "kubernetes", tag: "Orchestration", spec: "Auto Canary", desc: "Automated blue/green zero-downtime cluster rollouts" },
+  { name: "Docker", category: "Cloud & DevOps", iconSlug: "docker", tag: "Containers", spec: "Multi-Arch", desc: "Lightweight reproducible multi-stage image builds" },
+  { name: "Terraform", category: "Cloud & DevOps", iconSlug: "terraform", tag: "IaC", spec: "Immutable", desc: "Declarative multi-cloud provisioning & immutable infra" },
+  { name: "Redis", category: "Cloud & DevOps", iconSlug: "redis", tag: "Cache & Mesh", spec: "<1ms Cache", desc: "Sub-millisecond in-memory caching & distributed locks" },
 
-  // ─── Dev Tools (8 items) ───
-  {
-    name: "PyTorch",
-    label: "PyTorch",
-    category: "Dev Tools",
-    iconSlug: "pytorch",
-    proficiency: 96,
-    description: "Deep learning tensor computation, dynamic autograd graphs, and GPU CUDA acceleration.",
-    badge: "Deep Learning",
-    useCase: "Custom sovereign model fine-tuning and predictive machine learning models",
-  },
-  {
-    name: "LangChain",
-    label: "LangChain",
-    category: "Dev Tools",
-    iconSlug: "langchain",
-    proficiency: 96,
-    description: "Autonomous LLM tool orchestration, RAG retrieval agents, and vector store connectors.",
-    badge: "Agentic AI",
-    useCase: "Autonomous enterprise assistant workflows and private document intelligence",
-  },
-  {
-    name: "Ollama",
-    label: "Ollama",
-    category: "Dev Tools",
-    iconSlug: "ollama",
-    proficiency: 95,
-    description: "Local sovereign LLM inference execution, GGUF quantization, and private VPC model hosting.",
-    badge: "Local Inference",
-    useCase: "Zero-leakage on-premises AI inference for banking and healthcare data",
-  },
-  {
-    name: "Cloudflare",
-    label: "Cloudflare",
-    category: "Dev Tools",
-    iconSlug: "cloudflare",
-    proficiency: 98,
-    description: "Global edge CDN, DDoS mitigation, WAF security rules, and Workers serverless execution.",
-    badge: "Edge Security",
-    useCase: "Zero-Trust edge routing, bot protection, and sub-10ms static delivery",
-  },
-  {
-    name: "GitHub Actions",
-    label: "CI/CD Actions",
-    category: "Dev Tools",
-    iconSlug: "githubactions",
-    proficiency: 98,
-    description: "Automated linting, unit/integration testing, security scanning, and container deployments.",
-    badge: "CI/CD Pipeline",
-    useCase: "Continuous integration, static security analysis, and deployment automation",
-  },
-  {
-    name: "Prometheus",
-    label: "Prometheus",
-    category: "Dev Tools",
-    iconSlug: "prometheus",
-    proficiency: 96,
-    description: "Real-time metrics scraping, alert rules, service level telemetry, and uptime monitoring.",
-    badge: "Observability",
-    useCase: "Production SLA tracking, latency tracing, and automated anomaly alerting",
-  },
-  {
-    name: "HashiCorp Vault",
-    label: "Vault",
-    category: "Dev Tools",
-    iconSlug: "vault",
-    proficiency: 95,
-    description: "Centralized secrets encryption, dynamic certificate leasing, and identity verification.",
-    badge: "Zero-Trust",
-    useCase: "Encrypted credential lifecycle and SOC 2 secret management compliance",
-  },
-  {
-    name: "Figma",
-    label: "Figma",
-    category: "Dev Tools",
-    iconSlug: "figma",
-    proficiency: 98,
-    description: "Collaborative design systems, interactive prototypes, and auto-layout UI specifications.",
-    badge: "UI/UX Design",
-    useCase: "Design token specification and high-fidelity product prototyping",
-  },
+  // Native Mobile
+  { name: "Swift", category: "Native Mobile", iconSlug: "swift", tag: "Apple Native", spec: "120 FPS Metal", desc: "Native 120 FPS SwiftUI, SwiftData & Metal shaders" },
+  { name: "Kotlin", category: "Native Mobile", iconSlug: "kotlin", tag: "Android Native", spec: "Compose KMP", desc: "Jetpack Compose & Kotlin Multiplatform shared logic" },
+  { name: "React Native", category: "Native Mobile", iconSlug: "react", tag: "Cross-Platform", spec: "Native Bridge", desc: "High-performance native mobile apps with shared core" },
+  { name: "Flutter", category: "Native Mobile", iconSlug: "flutter", tag: "Multiplatform", spec: "Skia Engine", desc: "Pixel-perfect multiplatform mobile UI applications" },
 ];
 
-const categories = [
-  "Languages",
-  "Frameworks and SDKs",
-  "Cloud and Backend",
-  "Dev Tools",
-] as const;
+const categories = ["All Systems", "AI & Neural", "Full-Stack Web", "Cloud & DevOps", "Native Mobile"] as const;
 
 export function TechStack() {
-  const [activeCategory, setActiveCategory] = useState<string>("Languages");
-  const [selectedTech, setSelectedTech] = useState<TechItem>(techItems[0]);
+  const [activeCategory, setActiveCategory] = useState<string>("All Systems");
+  const [selectedTech, setSelectedTech] = useState<TechItem>(techDirectory[0]);
 
-  const filteredItems = techItems.filter((item) => item.category === activeCategory);
+  const filteredTech = activeCategory === "All Systems"
+    ? techDirectory
+    : techDirectory.filter(t => t.category === activeCategory);
 
   return (
-    <section id="tech-stack" className="relative bg-white py-14 sm:py-20 overflow-hidden text-black border-t border-zinc-200/90">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Heading */}
-        <SectionHeading
-          tone="light"
-          eyebrow="Advanced Tech Portfolio"
-          title="Using The Right Tools For Powerful Results"
-          subtitle="We pick the right stack for your specific project requirements and ensure maximum performance."
-        />
+    <section id="tech-stack" className="relative bg-[#FFFFFF] py-16 sm:py-24 text-zinc-950 isolate overflow-hidden border-t border-zinc-200/90">
+      
+      {/* Clean Subtle Grid Mesh */}
+      <div 
+        className="absolute inset-0 -z-10 bg-[radial-gradient(#E2E8F0_1px,transparent_1px)] [background-size:24px_24px] opacity-60 [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_60%,transparent_100%)] pointer-events-none" 
+        aria-hidden 
+      />
 
-        {/* Category Pill Tabs */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* ─── Header Section (Clean Typography, Zero Emojis) ─── */}
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">
+          <div className="flex justify-center">
+            <BadgePill tone="light" variant="gradient">
+              <span className="text-[10.5px] sm:text-[11.5px] font-mono text-zinc-900 font-semibold">
+                Architecture &amp; Toolchains
+              </span>
+            </BadgePill>
+          </div>
+
+          <h2 className="font-display text-2xl sm:text-3xl md:text-[36px] font-bold text-zinc-950 tracking-tight leading-[1.18]">
+            Our Production-Grade Technology Ecosystem
+          </h2>
+
+          <p className="text-xs sm:text-[13.5px] text-zinc-600 font-normal leading-relaxed max-w-xl mx-auto">
+            We don't chase hype. We architect mission-critical software using strictly typed, high-throughput, battle-tested modern toolchains.
+          </p>
+        </div>
+
+        {/* ─── Minimalist Category Filter Bar ─── */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10">
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             return (
               <button
                 key={cat}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  const firstOfCat = techItems.find((t) => t.category === cat);
-                  if (firstOfCat) setSelectedTech(firstOfCat);
-                }}
-                className={`relative rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                onClick={() => setActiveCategory(cat)}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? "bg-black text-white font-bold shadow-sm"
-                    : "bg-[#FAFAFC] text-zinc-700 border border-zinc-200/90 hover:border-zinc-400 hover:text-black shadow-2xs"
+                    ? "bg-zinc-950 text-white font-bold shadow-xs"
+                    : "bg-[#F8FAFC] text-zinc-700 border border-zinc-200/90 hover:border-zinc-400 hover:text-black shadow-2xs"
                 }`}
               >
-                <span>{cat}</span>
+                {cat}
               </button>
             );
           })}
         </div>
 
-        {/* ─── Clean Symmetric 4x2 Tech Grid ─── */}
-        <div className="mt-12 flex flex-col items-center">
-          <div className="w-full max-w-4xl">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeCategory}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 justify-items-center"
+        {/* ─── Clean Structured Ecosystem Cluster Grid ─── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
+          {filteredTech.map((tech) => {
+            const isSelected = selectedTech.name === tech.name;
+
+            return (
+              <div
+                key={tech.name}
+                onClick={() => setSelectedTech(tech)}
+                className={`relative rounded-2xl p-3.5 sm:p-4 text-left transition-all duration-200 cursor-pointer flex flex-col justify-between border ${
+                  isSelected
+                    ? "bg-white border-zinc-950 shadow-md ring-1 ring-zinc-950/10"
+                    : "bg-[#FAFAFC] border-zinc-200/90 hover:border-zinc-300 hover:bg-white hover:shadow-xs"
+                }`}
               >
-                {filteredItems.map((tech) => {
-                  const isSelected = selectedTech?.name === tech.name;
-
-                  return (
-                    <button
-                      key={tech.name}
-                      onClick={() => setSelectedTech(tech)}
-                      className={`group relative w-full h-32 sm:h-34 rounded-2xl flex flex-col items-center justify-center p-4 cursor-pointer transition-all duration-200 ${
-                        isSelected
-                          ? "bg-white border-2 border-black shadow-md scale-[1.02] ring-2 ring-black/5"
-                          : "bg-[#FAFAFC] border border-zinc-200/90 shadow-2xs hover:border-zinc-400 hover:bg-white hover:shadow-xs"
-                      }`}
-                    >
-                      {/* Authentic Brand SVG Logo */}
-                      <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-white border border-zinc-200/80 p-2 flex items-center justify-center mb-2 shadow-2xs group-hover:border-zinc-300">
-                        <img
-                          src={`/icons/${tech.iconSlug}.svg`}
-                          alt={`${tech.name} logo`}
-                          width={32}
-                          height={32}
-                          className="h-full w-full object-contain"
-                          onError={(e) => {
-                            (e.target as HTMLElement).style.display = "none";
-                          }}
-                        />
-                      </div>
-
-                      {/* Label & Badge */}
-                      <span className="text-xs sm:text-[13px] font-bold text-zinc-950 tracking-tight text-center leading-tight">
-                        {tech.label}
-                      </span>
-
-                      <span className="mt-1 text-[10px] font-mono text-zinc-500 tracking-tight text-center truncate max-w-full">
-                        {tech.badge}
-                      </span>
-                    </button>
-                  );
-                })}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* ─── Active Tool Spotlight Drawer ─── */}
-          {selectedTech && (
-            <motion.div
-              key={selectedTech.name}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
-              className="mt-8 w-full max-w-3xl rounded-3xl border border-zinc-200/90 bg-[#FAFAFC] p-6 sm:p-7 shadow-xs relative text-black"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="h-12 w-12 rounded-2xl bg-white border border-zinc-200 p-2.5 flex items-center justify-center shrink-0 shadow-2xs">
-                    <img
-                      src={`/icons/${selectedTech.iconSlug}.svg`}
-                      alt={selectedTech.name}
-                      width={36}
-                      height={36}
-                      className="h-full w-full object-contain"
-                    />
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-9 w-9 rounded-xl bg-white border border-zinc-200/80 p-1.5 flex items-center justify-center shadow-2xs">
+                    <TechIcon name={tech.name} slug={tech.iconSlug} size={22} />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-display text-lg font-bold text-zinc-950 leading-tight">
-                        {selectedTech.name}
-                      </h4>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200">
-                        {selectedTech.badge}
-                      </span>
-                    </div>
-                    <p className="text-xs font-mono text-zinc-500 mt-0.5">
-                      Category: {selectedTech.category}
-                    </p>
-                  </div>
+                  <span className="text-[9.5px] font-mono text-zinc-600 bg-zinc-100/80 border border-zinc-200/60 px-2 py-0.5 rounded-full font-medium">
+                    {tech.tag}
+                  </span>
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 bg-white border border-zinc-200 text-xs font-mono font-bold text-zinc-950 self-start sm:self-auto shadow-2xs">
-                  <Sparkles className="h-3.5 w-3.5 text-copper" />
-                  <span>{selectedTech.proficiency}% Production Grade</span>
-                </span>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs sm:text-[13px] font-bold text-zinc-950 font-display">
+                      {tech.name}
+                    </h3>
+                    <span className="text-[9.5px] font-mono text-zinc-500 font-semibold">
+                      {tech.spec}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-zinc-600 mt-1 line-clamp-2 leading-relaxed">
+                    {tech.desc}
+                  </p>
+                </div>
               </div>
+            );
+          })}
+        </div>
 
-              <p className="mt-3.5 text-xs sm:text-sm leading-relaxed text-zinc-600">
-                {selectedTech.description}
-              </p>
-
-              <div className="mt-4 p-3 rounded-xl bg-white border border-zinc-200/80 text-xs flex items-center gap-2">
-                <span className="font-bold text-zinc-950 font-mono">Use Case:</span>
-                <span className="text-zinc-600">{selectedTech.useCase}</span>
-              </div>
-            </motion.div>
-          )}
-
+        {/* ─── Clean Architecture Assurance Strip (Bottom, Zero Emojis) ─── */}
+        <div className="mt-10 sm:mt-12 rounded-2xl border border-zinc-200/90 bg-[#FAFAFC] p-4 max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-600 font-mono shadow-2xs">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-zinc-950" />
+            <span className="text-zinc-900 font-medium">100% Production Grade Architecture Standard</span>
+          </div>
+          <div className="flex items-center gap-5 text-[11px] text-zinc-600">
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3 w-3 text-zinc-950" />
+              <span>Sub-50ms P99 TTFB</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3 w-3 text-zinc-950" />
+              <span>SOC 2 Ready</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3 w-3 text-zinc-950" />
+              <span>Zero-Trust SLAs</span>
+            </span>
+          </div>
         </div>
 
       </div>

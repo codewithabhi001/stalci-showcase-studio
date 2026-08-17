@@ -1,4 +1,4 @@
-import { 
+﻿import { 
   ArrowRight, 
   Sparkles,
   Smartphone,
@@ -31,186 +31,111 @@ export function Hero() {
 
   const heroSubtitle =
     config.heroSubtitle ||
-    "STALCI engineers high-performance web applications, scalable mobile ecosystems, and autonomous AI pipelines for forward-thinking enterprises and rapid-growth scaleups worldwide.";
+    "STALCI engineers custom software, high-performance web & mobile platforms, and sovereign AI solutions for startups, enterprises, and large-scale organizations worldwide.";
 
   return (
-    <div className="flex flex-col min-h-[calc(100svh-4rem)] sm:block bg-black">
-      {/* ─── Screen 1: Full Viewport on Desktop, Seamless Flow on Mobile ─── */}
+    <div className="flex flex-col bg-[#000000] text-white overflow-hidden w-full">
+      
+      {/* ─── Screen 1: Flagship Sovereign Studio Hero ─── */}
       <section
         id="top"
-        className="relative isolate flex-1 flex flex-col items-center justify-center overflow-hidden sm:min-h-[calc(100vh-4rem)] bg-[#000000] text-white pt-20 pb-4 sm:py-8"
+        className="relative isolate flex flex-col items-center justify-center overflow-hidden bg-[#000000] pt-8 pb-10 sm:pt-14 sm:pb-16"
       >
-        {/* Deep Sapphire Blue Ambient Lighting */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[65rem] h-[22rem] bg-gradient-to-b from-[#0052FF]/[0.08] via-[#1D4ED8]/[0.03] to-transparent blur-[140px] pointer-events-none -z-20" />
-        <div className="absolute top-1/3 left-1/4 w-[20rem] h-[20rem] bg-[#0052FF]/[0.06] rounded-full blur-[130px] pointer-events-none -z-20" />
-        <div className="absolute top-1/3 right-1/4 w-[20rem] h-[20rem] bg-[#1E40AF]/[0.06] rounded-full blur-[130px] pointer-events-none -z-20" />
+        {/* Ambient Sapphire Radial Lighting (Soft Luxury Glow) */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[95vw] max-w-[80rem] h-[20rem] sm:h-[26rem] bg-gradient-to-b from-[#0052FF]/12 via-[#1D4ED8]/3 to-transparent blur-[130px] pointer-events-none -z-20" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[75vw] max-w-[36rem] h-[22rem] bg-[#0052FF]/8 rounded-full blur-[120px] pointer-events-none -z-20" />
 
-        {/* Crisp Luminous Dot Matrix Overlay */}
+        {/* Crisp High-Tech Dot Matrix Grid */}
         <div 
-          className="absolute inset-0 -z-10 bg-[radial-gradient(#2563EB_1px,transparent_1px)] [background-size:24px_24px] opacity-15 [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_60%,transparent_100%)] pointer-events-none" 
+          className="absolute inset-0 -z-10 bg-[radial-gradient(#1E40AF_1px,transparent_1px)] [background-size:26px_26px] opacity-15 [mask-image:radial-gradient(ellipse_80%_65%_at_50%_45%,#000_60%,transparent_100%)] pointer-events-none" 
           aria-hidden 
         />
 
-        {/* Focused Pure Sapphire Blue Aura */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[24rem] h-[24rem] bg-[#0052FF]/[0.10] rounded-full blur-[100px] pointer-events-none -z-10" />
-
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center justify-center my-auto">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center justify-center space-y-3.5 sm:space-y-4">
           
-          {/* ─── MOBILE ONLY: Glowing Processor Chip with Multi-Directional Wires (Left, Right, Down, Top) ─── */}
-          <div className="sm:hidden mb-6 flex flex-col items-center justify-center relative w-full max-w-[280px] h-28">
-            {/* Ambient Blue Halo */}
-            <div className="absolute w-32 h-32 bg-[#0052FF]/25 rounded-full blur-2xl pointer-events-none" />
-            
-            {/* SVG Horizontal & Vertical Background Wire Traces */}
-            <svg 
-              viewBox="0 0 280 112" 
-              className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-visible"
-            >
-              {/* Left Traces */}
-              <path d="M 0 46 L 95 46" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-              <path d="M 0 56 L 95 56" fill="none" stroke="#0052FF" strokeWidth="2" strokeOpacity="0.7" />
-              <path d="M 0 66 L 95 66" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-
-              {/* Right Traces */}
-              <path d="M 185 46 L 280 46" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-              <path d="M 185 56 L 280 56" fill="none" stroke="#0052FF" strokeWidth="2" strokeOpacity="0.7" />
-              <path d="M 185 66 L 280 66" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-
-              {/* Down Traces (Extending Towards Headline) */}
-              <path d="M 124 96 L 124 112" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-              <path d="M 132 96 L 132 112" fill="none" stroke="#0052FF" strokeWidth="1.8" strokeOpacity="0.8" />
-              <path d="M 140 96 L 140 112" fill="none" stroke="#0052FF" strokeWidth="2" />
-              <path d="M 148 96 L 148 112" fill="none" stroke="#0052FF" strokeWidth="1.8" strokeOpacity="0.8" />
-              <path d="M 156 96 L 156 112" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-
-              {/* Top Traces */}
-              <path d="M 134 0 L 134 16" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-              <path d="M 140 0 L 140 16" fill="none" stroke="#0052FF" strokeWidth="2" strokeOpacity="0.7" />
-              <path d="M 146 0 L 146 16" fill="none" stroke="#1D2A44" strokeWidth="1.8" />
-            </svg>
-
-            {/* Center STALCI Chip */}
-            <div className="relative z-10 h-20 w-20 rounded-2xl bg-gradient-to-br from-[#003ACC] via-[#0A1633] to-[#020617] border-2 border-[#0052FF] flex items-center justify-center shadow-[0_0_35px_rgba(0,82,255,0.7)]">
-              <StalciLogoIcon size={34} />
-              
-              {/* Metallic Bus Pins Left */}
-              <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 flex flex-col gap-1.5">
-                <div className="w-1.5 h-1 bg-blue-200/90 rounded-xs" />
-                <div className="w-1.5 h-1 bg-blue-200/90 rounded-xs" />
-                <div className="w-1.5 h-1 bg-blue-200/90 rounded-xs" />
-              </div>
-
-              {/* Metallic Bus Pins Right */}
-              <div className="absolute -right-1.5 top-1/2 -translate-y-1/2 flex flex-col gap-1.5">
-                <div className="w-1.5 h-1 bg-blue-200/90 rounded-xs" />
-                <div className="w-1.5 h-1 bg-blue-200/90 rounded-xs" />
-                <div className="w-1.5 h-1 bg-blue-200/90 rounded-xs" />
-              </div>
-
-              {/* Metallic Bus Pins Top */}
-              <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 flex gap-1.5">
-                <div className="w-1 h-1.5 bg-blue-200/90 rounded-xs" />
-                <div className="w-1 h-1.5 bg-blue-200/90 rounded-xs" />
-                <div className="w-1 h-1.5 bg-blue-200/90 rounded-xs" />
-              </div>
-
-              {/* Metallic Bus Pins Bottom */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-                <div className="w-1 h-2 bg-blue-200/90 rounded-xs" />
-                <div className="w-1 h-2 bg-blue-200/90 rounded-xs" />
-                <div className="w-1 h-2 bg-blue-200/90 rounded-xs" />
-                <div className="w-1 h-2 bg-blue-200/90 rounded-xs" />
-                <div className="w-1 h-2 bg-blue-200/90 rounded-xs" />
-              </div>
-            </div>
-          </div>
-
-          {/* ─── DESKTOP ONLY: Top Pill Badge ─── */}
+          {/* Top Pill Badge */}
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="hidden sm:flex mb-3 sm:mb-4 justify-center"
+            transition={{ duration: 0.3 }}
+            className="flex justify-center mb-0.5"
           >
-            <BadgePill tone="dark" variant="gradient">
-              <span className="text-[11px] font-mono">⚡ Intelligent Digital Engineering &amp; Autonomous AI</span>
-            </BadgePill>
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-900/40 bg-[#060913]/90 px-3.5 py-1 text-[10.5px] sm:text-xs font-mono text-zinc-300 shadow-sm backdrop-blur-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF] shadow-[0_0_6px_#0052FF] shrink-0" />
+              <span className="sm:hidden">⚡ Sovereign AI &bull; Cloud Studio</span>
+              <span className="hidden sm:inline">Sovereign AI &bull; Cloud Infrastructure &bull; Platform Engineering</span>
+            </div>
           </motion.div>
 
-          {/* 2-Line Headline */}
+          {/* Expansive, Sleek, Wide Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.04 }}
-            className="text-balance text-2xl xs:text-3xl sm:text-4xl md:text-[44px] lg:text-[48px] font-extrabold leading-[1.14] tracking-tight text-white max-w-4xl mx-auto font-display"
+            transition={{ duration: 0.4, delay: 0.04 }}
+            className="text-balance text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-bold leading-[1.18] tracking-tight text-white max-w-5xl mx-auto font-display px-2"
           >
-            <span className="block">
-              Architecting Next-Gen Software{" "}
-              <span className="font-normal text-zinc-300">&amp; AI</span>
-            </span>
-            <span className="block font-semibold text-white/95 mt-1 sm:mt-0.5">
-              Engineering Studio
-            </span>
+            Engineering Sovereign AI &amp; Next-Gen Digital Platforms
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
-            className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-zinc-400 max-w-xl mx-auto font-normal px-2"
+            transition={{ duration: 0.4, delay: 0.08 }}
+            className="text-xs sm:text-[13.5px] md:text-[14px] leading-relaxed text-zinc-400 max-w-2xl sm:max-w-3xl mx-auto font-normal px-4"
           >
             {heroSubtitle}
           </motion.p>
 
           {/* Dual Action Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.12 }}
-            className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3.5 w-full max-w-xs sm:max-w-none mx-auto"
+            transition={{ duration: 0.4, delay: 0.12 }}
+            className="pt-1.5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3.5 w-full max-w-[280px] sm:max-w-none mx-auto"
           >
             <a
               href="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3 text-xs sm:text-[13px] font-bold text-black hover:bg-neutral-200 transition-all shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:scale-[1.02] active:scale-98 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-2.5 sm:px-7 sm:py-2.5 text-xs sm:text-[13px] font-bold text-black hover:bg-neutral-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-[1.02] active:scale-98 cursor-pointer"
             >
-              <span>Initiate Your Architecture</span>
+              <span>Initiate Architecture</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </a>
 
             <a
               href="/#projects"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-7 py-3 text-xs sm:text-[13px] font-semibold text-white hover:bg-white/[0.12] hover:border-white/40 backdrop-blur-md transition-all shadow-2xs cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 py-2.5 sm:px-7 sm:py-2.5 text-xs sm:text-[13px] font-semibold text-white hover:bg-white/[0.1] hover:border-white/40 backdrop-blur-md transition-all cursor-pointer"
             >
               <span>Explore Realized Systems</span>
               <ArrowRight className="h-3.5 w-3.5 text-zinc-300" />
             </a>
           </motion.div>
 
-          {/* ─── DESKTOP ONLY: Fully Visible Sapphire Laser Circuit Canvas ─── */}
+          {/* ─── Grand Hexagonal Winged Circuit Hub with Unified Ice-Blue Icons ─── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.55, delay: 0.18 }}
-            className="hidden sm:block mt-6 md:mt-8 relative w-full max-w-3xl mx-auto"
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="pt-6 sm:pt-8 relative w-full max-w-4xl lg:max-w-5xl mx-auto px-1"
           >
-            <div className="relative flex items-center justify-center h-[200px] md:h-[220px]">
+            <div className="relative flex items-center justify-center h-[200px] sm:h-[240px]">
               
-              {/* SVG Circuit Traces with Deep Sapphire & Royal Blue Lasers */}
+              {/* Dynamic Hexagonal-Wing SVG Circuit Lines & Flowing Laser Streams */}
               <svg 
-                viewBox="0 0 800 220" 
+                viewBox="0 0 1000 240" 
                 preserveAspectRatio="xMidYMid meet"
                 className="w-full h-full select-none pointer-events-none"
               >
                 <defs>
-                  <linearGradient id="sapphireLaserPulse" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#1E40AF" stopOpacity="0" />
-                    <stop offset="30%" stopColor="#2563EB" stopOpacity="0.9" />
-                    <stop offset="70%" stopColor="#0052FF" stopOpacity="1" />
-                    <stop offset="100%" stopColor="#1E40AF" stopOpacity="0" />
+                  <linearGradient id="laserGradReal" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#0052FF" stopOpacity="0" />
+                    <stop offset="30%" stopColor="#38BDF8" stopOpacity="0.9" />
+                    <stop offset="70%" stopColor="#60A5FA" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#0052FF" stopOpacity="0" />
                   </linearGradient>
-                  <filter id="sapphireLaserGlow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
+
+                  <filter id="laserGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="1.5" result="blur" />
                     <feMerge>
                       <feMergeNode in="blur" />
                       <feMergeNode in="SourceGraphic" />
@@ -218,164 +143,182 @@ export function Hero() {
                   </filter>
                 </defs>
 
-                {/* Static Dark Circuit Traces */}
-                <path d="M 90 35 L 200 35 L 290 95 L 350 95" fill="none" stroke="#1A2234" strokeWidth="2" />
-                <path d="M 60 110 L 220 110 L 290 110 L 350 110" fill="none" stroke="#1A2234" strokeWidth="2" />
-                <path d="M 90 185 L 200 185 L 290 125 L 350 125" fill="none" stroke="#1A2234" strokeWidth="2" />
+                {/* Base Dark Circuit Lines (Left Wing) */}
+                {/* 1. Top Conduit */}
+                <path d="M 140 30 L 280 30 L 390 85 L 450 85" fill="none" stroke="#1E293B" strokeWidth="1.8" strokeLinecap="round" />
+                {/* 2. Middle Conduit */}
+                <path d="M 45 120 L 280 120 L 390 120 L 450 120" fill="none" stroke="#1E293B" strokeWidth="1.8" strokeLinecap="round" />
+                {/* 3. Bottom Conduit */}
+                <path d="M 140 210 L 280 210 L 390 155 L 450 155" fill="none" stroke="#1E293B" strokeWidth="1.8" strokeLinecap="round" />
 
-                {/* Bottom Vertical Traces */}
-                <path d="M 385 155 L 385 220" fill="none" stroke="#1A2234" strokeWidth="1.6" />
-                <path d="M 395 155 L 395 220" fill="none" stroke="#1A2234" strokeWidth="1.6" />
-                <path d="M 405 155 L 405 220" fill="none" stroke="#1A2234" strokeWidth="1.6" />
-                <path d="M 415 155 L 415 220" fill="none" stroke="#1A2234" strokeWidth="1.6" />
+                {/* Bottom Bus Traces */}
+                <path d="M 490 170 L 490 225" fill="none" stroke="#1E293B" strokeWidth="1.8" />
+                <path d="M 500 170 L 500 225" fill="none" stroke="#1E293B" strokeWidth="1.8" />
+                <path d="M 510 170 L 510 225" fill="none" stroke="#1E293B" strokeWidth="1.8" />
 
-                <path d="M 710 35 L 600 35 L 510 95 L 450 95" fill="none" stroke="#1A2234" strokeWidth="2" />
-                <path d="M 740 110 L 580 110 L 510 110 L 450 110" fill="none" stroke="#1A2234" strokeWidth="2" />
-                <path d="M 710 185 L 600 185 L 510 125 L 450 125" fill="none" stroke="#1A2234" strokeWidth="2" />
+                {/* Base Dark Circuit Lines (Right Wing) */}
+                {/* 4. Top Conduit */}
+                <path d="M 860 30 L 720 30 L 610 85 L 550 85" fill="none" stroke="#1E293B" strokeWidth="1.8" strokeLinecap="round" />
+                {/* 5. Middle Conduit */}
+                <path d="M 955 120 L 720 120 L 610 120 L 550 120" fill="none" stroke="#1E293B" strokeWidth="1.8" strokeLinecap="round" />
+                {/* 6. Bottom Conduit */}
+                <path d="M 860 210 L 720 210 L 610 155 L 550 155" fill="none" stroke="#1E293B" strokeWidth="1.8" strokeLinecap="round" />
 
-                {/* Flowing Pure Sapphire Blue Laser Streams */}
+                {/* Flowing Laser Beams (Left to Center) */}
                 <motion.path
-                  d="M 90 35 L 200 35 L 290 95 L 350 95"
+                  d="M 140 30 L 280 30 L 390 85 L 450 85"
                   fill="none"
-                  stroke="url(#sapphireLaserPulse)"
-                  strokeWidth="3.5"
+                  stroke="url(#laserGradReal)"
+                  strokeWidth="2.8"
                   strokeLinecap="round"
-                  filter="url(#sapphireLaserGlow)"
-                  strokeDasharray="60, 260"
-                  animate={{ strokeDashoffset: [320, 0] }}
+                  filter="url(#laserGlow)"
+                  strokeDasharray="60, 320"
+                  animate={{ strokeDashoffset: [380, 0] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
                 />
                 <motion.path
-                  d="M 60 110 L 220 110 L 290 110 L 350 110"
+                  d="M 45 120 L 280 120 L 390 120 L 450 120"
                   fill="none"
-                  stroke="url(#sapphireLaserPulse)"
-                  strokeWidth="3.5"
+                  stroke="url(#laserGradReal)"
+                  strokeWidth="2.8"
                   strokeLinecap="round"
-                  filter="url(#sapphireLaserGlow)"
-                  strokeDasharray="60, 260"
-                  animate={{ strokeDashoffset: [320, 0] }}
+                  filter="url(#laserGlow)"
+                  strokeDasharray="60, 320"
+                  animate={{ strokeDashoffset: [380, 0] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: "linear", delay: 0.4 }}
                 />
                 <motion.path
-                  d="M 90 185 L 200 185 L 290 125 L 350 125"
+                  d="M 140 210 L 280 210 L 390 155 L 450 155"
                   fill="none"
-                  stroke="url(#sapphireLaserPulse)"
-                  strokeWidth="3.5"
+                  stroke="url(#laserGradReal)"
+                  strokeWidth="2.8"
                   strokeLinecap="round"
-                  filter="url(#sapphireLaserGlow)"
-                  strokeDasharray="60, 260"
-                  animate={{ strokeDashoffset: [320, 0] }}
+                  filter="url(#laserGlow)"
+                  strokeDasharray="60, 320"
+                  animate={{ strokeDashoffset: [380, 0] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: "linear", delay: 0.8 }}
                 />
 
+                {/* Flowing Laser Beams (Right to Center) */}
                 <motion.path
-                  d="M 710 35 L 600 35 L 510 95 L 450 95"
+                  d="M 860 30 L 720 30 L 610 85 L 550 85"
                   fill="none"
-                  stroke="url(#sapphireLaserPulse)"
-                  strokeWidth="3.5"
+                  stroke="url(#laserGradReal)"
+                  strokeWidth="2.8"
                   strokeLinecap="round"
-                  filter="url(#sapphireLaserGlow)"
-                  strokeDasharray="60, 260"
-                  animate={{ strokeDashoffset: [0, 320] }}
+                  filter="url(#laserGlow)"
+                  strokeDasharray="60, 320"
+                  animate={{ strokeDashoffset: [0, 380] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
                 />
                 <motion.path
-                  d="M 740 110 L 580 110 L 510 110 L 450 110"
+                  d="M 955 120 L 720 120 L 610 120 L 550 120"
                   fill="none"
-                  stroke="url(#sapphireLaserPulse)"
-                  strokeWidth="3.5"
+                  stroke="url(#laserGradReal)"
+                  strokeWidth="2.8"
                   strokeLinecap="round"
-                  filter="url(#sapphireLaserGlow)"
-                  strokeDasharray="60, 260"
-                  animate={{ strokeDashoffset: [0, 320] }}
+                  filter="url(#laserGlow)"
+                  strokeDasharray="60, 320"
+                  animate={{ strokeDashoffset: [0, 380] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: "linear", delay: 0.4 }}
                 />
                 <motion.path
-                  d="M 710 185 L 600 185 L 510 125 L 450 125"
+                  d="M 860 210 L 720 210 L 610 155 L 550 155"
                   fill="none"
-                  stroke="url(#sapphireLaserPulse)"
-                  strokeWidth="3.5"
+                  stroke="url(#laserGradReal)"
+                  strokeWidth="2.8"
                   strokeLinecap="round"
-                  filter="url(#sapphireLaserGlow)"
-                  strokeDasharray="60, 260"
-                  animate={{ strokeDashoffset: [0, 320] }}
+                  filter="url(#laserGlow)"
+                  strokeDasharray="60, 320"
+                  animate={{ strokeDashoffset: [0, 380] }}
                   transition={{ duration: 2.2, repeat: Infinity, ease: "linear", delay: 0.8 }}
                 />
               </svg>
 
-              {/* Left 3 Squircle Capability Badges */}
+              {/* Left 3 Spatially Distributed Nodes (Unified High-Tech Ice-Blue) */}
+              {/* 1. Top Node: Native Mobile */}
               <motion.div 
-                whileHover={{ scale: 1.1, borderColor: "#0052FF", boxShadow: "0 0 20px rgba(0,82,255,0.5)" }}
-                className="absolute left-[7%] top-[10%] flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-[#090D18] border border-blue-900/40 text-white shadow-xl transition-all cursor-pointer"
+                whileHover={{ scale: 1.12, borderColor: "#0052FF", boxShadow: "0 0 16px rgba(0,82,255,0.4)" }}
+                className="absolute left-[11%] sm:left-[13%] top-[4%] sm:top-[5%] flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#080D1A]/95 border border-blue-900/50 text-blue-300 shadow-[0_0_12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all cursor-pointer group"
+                title="Native Mobile & iOS/Android Systems"
               >
-                <Smartphone className="h-5 w-5 text-blue-200" />
+                <Smartphone className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 group-hover:text-white transition-colors" strokeWidth={1.75} />
               </motion.div>
 
+              {/* 2. Mid Node: Enterprise Web Platforms */}
               <motion.div 
-                whileHover={{ scale: 1.1, borderColor: "#0052FF", boxShadow: "0 0 20px rgba(0,82,255,0.5)" }}
-                className="absolute left-[3%] top-[43%] flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-[#090D18] border border-blue-900/40 text-white shadow-xl transition-all cursor-pointer"
+                whileHover={{ scale: 1.12, borderColor: "#0052FF", boxShadow: "0 0 16px rgba(0,82,255,0.4)" }}
+                className="absolute left-[1.5%] sm:left-[2.5%] top-[44%] sm:top-[44%] flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#080D1A]/95 border border-blue-900/50 text-blue-300 shadow-[0_0_12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all cursor-pointer group"
+                title="Enterprise Web Systems & React 19"
               >
-                <Globe className="h-5 w-5 text-blue-200" />
+                <Globe className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 group-hover:text-white transition-colors" strokeWidth={1.75} />
               </motion.div>
 
+              {/* 3. Bottom Node: Sovereign AI Pipelines */}
               <motion.div 
-                whileHover={{ scale: 1.1, borderColor: "#0052FF", boxShadow: "0 0 20px rgba(0,82,255,0.5)" }}
-                className="absolute left-[7%] bottom-[10%] flex items-center justify-center h-8 w-8 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#090D18] border border-blue-900/40 text-white shadow-xl transition-all cursor-pointer"
+                whileHover={{ scale: 1.12, borderColor: "#0052FF", boxShadow: "0 0 16px rgba(0,82,255,0.4)" }}
+                className="absolute left-[11%] sm:left-[13%] bottom-[4%] sm:bottom-[5%] flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#080D1A]/95 border border-blue-900/50 text-blue-300 shadow-[0_0_12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all cursor-pointer group"
+                title="Sovereign AI & PyTorch ML Runtimes"
               >
-                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200" />
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 group-hover:text-white transition-colors" strokeWidth={1.75} />
               </motion.div>
 
-              {/* Center STALCI Processor Chip */}
+              {/* Central STALCI Processor Core with Bold Stylish 'S' Monogram */}
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                 <motion.div
-                  animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0.15, 0.5] }}
+                  animate={{ scale: [1, 1.18, 1], opacity: [0.35, 0.18, 0.35] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute inset-0 -m-2 sm:-m-3 rounded-2xl sm:rounded-3xl bg-[#0052FF]/25 blur-md pointer-events-none"
+                  className="absolute inset-0 -m-2 rounded-2xl bg-[#0052FF]/25 blur-md pointer-events-none"
                 />
 
                 <motion.div
-                  animate={{ boxShadow: ["0 0 20px rgba(0,82,255,0.5)", "0 0 50px rgba(0,82,255,0.85)", "0 0 20px rgba(0,82,255,0.5)"] }}
+                  animate={{ boxShadow: ["0 0 14px rgba(0,82,255,0.4)", "0 0 32px rgba(0,82,255,0.7)", "0 0 14px rgba(0,82,255,0.4)"] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative h-20 w-20 sm:h-22 sm:w-22 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#003ACC] via-[#0A1633] to-[#020617] border-2 border-[#0052FF] flex items-center justify-center shadow-2xl"
+                  className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-[#003ACC] via-[#0A1633] to-[#020617] border-2 border-[#0052FF] flex items-center justify-center shadow-xl"
                 >
                   <StalciLogoIcon size={38} />
                   
-                  {/* Metallic Bus Pins */}
+                  {/* Glowing LED Neon Light Tubes Left */}
                   <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 flex flex-col gap-1.5">
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
+                    <div className="w-1.5 sm:w-2 h-1 bg-[#38BDF8] rounded-xs shadow-[0_0_6px_#38BDF8]" />
+                    <div className="w-1.5 sm:w-2 h-1 bg-[#38BDF8] rounded-xs shadow-[0_0_6px_#38BDF8]" />
+                    <div className="w-1.5 sm:w-2 h-1 bg-[#38BDF8] rounded-xs shadow-[0_0_6px_#38BDF8]" />
                   </div>
+                  {/* Glowing LED Neon Light Tubes Right */}
                   <div className="absolute -right-1.5 top-1/2 -translate-y-1/2 flex flex-col gap-1.5">
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
-                    <div className="w-1.5 h-1 bg-blue-200/80 rounded-xs" />
+                    <div className="w-1.5 sm:w-2 h-1 bg-[#38BDF8] rounded-xs shadow-[0_0_6px_#38BDF8]" />
+                    <div className="w-1.5 sm:w-2 h-1 bg-[#38BDF8] rounded-xs shadow-[0_0_6px_#38BDF8]" />
+                    <div className="w-1.5 sm:w-2 h-1 bg-[#38BDF8] rounded-xs shadow-[0_0_6px_#38BDF8]" />
                   </div>
                 </motion.div>
               </div>
 
-              {/* Right 3 Squircle Capability Badges */}
+              {/* Right 3 Spatially Distributed Nodes (Unified High-Tech Ice-Blue) */}
+              {/* 4. Top Node: Multi-Cloud Infrastructure */}
               <motion.div 
-                whileHover={{ scale: 1.1, borderColor: "#0052FF", boxShadow: "0 0 20px rgba(0,82,255,0.5)" }}
-                className="absolute right-[7%] top-[10%] flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-[#090D18] border border-blue-900/40 text-white shadow-xl transition-all cursor-pointer"
+                whileHover={{ scale: 1.12, borderColor: "#0052FF", boxShadow: "0 0 16px rgba(0,82,255,0.4)" }}
+                className="absolute right-[11%] sm:right-[13%] top-[4%] sm:top-[5%] flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#080D1A]/95 border border-blue-900/50 text-blue-300 shadow-[0_0_12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all cursor-pointer group"
+                title="Distributed Multi-Cloud Infrastructure"
               >
-                <Cloud className="h-5 w-5 text-blue-200" />
+                <Cloud className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 group-hover:text-white transition-colors" strokeWidth={1.75} />
               </motion.div>
 
+              {/* 5. Mid Node: Systems & Architecture */}
               <motion.div 
-                whileHover={{ scale: 1.1, borderColor: "#0052FF", boxShadow: "0 0 20px rgba(0,82,255,0.5)" }}
-                className="absolute right-[3%] top-[43%] flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-[#090D18] border border-blue-900/40 text-white shadow-xl transition-all cursor-pointer"
+                whileHover={{ scale: 1.12, borderColor: "#0052FF", boxShadow: "0 0 16px rgba(0,82,255,0.4)" }}
+                className="absolute right-[1.5%] sm:right-[2.5%] top-[44%] sm:top-[44%] flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#080D1A]/95 border border-blue-900/50 text-blue-300 shadow-[0_0_12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all cursor-pointer group"
+                title="Strict Software Platform Architecture"
               >
-                <Code2 className="h-5 w-5 text-blue-200" />
+                <Code2 className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 group-hover:text-white transition-colors" strokeWidth={1.75} />
               </motion.div>
 
+              {/* 6. Bottom Node: DevOps & Kubernetes */}
               <motion.div 
-                whileHover={{ scale: 1.1, borderColor: "#0052FF", boxShadow: "0 0 20px rgba(0,82,255,0.5)" }}
-                className="absolute right-[7%] bottom-[10%] flex items-center justify-center h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-[#090D18] border border-blue-900/40 text-white shadow-xl transition-all cursor-pointer"
+                whileHover={{ scale: 1.12, borderColor: "#0052FF", boxShadow: "0 0 16px rgba(0,82,255,0.4)" }}
+                className="absolute right-[11%] sm:right-[13%] bottom-[4%] sm:bottom-[5%] flex items-center justify-center h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#080D1A]/95 border border-blue-900/50 text-blue-300 shadow-[0_0_12px_rgba(0,0,0,0.7)] backdrop-blur-md transition-all cursor-pointer group"
+                title="DevOps, SRE & Kubernetes Orchestration"
               >
-                <Settings className="h-5 w-5 text-blue-200" />
+                <Settings className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 group-hover:text-white transition-colors" strokeWidth={1.75} />
               </motion.div>
 
             </div>
@@ -384,40 +327,44 @@ export function Hero() {
         </div>
       </section>
 
-      {/* ─── Screen 2: Clean Client Logo Marquee Seamlessly Blended ─── */}
-      <section className="flex-none w-full bg-gradient-to-b from-[#000000] via-[#04060E] to-[#070A14] pt-8 sm:pt-20 pb-12 sm:pb-24 relative z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50rem] h-[12rem] bg-blue-600/[0.04] blur-[120px] pointer-events-none -z-10" />
+      {/* ─── Screen 2: Pure Obsidian Black Marquee Floor ─── */}
+      <section className="flex-none w-full bg-[#000000] pt-8 sm:pt-14 pb-12 sm:pb-18 relative z-10 overflow-hidden">
+        
+        {/* Subtle Perspective Grid Lines Floor */}
+        <div 
+          className="absolute inset-0 bg-[linear-gradient(to_right,#1E3A8A_1px,transparent_1px),linear-gradient(to_bottom,#1E3A8A_1px,transparent_1px)] bg-[size:4rem_3rem] opacity-20 [mask-image:radial-gradient(ellipse_80%_60%_at_50%_70%,#000_60%,transparent_100%)] pointer-events-none -z-10" 
+          aria-hidden 
+        />
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-3.5 relative z-10">
           
-          {/* Gradient Border Pill */}
           <div className="flex justify-center">
             <BadgePill tone="dark" variant="gradient">
-              <span className="text-[10.5px] sm:text-[11px]">
+              <span className="text-[10px] sm:text-[11px] font-mono text-zinc-300">
                 Trusted by <span className="font-bold text-white">250+ Brands worldwide</span>
               </span>
             </BadgePill>
           </div>
 
-          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
+          <h2 className="font-display text-lg sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
             The Engine Behind Ambitious <span className="font-extrabold text-white">Innovators</span>
           </h2>
 
-          <p className="text-xs sm:text-[13px] text-zinc-400 max-w-xl mx-auto font-normal leading-relaxed px-2 sm:px-0">
+          <p className="text-xs sm:text-[13.5px] text-zinc-400 max-w-xl mx-auto font-normal leading-relaxed px-4">
             Whether you're a five-person startup or a Fortune 500 team, you're not building alone. 250+ Brands across 25+ countries have trusted us with their software.
           </p>
 
-          {/* ─── Smooth Infinite Horizontal Moving Marquee Banner ─── */}
-          <div className="pt-8 relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          {/* Smooth Infinite Horizontal Moving Marquee Banner */}
+          <div className="pt-6 sm:pt-8 relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
             <motion.div 
               animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
-              className="flex w-max items-center gap-12 sm:gap-20 py-3 select-none"
+              transition={{ repeat: Infinity, ease: "linear", duration: 22 }}
+              className="flex w-max items-center gap-10 sm:gap-20 py-2 select-none"
             >
               {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, idx) => (
                 <span
                   key={`${client.slug}-${idx}`}
-                  className="font-display font-black text-sm sm:text-base md:text-lg tracking-[0.2em] text-zinc-400 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.7)] transition-all cursor-default whitespace-nowrap"
+                  className="font-display font-bold text-xs sm:text-base md:text-lg tracking-[0.2em] text-zinc-400 hover:text-white hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.7)] transition-all cursor-default whitespace-nowrap"
                 >
                   {client.name}
                 </span>

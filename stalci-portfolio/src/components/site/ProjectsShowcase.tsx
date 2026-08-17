@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SectionHeading } from "./Brand";
+import { SectionHeading, BadgePill } from "./Brand";
 import {
   ExternalLink,
   X,
@@ -209,19 +209,34 @@ export function ProjectsShowcase() {
   });
 
   return (
-    <section id="projects" className="bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 relative">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="bg-[#FFFFFF] py-16 sm:py-24 text-black border-t border-zinc-200/90 relative isolate overflow-hidden">
+      {/* Subtle Engineering Grid SVG Background */}
+      <div 
+        className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#EEF2F6_1px,transparent_1px),linear-gradient(to_bottom,#EEF2F6_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-75" 
+        aria-hidden 
+      />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
-        <SectionHeading
-          tone="light"
-          eyebrow="Proven Track Record"
-          title="Explore Our Featured Case Studies"
-          subtitle="We are proud of the mobile and web platforms we deliver. Here is a glimpse of the real results and architecture for businesses."
-        />
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
+          <div className="flex justify-center">
+            <BadgePill tone="light" variant="gradient">
+              <span className="font-semibold text-zinc-950">Proven Track Record</span>
+            </BadgePill>
+          </div>
+
+          <h2 className="font-display text-2xl sm:text-3xl md:text-[34px] font-bold text-zinc-950 tracking-tight leading-[1.2]">
+            Engineered for Scale: <span className="font-extrabold text-black">Featured Case Studies</span>
+          </h2>
+
+          <p className="text-xs sm:text-[14px] text-zinc-600 font-normal leading-relaxed max-w-2xl mx-auto">
+            From high-volume B2B wholesale platforms to maritime compliance networks and sovereign AI wellness, explore our real production systems.
+          </p>
+        </div>
 
         {/* Filter Tabs */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {categories.map((cat) => {
             const count =
               cat === "All"
@@ -233,10 +248,10 @@ export function ProjectsShowcase() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
+                className={`relative inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
                   isSelected
                     ? "bg-black text-white font-semibold shadow-xs"
-                    : "bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-400 hover:text-black"
+                    : "bg-[#FAFAFC] text-zinc-700 border border-zinc-200 hover:border-zinc-300 hover:bg-white"
                 }`}
               >
                 <span>{cat}</span>
@@ -253,59 +268,82 @@ export function ProjectsShowcase() {
         </div>
 
         {/* Case Studies Grid */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((p, idx) => (
             <motion.div
               key={p.id}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              transition={{ duration: 0.35, delay: idx * 0.05 }}
               onClick={() => setActiveCaseStudy(p)}
-              className="group rounded-2xl bg-white border border-zinc-200/90 p-5 shadow-xs hover:border-zinc-400 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
+              className="group rounded-3xl bg-[#FAFAFC] border border-zinc-200/90 p-5 sm:p-6 shadow-2xs hover:border-zinc-300 hover:bg-white hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
             >
               <div>
                 {/* Thumbnail */}
-                <div className="relative h-48 w-full rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
+                <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-100">
                   <img
                     src={p.imageUrl}
                     alt={p.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src =
                         "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=800&auto=format&fit=crop&q=80";
                     }}
                   />
-                  <div className="absolute top-2.5 left-2.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black/85 text-white backdrop-blur-md">
+                  <div className="absolute top-3 left-3">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-black/85 text-white backdrop-blur-md">
                       {p.category}
                     </span>
                   </div>
-                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/80 text-zinc-800 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-3 right-3 p-1.5 rounded-full bg-white/90 text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
                     <Maximize2 className="h-3.5 w-3.5" />
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="mt-4">
-                  <h3 className="font-display text-lg font-bold text-zinc-950 group-hover:text-zinc-700 transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-zinc-600 font-normal line-clamp-3">
+                <div className="mt-5 space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-display text-lg font-bold text-zinc-950 group-hover:text-black transition-colors">
+                      {p.title}
+                    </h3>
+                    <span className="text-[11px] font-mono text-zinc-400 font-medium">
+                      {p.client}
+                    </span>
+                  </div>
+
+                  <p className="text-xs leading-relaxed text-zinc-600 font-normal line-clamp-2">
                     {p.summary}
                   </p>
+
+                  {/* Tech stack badges on card */}
+                  <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                    {p.technologies.slice(0, 3).map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-md bg-white border border-zinc-200 px-2 py-0.5 text-[10px] font-mono text-zinc-600"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                    {p.technologies.length > 3 && (
+                      <span className="text-[10px] font-mono text-zinc-400">
+                        +{p.technologies.length - 3}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
 
               {/* Bottom Info */}
-              <div className="mt-5 pt-3 border-t border-zinc-100 flex items-center justify-between">
-                <span className="text-xs font-semibold text-zinc-950 group-hover:text-zinc-700 flex items-center gap-1">
-                  View Case Study <ChevronRight className="h-3 w-3" />
+              <div className="mt-6 pt-4 border-t border-zinc-200/80 flex items-center justify-between">
+                <span className="text-xs font-bold text-zinc-950 group-hover:text-black flex items-center gap-1">
+                  Case Study <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
 
-                <div className="flex items-center gap-1 text-[11px] font-mono text-zinc-500">
-                  <Award className="h-3 w-3 text-zinc-600" />
-                  <span className="font-medium">{p.metrics[0].value}</span>
+                <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-zinc-950 bg-white border border-zinc-200 px-2.5 py-1 rounded-full shadow-2xs">
+                  <Award className="h-3.5 w-3.5 text-zinc-700" />
+                  <span>{p.metrics[0].value}</span>
                 </div>
               </div>
             </motion.div>

@@ -42,54 +42,67 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground selection:bg-zinc-800 selection:text-white">
       <Nav />
       <main>
+        {/* 1. Hero & Strategic Value Proposition */}
         <Hero />
-        <RoiShowcase />
-        <StatsBento />
+
+        {/* 2. Core Engineering Capabilities */}
         <Services />
+
+        {/* 3. Interactive Tech Ecosystem */}
         <TechStack />
 
-        {/* ─── Section Breaker 1: Engineering to Case Studies Transition ─── */}
+        {/* ─── Section Breaker 1: Capabilities to Production Proof ─── */}
         <SectionBreaker
           badge="⚡ Engineering Velocity &amp; Precision"
           title="Let's Move Your Project From"
           titleHighlight="'Someday'"
           titleEnd="to 'Sprint One'"
-          subtitle="We've shipped 700+ enterprise systems across 50+ toolchains. Tell us what you're engineering, and our principal architects will return with a deterministic sprint blueprint."
+          subtitle="We've shipped 45+ enterprise systems across modern toolchains. Tell us what you're engineering, and our principal architects will return with a deterministic sprint blueprint."
           buttonText="Start Your Project Blueprint"
           variant="grid"
         />
 
+        {/* 4. Featured Production Case Studies */}
         <ProjectsShowcase />
+
+        {/* 5. The Operating Model & 5X Velocity Symbiosis */}
         <About />
+
+        {/* 6. Industry Vertical Solutions & 3D Visuals */}
         <Industries />
+
+        {/* 7. Proprietary Frameworks Born in Production */}
         <Products />
 
-        {/* ─── Section Breaker 2: Platforms to Methodology Transition ─── */}
+        {/* 8. 14-Day Sprint Engineering Lifecycle */}
+        <Process />
+
+        {/* 9. Tangible Return on Intelligence */}
+        <WhyStalci />
+
+        {/* 10. Studio Empirical Scale Bento Grid */}
+        <StatsBento />
+
+        {/* ─── Section Breaker 2: Methodology to Validation Transition ─── */}
         <SectionBreaker
           badge="✦ Autonomous AI &amp; Cloud Scale"
           title="The Future Doesn't Wait."
           titleHighlight="Neither Should You."
-          subtitle="You've got the vision. We've got the architects, the sovereign AI engineers, and 120+ specialists to build it. Book a 30-minute call and let's sketch the blueprint together."
+          subtitle="You've got the vision. We've got senior full-stack architects and sovereign AI engineers to build it. Book a 30-minute call and let's sketch the blueprint together."
           buttonText="Schedule a Strategic Discovery"
           variant="glow"
         />
 
-        <Process />
-        <WhyStalci />
-
-        {/* ─── Section Breaker 3: Advantage to Client Proof Transition ─── */}
-        <SectionBreaker
-          badge="🛡️ 100% Contractual SLA Guarantee"
-          title="Ready to Scale With"
-          titleHighlight="Zero Technical Debt?"
-          subtitle="Experience predictable engineering sprints, enterprise zero-trust security standards, and dedicated senior squad allocation with complete intellectual property ownership."
-          buttonText="Consult With Principal Architects"
-          variant="wave"
-        />
-
+        {/* 11. Client Diaries & Verified Feedback */}
         <Testimonials />
+
+        {/* 12. Engineering Dispatches & Research */}
         <Insights />
+
+        {/* 13. Transparency & Clarity FAQs */}
         <FAQ />
+
+        {/* 14. Sprint Zero Architectural Consultation Intake */}
         <Contact />
       </main>
       <Footer />
