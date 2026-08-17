@@ -1,7 +1,17 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { fetchStats, fetchInquiries, fetchInvoices, fetchProjects, fetchClients } from "@/lib/api";
+import {
+  fetchStats,
+  fetchInquiries,
+  fetchInvoices,
+  fetchProjects,
+  fetchClients,
+  fetchServices,
+  fetchTechnologies,
+  fetchTestimonials,
+  fetchBlogs,
+} from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +41,10 @@ export default function Dashboard() {
   const { data: invoices = [], isLoading: invoicesLoading } = useQuery({ queryKey: ["invoices"], queryFn: () => fetchInvoices() });
   const { data: projects = [], isLoading: projectsLoading } = useQuery({ queryKey: ["projects"], queryFn: () => fetchProjects() });
   const { data: clients = [], isLoading: clientsLoading } = useQuery({ queryKey: ["clients"], queryFn: fetchClients });
+  const { data: services = [] } = useQuery({ queryKey: ["services"], queryFn: fetchServices });
+  const { data: technologies = [] } = useQuery({ queryKey: ["technologies"], queryFn: () => fetchTechnologies() });
+  const { data: testimonials = [] } = useQuery({ queryKey: ["testimonials"], queryFn: fetchTestimonials });
+  const { data: blogs = [] } = useQuery({ queryKey: ["blogs"], queryFn: fetchBlogs });
 
   const recentInquiries = [...inquiries].slice(0, 4);
   const recentInvoices = [...invoices].slice(0, 5);
@@ -39,7 +53,7 @@ export default function Dashboard() {
   const statCards = [
     {
       label: "Collected Revenue",
-      value: stats?.paidAmount ? `$${Number(stats.paidAmount).toLocaleString()}` : "$247,650",
+      value: `$${Number(stats?.paidAmount || 0).toLocaleString()}`,
       change: "+24.8% YoY",
       href: "/invoices?status=PAID",
       icon: DollarSign,
@@ -48,7 +62,7 @@ export default function Dashboard() {
     },
     {
       label: "Outstanding Billing",
-      value: stats?.pendingAmount ? `$${Number(stats.pendingAmount).toLocaleString()}` : "$162,120",
+      value: `$${Number(stats?.pendingAmount || 0).toLocaleString()}`,
       change: `${invoices.filter((i: any) => i.status === 'PENDING' || i.status === 'SENT').length} pending`,
       href: "/invoices?status=PENDING",
       icon: Receipt,
@@ -76,10 +90,10 @@ export default function Dashboard() {
   ];
 
   const cmsWidgets = [
-    { label: "Services CMS", count: "12 Active", href: "/services", icon: Boxes },
-    { label: "Tech Stack & Skills", count: "24 Technologies", href: "/technologies", icon: Code2 },
-    { label: "Testimonials", count: "18 Verified Reviews", href: "/testimonials", icon: Quote },
-    { label: "Blogs & Insights", count: "9 Published", href: "/blogs", icon: Newspaper },
+    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes },
+    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2 },
+    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote },
+    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper },
   ];
 
   return (
