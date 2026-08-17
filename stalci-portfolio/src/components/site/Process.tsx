@@ -130,7 +130,7 @@ export function Process() {
                       onClick={() => toggleStep(idx)}
                       className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-start gap-3.5 cursor-pointer relative ${
                         isActive
-                          ? "bg-copper/10 text-white border-copper/40 shadow-[0_0_20px_rgba(216,155,91,0.15)]"
+                          ? "bg-copper/10 text-white border-copper/40 glow-copper"
                           : "bg-[#0D0D0D] text-neutral-300 border-white/10 hover:border-white/20 hover:text-white"
                       }`}
                     >
