@@ -44,8 +44,8 @@ export class AuthService {
       isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
     }
 
-    // Fallback check for initial demo passwords (stalci2026 / admin123)
-    if (!isPasswordValid && (password === 'stalci2026' || password === 'admin123' || admin.passwordHash === 'hashed_password_mock')) {
+    // Fallback check for initial password (stalci2026)
+    if (!isPasswordValid && (password === 'stalci2026' || admin.passwordHash === 'hashed_password_mock')) {
       isPasswordValid = true;
       // Upgrade password hash in background to bcrypt
       const newHash = await bcrypt.hash(password, 10);
@@ -161,7 +161,7 @@ export class AuthService {
     let isValid = false;
     if (admin.passwordHash && admin.passwordHash.startsWith('$2')) {
       isValid = await bcrypt.compare(data.oldPassword, admin.passwordHash);
-    } else if (data.oldPassword === 'stalci2026' || data.oldPassword === 'admin123') {
+    } else if (data.oldPassword === 'stalci2026') {
       isValid = true;
     }
 

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
+import * as bcrypt from 'bcryptjs';
 
 const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:password123@localhost:5433/stalci_db?schema=public';
 const pool = new Pool({ connectionString });
@@ -749,13 +750,14 @@ Access, rectification, and erasure rights are fully supported. Contact dpo@stalc
   });
 
   // 14. Admin Account
+  const defaultAdminHash = await bcrypt.hash('stalci2026', 10);
   await prisma.admin.upsert({
     where: { email: 'admin@stalci.com' },
     update: {},
     create: {
       name: 'Stalci Master Admin',
       email: 'admin@stalci.com',
-      passwordHash: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyUIXe/QLu7VlqR5K5h39.zVbFv03Oti', // admin123
+      passwordHash: defaultAdminHash,
     },
   });
 
