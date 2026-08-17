@@ -36,12 +36,6 @@ export default function LoginPage() {
     }
   };
 
-  const fillDemo = () => {
-    setEmail("admin@stalci.com");
-    setPassword("stalci2026");
-    setError("");
-  };
-
   return (
     <div className="grid min-h-screen lg:grid-cols-2 bg-[#FAFAFC] relative overflow-hidden selection:bg-indigo-100 selection:text-indigo-900">
       {/* Brand Showcase Panel */}
@@ -125,16 +119,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-zinc-950 block">Password</label>
-                <button
-                  type="button"
-                  onClick={fillDemo}
-                  className="text-[11px] text-indigo-600 hover:text-indigo-700 font-mono font-semibold"
-                >
-                  Fill Demo Pass
-                </button>
-              </div>
+              <label className="text-xs font-bold text-zinc-950 block">Password</label>
               <div className="relative flex items-center">
                 <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400 z-10" />
                 <input
@@ -165,15 +150,6 @@ export default function LoginPage() {
             <ArrowRight className="h-4 w-4" />
           </button>
 
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={fillDemo}
-              className="w-full text-center text-xs text-zinc-500 hover:text-zinc-950 font-mono py-1 transition-colors"
-            >
-              Click here to auto-fill demo credentials
-            </button>
-          </div>
         </form>
       </div>
     </div>
