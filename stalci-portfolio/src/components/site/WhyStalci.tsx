@@ -1,4 +1,4 @@
-import { CheckCircle2, Rocket, Globe2, Timer, Handshake, Layers, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
+import { CheckCircle2, Rocket, Globe2, Timer, Handshake, Layers, ShieldCheck, Sparkles, ArrowRight, Zap, Check, X, Shield, Award } from "lucide-react";
 import { SectionHeading } from "./Brand";
 import { useScrollReveal, useStaggerReveal } from "@/lib/animations";
 import { motion } from "framer-motion";
@@ -9,48 +9,60 @@ const reasons = [
     title: "100% Senior Engineering Pods", 
     tag: "Talent Density",
     copy: "Exclusively staffed by seasoned principal architects and senior engineers to guarantee rapid execution without junior learning curves.",
-    metricLabel: "Seniority",
+    metricLabel: "Seniority Density",
     metricValue: "100% Staff & Lead",
+    gradient: "from-blue-600 to-indigo-600",
+    badgeBg: "bg-blue-50 text-blue-700 border-blue-200",
   },
   { 
     icon: Timer, 
     title: "Accelerated Value Realization", 
     tag: "High Velocity",
     copy: "Rapid, deterministic deployment of operational software increments, shipping measurable business value in predictable bi-weekly sprints.",
-    metricLabel: "Cadence",
+    metricLabel: "Sprint Cadence",
     metricValue: "14-Day Sprints",
+    gradient: "from-indigo-600 to-purple-600",
+    badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-200",
   },
   { 
     icon: Globe2, 
     title: "Global 24/7 Delivery Scale", 
     tag: "Continuous",
     copy: "Seamless, distributed delivery across global timezones enabling round-the-clock engineering momentum and proactive incident triage.",
-    metricLabel: "Coverage",
+    metricLabel: "Support Coverage",
     metricValue: "24/7 Active NOC",
+    gradient: "from-blue-600 to-cyan-600",
+    badgeBg: "bg-cyan-50 text-cyan-700 border-cyan-200",
   },
   { 
     icon: Layers, 
     title: "End-to-End System Ownership", 
     tag: "Full-Stack",
     copy: "Comprehensive architectural ownership from initial system blueprinting and infrastructure provisioning to production release and SRE.",
-    metricLabel: "Scope",
+    metricLabel: "Lifecycle Scope",
     metricValue: "Design to Cloud SRE",
+    gradient: "from-purple-600 to-indigo-600",
+    badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
   },
   { 
     icon: Handshake, 
     title: "Commercial Transparency", 
     tag: "Predictable",
     copy: "Itemized sprint burndown telemetry, transparent governance, and zero hidden platform licensing fees or vendor lock-in.",
-    metricLabel: "Governance",
+    metricLabel: "Governance Model",
     metricValue: "Fixed & T&M Models",
+    gradient: "from-emerald-600 to-teal-600",
+    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
   { 
     icon: ShieldCheck, 
     title: "SOC 2 & Zero-Trust Standards", 
     tag: "Enterprise",
     copy: "Mission-critical reliability fortified by automated dynamic security audits, chaos testing pipelines, and hardware-level MFA enclaves.",
-    metricLabel: "Security",
+    metricLabel: "Security Posture",
     metricValue: "Zero-Trust Verified",
+    gradient: "from-blue-600 to-emerald-600",
+    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
 ];
 
@@ -69,7 +81,7 @@ const comparisonRows = [
   },
   {
     factor: "Quality & Security Guarantee",
-    stalci: "100% Type-Safe + 99.9% SLA Uptime",
+    stalci: "100% Type-Safe + 99.99% SLA Uptime",
     traditional: "Best-effort / Frequent Regressions",
     inHouse: "Constrained by Internal Backlog",
   },
@@ -86,8 +98,12 @@ export function WhyStalci() {
   const gridRef = useStaggerReveal({ stagger: 0.04, y: 15 });
 
   return (
-    <section className="border-t border-slate-200/90 bg-white py-14 sm:py-20 text-slate-900">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="border-t border-slate-200/90 bg-white py-16 sm:py-24 text-slate-900 overflow-hidden relative">
+      {/* Subtle Background Glow Orbs */}
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div ref={headerRef as any}>
           <SectionHeading
@@ -101,29 +117,32 @@ export function WhyStalci() {
         {/* 6 Value Cards Grid */}
         <div 
           ref={gridRef as any}
-          className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {reasons.map((r) => {
             const Icon = r.icon;
             return (
               <div
                 key={r.title}
-                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50 p-6 sm:p-7 shadow-sm hover:border-blue-500/40 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-slate-50/60 to-slate-100/40 p-6 sm:p-7 shadow-sm hover:shadow-xl hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
               >
+                {/* Top Hover Accent Line */}
+                <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
                 <div>
-                  {/* Top Row: Icon + Standard Badge */}
+                  {/* Top Row: Vibrant Icon Squircle + Tag */}
                   <div className="flex items-center justify-between gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white border border-slate-200 text-blue-600 p-2 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                      <Icon className="h-5 w-5 text-blue-600" strokeWidth={1.8} />
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${r.gradient} text-white shadow-md shadow-blue-500/20 p-2.5 group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="h-6 w-6 text-white" strokeWidth={2} />
                     </div>
 
-                    <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 border border-blue-200">
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider border ${r.badgeBg}`}>
                       {r.tag}
                     </span>
                   </div>
 
                   {/* Title & Summary */}
-                  <h3 className="mt-4 text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
+                  <h3 className="mt-5 text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-blue-600 transition-colors">
                     {r.title}
                   </h3>
                   <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
@@ -132,11 +151,11 @@ export function WhyStalci() {
                 </div>
 
                 {/* Bottom Metric */}
-                <div className="mt-6 flex items-center justify-between border-t border-slate-200/80 pt-4 text-[11px] font-mono">
-                  <span className="text-[10px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                <div className="mt-6 pt-3.5 border-t border-slate-200/80 flex items-center justify-between text-[11px] font-mono">
+                  <span className="text-[10.5px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
                     {r.metricLabel}
                   </span>
-                  <span className="text-xs font-mono font-bold text-blue-600">
+                  <span className="text-xs font-mono font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200">
                     {r.metricValue}
                   </span>
                 </div>
@@ -146,18 +165,21 @@ export function WhyStalci() {
         </div>
 
         {/* Enterprise Delivery Benchmark Comparison Table */}
-        <div className="mt-14 overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-50 p-6 sm:p-8 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-5 mb-6">
+        <div className="mt-16 overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-9 shadow-md relative">
+          {/* Top Gradient Line */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500" />
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-5 mb-6">
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
                 Comparative Industry Analysis
               </span>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900">
+              <h3 className="mt-2 text-lg sm:text-xl font-bold text-slate-900">
                 How STALCI Outperforms Alternative Models
               </h3>
             </div>
-            <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full self-start sm:self-auto">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> 100% Contractual SLA Guarantee
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-full shadow-2xs self-start sm:self-auto">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" /> 100% Contractual SLA Guarantee
             </span>
           </div>
 
@@ -165,19 +187,24 @@ export function WhyStalci() {
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-slate-200 text-[11px] font-mono font-bold uppercase text-slate-500 tracking-wider">
-                  <th className="pb-3 pr-4 font-semibold">Evaluation Metric</th>
-                  <th className="pb-3 px-4 font-bold text-blue-700">STALCI Studio Pods</th>
-                  <th className="pb-3 px-4 font-semibold text-slate-500">Traditional Agency</th>
-                  <th className="pb-3 pl-4 font-semibold text-slate-500">Direct In-House Hiring</th>
+                  <th className="pb-3.5 pr-4 font-semibold">Evaluation Metric</th>
+                  <th className="pb-3.5 px-4 font-bold text-blue-700 bg-blue-50/60 rounded-t-xl border-t border-x border-blue-200/70">STALCI Studio Pods</th>
+                  <th className="pb-3.5 px-4 font-semibold text-slate-500">Traditional Agency</th>
+                  <th className="pb-3.5 pl-4 font-semibold text-slate-500">Direct In-House Hiring</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 text-slate-700">
+              <tbody className="divide-y divide-slate-200/80 text-slate-700">
                 {comparisonRows.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-slate-100/50 transition-colors">
-                    <td className="py-3.5 pr-4 font-semibold text-slate-900">{row.factor}</td>
-                    <td className="py-3.5 px-4 font-bold text-blue-700 bg-blue-50/80 border border-blue-200/80 rounded-xl">{row.stalci}</td>
-                    <td className="py-3.5 px-4 text-slate-600">{row.traditional}</td>
-                    <td className="py-3.5 pl-4 text-slate-600">{row.inHouse}</td>
+                  <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="py-4 pr-4 font-semibold text-slate-900">{row.factor}</td>
+                    <td className="py-4 px-4 font-bold text-blue-900 bg-gradient-to-b from-blue-50/80 to-indigo-50/60 border border-blue-200/80 rounded-xl shadow-2xs">
+                      <div className="flex items-center gap-1.5">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                        <span>{row.stalci}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-slate-600">{row.traditional}</td>
+                    <td className="py-4 pl-4 text-slate-600">{row.inHouse}</td>
                   </tr>
                 ))}
               </tbody>

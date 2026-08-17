@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Cpu, Cloud, Shield, Code2, Smartphone, CheckCircle2, ArrowUpRight, Activity, Zap, Server, Database } from "lucide-react";
+import { ArrowRight, Cpu, Cloud, Shield, Code2, Smartphone, CheckCircle2, ArrowUpRight, Activity, Zap, Server, Database, Sparkles } from "lucide-react";
 import { SectionHeading, BadgePill } from "./Brand";
 import { motion } from "framer-motion";
 
@@ -86,14 +86,15 @@ const fallbackServices: CoreService[] = [
 function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
   if (type === "ai") {
     return (
-      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
+      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 border border-blue-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
         <div className="absolute w-40 h-40 bg-blue-500/20 rounded-full blur-[60px] pointer-events-none" />
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-blue-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8),0_0_25px_rgba(59,130,246,0.5)] transform -rotate-6 group-hover:rotate-0 transition-transform duration-300">
-            <span className="font-display font-black text-3xl text-white tracking-tight drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
-              AI
-            </span>
+          <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-blue-600 via-blue-900 to-slate-950 border-2 border-blue-400/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,82,255,0.4)] transform -rotate-6 group-hover:rotate-0 transition-transform duration-300">
+            <Cpu className="h-10 w-10 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
           </div>
+          <span className="mt-3 text-[11px] font-mono font-bold text-blue-300 uppercase tracking-widest">
+            Autonomous AI Engines
+          </span>
         </div>
       </div>
     );
@@ -101,12 +102,15 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
 
   if (type === "web") {
     return (
-      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
+      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-indigo-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
         <div className="absolute w-40 h-40 bg-indigo-500/20 rounded-full blur-[60px] pointer-events-none" />
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-32 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-indigo-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8)] transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
-            <Code2 className="h-10 w-10 text-indigo-400" />
+          <div className="relative h-24 w-32 rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-900 to-slate-950 border-2 border-indigo-400/80 flex items-center justify-center shadow-[0_15px_30px_rgba(99,102,241,0.4)] transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <Code2 className="h-10 w-10 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
           </div>
+          <span className="mt-3 text-[11px] font-mono font-bold text-indigo-300 uppercase tracking-widest">
+            High-Scale Web Systems
+          </span>
         </div>
       </div>
     );
@@ -114,24 +118,30 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
 
   if (type === "mobile") {
     return (
-      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
+      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 border border-emerald-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
         <div className="absolute w-40 h-40 bg-emerald-500/20 rounded-full blur-[60px] pointer-events-none" />
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-16 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-emerald-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8)] transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
-            <Smartphone className="h-8 w-8 text-emerald-400" />
+          <div className="relative h-24 w-16 rounded-2xl bg-gradient-to-br from-emerald-600 via-emerald-900 to-slate-950 border-2 border-emerald-400/80 flex items-center justify-center shadow-[0_15px_30px_rgba(16,185,129,0.4)] transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <Smartphone className="h-8 w-8 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
           </div>
+          <span className="mt-3 text-[11px] font-mono font-bold text-emerald-300 uppercase tracking-widest">
+            Native Mobile Ecosystems
+          </span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-[#0F1015] border border-zinc-800/80 flex items-center justify-center p-6 overflow-hidden shadow-inner group">
+    <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-purple-950 border border-purple-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
       <div className="absolute w-40 h-40 bg-purple-500/20 rounded-full blur-[60px] pointer-events-none" />
       <div className="relative z-10 flex flex-col items-center">
-        <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-2 border-purple-500/80 flex items-center justify-center shadow-[0_15px_30px_rgba(0,0,0,0.8)] transform rotate-6 group-hover:rotate-0 transition-transform duration-300">
-          <Cloud className="h-10 w-10 text-purple-400" />
+        <div className="relative h-24 w-28 rounded-2xl bg-gradient-to-br from-purple-600 via-purple-900 to-slate-950 border-2 border-purple-400/80 flex items-center justify-center shadow-[0_15px_30px_rgba(168,85,247,0.4)] transform rotate-6 group-hover:rotate-0 transition-transform duration-300">
+          <Cloud className="h-10 w-10 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
         </div>
+        <span className="mt-3 text-[11px] font-mono font-bold text-purple-300 uppercase tracking-widest">
+          Sovereign Cloud &amp; SRE
+        </span>
       </div>
     </div>
   );
@@ -139,28 +149,29 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
 
 export function Services() {
   return (
-    <section id="services" className="bg-white py-14 sm:py-20 text-slate-900 border-t border-slate-200/90">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="services" className="bg-gradient-to-b from-white via-slate-50/50 to-white py-16 sm:py-24 text-slate-900 border-t border-slate-200/90 relative overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ─── Header Section ─── */}
-        <div className="text-center max-w-2xl mx-auto space-y-2.5">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="flex justify-center">
             <BadgePill tone="light" variant="gradient">
+              <Zap className="h-3.5 w-3.5 text-blue-600 mr-1.5" />
               <span className="font-semibold text-slate-900">Engineered for Precision &amp; Performance</span>
             </BadgePill>
           </div>
 
-          <h2 className="font-display text-2xl sm:text-[32px] font-bold text-slate-900 tracking-tight leading-[1.2]">
-            Our Core <span className="font-extrabold text-blue-600">Development Services</span>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-[1.2]">
+            Our Core <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">Development Practices</span>
           </h2>
 
-          <p className="text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed max-w-xl mx-auto">
             Most projects don't fit one box. We pull from AI/ML, web, mobile, UI/UX, QA, DevOps, and cybersecurity, and combine what your project actually needs. Nothing more.
           </p>
         </div>
 
         {/* ─── Core Services Cards Stack ─── */}
-        <div className="mt-14 space-y-6">
+        <div className="mt-16 space-y-8">
           {fallbackServices.map((service, idx) => (
             <motion.div
               key={service.slug}
@@ -168,8 +179,11 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-sm hover:border-blue-500/40 hover:shadow-xl transition-all duration-300"
+              className="group rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-slate-50/40 to-slate-100/30 p-6 sm:p-9 shadow-sm hover:border-blue-500/40 hover:shadow-xl transition-all duration-300 relative overflow-hidden hover:-translate-y-0.5"
             >
+              {/* Top Gradient Hover Line */}
+              <div className="absolute top-0 left-6 right-6 h-[2.5px] bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                 
                 {/* Left: Visual Illustration Box */}
@@ -178,30 +192,32 @@ export function Services() {
                 </div>
 
                 {/* Right: Detailed Content Column */}
-                <div className="lg:col-span-7 space-y-3.5">
+                <div className="lg:col-span-7 space-y-4">
                   <div>
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-xs sm:text-[13px] font-bold text-blue-600 mt-0.5">
+                    <p className="text-xs sm:text-[13px] font-bold text-blue-600 mt-1 flex items-center gap-1.5">
+                      <Sparkles className="h-3.5 w-3.5 text-blue-600" />
                       {service.tagline}
                     </p>
-                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
+                    <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
                       {service.description}
                     </p>
                   </div>
 
                   {/* Projects Tag Row */}
                   <div>
-                    <span className="block text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                      Projects
+                    <span className="block text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">
+                      Key Deliverables
                     </span>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {service.projects.map((proj) => (
                         <span
                           key={proj}
-                          className="rounded-full border border-slate-200 bg-slate-50 px-3 py-0.5 text-[11px] font-medium text-slate-700"
+                          className="inline-flex items-center gap-1 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-1 text-[11px] font-mono font-semibold text-blue-800 shadow-2xs"
                         >
+                          <CheckCircle2 className="h-3 w-3 text-blue-600" />
                           {proj}
                         </span>
                       ))}
@@ -217,7 +233,7 @@ export function Services() {
                       {service.tools.map((tool) => (
                         <div
                           key={tool.name}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-800"
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-800 shadow-2xs hover:border-blue-400 transition-colors"
                         >
                           <img
                             src={`/icons/${tool.iconSlug}.svg`}
@@ -238,10 +254,10 @@ export function Services() {
                     <Link
                       to="/services/$slug"
                       params={{ slug: service.slug }}
-                      className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-6 py-2.5 text-xs font-bold text-white hover:bg-slate-800 transition-colors shadow-xs"
+                      className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-2.5 text-xs font-bold text-white hover:bg-blue-600 transition-colors shadow-md group/btn"
                     >
-                      <span>Explore More</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <span>Explore Practice</span>
+                      <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
                   </div>
 
