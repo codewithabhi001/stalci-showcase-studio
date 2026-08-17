@@ -12,8 +12,7 @@ interface CoreService {
   toolsText: string;
   tools: { name: string; iconSlug: string }[];
   visualType: "ai" | "web" | "mobile" | "cloud";
-  tagBg: string;
-  taglineColor: string;
+  iconColor: string;
 }
 
 const fallbackServices: CoreService[] = [
@@ -32,8 +31,7 @@ const fallbackServices: CoreService[] = [
       { name: "PostgreSQL", iconSlug: "postgresql" },
     ],
     visualType: "ai",
-    tagBg: "bg-purple-50 text-purple-800 border-purple-200",
-    taglineColor: "text-purple-700",
+    iconColor: "text-purple-600",
   },
   {
     slug: "software-engineering",
@@ -51,8 +49,7 @@ const fallbackServices: CoreService[] = [
       { name: "Tailwind", iconSlug: "tailwindcss" },
     ],
     visualType: "web",
-    tagBg: "bg-indigo-50 text-indigo-800 border-indigo-200",
-    taglineColor: "text-indigo-700",
+    iconColor: "text-indigo-600",
   },
   {
     slug: "mobility",
@@ -69,8 +66,7 @@ const fallbackServices: CoreService[] = [
       { name: "Flutter", iconSlug: "flutter" },
     ],
     visualType: "mobile",
-    tagBg: "bg-emerald-50 text-emerald-800 border-emerald-200",
-    taglineColor: "text-emerald-700",
+    iconColor: "text-emerald-600",
   },
   {
     slug: "cloud-devops",
@@ -88,8 +84,7 @@ const fallbackServices: CoreService[] = [
       { name: "Docker", iconSlug: "docker" },
     ],
     visualType: "cloud",
-    tagBg: "bg-sky-50 text-sky-800 border-sky-200",
-    taglineColor: "text-sky-700",
+    iconColor: "text-sky-600",
   },
 ];
 
@@ -200,8 +195,8 @@ export function Services() {
                     <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                       {service.title}
                     </h3>
-                    <p className={`text-xs sm:text-[13px] font-bold mt-1 flex items-center gap-1.5 ${service.taglineColor}`}>
-                      <Sparkles className="h-3.5 w-3.5" />
+                    <p className="text-xs sm:text-[13px] font-semibold mt-1 flex items-center gap-1.5 text-slate-700">
+                      <Sparkles className={`h-3.5 w-3.5 ${service.iconColor}`} />
                       {service.tagline}
                     </p>
                     <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
@@ -218,9 +213,9 @@ export function Services() {
                       {service.projects.map((proj) => (
                         <span
                           key={proj}
-                          className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[11px] font-mono font-semibold shadow-2xs ${service.tagBg}`}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50/80 px-3 py-1 text-[11px] font-mono font-semibold text-slate-800 shadow-2xs hover:border-slate-300 transition-colors"
                         >
-                          <CheckCircle2 className="h-3 w-3" />
+                          <CheckCircle2 className={`h-3 w-3 ${service.iconColor}`} />
                           {proj}
                         </span>
                       ))}

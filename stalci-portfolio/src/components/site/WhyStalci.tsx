@@ -12,7 +12,7 @@ const reasons = [
     metricLabel: "Seniority Density",
     metricValue: "100% Staff & Lead",
     iconBg: "bg-purple-50 text-purple-600 border-purple-200",
-    badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
+    badgeBg: "bg-slate-100/90 text-slate-700 border-slate-200",
   },
   { 
     icon: Timer, 
@@ -22,7 +22,7 @@ const reasons = [
     metricLabel: "Sprint Cadence",
     metricValue: "14-Day Sprints",
     iconBg: "bg-amber-50 text-amber-600 border-amber-200",
-    badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
+    badgeBg: "bg-slate-100/90 text-slate-700 border-slate-200",
   },
   { 
     icon: Globe2, 
@@ -32,7 +32,7 @@ const reasons = [
     metricLabel: "Support Coverage",
     metricValue: "24/7 Active NOC",
     iconBg: "bg-sky-50 text-sky-600 border-sky-200",
-    badgeBg: "bg-sky-50 text-sky-700 border-sky-200",
+    badgeBg: "bg-slate-100/90 text-slate-700 border-slate-200",
   },
   { 
     icon: Layers, 
@@ -42,7 +42,7 @@ const reasons = [
     metricLabel: "Lifecycle Scope",
     metricValue: "Design to Cloud SRE",
     iconBg: "bg-rose-50 text-rose-600 border-rose-200",
-    badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
+    badgeBg: "bg-slate-100/90 text-slate-700 border-slate-200",
   },
   { 
     icon: Handshake, 
@@ -52,7 +52,7 @@ const reasons = [
     metricLabel: "Governance Model",
     metricValue: "Fixed & T&M Models",
     iconBg: "bg-indigo-50 text-indigo-600 border-indigo-200",
-    badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-200",
+    badgeBg: "bg-slate-100/90 text-slate-700 border-slate-200",
   },
   { 
     icon: ShieldCheck, 
@@ -62,7 +62,7 @@ const reasons = [
     metricLabel: "Security Posture",
     metricValue: "Zero-Trust Verified",
     iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200",
-    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    badgeBg: "bg-slate-100/90 text-slate-700 border-slate-200",
   },
 ];
 
