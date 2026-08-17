@@ -12,6 +12,8 @@ interface CoreService {
   toolsText: string;
   tools: { name: string; iconSlug: string }[];
   visualType: "ai" | "web" | "mobile" | "cloud";
+  tagBg: string;
+  taglineColor: string;
 }
 
 const fallbackServices: CoreService[] = [
@@ -30,6 +32,8 @@ const fallbackServices: CoreService[] = [
       { name: "PostgreSQL", iconSlug: "postgresql" },
     ],
     visualType: "ai",
+    tagBg: "bg-purple-50 text-purple-800 border-purple-200",
+    taglineColor: "text-purple-700",
   },
   {
     slug: "software-engineering",
@@ -47,6 +51,8 @@ const fallbackServices: CoreService[] = [
       { name: "Tailwind", iconSlug: "tailwindcss" },
     ],
     visualType: "web",
+    tagBg: "bg-indigo-50 text-indigo-800 border-indigo-200",
+    taglineColor: "text-indigo-700",
   },
   {
     slug: "mobility",
@@ -63,6 +69,8 @@ const fallbackServices: CoreService[] = [
       { name: "Flutter", iconSlug: "flutter" },
     ],
     visualType: "mobile",
+    tagBg: "bg-emerald-50 text-emerald-800 border-emerald-200",
+    taglineColor: "text-emerald-700",
   },
   {
     slug: "cloud-devops",
@@ -80,18 +88,20 @@ const fallbackServices: CoreService[] = [
       { name: "Docker", iconSlug: "docker" },
     ],
     visualType: "cloud",
+    tagBg: "bg-sky-50 text-sky-800 border-sky-200",
+    taglineColor: "text-sky-700",
   },
 ];
 
 function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
   if (type === "ai") {
     return (
-      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 flex items-center justify-center p-6 overflow-hidden shadow-md group">
+      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-purple-950 border border-purple-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-28 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center shadow-lg transform -rotate-6 group-hover:rotate-0 transition-transform duration-300">
-            <Cpu className="h-10 w-10 text-white" />
+          <div className="relative h-24 w-28 rounded-2xl bg-purple-950 border-2 border-purple-500/80 flex items-center justify-center shadow-lg transform -rotate-6 group-hover:rotate-0 transition-transform duration-300">
+            <Cpu className="h-10 w-10 text-purple-300" />
           </div>
-          <span className="mt-3 text-[11px] font-mono font-bold text-slate-300 uppercase tracking-widest">
+          <span className="mt-3 text-[11px] font-mono font-bold text-purple-300 uppercase tracking-widest">
             Autonomous AI Engines
           </span>
         </div>
@@ -101,12 +111,12 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
 
   if (type === "web") {
     return (
-      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 flex items-center justify-center p-6 overflow-hidden shadow-md group">
+      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-indigo-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-32 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
-            <Code2 className="h-10 w-10 text-white" />
+          <div className="relative h-24 w-32 rounded-2xl bg-indigo-950 border-2 border-indigo-500/80 flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <Code2 className="h-10 w-10 text-indigo-300" />
           </div>
-          <span className="mt-3 text-[11px] font-mono font-bold text-slate-300 uppercase tracking-widest">
+          <span className="mt-3 text-[11px] font-mono font-bold text-indigo-300 uppercase tracking-widest">
             High-Scale Web Systems
           </span>
         </div>
@@ -116,12 +126,12 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
 
   if (type === "mobile") {
     return (
-      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 flex items-center justify-center p-6 overflow-hidden shadow-md group">
+      <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 border border-emerald-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
         <div className="relative z-10 flex flex-col items-center">
-          <div className="relative h-24 w-16 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center shadow-lg transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
-            <Smartphone className="h-8 w-8 text-white" />
+          <div className="relative h-24 w-16 rounded-2xl bg-emerald-950 border-2 border-emerald-500/80 flex items-center justify-center shadow-lg transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
+            <Smartphone className="h-8 w-8 text-emerald-300" />
           </div>
-          <span className="mt-3 text-[11px] font-mono font-bold text-slate-300 uppercase tracking-widest">
+          <span className="mt-3 text-[11px] font-mono font-bold text-emerald-300 uppercase tracking-widest">
             Native Mobile Ecosystems
           </span>
         </div>
@@ -130,12 +140,12 @@ function Service3DVisual({ type }: { type: CoreService["visualType"] }) {
   }
 
   return (
-    <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black border border-slate-800 flex items-center justify-center p-6 overflow-hidden shadow-md group">
+    <div className="relative w-full h-full min-h-[220px] rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-sky-950 border border-sky-900/50 flex items-center justify-center p-6 overflow-hidden shadow-md group">
       <div className="relative z-10 flex flex-col items-center">
-        <div className="relative h-24 w-28 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center shadow-lg transform rotate-6 group-hover:rotate-0 transition-transform duration-300">
-          <Cloud className="h-10 w-10 text-white" />
+        <div className="relative h-24 w-28 rounded-2xl bg-sky-950 border-2 border-sky-500/80 flex items-center justify-center shadow-lg transform rotate-6 group-hover:rotate-0 transition-transform duration-300">
+          <Cloud className="h-10 w-10 text-sky-300" />
         </div>
-        <span className="mt-3 text-[11px] font-mono font-bold text-slate-300 uppercase tracking-widest">
+        <span className="mt-3 text-[11px] font-mono font-bold text-sky-300 uppercase tracking-widest">
           Sovereign Cloud &amp; SRE
         </span>
       </div>
@@ -152,13 +162,13 @@ export function Services() {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="flex justify-center">
             <BadgePill tone="light" variant="gradient">
-              <Zap className="h-3.5 w-3.5 text-slate-900 mr-1.5" />
+              <Zap className="h-3.5 w-3.5 text-amber-500 mr-1.5" />
               <span className="font-semibold text-slate-900">Engineered for Precision &amp; Performance</span>
             </BadgePill>
           </div>
 
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-[1.2]">
-            Our Core <span className="font-extrabold text-slate-950 underline decoration-slate-900/30 underline-offset-8">Development Practices</span>
+            Our Core <span className="font-extrabold text-slate-900">Development Practices</span>
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed max-w-xl mx-auto">
@@ -175,11 +185,8 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="group rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-slate-50/50 to-slate-100/30 p-6 sm:p-9 shadow-2xs hover:border-slate-400 hover:shadow-lg transition-all duration-300 relative overflow-hidden hover:-translate-y-0.5"
+              className="group rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-slate-50/50 to-slate-100/30 p-6 sm:p-9 shadow-2xs hover:border-slate-300 hover:shadow-md transition-all duration-300 relative overflow-hidden hover:-translate-y-0.5"
             >
-              {/* Top Dark Hover Line */}
-              <div className="absolute top-0 left-6 right-6 h-[2px] bg-slate-900 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                 
                 {/* Left: Visual Illustration Box */}
@@ -190,11 +197,11 @@ export function Services() {
                 {/* Right: Detailed Content Column */}
                 <div className="lg:col-span-7 space-y-4">
                   <div>
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight group-hover:text-slate-950 transition-colors">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                       {service.title}
                     </h3>
-                    <p className="text-xs sm:text-[13px] font-bold text-slate-700 mt-1 flex items-center gap-1.5">
-                      <Sparkles className="h-3.5 w-3.5 text-slate-900" />
+                    <p className={`text-xs sm:text-[13px] font-bold mt-1 flex items-center gap-1.5 ${service.taglineColor}`}>
+                      <Sparkles className="h-3.5 w-3.5" />
                       {service.tagline}
                     </p>
                     <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
@@ -211,9 +218,9 @@ export function Services() {
                       {service.projects.map((proj) => (
                         <span
                           key={proj}
-                          className="inline-flex items-center gap-1 rounded-full border border-slate-300 bg-slate-100 px-3 py-1 text-[11px] font-mono font-semibold text-slate-900 shadow-2xs"
+                          className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-[11px] font-mono font-semibold shadow-2xs ${service.tagBg}`}
                         >
-                          <CheckCircle2 className="h-3 w-3 text-slate-900" />
+                          <CheckCircle2 className="h-3 w-3" />
                           {proj}
                         </span>
                       ))}
@@ -229,7 +236,7 @@ export function Services() {
                       {service.tools.map((tool) => (
                         <div
                           key={tool.name}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-800 shadow-2xs hover:border-slate-400 transition-colors"
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-800 shadow-2xs hover:border-slate-300 transition-colors"
                         >
                           <img
                             src={`/icons/${tool.iconSlug}.svg`}

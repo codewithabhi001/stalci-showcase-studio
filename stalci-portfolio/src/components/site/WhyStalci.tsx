@@ -11,7 +11,8 @@ const reasons = [
     copy: "Exclusively staffed by seasoned principal architects and senior engineers to guarantee rapid execution without junior learning curves.",
     metricLabel: "Seniority Density",
     metricValue: "100% Staff & Lead",
-    badgeBg: "bg-slate-100 text-slate-900 border-slate-300",
+    iconBg: "bg-purple-50 text-purple-600 border-purple-200",
+    badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
   },
   { 
     icon: Timer, 
@@ -20,7 +21,8 @@ const reasons = [
     copy: "Rapid, deterministic deployment of operational software increments, shipping measurable business value in predictable bi-weekly sprints.",
     metricLabel: "Sprint Cadence",
     metricValue: "14-Day Sprints",
-    badgeBg: "bg-slate-100 text-slate-900 border-slate-300",
+    iconBg: "bg-amber-50 text-amber-600 border-amber-200",
+    badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
   },
   { 
     icon: Globe2, 
@@ -29,7 +31,8 @@ const reasons = [
     copy: "Seamless, distributed delivery across global timezones enabling round-the-clock engineering momentum and proactive incident triage.",
     metricLabel: "Support Coverage",
     metricValue: "24/7 Active NOC",
-    badgeBg: "bg-slate-100 text-slate-900 border-slate-300",
+    iconBg: "bg-sky-50 text-sky-600 border-sky-200",
+    badgeBg: "bg-sky-50 text-sky-700 border-sky-200",
   },
   { 
     icon: Layers, 
@@ -38,7 +41,8 @@ const reasons = [
     copy: "Comprehensive architectural ownership from initial system blueprinting and infrastructure provisioning to production release and SRE.",
     metricLabel: "Lifecycle Scope",
     metricValue: "Design to Cloud SRE",
-    badgeBg: "bg-slate-100 text-slate-900 border-slate-300",
+    iconBg: "bg-rose-50 text-rose-600 border-rose-200",
+    badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
   },
   { 
     icon: Handshake, 
@@ -47,7 +51,8 @@ const reasons = [
     copy: "Itemized sprint burndown telemetry, transparent governance, and zero hidden platform licensing fees or vendor lock-in.",
     metricLabel: "Governance Model",
     metricValue: "Fixed & T&M Models",
-    badgeBg: "bg-slate-100 text-slate-900 border-slate-300",
+    iconBg: "bg-indigo-50 text-indigo-600 border-indigo-200",
+    badgeBg: "bg-indigo-50 text-indigo-700 border-indigo-200",
   },
   { 
     icon: ShieldCheck, 
@@ -56,7 +61,8 @@ const reasons = [
     copy: "Mission-critical reliability fortified by automated dynamic security audits, chaos testing pipelines, and hardware-level MFA enclaves.",
     metricLabel: "Security Posture",
     metricValue: "Zero-Trust Verified",
-    badgeBg: "bg-slate-100 text-slate-900 border-slate-300",
+    iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200",
+    badgeBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
   },
 ];
 
@@ -114,16 +120,13 @@ export function WhyStalci() {
             return (
               <div
                 key={r.title}
-                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-slate-50/60 to-slate-100/40 p-6 sm:p-7 shadow-2xs hover:shadow-lg hover:border-slate-400 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-slate-50/60 to-slate-100/40 p-6 sm:p-7 shadow-2xs hover:shadow-md hover:border-slate-300 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
               >
-                {/* Top Dark Hover Accent Line */}
-                <div className="absolute top-0 left-6 right-6 h-[2px] bg-slate-900 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
                 <div>
-                  {/* Top Row: Dark Icon Squircle + Tag */}
+                  {/* Top Row: Colored Icon Squircle + Tag */}
                   <div className="flex items-center justify-between gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-md p-2.5 group-hover:scale-105 transition-transform duration-300">
-                      <Icon className="h-6 w-6 text-white" strokeWidth={2} />
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border p-2.5 shadow-2xs transition-transform duration-300 group-hover:scale-105 ${r.iconBg}`}>
+                      <Icon className="h-6 w-6" strokeWidth={2} />
                     </div>
 
                     <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider border ${r.badgeBg}`}>
@@ -132,7 +135,7 @@ export function WhyStalci() {
                   </div>
 
                   {/* Title & Summary */}
-                  <h3 className="mt-5 text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug group-hover:text-slate-950 transition-colors">
+                  <h3 className="mt-5 text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
                     {r.title}
                   </h3>
                   <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
@@ -145,7 +148,7 @@ export function WhyStalci() {
                   <span className="text-[10.5px] font-mono font-semibold text-slate-500 uppercase tracking-wider">
                     {r.metricLabel}
                   </span>
-                  <span className="text-xs font-mono font-bold text-slate-900 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200">
+                  <span className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded-md border ${r.badgeBg}`}>
                     {r.metricValue}
                   </span>
                 </div>
@@ -156,9 +159,6 @@ export function WhyStalci() {
 
         {/* Enterprise Delivery Benchmark Comparison Table */}
         <div className="mt-16 overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-9 shadow-md relative">
-          {/* Top Dark Line */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-slate-900" />
-
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-5 mb-6">
             <div>
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-900 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
@@ -168,8 +168,8 @@ export function WhyStalci() {
                 How STALCI Outperforms Alternative Models
               </h3>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-slate-900 bg-slate-100 border border-slate-300 px-3.5 py-1.5 rounded-full shadow-2xs self-start sm:self-auto">
-              <CheckCircle2 className="h-4 w-4 text-slate-900" /> 100% Contractual SLA Guarantee
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-full shadow-2xs self-start sm:self-auto">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" /> 100% Contractual SLA Guarantee
             </span>
           </div>
 
@@ -178,7 +178,7 @@ export function WhyStalci() {
               <thead>
                 <tr className="border-b border-slate-200 text-[11px] font-mono font-bold uppercase text-slate-500 tracking-wider">
                   <th className="pb-3.5 pr-4 font-semibold">Evaluation Metric</th>
-                  <th className="pb-3.5 px-4 font-bold text-slate-950 bg-slate-100 rounded-t-xl border-t border-x border-slate-300">STALCI Studio Pods</th>
+                  <th className="pb-3.5 px-4 font-bold text-slate-950 bg-emerald-50/60 rounded-t-xl border-t border-x border-emerald-200">STALCI Studio Pods</th>
                   <th className="pb-3.5 px-4 font-semibold text-slate-500">Traditional Agency</th>
                   <th className="pb-3.5 pl-4 font-semibold text-slate-500">Direct In-House Hiring</th>
                 </tr>
@@ -187,9 +187,9 @@ export function WhyStalci() {
                 {comparisonRows.map((row, idx) => (
                   <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-4 pr-4 font-semibold text-slate-900">{row.factor}</td>
-                    <td className="py-4 px-4 font-bold text-slate-950 bg-slate-50 border border-slate-300 rounded-xl shadow-2xs">
+                    <td className="py-4 px-4 font-bold text-emerald-950 bg-emerald-50/70 border border-emerald-200 rounded-xl shadow-2xs">
                       <div className="flex items-center gap-1.5">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-slate-950 shrink-0" />
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                         <span>{row.stalci}</span>
                       </div>
                     </td>

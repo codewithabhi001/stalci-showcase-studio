@@ -280,7 +280,13 @@ export function ProjectsShowcase() {
                     }}
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-white/95 text-slate-900 border border-slate-300 backdrop-blur-md shadow-md">
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-md shadow-md border ${
+                      p.category === "AI / ML" ? "bg-purple-500/90 text-white border-purple-300" :
+                      p.category === "Mobile" ? "bg-emerald-500/90 text-white border-emerald-300" :
+                      p.category === "SaaS" ? "bg-indigo-500/90 text-white border-indigo-300" :
+                      p.category === "Cloud & DevOps" ? "bg-sky-500/90 text-white border-sky-300" :
+                      "bg-slate-900/90 text-white border-slate-700"
+                    }`}>
                       {p.category}
                     </span>
                   </div>
@@ -307,8 +313,8 @@ export function ProjectsShowcase() {
                   <ChevronRight className="h-3.5 w-3.5 text-slate-900 group-hover:translate-x-1 transition-transform" />
                 </span>
 
-                <div className="flex items-center gap-1.5 text-[11px] font-mono bg-slate-100 text-slate-900 border border-slate-200 px-2.5 py-0.5 rounded-md font-semibold">
-                  <Award className="h-3.5 w-3.5 text-slate-900" />
+                <div className="flex items-center gap-1.5 text-[11px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-0.5 rounded-md font-semibold">
+                  <Award className="h-3.5 w-3.5 text-emerald-600" />
                   <span>{p.metrics[0].value}</span>
                 </div>
               </div>
