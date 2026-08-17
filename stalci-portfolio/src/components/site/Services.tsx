@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+﻿import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { BadgePill } from "./Brand";
 import { motion } from "framer-motion";
@@ -20,66 +20,60 @@ const fallbackServices: CoreService[] = [
   {
     slug: "ai-services",
     title: "Sovereign AI & ML Development",
-    tagline: "Intelligence, Engineered for Privacy & Scale.",
+    tagline: "INTELLIGENCE, ENGINEERED FOR PRIVACY & SCALE.",
     description:
       "We engineer custom domain-specific AI models, private LLM agents, and high-performance vector retrieval pipelines within isolated private cloud enclaves with zero data leakage.",
-    projects: ["Private RAG Vector Engines", "Autonomous Agent Swarms", "Domain Model Fine-Tuning", "Real-Time NLP & Speech"],
+    projects: ["Private RAG Vector Engines", "Autonomous Agent Swarms", "Domain Model Fine-Tuning"],
     toolsText: "Python, PyTorch, LangChain, pgvector, and vLLM.",
     tools: [
       { name: "Python", iconSlug: "python" },
       { name: "PyTorch", iconSlug: "pytorch" },
       { name: "LangChain", iconSlug: "langchain" },
-      { name: "PostgreSQL", iconSlug: "postgresql" },
     ],
     visualType: "ai",
   },
   {
     slug: "software-engineering",
     title: "Enterprise Web & Platform Engineering",
-    tagline: "Ultra-Fast, Resilient Web Systems.",
+    tagline: "ULTRA-FAST, RESILIENT WEB SYSTEMS.",
     description:
       "Mission-critical web applications built on React 19, Next.js 16, and strictly typed TypeScript. High-throughput SaaS dashboards, financial portals, and high-volume B2B systems.",
-    projects: ["Multi-Tenant SaaS", "B2B Wholesale Portals", "Real-Time Trading Engines", "High-Volume ERPs"],
+    projects: ["Multi-Tenant SaaS", "B2B Wholesale Portals", "Real-Time Trading Engines"],
     toolsText: "React 19, Next.js 16, TypeScript, Node.js, and Tailwind CSS.",
     tools: [
       { name: "React", iconSlug: "react" },
       { name: "Next.js", iconSlug: "nextdotjs" },
       { name: "TypeScript", iconSlug: "typescript" },
-      { name: "Node.js", iconSlug: "nodedotjs" },
-      { name: "Tailwind", iconSlug: "tailwindcss" },
     ],
     visualType: "web",
   },
   {
     slug: "mobility",
     title: "High-Performance Mobile Platforms",
-    tagline: "Native 120 FPS Fluidity, Everywhere.",
+    tagline: "NATIVE 120 FPS FLUIDITY, EVERYWHERE.",
     description:
       "iOS and Android applications engineered for fluid 120 FPS responsiveness, offline-first SQLite sync, biometric security hardware enclaves, and enterprise BLE integrations.",
-    projects: ["Biometric FinTech Apps", "Offline Field Logistics", "On-Demand Mobility", "Telehealth Portals"],
-    toolsText: "React Native, Swift, Kotlin, Expo, and WebSockets.",
+    projects: ["Biometric FinTech Apps", "Offline Field Logistics", "On-Demand Mobility"],
+    toolsText: "Swift, Kotlin, React Native, and WebSockets.",
     tools: [
       { name: "Swift", iconSlug: "swift" },
       { name: "Kotlin", iconSlug: "kotlin" },
       { name: "React Native", iconSlug: "react" },
-      { name: "PostgreSQL", iconSlug: "postgresql" },
     ],
     visualType: "mobile",
   },
   {
     slug: "cloud-devops",
     title: "Multi-Cloud & Zero-Trust DevOps",
-    tagline: "Deterministic 99.99% Availability.",
+    tagline: "DETERMINISTIC 99.99% AVAILABILITY.",
     description:
       "Automated multi-region cloud architecture, declarative Terraform infrastructure-as-code, zero-downtime blue/green deployments, and continuous cloud cost optimization.",
-    projects: ["Kubernetes EKS Clusters", "Automated Blue/Green CI/CD", "FinOps Cloud Cost Pruning", "Zero-Trust mTLS Mesh"],
-    toolsText: "AWS, GCP, Kubernetes, Docker, Terraform, and Cloudflare.",
+    projects: ["Kubernetes EKS Clusters", "Automated Blue/Green CI/CD", "FinOps Cloud Cost Pruning"],
+    toolsText: "AWS, Kubernetes, Terraform, and Cloudflare.",
     tools: [
       { name: "AWS", iconSlug: "aws" },
       { name: "Kubernetes", iconSlug: "kubernetes" },
       { name: "Terraform", iconSlug: "terraform" },
-      { name: "Cloudflare", iconSlug: "cloudflare" },
-      { name: "Docker", iconSlug: "docker" },
     ],
     visualType: "cloud",
   },
@@ -121,7 +115,35 @@ export function Services() {
     queryFn: fetchServices,
   });
 
-  const servicesList: CoreService[] = apiServices && apiServices.length > 0 ? apiServices : fallbackServices;
+  // Always enrich and enforce the 4 flagship pillars with proper visual assets and capabilities
+  const servicesList: CoreService[] = fallbackServices.map((fallback) => {
+    const matchingApi = apiServices?.find(
+      (s: any) =>
+        s.slug === fallback.slug ||
+        s.title?.toLowerCase().includes(fallback.visualType) ||
+        (fallback.visualType === "ai" && s.title?.toLowerCase().includes("ai")) ||
+        (fallback.visualType === "web" && s.title?.toLowerCase().includes("software")) ||
+        (fallback.visualType === "mobile" && s.title?.toLowerCase().includes("mobile")) ||
+        (fallback.visualType === "cloud" && s.title?.toLowerCase().includes("cloud"))
+    );
+
+    if (!matchingApi) return fallback;
+
+    return {
+      ...fallback,
+      title: matchingApi.title || fallback.title,
+      description: matchingApi.description || fallback.description,
+      tagline: matchingApi.tagline ? matchingApi.tagline.toUpperCase() : fallback.tagline,
+      projects:
+        Array.isArray(matchingApi.projects) && matchingApi.projects.length > 0
+          ? matchingApi.projects
+          : fallback.projects,
+      tools:
+        Array.isArray(matchingApi.tools) && matchingApi.tools.length > 0
+          ? matchingApi.tools
+          : fallback.tools,
+    };
+  });
 
   return (
     <section id="services" className="bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 relative isolate overflow-hidden">
@@ -150,7 +172,7 @@ export function Services() {
           </p>
         </div>
 
-        {/* ─── Compact 4-Column Grid ─── */}
+        {/* ─── Standard 4-Column Grid (Image 1 Quality Guaranteed) ─── */}
         <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {servicesList.map((service, idx) => (
             <motion.div
@@ -163,7 +185,7 @@ export function Services() {
             >
               <div className="space-y-3.5">
                 {/* Visual Image */}
-                <ServiceVisualImage type={service.visualType || "ai"} />
+                <ServiceVisualImage type={service.visualType} />
 
                 <div>
                   <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-wider block mb-1">
