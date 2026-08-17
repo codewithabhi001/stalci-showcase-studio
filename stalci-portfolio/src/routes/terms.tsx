@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Nav } from '@/components/site/Nav';
-import { Footer } from '@/components/site/Footer';
+import { Nav, Footer } from '@/components/layout';
 import { useScrollReveal } from '@/lib/animations';
 import { Scale, Mail } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';

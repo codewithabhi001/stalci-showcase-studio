@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { SectionHeading } from "@/components/site/Brand";
+import { Nav, Footer } from "@/components/layout";
+import { SectionHeading } from "@/components/brand/Brand";
 import { benefits } from "@/lib/careers-data";
 import { MapPin, Clock, ChevronDown, CheckCircle2, Send, X } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";

@@ -1,23 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Hero } from "@/components/site/Hero";
-import { RoiShowcase } from "@/components/site/RoiShowcase";
-import { StatsBento } from "@/components/site/StatsBento";
-import { Services } from "@/components/site/Services";
-import { TechStack } from "@/components/site/TechStack";
-import { SectionBreaker } from "@/components/site/SectionBreaker";
-import { ProjectsShowcase } from "@/components/site/ProjectsShowcase";
-import { About } from "@/components/site/About";
-import { Industries } from "@/components/site/Industries";
-import { Products } from "@/components/site/Products";
-import { Process } from "@/components/site/Process";
-import { WhyStalci } from "@/components/site/WhyStalci";
-import { Testimonials } from "@/components/site/Testimonials";
-import { Insights } from "@/components/site/Insights";
-import { FAQ } from "@/components/site/FAQ";
-import { Contact } from "@/components/site/Contact";
-import { Footer } from "@/components/site/Footer";
-import { BackToTop } from "@/components/site/BackToTop";
+import { Nav, Footer, BackToTop } from "@/components/layout";
+import {
+  Hero,
+  RoiShowcase,
+  StatsBento,
+  SectionBreaker,
+  About,
+  WhyStalci,
+} from "@/features/home";
+import { Services } from "@/features/services";
+import { TechStack } from "@/features/tech-stack";
+import { ProjectsShowcase } from "@/features/projects";
+import { Industries } from "@/features/industries";
+import { Products } from "@/features/products";
+import { Process } from "@/features/process";
+import { Testimonials } from "@/features/testimonials";
+import { Insights } from "@/features/insights";
+import { FAQ } from "@/features/faq";
+import { Contact } from "@/features/contact";
 
 const title = "STALCI — Global IT Services, Sovereign AI, Cloud & Cyber Security";
 const description =
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-zinc-800 selection:text-white">
+    <div className="min-h-screen bg-background text-foreground selection:bg-zinc-800 selection:text-[#FFFFFF]">
       <Nav />
       <main>
         <Hero />

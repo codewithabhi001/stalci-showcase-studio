@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { Nav, Footer } from "@/components/layout";
 import { getPost, posts as staticPosts } from "@/lib/blog-data";
 import { ArrowLeft, Clock, User, Calendar, Share2, ArrowRight } from "lucide-react";
 import { fetchBlogBySlug, fetchBlogs } from "@/lib/api";

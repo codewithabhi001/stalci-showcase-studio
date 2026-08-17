@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { SectionHeading } from "@/components/site/Brand";
+import { Nav, Footer } from "@/components/layout";
+import { SectionHeading } from "@/components/brand/Brand";
 import { posts as fallbackPosts } from "@/lib/blog-data";
 import { ArrowRight, BookOpen, Clock, User } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
