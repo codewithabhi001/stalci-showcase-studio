@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
-import { Quote, Star, CheckCircle2, X, Play, MessageSquarePlus } from "lucide-react";
+import { Star, CheckCircle2, X, MessageSquarePlus, Quote, ArrowRight, Award } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchTestimonials, submitFeedback } from "@/lib/api";
@@ -9,24 +9,26 @@ import { BadgePill } from "./Brand";
 
 interface TestimonialItem {
   id: string;
-  quote: string;
   name: string;
   role: string;
   company: string;
   location: string;
   image: string;
-  hasVideo?: boolean;
+  rating: number;
+  highlight: string;
+  quote: string;
 }
 
-const clientDiaries: TestimonialItem[] = [
+const clientReviews: TestimonialItem[] = [
   {
     id: "michelle-lester",
     name: "Michelle Lester",
-    role: "Operation Manager",
+    role: "Operations Director",
     company: "Primally Nourished",
-    location: "USA",
+    location: "United States",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
-    hasVideo: true,
+    rating: 5,
+    highlight: "5K+ Paid Subscribers Growth",
     quote:
       "STALCI has met every request we have given them. The team is working on our current project with recent technologies and provides great value for their work which has resulted into 5K+ paid subscribers within a short period.",
   },
@@ -37,7 +39,8 @@ const clientDiaries: TestimonialItem[] = [
     company: "Meridian Financial",
     location: "United Kingdom",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
-    hasVideo: false,
+    rating: 5,
+    highlight: "300% System Throughput Acceleration",
     quote:
       "STALCI engineered a scalable, zero-downtime lending architecture in four months. System throughput accelerated by 300% with absolutely zero audit discrepancies, allowing our team to pass SOC 2 compliance effortlessly.",
   },
@@ -48,7 +51,8 @@ const clientDiaries: TestimonialItem[] = [
     company: "CareLoop Health",
     location: "San Francisco, CA",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
-    hasVideo: true,
+    rating: 5,
+    highlight: "Sub-15ms Private Semantic RAG",
     quote:
       "The STALCI sovereign AI division deployed an ultra-fast private RAG vector engine atop our clinical records, achieving sub-15ms semantic retrieval while satisfying all HIPAA and board-level data governance mandates.",
   },
@@ -59,18 +63,18 @@ const clientDiaries: TestimonialItem[] = [
     company: "Loomex Retail",
     location: "Singapore",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
-    hasVideo: false,
+    rating: 5,
+    highlight: "38% Cloud Infrastructure Savings",
     quote:
       "Their dedicated multi-cloud pod optimized our AWS EKS Kubernetes clusters, reducing infrastructure expenses by 38% and accelerating deployment cadence from monthly releases to continuous daily delivery.",
   },
 ];
 
 export function Testimonials() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [comments, setComments] = useState("");
-  const [rating, setRating] = useState(5);
+  const [userRating, setUserRating] = useState(5);
   const [submitted, setSubmitted] = useState(false);
   const qc = useQueryClient();
 
@@ -79,21 +83,20 @@ export function Testimonials() {
     queryFn: fetchTestimonials,
   });
 
-  const testimonialsList: TestimonialItem[] =
+  const displayList: TestimonialItem[] =
     apiTestimonials && apiTestimonials.length > 0
-      ? apiTestimonials.map((t: any) => ({
-          id: String(t.id),
-          name: t.clientName,
-          role: t.role || "Executive",
-          company: t.company || "Enterprise Client",
-          location: "Global",
-          image: t.avatarUrl || "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
-          hasVideo: false,
-          quote: t.quote,
+      ? apiTestimonials.map((t: any, idx: number) => ({
+          id: String(t.id || idx),
+          name: t.clientName || t.name,
+          role: t.role || "Executive Partner",
+          company: t.company || "Enterprise Partner",
+          location: t.location || "Global",
+          image: t.avatarUrl || clientReviews[idx % clientReviews.length].image,
+          rating: t.rating || 5,
+          highlight: t.highlight || "Verified Production Impact",
+          quote: t.quote || t.comments,
         }))
-      : clientDiaries;
-
-  const activeClient = testimonialsList[activeIndex] || testimonialsList[0];
+      : clientReviews;
 
   const feedbackMutation = useMutation({
     mutationFn: submitFeedback,
@@ -108,134 +111,123 @@ export function Testimonials() {
     if (!comments.trim()) return;
     feedbackMutation.mutate({
       name: name.trim() || "Anonymous Partner",
-      rating,
+      rating: userRating,
       comments: comments.trim(),
     });
   };
 
   return (
-    <section id="testimonials" className="relative bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 overflow-hidden isolate">
-      {/* Subtle Acoustic Radial Wave Pattern */}
+    <section id="testimonials" className="relative bg-[#FFFFFF] py-16 sm:py-24 text-zinc-950 border-t border-zinc-200/90 overflow-hidden isolate">
+      {/* Subtle Dot Mesh Background */}
       <div 
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,#F1F5F9_0%,transparent_70%)] pointer-events-none" 
-        aria-hidden 
-      />
-      <div 
-        className="absolute inset-0 -z-10 bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none opacity-50" 
+        className="absolute inset-0 -z-10 bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px] opacity-40 [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_60%,transparent_100%)] pointer-events-none" 
         aria-hidden 
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* ─── Standardized Header Section (Reference Match) ─── */}
-        <div className="text-center max-w-2xl mx-auto space-y-2.5">
+        {/* ─── Section Header ─── */}
+        <div className="text-center max-w-2xl mx-auto space-y-3 mb-12 sm:mb-16">
           <div className="flex justify-center">
             <BadgePill tone="light" variant="gradient">
-              <span className="font-semibold text-zinc-950">Client Diaries</span>
+              <span className="text-[10.5px] sm:text-[11.5px] font-mono text-zinc-950 font-semibold">
+                Client Proof &amp; Verification
+              </span>
             </BadgePill>
           </div>
 
-          <h2 className="font-display text-2xl sm:text-[32px] font-bold text-zinc-950 tracking-tight leading-[1.2]">
-            Client <span className="font-extrabold text-black">Testimonials</span>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 tracking-tight leading-[1.18]">
+            Trusted by Leaders Shipping at Scale
           </h2>
 
-          <p className="text-xs sm:text-[13px] text-zinc-600 font-normal leading-relaxed max-w-xl mx-auto">
-            Don't take our word for it. Here's what the founders and operators we've worked with have to say.
+          <p className="text-xs sm:text-[13.5px] text-zinc-600 font-normal leading-relaxed max-w-xl mx-auto">
+            Real feedback and measurable engineering outcomes from high-growth startups and global enterprises.
           </p>
         </div>
 
-        {/* ─── Main Interactive Carousel Layout with Wider Spacing ─── */}
-        <div className="mt-14 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Left: Vertical Interactive Avatar Stack */}
-          <div className="md:col-span-4 flex md:flex-col items-center justify-center gap-3">
-            {clientDiaries.map((client, idx) => {
-              const isActive = activeIndex === idx;
+        {/* ─── 4-Card Structured Grid Layout with Vibrant Yellow Stars ─── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 max-w-6xl mx-auto">
+          {displayList.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: idx * 0.06 }}
+              className="relative rounded-3xl border border-zinc-200/90 bg-[#FAFAFC] hover:bg-white p-6 sm:p-7 flex flex-col justify-between shadow-2xs hover:border-zinc-300 hover:shadow-md transition-all duration-300 group"
+            >
+              <div>
+                {/* Top Row: Vibrant Gold/Yellow Stars + Impact Highlight Badge */}
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  {/* Vibrant Gold Yellow Stars */}
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        className={`h-4 w-4 ${
+                          star <= item.rating
+                            ? "text-amber-400 fill-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]"
+                            : "text-zinc-200 fill-zinc-200"
+                        }`}
+                      />
+                    ))}
+                    <span className="ml-1.5 text-xs font-bold font-mono text-zinc-900">
+                      5.0
+                    </span>
+                  </div>
 
-              return (
-                <motion.button
-                  key={client.id}
-                  onClick={() => setActiveIndex(idx)}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`relative rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer ${
-                    isActive
-                      ? "w-24 h-24 sm:w-28 sm:h-28 ring-2 ring-zinc-950 ring-offset-2 shadow-lg"
-                      : "w-12 h-12 sm:w-14 sm:h-14 opacity-50 hover:opacity-100 grayscale hover:grayscale-0 border border-zinc-200"
-                  }`}
-                >
-                  <img
-                    src={client.image}
-                    alt={client.name}
-                    className="h-full w-full object-cover object-center"
-                  />
-                  {isActive && client.hasVideo && (
-                    <div className="absolute inset-0 bg-black/30 flex items-end justify-center pb-2">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-mono font-bold text-zinc-950 backdrop-blur-xs shadow-xs">
-                        <Play className="h-2.5 w-2.5 fill-black" /> Play Video
-                      </span>
-                    </div>
-                  )}
-                </motion.button>
-              );
-            })}
-          </div>
+                  {/* Impact Highlight Badge */}
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-700">
+                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                    <span>{item.highlight}</span>
+                  </span>
+                </div>
 
-          {/* Right: Large Featured Testimonial Card */}
-          <div className="md:col-span-8">
-            <div className="relative rounded-3xl border border-zinc-200/90 bg-[#F8FAFC] p-8 sm:p-12 shadow-sm flex flex-col justify-between min-h-[260px] overflow-hidden">
-              
-              {/* Giant Decorative Subtle SVG Quote Mark */}
-              <div 
-                className="absolute right-6 bottom-4 text-zinc-200/60 pointer-events-none select-none -z-0"
-                aria-hidden
-              >
-                <svg width="120" height="120" viewBox="0 0 24 24" fill="currentColor" opacity="0.4">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
+                {/* Testimonial Quote */}
+                <p className="text-xs sm:text-[13.5px] text-zinc-700 leading-relaxed font-normal">
+                  "{item.quote}"
+                </p>
               </div>
 
-              {/* Quote Content with Smooth Transition */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeClient.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-5 relative z-10"
-                >
-                  <p className="text-xs sm:text-[13.5px] leading-relaxed text-zinc-800 font-normal">
-                    "{activeClient.quote}"
-                  </p>
-
-                  <div className="pt-4 border-t border-zinc-200/80">
-                    <h4 className="font-display text-sm sm:text-base font-bold text-zinc-950">
-                      {activeClient.name}
-                    </h4>
-                    <p className="text-[11px] text-zinc-500 font-normal mt-0.5">
-                      {activeClient.role} @ {activeClient.company} - {activeClient.location}
+              {/* Bottom Executive Signature Strip */}
+              <div className="mt-6 pt-4 border-t border-zinc-200/80 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="h-11 w-11 rounded-full overflow-hidden border-2 border-white shadow-sm shrink-0 bg-zinc-100">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-sm font-bold text-zinc-950 leading-snug">
+                      {item.name}
+                    </h3>
+                    <p className="text-[11px] text-zinc-500 font-normal">
+                      {item.role} &bull; <span className="font-semibold text-zinc-800">{item.company}</span>
                     </p>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                </div>
 
-            </div>
-          </div>
-
+                <span className="hidden sm:inline-block text-[10.5px] font-mono text-zinc-400 bg-zinc-100 px-2 py-0.5 rounded-xs">
+                  {item.location}
+                </span>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Bottom CTA to Submit Feedback */}
-        <div className="mt-10 text-center">
+        {/* ─── Bottom CTA to Submit Feedback ─── */}
+        <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={() => {
               setModalOpen(true);
               setSubmitted(false);
             }}
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-900 text-xs font-semibold px-5 py-2 transition-all shadow-2xs cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-[#FAFAFC] hover:bg-zinc-100 text-zinc-900 text-xs font-semibold px-5 py-2.5 transition-all shadow-2xs cursor-pointer"
           >
-            <MessageSquarePlus className="h-3.5 w-3.5 text-zinc-500" />
-            <span>Share Your Enterprise Experience</span>
+            <MessageSquarePlus className="h-3.5 w-3.5 text-zinc-700" />
+            <span>Share Your Experience</span>
           </button>
         </div>
 
@@ -243,11 +235,11 @@ export function Testimonials() {
 
       {/* Review Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-          <div className="relative w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+          <div className="relative w-full max-w-md rounded-3xl border border-zinc-200 bg-white p-6 sm:p-7 shadow-2xl">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute right-4 top-4 p-1 text-zinc-400 hover:text-zinc-950"
+              className="absolute right-4 top-4 p-1.5 rounded-full text-zinc-400 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
             >
               <X className="h-4 w-4" />
             </button>
@@ -255,51 +247,51 @@ export function Testimonials() {
             {submitted ? (
               <div className="py-8 text-center space-y-3">
                 <CheckCircle2 className="h-10 w-10 text-emerald-600 mx-auto" />
-                <h3 className="text-base font-bold text-zinc-950">Thank You</h3>
-                <p className="text-xs text-zinc-600">Your review has been submitted for editorial moderation.</p>
+                <h3 className="text-base font-bold text-zinc-950">Review Received</h3>
+                <p className="text-xs text-zinc-600">Thank you for your feedback. Our architectural team reviews all verified partner entries.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <h3 className="text-base font-bold text-zinc-950">Submit Client Review</h3>
-                  <p className="text-xs text-zinc-500">Your feedback helps shape our engineering roadmap.</p>
+                  <h3 className="text-base font-bold text-zinc-950 font-display">Submit Verified Review</h3>
+                  <p className="text-xs text-zinc-500">Your feedback helps shape our enterprise engineering roadmap.</p>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-zinc-950">Your Name & Title</label>
+                  <label className="text-xs font-semibold text-zinc-950">Your Name &amp; Title</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Alex Morgan, Head of Engineering"
+                    placeholder="e.g. Alex Morgan, VP of Product"
                     className="w-full rounded-xl border border-zinc-200 bg-[#FAFAFC] px-3.5 py-2 text-xs text-zinc-950 outline-none focus:border-black"
                   />
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-zinc-950">Rating</label>
-                  <div className="flex gap-1">
+                  <div className="flex gap-1.5 pt-0.5">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
                         type="button"
-                        onClick={() => setRating(star)}
-                        className="p-1 cursor-pointer"
+                        onClick={() => setUserRating(star)}
+                        className="p-1 cursor-pointer hover:scale-110 transition-transform"
                       >
-                        <Star className={`h-4 w-4 ${star <= rating ? "text-amber-500 fill-amber-500" : "text-zinc-300"}`} />
+                        <Star className={`h-5 w-5 ${star <= userRating ? "text-amber-400 fill-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.6)]" : "text-zinc-200 fill-zinc-200"}`} />
                       </button>
                     ))}
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-zinc-950">Review & Outcomes</label>
+                  <label className="text-xs font-semibold text-zinc-950">Project Review &amp; Impact</label>
                   <textarea
                     rows={4}
                     value={comments}
                     onChange={(e) => setComments(e.target.value)}
                     required
-                    placeholder="Describe the speed, architecture quality, and business impact..."
+                    placeholder="Describe the speed, engineering quality, and ROI achieved..."
                     className="w-full rounded-xl border border-zinc-200 bg-[#FAFAFC] p-3 text-xs text-zinc-950 outline-none focus:border-black resize-none"
                   />
                 </div>
@@ -309,7 +301,7 @@ export function Testimonials() {
                   disabled={feedbackMutation.isPending}
                   className="w-full rounded-full bg-black py-2.5 text-xs font-bold text-white hover:bg-zinc-800 transition-colors cursor-pointer"
                 >
-                  {feedbackMutation.isPending ? "Submitting..." : "Submit Review"}
+                  {feedbackMutation.isPending ? "Submitting..." : "Publish Review"}
                 </button>
               </form>
             )}
