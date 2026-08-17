@@ -48,7 +48,7 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="relative bg-gradient-to-b from-white via-slate-50/50 to-white py-16 sm:py-24 text-slate-900 border-t border-slate-200/90 overflow-hidden">
+    <section id="faq" className="relative bg-white py-16 sm:py-24 text-slate-900 border-t border-slate-200/90 overflow-hidden">
       {/* ─── Architectural Grid Overlay ─── */}
       <div 
         className="absolute left-0 top-0 bottom-0 w-1/3 -z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_right,#000_30%,transparent_100%)] pointer-events-none" 
@@ -67,7 +67,7 @@ export function FAQ() {
             </div>
 
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 leading-[1.2] tracking-tight">
-              Your <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">Questions</span>, Answered with <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">Clarity</span>
+              Your <span className="font-extrabold text-slate-950 underline decoration-slate-900/30 underline-offset-8">Questions</span>, Answered with <span className="font-extrabold text-slate-950 underline decoration-slate-900/30 underline-offset-8">Clarity</span>
             </h2>
 
             <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
@@ -85,8 +85,8 @@ export function FAQ() {
                   key={index} 
                   className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                     isOpen 
-                      ? "bg-gradient-to-r from-blue-50/90 via-white to-blue-50/40 border-blue-300 shadow-md" 
-                      : "bg-white border-slate-200 shadow-2xs hover:border-blue-400 hover:shadow-sm"
+                      ? "bg-slate-50 border-slate-400 shadow-md" 
+                      : "bg-white border-slate-200 shadow-2xs hover:border-slate-300 hover:shadow-sm"
                   }`}
                 >
                   <button
@@ -94,15 +94,15 @@ export function FAQ() {
                     className="flex w-full items-center justify-between text-left gap-4 p-5 group cursor-pointer"
                   >
                     <span className={`text-xs sm:text-sm font-bold transition-colors ${
-                      isOpen ? "text-blue-900 font-extrabold" : "text-slate-800 group-hover:text-blue-600"
+                      isOpen ? "text-slate-950 font-extrabold" : "text-slate-800 group-hover:text-slate-950"
                     }`}>
                       {faq.q}
                     </span>
 
                     <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-xl transition-all ${
                       isOpen 
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-500/30" 
-                        : "bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600"
+                        ? "bg-slate-950 text-white shadow-md" 
+                        : "bg-slate-100 text-slate-500 group-hover:bg-slate-200 group-hover:text-slate-900"
                     }`}>
                       {isOpen ? (
                         <X className="h-4 w-4 stroke-[2.5]" />
@@ -121,7 +121,7 @@ export function FAQ() {
                         transition={{ duration: 0.2, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-5 pt-1 border-t border-blue-200/50 text-xs sm:text-[13.5px] text-slate-700 leading-relaxed font-normal">
+                        <div className="px-5 pb-5 pt-1 border-t border-slate-200 text-xs sm:text-[13.5px] text-slate-700 leading-relaxed font-normal">
                           {faq.a}
                         </div>
                       </motion.div>

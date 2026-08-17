@@ -61,16 +61,16 @@
 :root {
   --radius: 0.875rem;
 
-  /* Clean WebMobTech Inspired White Palette */
+  /* Clean Black & Dark Slate Palette */
   --ink: #FFFFFF;
   --ink-soft: #F8FAFC;
   --ink-line: #E2E8F0;
   --on-ink: #0F172A;
   --on-ink-muted: #64748B;
   
-  --copper: #0052FF;
-  --copper-soft: #2563EB;
-  --copper-deep: #1E40AF;
+  --copper: #0F172A;
+  --copper-soft: #334155;
+  --copper-deep: #020617;
 
   --background: #FFFFFF;
   --foreground: #0F172A;
@@ -78,39 +78,39 @@
   --card-foreground: #0F172A;
   --popover: #FFFFFF;
   --popover-foreground: #0F172A;
-  --primary: #0052FF;
+  --primary: #0F172A;
   --primary-foreground: #FFFFFF;
   --secondary: #F1F5F9;
   --secondary-foreground: #0F172A;
   --muted: #F8FAFC;
   --muted-foreground: #64748B;
-  --accent: rgba(0, 82, 255, 0.08);
-  --accent-foreground: #0052FF;
+  --accent: rgba(15, 23, 42, 0.08);
+  --accent-foreground: #0F172A;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: #E2E8F0;
   --input: #E2E8F0;
-  --ring: #0052FF;
+  --ring: #0F172A;
 
-  --chart-1: #0052FF;
-  --chart-2: #3B82F6;
+  --chart-1: #0F172A;
+  --chart-2: #334155;
   --chart-3: #10B981;
-  --chart-4: #8B5CF6;
-  --chart-5: #F59E0B;
+  --chart-4: #64748B;
+  --chart-5: #020617;
 
   --sidebar: #FFFFFF;
   --sidebar-foreground: #0F172A;
-  --sidebar-primary: #0052FF;
+  --sidebar-primary: #0F172A;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: rgba(0, 82, 255, 0.08);
-  --sidebar-accent-foreground: #0052FF;
+  --sidebar-accent: rgba(15, 23, 42, 0.08);
+  --sidebar-accent-foreground: #0F172A;
   --sidebar-border: #E2E8F0;
-  --sidebar-ring: #0052FF;
+  --sidebar-ring: #0F172A;
 
-  --gradient-copper: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+  --gradient-copper: linear-gradient(135deg, #0F172A 0%, #334155 100%);
   --gradient-ink: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
   --shadow-lift: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 0 50px -10px rgba(0, 82, 255, 0.15);
+  --shadow-glow: 0 0 50px -10px rgba(15, 23, 42, 0.15);
 }
 
 .dark {
