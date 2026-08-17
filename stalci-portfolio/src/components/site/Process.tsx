@@ -106,7 +106,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="relative bg-[#FAFAFD] py-14 sm:py-20 overflow-hidden text-black border-t border-zinc-200/90"
+      className="relative bg-[#000000] py-14 sm:py-20 overflow-hidden text-white border-t border-white/10"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -115,7 +115,7 @@ export function Process() {
           eyebrow="Delivery Methodology"
           title="How We Architect & Deliver"
           subtitle="Five disciplined engineering stages with transparent governance, automated quality gates, and production value shipped every sprint."
-          tone="light"
+          tone="dark"
         />
 
         {/* ─── Interactive Process Grid ─── */}
@@ -133,16 +133,16 @@ export function Process() {
                     onClick={() => setActiveStep(idx)}
                     className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-start gap-3.5 cursor-pointer relative ${
                       isActive
-                        ? "bg-zinc-950 text-white border-zinc-950 shadow-md"
-                        : "bg-white text-zinc-800 border-zinc-200/90 hover:border-zinc-300 hover:shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
+                        ? "bg-copper/10 text-white border-copper/40 shadow-[0_0_20px_rgba(216,155,91,0.15)]"
+                        : "bg-[#0D0D0D] text-neutral-300 border-white/10 hover:border-white/20 hover:text-white"
                     }`}
                   >
                     {/* Node Number */}
                     <div
                       className={`h-9 w-9 rounded-xl flex items-center justify-center font-mono font-bold text-xs shrink-0 transition-colors ${
                         isActive
-                          ? "bg-white text-zinc-950 font-bold shadow-xs"
-                          : "bg-zinc-100 text-zinc-700 border border-zinc-200/80"
+                          ? "bg-copper text-black font-bold shadow-xs"
+                          : "bg-white/5 text-neutral-300 border border-white/10"
                       }`}
                     >
                       {s.n}
@@ -152,16 +152,16 @@ export function Process() {
                       <div className="flex items-center justify-between gap-2">
                         <h4
                           className={`font-bold text-xs sm:text-sm leading-snug transition-colors ${
-                            isActive ? "text-white" : "text-zinc-950"
+                            isActive ? "text-white" : "text-neutral-200"
                           }`}
                         >
                           {s.title}
                         </h4>
-                        <span className={`text-[10px] font-mono shrink-0 ${isActive ? "text-zinc-400" : "text-zinc-500"}`}>
+                        <span className={`text-[10px] font-mono shrink-0 ${isActive ? "text-copper" : "text-neutral-400"}`}>
                           {s.duration}
                         </span>
                       </div>
-                      <p className={`mt-1 text-xs line-clamp-1 font-normal ${isActive ? "text-zinc-300" : "text-zinc-500"}`}>
+                      <p className={`mt-1 text-xs line-clamp-1 font-normal ${isActive ? "text-neutral-300" : "text-neutral-400"}`}>
                         {s.copy}
                       </p>
                     </div>
@@ -171,7 +171,7 @@ export function Process() {
             </div>
           </div>
 
-          {/* Right Column: Step Detail Card with Soft Gray Shadow */}
+          {/* Right Column: Step Detail Card */}
           <div className="lg:col-span-7">
             <AnimatePresence mode="wait">
               <motion.div
@@ -180,47 +180,47 @@ export function Process() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.2 }}
-                className="rounded-3xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-black"
+                className="rounded-3xl border border-white/10 bg-[#0A0A0A] p-6 sm:p-8 shadow-xl text-white"
               >
                 {/* Step Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
                   <div className="flex items-center gap-3">
-                    <span className="h-10 w-10 rounded-2xl bg-zinc-950 text-white flex items-center justify-center font-mono font-bold text-sm shadow-xs">
+                    <span className="h-10 w-10 rounded-2xl bg-copper text-black flex items-center justify-center font-mono font-bold text-sm shadow-xs">
                       {currentStep.n}
                     </span>
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper">
                         Phase {currentStep.n} &bull; {currentStep.badge}
                       </span>
-                      <h3 className="text-base sm:text-lg font-bold text-zinc-950 leading-tight">
+                      <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
                         {currentStep.title}
                       </h3>
                     </div>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-emerald-50 border border-emerald-200 text-[11px] font-mono font-bold text-emerald-800 self-start sm:self-auto shadow-2xs">
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-mono font-bold text-emerald-400 self-start sm:self-auto">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
                     {currentStep.slaTarget}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="mt-4 text-xs sm:text-sm leading-relaxed text-zinc-600 font-normal">
+                <p className="mt-4 text-xs sm:text-sm leading-relaxed text-neutral-300 font-normal">
                   {currentStep.copy}
                 </p>
 
                 {/* Key Deliverables Grid */}
                 <div className="mt-6">
-                  <h5 className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-800 mb-3 flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Key Phase Deliverables
+                  <h5 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-300 mb-3 flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Key Phase Deliverables
                   </h5>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {currentStep.deliverables.map((item, idx) => (
                       <div
                         key={idx}
-                        className="flex items-start gap-2.5 p-3 rounded-2xl bg-zinc-50 border border-zinc-200/80 text-xs text-zinc-700 font-medium"
+                        className="flex items-start gap-2.5 p-3 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-300 font-medium"
                       >
-                        <span className="h-1.5 w-1.5 rounded-full bg-indigo-600 shrink-0 mt-1.5" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-copper shrink-0 mt-1.5" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -228,12 +228,12 @@ export function Process() {
                 </div>
 
                 {/* Tools & Next Button */}
-                <div className="mt-6 pt-5 border-t border-zinc-100 flex items-center justify-between flex-wrap gap-3">
+                <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between flex-wrap gap-3">
                   <div className="flex flex-wrap gap-1.5">
                     {currentStep.tools.map((t) => (
                       <span
                         key={t}
-                        className="rounded-lg bg-zinc-100 border border-zinc-200 px-2.5 py-1 text-[11px] font-mono font-medium text-zinc-700"
+                        className="rounded-lg bg-white/5 border border-white/10 px-2.5 py-1 text-[11px] font-mono font-medium text-neutral-300"
                       >
                         {t}
                       </span>
@@ -242,7 +242,7 @@ export function Process() {
 
                   <button
                     onClick={() => setActiveStep((prev) => (prev + 1) % steps.length)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-950 hover:text-indigo-600 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-copper hover:text-copper-soft transition-colors cursor-pointer"
                   >
                     <span>Next: Phase {steps[(activeStep + 1) % steps.length].n}</span>
                     <ArrowRight className="h-3.5 w-3.5" />

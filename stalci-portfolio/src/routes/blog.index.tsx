@@ -49,7 +49,7 @@ function BlogIndex() {
   const rest = blogs.slice(1);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-black">
+    <div className="min-h-screen bg-[#000000] text-white">
       <Nav solid />
 
       {/* Header Banner */}
@@ -75,27 +75,27 @@ function BlogIndex() {
             <Link
               to="/blog/$slug"
               params={{ slug: featured.slug }}
-              className="group block rounded-3xl border border-zinc-200/90 bg-white p-7 sm:p-10 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-zinc-400"
+              className="group block rounded-3xl border border-white/10 bg-[#0D0D0D] p-7 sm:p-10 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-copper/40"
             >
               <div className="flex items-center gap-3">
-                <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-copper bg-zinc-100 border border-zinc-200 px-3 py-1 rounded-full">
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-copper bg-copper/10 border border-copper/30 px-3 py-1 rounded-full">
                   {featured.category} · Featured
                 </span>
-                <span className="text-xs text-zinc-500 font-mono flex items-center gap-1">
+                <span className="text-xs text-neutral-400 font-mono flex items-center gap-1">
                   <Clock className="h-3 w-3" /> {featured.readingTime}
                 </span>
               </div>
-              <h2 className="mt-4 text-xl sm:text-3xl font-extrabold text-zinc-950 group-hover:text-black transition-colors leading-tight">
+              <h2 className="mt-4 text-xl sm:text-3xl font-extrabold text-white group-hover:text-copper transition-colors leading-tight">
                 {featured.title}
               </h2>
-              <p className="mt-3 max-w-3xl text-sm sm:text-base leading-relaxed text-zinc-600">
+              <p className="mt-3 max-w-3xl text-sm sm:text-base leading-relaxed text-neutral-300">
                 {featured.excerpt}
               </p>
-              <div className="mt-6 pt-5 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-xs font-semibold text-zinc-700 flex items-center gap-1.5">
+              <div className="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs font-semibold text-neutral-300 flex items-center gap-1.5">
                   <User className="h-3.5 w-3.5 text-copper" /> {featured.author}
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-sm font-bold text-zinc-950 group-hover:translate-x-1 transition-transform">
+                <span className="inline-flex items-center gap-1.5 text-sm font-bold text-copper group-hover:translate-x-1 transition-transform">
                   Read full paper <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
@@ -109,24 +109,24 @@ function BlogIndex() {
                 key={p.slug}
                 to="/blog/$slug"
                 params={{ slug: p.slug }}
-                className="group flex flex-col justify-between rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-zinc-400"
+                className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0D0D0D] p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-copper/40"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-copper bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200">
+                    <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-copper bg-copper/10 px-2.5 py-0.5 rounded-full border border-copper/20">
                       {p.category}
                     </span>
-                    <span className="text-[11px] text-zinc-500 font-mono">{p.readingTime}</span>
+                    <span className="text-[11px] text-neutral-400 font-mono">{p.readingTime}</span>
                   </div>
-                  <h3 className="mt-4 text-base font-bold leading-snug text-zinc-950 group-hover:text-black transition-colors">
+                  <h3 className="mt-4 text-base font-bold leading-snug text-white group-hover:text-copper transition-colors">
                     {p.title}
                   </h3>
-                  <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-zinc-600 line-clamp-3">
+                  <p className="mt-2.5 text-xs sm:text-sm leading-relaxed text-neutral-400 line-clamp-3">
                     {p.excerpt}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-neutral-400">
                   <span className="truncate max-w-[150px] font-medium">{p.author}</span>
                   <span className="font-mono">
                     {new Date(p.date).toLocaleDateString("en-US", {

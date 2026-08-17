@@ -100,13 +100,13 @@ function Careers() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-black">
+    <div className="min-h-screen bg-[#000000] text-white">
       <Nav solid />
 
       {/* Header Banner */}
       <div className="bg-[#000000] text-white pt-28 pb-16 border-b border-white/10">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
-          <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 mb-3">
+          <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-widest text-copper mb-3">
             STALCI Talent Network
           </span>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white max-w-2xl">
@@ -123,16 +123,16 @@ function Careers() {
           {/* Engineering Culture / Benefits */}
           <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4 mb-12">
             {benefits.map((b) => (
-              <div key={b.title} className="rounded-xl border border-zinc-200 bg-white p-5 shadow-2xs">
-                <h3 className="text-sm font-bold text-zinc-950">{b.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-zinc-600">{b.body}</p>
+              <div key={b.title} className="rounded-xl border border-white/10 bg-[#0D0D0D] p-5 shadow-sm">
+                <h3 className="text-sm font-bold text-white">{b.title}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-neutral-400">{b.body}</p>
               </div>
             ))}
           </div>
 
           <div className="mb-6">
-            <h2 className="text-lg font-bold text-zinc-950">Open Positions</h2>
-            <p className="text-xs text-zinc-500 mt-0.5">Live active roles managed by STALCI Talent Operations.</p>
+            <h2 className="text-lg font-bold text-white">Open Positions</h2>
+            <p className="text-xs text-neutral-400 mt-0.5">Live active roles managed by STALCI Talent Operations.</p>
           </div>
 
           {/* Job Listings */}
@@ -149,39 +149,39 @@ function Careers() {
               return (
                 <div
                   key={j.id}
-                  className="rounded-xl border border-zinc-200 bg-white shadow-2xs overflow-hidden transition-all hover:border-zinc-400"
+                  className="rounded-xl border border-white/10 bg-[#0D0D0D] shadow-sm overflow-hidden transition-all hover:border-copper/40"
                 >
                   <div
                     onClick={() => setExpandedJobId(isExpanded ? null : j.id)}
                     className="p-5 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none"
                   >
                     <div>
-                      <h3 className="text-sm sm:text-base font-bold text-zinc-950">{j.title}</h3>
-                      <p className="mt-1 text-xs text-zinc-600 max-w-xl">{j.description}</p>
+                      <h3 className="text-sm sm:text-base font-bold text-white">{j.title}</h3>
+                      <p className="mt-1 text-xs text-neutral-400 max-w-xl">{j.description}</p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 shrink-0 text-[11px] font-medium text-zinc-600">
-                      <span className="inline-flex items-center gap-1 bg-zinc-50 border border-zinc-200 px-2.5 py-1 rounded-md">
-                        <MapPin className="h-3 w-3 text-zinc-500" /> {j.location}
+                    <div className="flex flex-wrap items-center gap-2 shrink-0 text-[11px] font-medium text-neutral-300">
+                      <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
+                        <MapPin className="h-3 w-3 text-copper" /> {j.location}
                       </span>
-                      <span className="inline-flex items-center gap-1 bg-zinc-50 border border-zinc-200 px-2.5 py-1 rounded-md">
-                        <Clock className="h-3 w-3 text-zinc-500" /> {j.type}
+                      <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
+                        <Clock className="h-3 w-3 text-copper" /> {j.type}
                       </span>
                       <ChevronDown
-                        className={`h-3.5 w-3.5 text-zinc-400 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                        className={`h-3.5 w-3.5 text-neutral-400 transition-transform ${isExpanded ? "rotate-180" : ""}`}
                       />
                     </div>
                   </div>
 
                   {isExpanded && (
-                    <div className="px-5 pb-5 pt-2 border-t border-zinc-100 bg-[#F8FAFC]">
-                      <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-600 mt-2 mb-2">
+                    <div className="px-5 pb-5 pt-2 border-t border-white/10 bg-[#0A0A0A]">
+                      <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper mt-2 mb-2">
                         Key Qualifications
                       </h4>
-                      <ul className="space-y-1 text-xs text-zinc-700 mb-5">
+                      <ul className="space-y-1 text-xs text-neutral-300 mb-5">
                         {requirementsArr.map((r, i) => (
                           <li key={i} className="flex items-start gap-2">
-                            <span className="text-zinc-400 font-bold">•</span>
+                            <span className="text-copper font-bold">•</span>
                             <span>{r}</span>
                           </li>
                         ))}
@@ -192,7 +192,7 @@ function Careers() {
                           setApplyingJob(j);
                           setSubmitted(false);
                         }}
-                        className="rounded-full bg-black hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2 transition-colors cursor-pointer"
+                        className="rounded-full bg-copper hover:bg-copper-soft text-black text-xs font-semibold px-4 py-2 transition-colors cursor-pointer"
                       >
                         Apply for {j.title}
                       </button>
@@ -204,7 +204,7 @@ function Careers() {
           </div>
 
           {/* Open Inquiries Card */}
-          <div className="mt-12 rounded-2xl bg-[#000000] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 border border-white/10">
+          <div className="mt-12 rounded-2xl bg-[#0D0D0D] text-white p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 border border-white/15">
             <div>
               <h2 className="text-base font-bold text-white">Don't See an Exact Match?</h2>
               <p className="mt-1 text-xs text-neutral-400 max-w-lg">
@@ -223,28 +223,28 @@ function Careers() {
 
       {/* Application Modal */}
       {applyingJob && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
           <div
             data-lenis-prevent
-            className="relative w-full max-w-md bg-white rounded-2xl shadow-xl border border-zinc-200 p-6 max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-md bg-[#0A0A0A] rounded-2xl shadow-2xl border border-white/15 p-6 max-h-[90vh] overflow-y-auto text-white"
           >
             <button
               onClick={() => setApplyingJob(null)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg border border-zinc-200 text-zinc-400 hover:text-black cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 rounded-lg border border-white/10 text-neutral-400 hover:text-white cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
 
             {submitted ? (
               <div className="text-center py-6">
-                <CheckCircle2 className="h-10 w-10 text-emerald-600 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-zinc-950">Application Received!</h3>
-                <p className="mt-1.5 text-xs text-zinc-600">
-                  Thank you for applying to <span className="font-semibold">{applyingJob.title}</span>. Our team will review your profile.
+                <CheckCircle2 className="h-10 w-10 text-emerald-400 mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-white">Application Received!</h3>
+                <p className="mt-1.5 text-xs text-neutral-300">
+                  Thank you for applying to <span className="font-semibold text-copper">{applyingJob.title}</span>. Our team will review your profile.
                 </p>
                 <button
                   onClick={() => setApplyingJob(null)}
-                  className="mt-5 rounded-full bg-black text-white text-xs font-semibold px-5 py-2 cursor-pointer"
+                  className="mt-5 rounded-full bg-copper text-black text-xs font-semibold px-5 py-2 cursor-pointer hover:bg-copper-soft transition-colors"
                 >
                   Close Window
                 </button>
@@ -252,43 +252,43 @@ function Careers() {
             ) : (
               <form onSubmit={handleSubmitApplication} className="space-y-3.5">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500">Application</span>
-                  <h3 className="text-base font-bold text-zinc-950 mt-0.5">{applyingJob.title}</h3>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper">Application</span>
+                  <h3 className="text-base font-bold text-white mt-0.5">{applyingJob.title}</h3>
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-zinc-950 block mb-1">Full Name *</label>
+                  <label className="text-xs font-semibold text-white block mb-1">Full Name *</label>
                   <input
                     type="text"
                     required
                     placeholder="Jane Doe"
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 p-2 text-xs text-zinc-900 outline-none focus:outline-black"
+                    className="w-full rounded-lg border border-white/15 bg-white/5 p-2.5 text-xs text-white placeholder:text-neutral-500 outline-none focus:border-copper"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-zinc-950 block mb-1">Email Address *</label>
+                  <label className="text-xs font-semibold text-white block mb-1">Email Address *</label>
                   <input
                     type="email"
                     required
                     placeholder="jane@domain.com"
                     value={formState.email}
                     onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 p-2 text-xs text-zinc-900 outline-none focus:outline-black"
+                    className="w-full rounded-lg border border-white/15 bg-white/5 p-2.5 text-xs text-white placeholder:text-neutral-500 outline-none focus:border-copper"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-zinc-950 block mb-1">Resume / LinkedIn / GitHub URL *</label>
+                  <label className="text-xs font-semibold text-white block mb-1">Resume / LinkedIn / GitHub URL *</label>
                   <input
                     type="url"
                     required
                     placeholder="https://github.com/... or LinkedIn"
                     value={formState.resumeUrl}
                     onChange={(e) => setFormState({ ...formState, resumeUrl: e.target.value })}
-                    className="w-full rounded-lg border border-zinc-200 bg-zinc-50 p-2 text-xs text-zinc-900 outline-none focus:outline-black"
+                    className="w-full rounded-lg border border-white/15 bg-white/5 p-2.5 text-xs text-white placeholder:text-neutral-500 outline-none focus:border-copper"
                   />
                 </div>
 
@@ -296,7 +296,7 @@ function Careers() {
                   <button
                     type="submit"
                     disabled={appMutation.isPending}
-                    className="w-full rounded-full bg-black hover:bg-zinc-800 text-white font-semibold py-2.5 text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full rounded-full bg-copper hover:bg-copper-soft text-black font-semibold py-2.5 text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
                   >
                     <Send className="h-3 w-3" />
                     {appMutation.isPending ? "Submitting..." : "Submit Application"}

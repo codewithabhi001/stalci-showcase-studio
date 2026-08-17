@@ -209,12 +209,12 @@ export function ProjectsShowcase() {
   });
 
   return (
-    <section id="projects" className="bg-[#FFFFFF] py-14 sm:py-20 text-black border-t border-zinc-200/90 relative">
+    <section id="projects" className="bg-[#000000] py-14 sm:py-20 text-white border-t border-white/10 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <SectionHeading
-          tone="light"
+          tone="dark"
           eyebrow="Proven Track Record"
           title="Explore Our Featured Case Studies"
           subtitle="We are proud of the mobile and web platforms we deliver. Here is a glimpse of the real results and architecture for businesses."
@@ -235,14 +235,14 @@ export function ProjectsShowcase() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? "bg-black text-white font-semibold shadow-xs"
-                    : "bg-zinc-50 text-zinc-700 border border-zinc-200 hover:border-zinc-400 hover:text-black"
+                    ? "bg-white text-zinc-950 font-semibold shadow-xs"
+                    : "bg-[#0D0D0D] text-neutral-300 border border-white/10 hover:border-white/20 hover:text-white"
                 }`}
               >
                 <span>{cat}</span>
                 <span
                   className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
-                    isSelected ? "bg-white/20 text-white" : "bg-zinc-200 text-zinc-700"
+                    isSelected ? "bg-zinc-900 text-white" : "bg-white/10 text-neutral-400"
                   }`}
                 >
                   {count}
@@ -262,11 +262,11 @@ export function ProjectsShowcase() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
               onClick={() => setActiveCaseStudy(p)}
-              className="group rounded-2xl bg-white border border-zinc-200/90 p-5 shadow-xs hover:border-zinc-400 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
+              className="group rounded-2xl bg-[#0D0D0D] border border-white/10 p-5 shadow-xs hover:border-copper/40 hover:shadow-[0_0_30px_rgba(216,155,91,0.12)] transition-all duration-200 cursor-pointer flex flex-col justify-between"
             >
               <div>
                 {/* Thumbnail */}
-                <div className="relative h-48 w-full rounded-xl overflow-hidden bg-zinc-100 border border-zinc-100">
+                <div className="relative h-48 w-full rounded-xl overflow-hidden bg-black/60 border border-white/10">
                   <img
                     src={p.imageUrl}
                     alt={p.title}
@@ -277,35 +277,35 @@ export function ProjectsShowcase() {
                     }}
                   />
                   <div className="absolute top-2.5 left-2.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black/85 text-white backdrop-blur-md">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black/85 text-copper border border-copper/30 backdrop-blur-md">
                       {p.category}
                     </span>
                   </div>
-                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/80 text-zinc-800 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity">
                     <Maximize2 className="h-3.5 w-3.5" />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="mt-4">
-                  <h3 className="font-display text-lg font-bold text-zinc-950 group-hover:text-zinc-700 transition-colors">
+                  <h3 className="font-display text-lg font-bold text-white group-hover:text-copper transition-colors">
                     {p.title}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-zinc-600 font-normal line-clamp-3">
+                  <p className="mt-1.5 text-xs leading-relaxed text-neutral-400 font-normal line-clamp-3">
                     {p.summary}
                   </p>
                 </div>
               </div>
 
               {/* Bottom Info */}
-              <div className="mt-5 pt-3 border-t border-zinc-100 flex items-center justify-between">
-                <span className="text-xs font-semibold text-zinc-950 group-hover:text-zinc-700 flex items-center gap-1">
+              <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
+                <span className="text-xs font-semibold text-white group-hover:text-copper flex items-center gap-1">
                   View Case Study <ChevronRight className="h-3 w-3" />
                 </span>
 
-                <div className="flex items-center gap-1 text-[11px] font-mono text-zinc-500">
-                  <Award className="h-3 w-3 text-zinc-600" />
-                  <span className="font-medium">{p.metrics[0].value}</span>
+                <div className="flex items-center gap-1 text-[11px] font-mono text-neutral-400">
+                  <Award className="h-3 w-3 text-copper" />
+                  <span className="font-medium text-white">{p.metrics[0].value}</span>
                 </div>
               </div>
             </motion.div>
@@ -317,28 +317,28 @@ export function ProjectsShowcase() {
       {/* Case Study Modal */}
       <AnimatePresence>
         {activeCaseStudy && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md overflow-y-auto">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.2 }}
-              className="relative w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white text-black shadow-xl my-6 max-h-[90vh] overflow-hidden flex flex-col"
+              className="relative w-full max-w-3xl rounded-2xl border border-white/15 bg-[#0A0A0A] text-white shadow-2xl my-6 max-h-[90vh] overflow-hidden flex flex-col"
             >
               {/* Top Bar */}
-              <div className="flex items-center justify-between px-5 py-3.5 border-b border-zinc-100 bg-zinc-50">
+              <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#0F0F0F]">
                 <div className="flex items-center gap-2.5">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-black text-white">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-copper/20 text-copper border border-copper/30">
                     {activeCaseStudy.category}
                   </span>
-                  <span className="text-xs font-mono text-zinc-500">
+                  <span className="text-xs font-mono text-neutral-400">
                     Client: {activeCaseStudy.client}
                   </span>
                 </div>
 
                 <button
                   onClick={() => setActiveCaseStudy(null)}
-                  className="p-1.5 rounded-full bg-zinc-200 text-zinc-700 hover:text-black transition-colors cursor-pointer"
+                  className="p-1.5 rounded-full bg-white/10 text-neutral-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -347,7 +347,7 @@ export function ProjectsShowcase() {
               {/* Content */}
               <div className="p-5 sm:p-7 overflow-y-auto flex-1 space-y-5">
                 <div>
-                  <h2 className="font-display text-xl sm:text-2xl font-bold text-zinc-950 leading-tight">
+                  <h2 className="font-display text-xl sm:text-2xl font-bold text-white leading-tight">
                     {activeCaseStudy.title}
                   </h2>
                   <p className="mt-1.5 text-xs sm:text-sm text-zinc-600 leading-relaxed">

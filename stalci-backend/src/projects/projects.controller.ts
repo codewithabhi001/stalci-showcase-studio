@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
+import { Public } from '../auth/auth.guard';
 
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
+  @Public()
   @Get()
   getProjects(
     @Query('category') category?: string,
@@ -14,16 +16,19 @@ export class ProjectsController {
     return this.projectsService.getProjects(category, isFeatured);
   }
 
+  @Public()
   @Get('featured')
   getFeaturedProjects() {
     return this.projectsService.getFeaturedProjects();
   }
 
+  @Public()
   @Get('slug/:slug')
   getProjectBySlug(@Param('slug') slug: string) {
     return this.projectsService.getProjectBySlug(slug);
   }
 
+  @Public()
   @Get(':id')
   getProjectById(@Param('id', ParseIntPipe) id: number) {
     return this.projectsService.getProjectById(id);

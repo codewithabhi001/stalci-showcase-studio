@@ -31,14 +31,14 @@ export function Insights() {
   const latest = blogs.slice(0, 3);
 
   return (
-    <section id="blog" className="relative bg-[#F8FAFC] py-14 sm:py-20 text-black border-t border-zinc-200/90">
+    <section id="blog" className="relative bg-[#000000] py-14 sm:py-20 text-white border-t border-white/10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div ref={headingRef}>
           <SectionHeading
             eyebrow="Blog & Technical Insights"
             title="Insights From Our Core Architects"
             subtitle="Deep dives into zero-trust meshes, distributed LLM orchestration, and resilient cloud architectures."
-            tone="light"
+            tone="dark"
           />
         </div>
 
@@ -48,16 +48,16 @@ export function Insights() {
               key={p.slug}
               to="/blog/$slug"
               params={{ slug: p.slug }}
-              className="flex flex-col rounded-xl border border-zinc-200 bg-white p-5 transition-all duration-200 hover:border-zinc-400 hover:shadow-xs group"
+              className="flex flex-col rounded-xl border border-white/10 bg-[#0D0D0D] p-5 transition-all duration-200 hover:border-copper/40 hover:bg-[#121212] group shadow-sm"
             >
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-500">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper">
                 {p.category}
               </span>
-              <h3 className="mt-2 text-sm font-bold leading-snug text-zinc-950 group-hover:text-zinc-700 transition-colors">
+              <h3 className="mt-2 text-sm font-bold leading-snug text-white group-hover:text-copper transition-colors">
                 {p.title}
               </h3>
-              <p className="mt-1.5 flex-1 text-xs leading-relaxed text-zinc-600 line-clamp-3">{p.excerpt}</p>
-              <span className="mt-3 text-[11px] text-zinc-400 font-mono">{p.readingTime}</span>
+              <p className="mt-1.5 flex-1 text-xs leading-relaxed text-neutral-400 line-clamp-3">{p.excerpt}</p>
+              <span className="mt-3 text-[11px] text-neutral-400 font-mono">{p.readingTime}</span>
             </Link>
           ))}
         </div>
@@ -65,7 +65,7 @@ export function Insights() {
         <div className="mt-8 text-center">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-copper hover:text-copper-soft transition-colors"
           >
             Explore all technical articles <ArrowRight className="h-3.5 w-3.5" />
           </Link>

@@ -179,7 +179,7 @@ function PrivacyPolicy() {
   const sections = parseMarkdownSections(pageData?.content || '');
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-black">
+    <div className="min-h-screen bg-[#000000] text-white">
       <Nav solid />
 
       {/* Header Banner */}
@@ -213,21 +213,21 @@ function PrivacyPolicy() {
               <div
                 key={s.id}
                 id={s.id}
-                className="rounded-2xl bg-white border border-zinc-200/90 shadow-sm p-6 sm:p-9 transition-all hover:shadow-md"
+                className="rounded-2xl bg-[#0A0A0A] border border-white/10 shadow-xl p-6 sm:p-9 transition-all hover:border-white/20"
               >
-                <h2 className="text-lg sm:text-xl font-bold text-zinc-950 flex items-center gap-2.5 pb-3 border-b border-zinc-100">
-                  <span className="h-2 w-2 rounded-full bg-emerald-600 shrink-0" />
+                <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 pb-3 border-b border-white/10">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
                   <span>{s.h}</span>
                 </h2>
-                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-zinc-700">
+                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-neutral-300">
                   {s.p.map((para, idx) => (
                     <p key={idx}>{para}</p>
                   ))}
                   {s.list && (
                     <ul className="mt-3 space-y-2 pl-2">
                       {s.list.map((li, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-zinc-700">
-                          <span className="text-emerald-700 font-bold mt-0.5">•</span>
+                        <li key={idx} className="flex items-start gap-2 text-neutral-300">
+                          <span className="text-emerald-400 font-bold mt-0.5">•</span>
                           <span>{li}</span>
                         </li>
                       ))}
@@ -238,7 +238,7 @@ function PrivacyPolicy() {
             ))}
 
             {/* DPO Support Card */}
-            <div className="rounded-2xl bg-gradient-to-br from-black to-[#0A0A0A] text-white p-8 sm:p-10 border border-white/10 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="rounded-2xl bg-[#0D0D0D] text-white p-8 sm:p-10 border border-white/15 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                   <Mail className="h-5 w-5 text-emerald-400" />
@@ -250,7 +250,7 @@ function PrivacyPolicy() {
               </div>
               <a
                 href="mailto:privacy@stalci.com"
-                className="shrink-0 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-zinc-950 font-bold px-6 py-3 text-sm transition-all shadow-md"
+                className="shrink-0 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-6 py-3 text-sm transition-all shadow-md"
               >
                 Contact Data Protection Officer
               </a>
