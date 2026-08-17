@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Lock, Mail, ArrowRight, Eye, EyeOff, KeyRound, Sparkles, ShieldCheck } from "lucide-react";
 import { loginApi } from "@/lib/api";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,12 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      window.location.href = "/";
+    }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ export default function LoginPage() {
         if (res?.user) {
           localStorage.setItem("stalci_user", JSON.stringify(res.user));
         }
-        document.cookie = "stalci_admin=authenticated; path=/; max-age=604800";
+        document.cookie = "stalci_admin=authenticated; path=/; max-age=604800; SameSite=Lax";
         window.location.href = "/";
       } else {
         setError("Login failed. No token received from server.");

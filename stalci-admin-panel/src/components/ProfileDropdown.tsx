@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { User, Settings, LogOut } from "lucide-react";
 import { fetchProfile } from "@/lib/api";
+import { handleLogout } from "@/lib/auth";
 
 export function ProfileDropdown() {
   const [open, setOpen] = useState(false);
@@ -24,9 +25,9 @@ export function ProfileDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSignOut = () => {
-    document.cookie = "stalci_admin=; path=/; max-age=0";
-    window.location.href = "/login";
+  const handleSignOut = async () => {
+    setOpen(false);
+    await handleLogout();
   };
 
   return (
@@ -66,10 +67,7 @@ export function ProfileDropdown() {
           
           <div className="border-t border-line p-1.5">
             <button 
-              onClick={() => {
-                handleSignOut();
-                window.location.href = '/login';
-              }}
+              onClick={handleSignOut}
               className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] font-medium text-red-600 transition-colors hover:bg-red-500/10 hover:text-red-700 cursor-pointer"
             >
               <LogOut className="h-4 w-4" /> Log out

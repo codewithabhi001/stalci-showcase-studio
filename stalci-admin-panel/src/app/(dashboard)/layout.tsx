@@ -8,6 +8,7 @@ import { ProfileDropdown } from "@/components/ProfileDropdown";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CreateDropdown } from "@/components/CreateDropdown";
 import { useRbac } from "@/lib/rbac-context";
+import { handleLogout, isAuthenticated, clearAuthSession } from "@/lib/auth";
 import {
   LayoutDashboard,
   Users,
@@ -98,9 +99,20 @@ const allLinks = navSections.flatMap((s) => s.links);
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
   const pathname = usePathname();
   const { canAccessRoute } = useRbac();
   const sidebarNavRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      clearAuthSession();
+      window.location.href = "/login";
+    } else {
+      document.cookie = "stalci_admin=authenticated; path=/; max-age=604800; SameSite=Lax";
+      setAuthChecked(true);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -119,13 +131,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const current = allLinks.find((l) => l.href === pathname);
 
-  const handleSignOut = () => {
-    localStorage.removeItem("stalci_access_token");
-    localStorage.removeItem("stalci_refresh_token");
-    localStorage.removeItem("stalci_user");
-    document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    window.location.href = "/login";
+  const handleSignOut = async () => {
+    await handleLogout();
   };
+
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAFAFC] font-sans">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-8 w-8 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin" />
+          <span className="text-xs font-semibold text-zinc-500 font-mono tracking-wide">
+            Verifying security session...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   const Sidebar = (
     <div className="flex h-screen max-h-screen flex-col bg-white text-zinc-950 border-r border-zinc-200/90 select-none overflow-hidden">

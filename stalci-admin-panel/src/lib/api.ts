@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import { clearAuthSession } from "./auth";
 
 const API_BASE =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -67,10 +68,7 @@ api.interceptors.response.use(
       const refreshToken = localStorage.getItem("stalci_refresh_token");
       if (!refreshToken) {
         isRefreshing = false;
-        localStorage.removeItem("stalci_access_token");
-        localStorage.removeItem("stalci_refresh_token");
-        localStorage.removeItem("stalci_user");
-        document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        clearAuthSession();
         if (window.location.pathname !== "/login") {
           window.location.href = "/login";
         }
@@ -97,10 +95,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
-        localStorage.removeItem("stalci_access_token");
-        localStorage.removeItem("stalci_refresh_token");
-        localStorage.removeItem("stalci_user");
-        document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        clearAuthSession();
         if (window.location.pathname !== "/login") {
           window.location.href = "/login";
         }
@@ -123,12 +118,7 @@ export const refreshTokensApi = (refreshToken: string) =>
 
 export const logoutApi = () =>
   api.post("/auth/logout").then((r) => r.data).finally(() => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("stalci_access_token");
-      localStorage.removeItem("stalci_refresh_token");
-      localStorage.removeItem("stalci_user");
-      document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
+    clearAuthSession();
   });
 
 export const getMeApi = () => api.get("/auth/me").then((r) => r.data);
