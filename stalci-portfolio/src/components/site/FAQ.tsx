@@ -48,10 +48,10 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="relative bg-[#000000] py-14 sm:py-20 text-white border-t border-white/10 overflow-hidden">
-      {/* ─── Architectural Grid Overlay on Left ─── */}
+    <section id="faq" className="relative bg-white py-14 sm:py-20 text-slate-900 border-t border-slate-200/90 overflow-hidden">
+      {/* ─── Architectural Grid Overlay ─── */}
       <div 
-        className="absolute left-0 top-0 bottom-0 w-1/3 -z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_right,#000_30%,transparent_100%)] pointer-events-none" 
+        className="absolute left-0 top-0 bottom-0 w-1/3 -z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] [mask-image:linear-gradient(to_right,#000_30%,transparent_100%)] pointer-events-none" 
         aria-hidden 
       />
 
@@ -61,23 +61,23 @@ export function FAQ() {
           {/* ─── Left Column: Section Header ─── */}
           <div ref={headingRef} className="lg:col-span-5 space-y-4">
             <div>
-              <BadgePill tone="dark" variant="gradient">
+              <BadgePill tone="light" variant="gradient">
                 <span>Built on </span>
-                <span className="font-bold text-white">Transparency & Trust</span>
+                <span className="font-bold text-slate-900">Transparency &amp; Trust</span>
               </BadgePill>
             </div>
 
-            <h2 className="font-display text-2xl sm:text-[32px] font-bold text-white leading-[1.2] tracking-tight">
-              Your <span className="font-extrabold text-copper-gradient">Questions</span>, Answered with <span className="font-extrabold text-copper-gradient">Clarity</span>
+            <h2 className="font-display text-2xl sm:text-[32px] font-bold text-slate-900 leading-[1.2] tracking-tight">
+              Your <span className="font-extrabold text-blue-600">Questions</span>, Answered with <span className="font-extrabold text-blue-600">Clarity</span>
             </h2>
 
-            <p className="text-xs sm:text-[13px] text-neutral-400 font-normal leading-relaxed">
+            <p className="text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed">
               Most teams have the same questions before signing. Here are honest answers to the ones that come up most: pricing, process, security, and who owns the code.
             </p>
           </div>
 
           {/* ─── Right Column: Clean Accordion List ─── */}
-          <div ref={staggerRef} className="lg:col-span-7 divide-y divide-white/10">
+          <div ref={staggerRef} className="lg:col-span-7 divide-y divide-slate-200">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
 
@@ -88,12 +88,12 @@ export function FAQ() {
                     className="flex w-full items-center justify-between text-left gap-4 py-2 group cursor-pointer"
                   >
                     <span className={`text-xs sm:text-sm font-bold transition-colors ${
-                      isOpen ? "text-copper font-extrabold" : "text-neutral-200 group-hover:text-white"
+                      isOpen ? "text-blue-600 font-extrabold" : "text-slate-800 group-hover:text-slate-950"
                     }`}>
                       {faq.q}
                     </span>
 
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center text-neutral-400 group-hover:text-copper transition-colors">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center text-slate-400 group-hover:text-blue-600 transition-colors">
                       {isOpen ? (
                         <X className="h-4 w-4 stroke-[2]" />
                       ) : (
@@ -111,7 +111,7 @@ export function FAQ() {
                         transition={{ duration: 0.2, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <p className="pt-2 pb-3 text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
+                        <p className="pt-2 pb-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                           {faq.a}
                         </p>
                       </motion.div>

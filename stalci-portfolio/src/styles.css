@@ -61,78 +61,78 @@
 :root {
   --radius: 0.875rem;
 
-  /* STALCI Signature Pure Obsidian Black & Radiant Copper Palette */
-  --ink: #000000;
-  --ink-soft: #0A0A0A;
-  --ink-line: rgba(255, 255, 255, 0.08);
-  --on-ink: #FFFFFF;
-  --on-ink-muted: #94A3B8;
+  /* Clean WebMobTech Inspired White Palette */
+  --ink: #FFFFFF;
+  --ink-soft: #F8FAFC;
+  --ink-line: #E2E8F0;
+  --on-ink: #0F172A;
+  --on-ink-muted: #64748B;
   
-  --copper: #D89B5B;
-  --copper-soft: #F0BC86;
-  --copper-deep: #B4783B;
+  --copper: #0052FF;
+  --copper-soft: #2563EB;
+  --copper-deep: #1E40AF;
 
-  --background: #000000;
-  --foreground: #FFFFFF;
-  --card: #0A0A0A;
-  --card-foreground: #FFFFFF;
-  --popover: #0A0A0A;
-  --popover-foreground: #FFFFFF;
-  --primary: #D89B5B;
-  --primary-foreground: #000000;
-  --secondary: #121212;
-  --secondary-foreground: #FFFFFF;
-  --muted: #0F0F0F;
-  --muted-foreground: #94A3B8;
-  --accent: rgba(216, 155, 91, 0.12);
-  --accent-foreground: #D89B5B;
+  --background: #FFFFFF;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #0052FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #0F172A;
+  --muted: #F8FAFC;
+  --muted-foreground: #64748B;
+  --accent: rgba(0, 82, 255, 0.08);
+  --accent-foreground: #0052FF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #D89B5B;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #0052FF;
 
-  --chart-1: #D89B5B;
+  --chart-1: #0052FF;
   --chart-2: #3B82F6;
   --chart-3: #10B981;
   --chart-4: #8B5CF6;
   --chart-5: #F59E0B;
 
-  --sidebar: #000000;
-  --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #D89B5B;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: rgba(216, 155, 91, 0.1);
-  --sidebar-accent-foreground: #D89B5B;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #D89B5B;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0F172A;
+  --sidebar-primary: #0052FF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(0, 82, 255, 0.08);
+  --sidebar-accent-foreground: #0052FF;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #0052FF;
 
-  --gradient-copper: linear-gradient(135deg, #B4783B 0%, #D89B5B 50%, #F0BC86 100%);
-  --gradient-ink: linear-gradient(180deg, #0D0D0D 0%, #000000 100%);
-  --shadow-lift: 0 20px 45px -15px rgba(0, 0, 0, 0.9);
-  --shadow-glow: 0 0 80px -10px rgba(216, 155, 91, 0.35);
+  --gradient-copper: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+  --gradient-ink: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  --shadow-lift: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 50px -10px rgba(0, 82, 255, 0.15);
 }
 
 .dark {
-  --background: #000000;
-  --foreground: #FFFFFF;
-  --card: #0A0A0A;
-  --card-foreground: #FFFFFF;
-  --popover: #0A0A0A;
-  --popover-foreground: #FFFFFF;
-  --primary: #D89B5B;
-  --primary-foreground: #000000;
-  --secondary: #121212;
-  --secondary-foreground: #FFFFFF;
-  --muted: #0F0F0F;
-  --muted-foreground: #94A3B8;
-  --accent: rgba(216, 155, 91, 0.12);
-  --accent-foreground: #D89B5B;
+  --background: #FFFFFF;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #0052FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #0F172A;
+  --muted: #F8FAFC;
+  --muted-foreground: #64748B;
+  --accent: rgba(0, 82, 255, 0.08);
+  --accent-foreground: #0052FF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #D89B5B;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #0052FF;
 }
 
 /* ─── Lenis smooth scroll ─── */

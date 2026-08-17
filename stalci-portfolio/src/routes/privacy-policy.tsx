@@ -179,15 +179,15 @@ function PrivacyPolicy() {
   const sections = parseMarkdownSections(pageData?.content || '');
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       <Nav solid />
 
-      {/* Header Banner */}
-      <div className="bg-[#000000] text-white pt-32 pb-20 border-b border-white/10">
+      {/* Header Banner (Dark Section Breaker Style) */}
+      <div className="bg-[#090B0E] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
             <ShieldCheck className="h-3.5 w-3.5" />
-            SOC 2 & GDPR Compliance Standard
+            SOC 2 &amp; GDPR Compliance Standard
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
             {titleText}
@@ -206,28 +206,28 @@ function PrivacyPolicy() {
       </div>
 
       {/* Main Content */}
-      <main className="py-16 sm:py-24">
+      <main className="py-16 sm:py-24 bg-white">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <div ref={contentRef} className="space-y-8">
             {sections.map((s) => (
               <div
                 key={s.id}
                 id={s.id}
-                className="rounded-2xl bg-[#0A0A0A] border border-white/10 shadow-xl p-6 sm:p-9 transition-all hover:border-white/20"
+                className="rounded-2xl bg-white border border-slate-200/90 shadow-sm p-6 sm:p-9 transition-all hover:border-slate-300"
               >
-                <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2.5 pb-3 border-b border-white/10">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2.5 pb-3 border-b border-slate-200">
+                  <span className="h-2 w-2 rounded-full bg-emerald-600 shrink-0" />
                   <span>{s.h}</span>
                 </h2>
-                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-neutral-300">
+                <div className="mt-4 space-y-3.5 text-sm sm:text-[14.5px] leading-relaxed text-slate-700">
                   {s.p.map((para, idx) => (
                     <p key={idx}>{para}</p>
                   ))}
                   {s.list && (
                     <ul className="mt-3 space-y-2 pl-2">
                       {s.list.map((li, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-neutral-300">
-                          <span className="text-emerald-400 font-bold mt-0.5">•</span>
+                        <li key={idx} className="flex items-start gap-2 text-slate-700">
+                          <span className="text-emerald-600 font-bold mt-0.5">•</span>
                           <span>{li}</span>
                         </li>
                       ))}
@@ -238,7 +238,7 @@ function PrivacyPolicy() {
             ))}
 
             {/* DPO Support Card */}
-            <div className="rounded-2xl bg-[#0D0D0D] text-white p-8 sm:p-10 border border-white/15 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="rounded-2xl bg-[#090B0E] text-white p-8 sm:p-10 border border-white/15 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <h3 className="text-xl font-bold text-white flex items-center gap-2">
                   <Mail className="h-5 w-5 text-emerald-400" />

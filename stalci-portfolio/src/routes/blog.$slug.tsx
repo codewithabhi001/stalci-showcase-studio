@@ -51,12 +51,12 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function PostNotFound() {
   return (
-    <div className="min-h-screen bg-[#000000] text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       <Nav solid />
       <main className="mx-auto max-w-3xl px-5 pb-24 pt-40 text-center">
-        <h1 className="text-2xl font-bold text-white">Article not found</h1>
-        <p className="mt-2 text-sm text-neutral-400">The requested engineering paper does not exist or has been archived.</p>
-        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-copper px-5 py-2.5 text-sm font-bold text-black shadow-md hover:bg-copper-soft transition-colors">
+        <h1 className="text-2xl font-bold text-slate-900">Article not found</h1>
+        <p className="mt-2 text-sm text-slate-600">The requested engineering paper does not exist or has been archived.</p>
+        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-md hover:bg-blue-700 transition-colors">
           Back to all articles
         </Link>
       </main>
@@ -70,21 +70,21 @@ function BlogPost() {
   const related = staticPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       <Nav solid />
 
-      {/* Header Banner */}
-      <div className="bg-[#000000] text-white pt-32 pb-20 border-b border-white/10">
+      {/* Header Banner (Dark Section Breaker Style) */}
+      <div className="bg-[#090B0E] text-white pt-32 pb-20 border-b border-white/10">
         <div className="mx-auto max-w-4xl px-5 lg:px-8">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-copper hover:text-copper-soft transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-blue-400 hover:text-blue-300 transition-colors mb-6"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Back to all articles
           </Link>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-copper bg-copper/10 border border-copper/30 px-3 py-0.5 rounded-full">
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-blue-400 bg-white/5 border border-white/15 px-3 py-0.5 rounded-full">
               {post.category}
             </span>
             <span className="text-xs text-neutral-400 font-mono flex items-center gap-1">
@@ -97,8 +97,8 @@ function BlogPost() {
           </h1>
 
           <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-neutral-400 border-t border-white/10 pt-4">
-            <span className="font-semibold text-neutral-200 flex items-center gap-1.5">
-              <User className="h-3.5 w-3.5 text-copper" /> {post.author}
+            <span className="font-semibold text-white flex items-center gap-1.5">
+              <User className="h-3.5 w-3.5 text-blue-400" /> {post.author}
             </span>
             <span>•</span>
             <span className="font-mono">
@@ -109,33 +109,33 @@ function BlogPost() {
       </div>
 
       {/* Article Body */}
-      <main className="py-16 sm:py-24">
+      <main className="py-16 sm:py-24 bg-white">
         <article className="mx-auto max-w-4xl px-5 lg:px-8">
-          <div className="rounded-3xl bg-[#0A0A0A] border border-white/10 shadow-xl p-8 sm:p-12 space-y-6">
+          <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm p-8 sm:p-12 space-y-6">
             {post.body.map((para: string, i: number) => {
               if (para.startsWith("### ")) {
                 return (
-                  <h3 key={i} className="text-xl sm:text-2xl font-bold text-white pt-4 pb-1 border-b border-white/10">
+                  <h3 key={i} className="text-xl sm:text-2xl font-bold text-slate-900 pt-4 pb-1 border-b border-slate-200">
                     {para.replace("### ", "")}
                   </h3>
                 );
               }
               return (
-                <p key={i} className="text-base leading-relaxed text-neutral-300">
+                <p key={i} className="text-base leading-relaxed text-slate-700">
                   {para}
                 </p>
               );
             })}
 
             {/* CTA Box */}
-            <div className="mt-12 rounded-2xl bg-gradient-to-br from-[#121212] to-[#0A0A0A] border border-white/15 text-white p-7 sm:p-9 shadow-lg">
+            <div className="mt-12 rounded-2xl bg-[#090B0E] border border-white/15 text-white p-7 sm:p-9 shadow-lg">
               <h3 className="text-lg font-bold text-white">Engineering a Mission-Critical Architecture?</h3>
               <p className="mt-2 text-xs sm:text-sm text-neutral-300 leading-relaxed">
                 STALCI's principal engineers and SRE architects can review your current technical topology and outline an actionable delivery plan.
               </p>
               <a
-                href="/#contact"
-                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-copper hover:bg-copper-soft px-5 py-2.5 text-xs font-bold text-black transition-all shadow-md"
+                href="/contact"
+                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-5 py-2.5 text-xs font-bold text-white transition-all shadow-md"
               >
                 Schedule Technical Review <ArrowRight className="h-3.5 w-3.5" />
               </a>
@@ -144,22 +144,22 @@ function BlogPost() {
 
           {/* Related Articles */}
           <div className="mt-16">
-            <h2 className="text-lg font-bold text-white mb-6">Related Technical Papers</h2>
+            <h2 className="text-lg font-bold text-slate-900 mb-6">Related Technical Papers</h2>
             <div className="grid gap-4 sm:grid-cols-3">
               {related.map((p) => (
                 <Link
                   key={p.slug}
                   to="/blog/$slug"
                   params={{ slug: p.slug }}
-                  className="rounded-2xl border border-white/10 bg-[#0D0D0D] p-5 shadow-sm transition-all hover:border-copper/40 hover:bg-[#121212]"
+                  className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm transition-all hover:border-blue-500/40 hover:shadow-md"
                 >
-                  <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-copper">
+                  <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-blue-600">
                     {p.category}
                   </span>
-                  <h4 className="mt-2 text-sm font-bold leading-snug text-white line-clamp-2">
+                  <h4 className="mt-2 text-sm font-bold leading-snug text-slate-900 line-clamp-2">
                     {p.title}
                   </h4>
-                  <span className="mt-3 text-xs text-neutral-400 font-mono block">{p.readingTime}</span>
+                  <span className="mt-3 text-xs text-slate-500 font-mono block">{p.readingTime}</span>
                 </Link>
               ))}
             </div>

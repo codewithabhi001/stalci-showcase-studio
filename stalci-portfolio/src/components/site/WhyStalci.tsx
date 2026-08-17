@@ -86,14 +86,14 @@ export function WhyStalci() {
   const gridRef = useStaggerReveal({ stagger: 0.04, y: 15 });
 
   return (
-    <section className="border-t border-white/10 bg-[#05070B] py-14 sm:py-20 text-white">
+    <section className="border-t border-slate-200/90 bg-white py-14 sm:py-20 text-slate-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div ref={headerRef as any}>
           <SectionHeading
-            tone="dark"
+            tone="light"
             eyebrow="The STALCI Advantage"
-            title="Strategic Engineering & Transformation Partner"
+            title="Strategic Engineering &amp; Transformation Partner"
             subtitle="Transcending traditional agency models to deliver predictable enterprise software systems with high velocity and zero technical debt."
           />
         </div>
@@ -108,35 +108,35 @@ export function WhyStalci() {
             return (
               <div
                 key={r.title}
-                className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-[#0D0D0D] p-6 sm:p-7 shadow-sm hover:border-copper/40 hover:shadow-[0_0_30px_rgba(216,155,91,0.12)] transition-all duration-200 hover:-translate-y-0.5"
+                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50 p-6 sm:p-7 shadow-sm hover:border-blue-500/40 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
               >
                 <div>
                   {/* Top Row: Icon + Standard Badge */}
                   <div className="flex items-center justify-between gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-copper p-2 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                      <Icon className="h-5 w-5 text-copper" strokeWidth={1.8} />
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white border border-slate-200 text-blue-600 p-2 shadow-2xs group-hover:scale-105 transition-transform duration-200">
+                      <Icon className="h-5 w-5 text-blue-600" strokeWidth={1.8} />
                     </div>
 
-                    <span className="inline-flex items-center rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-copper border border-white/10">
+                    <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 border border-blue-200">
                       {r.tag}
                     </span>
                   </div>
 
-                  {/* Title & Full Unclipped Summary */}
-                  <h3 className="mt-4 text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+                  {/* Title & Summary */}
+                  <h3 className="mt-4 text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
                     {r.title}
                   </h3>
-                  <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-neutral-300 font-normal">
+                  <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
                     {r.copy}
                   </p>
                 </div>
 
                 {/* Bottom Metric */}
-                <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-[11px] font-mono">
-                  <span className="text-[10px] font-mono uppercase text-neutral-400 font-bold tracking-wider">
+                <div className="mt-6 flex items-center justify-between border-t border-slate-200/80 pt-4 text-[11px] font-mono">
+                  <span className="text-[10px] font-mono uppercase text-slate-500 font-bold tracking-wider">
                     {r.metricLabel}
                   </span>
-                  <span className="text-xs font-mono font-bold text-copper">
+                  <span className="text-xs font-mono font-bold text-blue-600">
                     {r.metricValue}
                   </span>
                 </div>
@@ -146,38 +146,38 @@ export function WhyStalci() {
         </div>
 
         {/* Enterprise Delivery Benchmark Comparison Table */}
-        <div className="mt-14 overflow-hidden rounded-3xl border border-white/10 bg-[#0D0D0D] p-6 sm:p-8 shadow-xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-5 mb-6">
+        <div className="mt-14 overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-50 p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-5 mb-6">
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-copper">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600">
                 Comparative Industry Analysis
               </span>
-              <h3 className="text-base sm:text-lg font-bold text-white">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900">
                 How STALCI Outperforms Alternative Models
               </h3>
             </div>
-            <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full self-start sm:self-auto">
-              <CheckCircle2 className="h-3.5 w-3.5" /> 100% Contractual SLA Guarantee
+            <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full self-start sm:self-auto">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> 100% Contractual SLA Guarantee
             </span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-white/10 text-[11px] font-mono font-bold uppercase text-neutral-400 tracking-wider">
+                <tr className="border-b border-slate-200 text-[11px] font-mono font-bold uppercase text-slate-500 tracking-wider">
                   <th className="pb-3 pr-4 font-semibold">Evaluation Metric</th>
-                  <th className="pb-3 px-4 font-bold text-copper">STALCI Studio Pods</th>
-                  <th className="pb-3 px-4 font-semibold text-neutral-400">Traditional Agency</th>
-                  <th className="pb-3 pl-4 font-semibold text-neutral-400">Direct In-House Hiring</th>
+                  <th className="pb-3 px-4 font-bold text-blue-700">STALCI Studio Pods</th>
+                  <th className="pb-3 px-4 font-semibold text-slate-500">Traditional Agency</th>
+                  <th className="pb-3 pl-4 font-semibold text-slate-500">Direct In-House Hiring</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 text-neutral-300">
+              <tbody className="divide-y divide-slate-200 text-slate-700">
                 {comparisonRows.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
-                    <td className="py-3.5 pr-4 font-semibold text-white">{row.factor}</td>
-                    <td className="py-3.5 px-4 font-bold text-copper bg-copper/10 border border-copper/20 rounded-xl">{row.stalci}</td>
-                    <td className="py-3.5 px-4 text-neutral-400">{row.traditional}</td>
-                    <td className="py-3.5 pl-4 text-neutral-400">{row.inHouse}</td>
+                  <tr key={idx} className="hover:bg-slate-100/50 transition-colors">
+                    <td className="py-3.5 pr-4 font-semibold text-slate-900">{row.factor}</td>
+                    <td className="py-3.5 px-4 font-bold text-blue-700 bg-blue-50/80 border border-blue-200/80 rounded-xl">{row.stalci}</td>
+                    <td className="py-3.5 px-4 text-slate-600">{row.traditional}</td>
+                    <td className="py-3.5 pl-4 text-slate-600">{row.inHouse}</td>
                   </tr>
                 ))}
               </tbody>

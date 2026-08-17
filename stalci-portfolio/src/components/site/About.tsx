@@ -78,27 +78,27 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="border-t border-white/10 bg-[#000000] py-14 sm:py-20 text-white overflow-hidden relative">
+    <section id="about" className="border-t border-slate-200/90 bg-white py-14 sm:py-20 text-slate-900 overflow-hidden relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
           <div className="flex justify-center">
-            <BadgePill tone="dark" variant="gradient">
-              <span>✦ Studio Philosophy &amp; Heritage</span>
+            <BadgePill tone="light" variant="gradient">
+              <span className="font-semibold text-slate-900">✦ Studio Philosophy &amp; Heritage</span>
             </BadgePill>
           </div>
 
-          <h2 className="font-display text-2xl sm:text-3xl md:text-[34px] font-bold text-white tracking-tight leading-[1.2]">
-            Architecting the Technological Foundation for <span className="font-extrabold text-copper-gradient">Modern Enterprise Agility</span>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-[34px] font-bold text-slate-900 tracking-tight leading-[1.2]">
+            Architecting the Technological Foundation for <span className="font-extrabold text-blue-600">Modern Enterprise Agility</span>
           </h2>
 
-          <p className="text-xs sm:text-[13.5px] text-neutral-400 font-normal leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
             We synergize enterprise architecture, elite software engineering, and strategic IT consulting to deliver mission-critical solutions—from initial blueprinting to global production deployment.
           </p>
         </div>
 
-        {/* ─── 2-Column Luxury Studio Showcase ─── */}
+        {/* ─── 2-Column Studio Showcase ─── */}
         <div className="grid items-stretch gap-8 lg:grid-cols-12">
           
           {/* Left Column: Narrative & Live Metric Enclave */}
@@ -107,41 +107,41 @@ export function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-white/10 bg-[#0A0A0A] p-6 sm:p-8 shadow-md"
+            className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50 p-6 sm:p-8 shadow-sm"
           >
             <div>
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-copper animate-pulse" />
-                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-400">
+                <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-500">
                   Engineering Ethos
                 </span>
               </div>
 
-              <h3 className="mt-3 text-lg sm:text-xl font-bold text-white leading-snug">
+              <h3 className="mt-3 text-lg sm:text-xl font-bold text-slate-900 leading-snug">
                 Sovereignty, Velocity, and Zero Technical Debt
               </h3>
 
-              <p className="mt-3 text-xs sm:text-[13px] leading-relaxed text-neutral-300 font-normal">
+              <p className="mt-3 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
                 Our cross-functional studio specializes in sovereign enterprise platforms, multi-cloud orchestration, advanced AI model integration, and distributed zero-trust cybersecurity.
               </p>
 
-              <p className="mt-3 text-xs sm:text-[13px] leading-relaxed text-neutral-300 font-normal">
+              <p className="mt-3 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
                 Every engagement is executed by elite principal engineers utilizing deterministic agile delivery, automated continuous integration, and enterprise-grade quality gates.
               </p>
             </div>
 
-            {/* 4 Metric Counter Boxes with Gradient Fill */}
-            <div className="mt-8 pt-6 border-t border-white/10">
+            {/* 4 Metric Counter Boxes */}
+            <div className="mt-8 pt-6 border-t border-slate-200">
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {dynamicStats.map((stat, idx) => (
                   <div 
                     key={idx}
-                    className="p-4 rounded-2xl bg-[#0D0D0D] border border-white/10 shadow-2xs hover:border-copper/40 transition-all"
+                    className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-blue-400 transition-all"
                   >
-                    <span className={`font-display text-2xl sm:text-3xl font-black bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent block leading-tight`}>
+                    <span className="font-display text-2xl sm:text-3xl font-black text-slate-900 block leading-tight">
                       {stat.value}
                     </span>
-                    <span className="text-[10.5px] font-mono uppercase tracking-wider text-neutral-400 font-semibold block mt-1">
+                    <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mt-1">
                       {stat.label}
                     </span>
                   </div>
@@ -149,15 +149,15 @@ export function About() {
               </div>
 
               {/* Compliance Badges */}
-              <div className="mt-6 flex flex-wrap items-center gap-2 pt-2 text-[11px] font-mono text-neutral-300">
-                <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg font-medium">
-                  <CheckCircle2 className="h-3 w-3 text-emerald-400" /> ISO 27001
+              <div className="mt-6 flex flex-wrap items-center gap-2 pt-2 text-[11px] font-mono text-slate-700">
+                <span className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg font-medium shadow-2xs">
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /> ISO 27001
                 </span>
-                <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg font-medium">
-                  <CheckCircle2 className="h-3 w-3 text-emerald-400" /> SOC 2 Type II
+                <span className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg font-medium shadow-2xs">
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /> SOC 2 Type II
                 </span>
-                <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg font-medium">
-                  <CheckCircle2 className="h-3 w-3 text-emerald-400" /> Zero-Trust
+                <span className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-1 rounded-lg font-medium shadow-2xs">
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /> Zero-Trust
                 </span>
               </div>
             </div>
@@ -174,36 +174,36 @@ export function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.06 }}
-                  className={`group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-[#0D0D0D] p-6 shadow-sm hover:border-copper/40 hover:shadow-[0_0_30px_rgba(216,155,91,0.12)] transition-all duration-200 hover:-translate-y-0.5`}
+                  className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50 p-6 shadow-sm hover:border-blue-500/40 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <div>
                     {/* Top Row: Icon + Pill Tag */}
                     <div className="flex items-center justify-between gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-copper p-2 shadow-2xs group-hover:scale-105 transition-transform duration-200">
-                        <Icon className="h-5 w-5 text-copper" strokeWidth={1.8} />
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white border border-slate-200 text-blue-600 p-2 shadow-2xs group-hover:scale-105 transition-transform duration-200">
+                        <Icon className="h-5 w-5 text-blue-600" strokeWidth={1.8} />
                       </div>
 
-                      <span className="inline-flex items-center rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-copper border border-white/10">
+                      <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 border border-blue-200">
                         {val.tag}
                       </span>
                     </div>
 
                     {/* Title & Description */}
-                    <h4 className="mt-4 text-base font-bold text-white tracking-tight leading-snug">
+                    <h4 className="mt-4 text-base font-bold text-slate-900 tracking-tight leading-snug">
                       {val.title}
                     </h4>
-                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-neutral-300 font-normal">
+                    <p className="mt-2 text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
                       {val.copy}
                     </p>
                   </div>
 
                   {/* Bottom Metric */}
-                  <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-[11px] font-mono">
-                    <span className="text-[10px] font-mono uppercase text-neutral-400 font-bold tracking-wider">
-                      {val.metricLabel}
+                  <div className="mt-5 pt-3 border-t border-slate-200/80 flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-semibold text-slate-500">
+                      Studio Benchmark
                     </span>
-                    <span className="text-xs font-mono font-bold text-white">
-                      {val.metricValue}
+                    <span className="text-xs font-mono font-bold text-blue-600">
+                      {val.stat}
                     </span>
                   </div>
                 </motion.div>
