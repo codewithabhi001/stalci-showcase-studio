@@ -120,7 +120,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const current = allLinks.find((l) => l.href === pathname);
 
   const handleSignOut = () => {
-    document.cookie = "stalci_admin=; path=/; max-age=0";
+    localStorage.removeItem("stalci_access_token");
+    localStorage.removeItem("stalci_refresh_token");
+    localStorage.removeItem("stalci_user");
+    document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     window.location.href = "/login";
   };
 

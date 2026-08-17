@@ -4,6 +4,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'stalci-secret-key-2026-production-super-secure';
+const REFRESH_SECRET = process.env.REFRESH_SECRET || 'stalci-refresh-secret-key-2026-production-super-secure';
 
 @Injectable()
 export class AuthService {
@@ -58,17 +59,88 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const payload = { sub: admin.id, email: admin.email, name: admin.name };
-    const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
+    const payload = { sub: admin.id, email: admin.email, name: admin.name, type: 'access' };
+    const refreshPayload = { sub: admin.id, email: admin.email, type: 'refresh' };
+    const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign(refreshPayload, REFRESH_SECRET, { expiresIn: '7d' });
+
+    try {
+      await this.prisma.admin.update({
+        where: { id: admin.id },
+        data: { refreshToken },
+      });
+    } catch (err) {
+      console.warn('DB update refreshToken notice:', err);
+    }
 
     return {
       accessToken,
+      refreshToken,
       user: {
         id: admin.id,
         name: admin.name,
         email: admin.email,
       },
     };
+  }
+
+  async refreshTokens(refreshToken: string) {
+    if (!refreshToken) {
+      throw new BadRequestException('Refresh token is required');
+    }
+
+    try {
+      const decoded: any = jwt.verify(refreshToken, REFRESH_SECRET);
+      if (decoded.type !== 'refresh') {
+        throw new UnauthorizedException('Invalid token type');
+      }
+
+      const admin = await this.prisma.admin.findUnique({ where: { id: decoded.sub } });
+      if (!admin) {
+        throw new UnauthorizedException('User not found');
+      }
+
+      const payload = { sub: admin.id, email: admin.email, name: admin.name, type: 'access' };
+      const newRefreshPayload = { sub: admin.id, email: admin.email, type: 'refresh' };
+      const newAccessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+      const newRefreshToken = jwt.sign(newRefreshPayload, REFRESH_SECRET, { expiresIn: '7d' });
+
+      try {
+        await this.prisma.admin.update({
+          where: { id: admin.id },
+          data: { refreshToken: newRefreshToken },
+        });
+      } catch (err) {
+        console.warn('DB update refreshToken notice:', err);
+      }
+
+      return {
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+        user: {
+          id: admin.id,
+          name: admin.name,
+          email: admin.email,
+        },
+      };
+    } catch (err) {
+      if (err instanceof UnauthorizedException) throw err;
+      throw new UnauthorizedException('Invalid or expired refresh token');
+    }
+  }
+
+  async logout(userId?: number) {
+    if (userId) {
+      try {
+        await this.prisma.admin.update({
+          where: { id: userId },
+          data: { refreshToken: null },
+        });
+      } catch {
+        // ignore if column doesn't exist
+      }
+    }
+    return { message: 'Logged out successfully' };
   }
 
   async getMe(userId: number) {

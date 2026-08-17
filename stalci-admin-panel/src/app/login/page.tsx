@@ -19,10 +19,13 @@ export default function LoginPage() {
       const res = await loginApi({ email, password });
       if (res?.accessToken) {
         localStorage.setItem("stalci_access_token", res.accessToken);
+        if (res?.refreshToken) {
+          localStorage.setItem("stalci_refresh_token", res.refreshToken);
+        }
         if (res?.user) {
           localStorage.setItem("stalci_user", JSON.stringify(res.user));
         }
-        document.cookie = "stalci_admin=authenticated; path=/; max-age=86400";
+        document.cookie = "stalci_admin=authenticated; path=/; max-age=604800";
         window.location.href = "/";
       } else {
         setError("Login failed. No token received from server.");

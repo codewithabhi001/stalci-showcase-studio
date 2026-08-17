@@ -13,6 +13,18 @@ export class AuthController {
     return this.authService.login(body);
   }
 
+  @Public()
+  @Post('refresh')
+  async refresh(@Body() body: { refreshToken: string }) {
+    return this.authService.refreshTokens(body.refreshToken);
+  }
+
+  @Post('logout')
+  async logout(@Req() req: any) {
+    const userId = req.user?.sub;
+    return this.authService.logout(userId);
+  }
+
   @Get('me')
   async getMe(@Req() req: any) {
     const userId = req.user?.sub;

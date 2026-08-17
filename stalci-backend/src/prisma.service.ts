@@ -14,5 +14,10 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   async onModuleInit() {
     await this.$connect();
+    try {
+      await this.$executeRawUnsafe('ALTER TABLE "Admin" ADD COLUMN IF NOT EXISTS "refreshToken" TEXT;');
+    } catch (err) {
+      console.warn('Auto-migration notice (refreshToken column):', err);
+    }
   }
 }

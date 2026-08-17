@@ -22,9 +22,114 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+let isRefreshing = false;
+let failedQueue: Array<{ resolve: (token: string) => void; reject: (err: any) => void }> = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token!);
+    }
+  });
+  failedQueue = [];
+};
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
+      if (typeof window === "undefined") {
+        return Promise.reject(error);
+      }
+
+      if (originalRequest.url?.includes("/auth/login") || originalRequest.url?.includes("/auth/refresh")) {
+        return Promise.reject(error);
+      }
+
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            return api(originalRequest);
+          })
+          .catch((err) => Promise.reject(err));
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const refreshToken = localStorage.getItem("stalci_refresh_token");
+      if (!refreshToken) {
+        isRefreshing = false;
+        localStorage.removeItem("stalci_access_token");
+        localStorage.removeItem("stalci_refresh_token");
+        localStorage.removeItem("stalci_user");
+        document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
+        return Promise.reject(error);
+      }
+
+      try {
+        const { data } = await axios.post(`${API_BASE}/auth/refresh`, { refreshToken });
+        const newAccessToken = data.accessToken;
+        const newRefreshToken = data.refreshToken;
+
+        localStorage.setItem("stalci_access_token", newAccessToken);
+        if (newRefreshToken) {
+          localStorage.setItem("stalci_refresh_token", newRefreshToken);
+        }
+        if (data.user) {
+          localStorage.setItem("stalci_user", JSON.stringify(data.user));
+        }
+
+        api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+        processQueue(null, newAccessToken);
+        return api(originalRequest);
+      } catch (refreshError) {
+        processQueue(refreshError, null);
+        localStorage.removeItem("stalci_access_token");
+        localStorage.removeItem("stalci_refresh_token");
+        localStorage.removeItem("stalci_user");
+        document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 // --- AUTH & USER APIs ---
 export const loginApi = (data: { email: string; password: string }) =>
   api.post("/auth/login", data).then((r) => r.data);
+
+export const refreshTokensApi = (refreshToken: string) =>
+  api.post("/auth/refresh", { refreshToken }).then((r) => r.data);
+
+export const logoutApi = () =>
+  api.post("/auth/logout").then((r) => r.data).finally(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("stalci_access_token");
+      localStorage.removeItem("stalci_refresh_token");
+      localStorage.removeItem("stalci_user");
+      document.cookie = "stalci_admin=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+  });
 
 export const getMeApi = () => api.get("/auth/me").then((r) => r.data);
 
