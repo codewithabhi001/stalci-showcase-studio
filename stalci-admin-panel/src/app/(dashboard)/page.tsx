@@ -58,7 +58,7 @@ export default function Dashboard() {
       href: "/invoices?status=PAID",
       icon: DollarSign,
       tone: "success" as const,
-      iconBg: "bg-[#090A0F] text-emerald-400 border-zinc-800 shadow-xs",
+      iconBg: "bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 shadow-xs",
       sparkline: [40, 55, 75, 60, 90, 100],
     },
     {
@@ -68,7 +68,7 @@ export default function Dashboard() {
       href: "/invoices?status=PENDING",
       icon: Receipt,
       tone: "warn" as const,
-      iconBg: "bg-[#090A0F] text-amber-400 border-zinc-800 shadow-xs",
+      iconBg: "bg-amber-950/80 text-amber-400 border border-amber-800/80 shadow-xs",
       sparkline: [30, 45, 40, 60, 50, 42],
     },
     {
@@ -78,7 +78,7 @@ export default function Dashboard() {
       href: "/projects",
       icon: FolderKanban,
       tone: "neutral" as const,
-      iconBg: "bg-[#090A0F] text-white border-zinc-800 shadow-xs",
+      iconBg: "bg-zinc-900 text-zinc-100 border border-zinc-700/80 shadow-xs",
       sparkline: [20, 35, 50, 65, 80, 85],
     },
     {
@@ -88,16 +88,16 @@ export default function Dashboard() {
       href: "/clients",
       icon: Users,
       tone: "info" as const,
-      iconBg: "bg-[#090A0F] text-[#3B82F6] border-zinc-800 shadow-xs",
+      iconBg: "bg-blue-950/80 text-blue-400 border border-blue-800/80 shadow-xs",
       sparkline: [10, 25, 40, 55, 70, 95],
     },
   ];
 
   const cmsWidgets = [
-    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes, iconBg: "bg-[#090A0F] text-white border-zinc-800" },
-    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2, iconBg: "bg-[#090A0F] text-white border-zinc-800" },
-    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote, iconBg: "bg-[#090A0F] text-white border-zinc-800" },
-    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper, iconBg: "bg-[#090A0F] text-white border-zinc-800" },
+    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
+    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
+    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
+    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
   ];
 
   return (
@@ -107,10 +107,10 @@ export default function Dashboard() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#090A0F] px-3 py-1 text-[11px] font-bold text-white border border-zinc-800 font-mono shadow-xs">
-                <Sparkles className="h-3 w-3 text-white" /> STALCI Workspace OS
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-900 px-3 py-1 text-[11px] font-bold text-zinc-200 border border-zinc-700/80 font-mono shadow-xs">
+                <Sparkles className="h-3 w-3 text-zinc-200" /> STALCI Workspace OS
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#090A0F] px-3 py-1 text-[11px] font-mono font-semibold text-emerald-400 border border-zinc-800 shadow-xs">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/80 px-3 py-1 text-[11px] font-mono font-semibold text-emerald-300 border border-emerald-800/80 shadow-xs">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live Telemetry
               </span>
             </div>
