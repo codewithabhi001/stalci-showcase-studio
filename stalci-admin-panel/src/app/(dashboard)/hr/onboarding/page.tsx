@@ -125,7 +125,7 @@ export default function OnboardingPage() {
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-copper text-[#080A0F] flex items-center justify-center font-bold text-sm shrink-0">
+                    <div className="h-10 w-10 rounded-xl bg-zinc-950 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
                       {emp.name.slice(0, 2).toUpperCase()}
                     </div>
                     <div>
@@ -148,7 +148,7 @@ export default function OnboardingPage() {
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-amber-500 to-copper text-[#080A0F] flex items-center justify-center font-bold text-sm shrink-0">
+                  <div className="h-10 w-10 rounded-xl bg-zinc-950 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
                     {emp.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>

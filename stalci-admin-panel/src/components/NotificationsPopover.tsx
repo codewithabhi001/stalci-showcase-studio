@@ -54,11 +54,11 @@ export function NotificationsPopover() {
       <button 
         onClick={() => setOpen(!open)}
         aria-label="Notifications" 
-        className={`relative rounded-xl p-2 transition-colors cursor-pointer border border-transparent ${open ? 'bg-purple-50 text-purple-950 border-purple-200/80' : 'text-muted hover:bg-surface-2 hover:text-ink'}`}
+        className={`relative rounded-xl p-2 transition-colors cursor-pointer border border-transparent ${open ? 'bg-zinc-100 text-zinc-950 border-zinc-200' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-950'}`}
       >
         <Bell className="h-4 w-4" />
         {unreadCount > 0 && (
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#7B2BF9] to-[#FA12E3] ring-2 ring-white" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-600 ring-2 ring-white" />
         )}
       </button>
 
@@ -69,7 +69,7 @@ export function NotificationsPopover() {
             {unreadCount > 0 && (
               <button 
                 onClick={() => markReadMut.mutate()}
-                className="flex items-center gap-1 text-[11px] font-bold text-purple-600 hover:text-purple-800 transition-colors disabled:opacity-50 cursor-pointer font-mono"
+                className="flex items-center gap-1 text-[11px] font-bold text-zinc-900 hover:text-black transition-colors disabled:opacity-50 cursor-pointer font-mono"
                 disabled={markReadMut.isPending}
               >
                 <Check className="h-3.5 w-3.5" />

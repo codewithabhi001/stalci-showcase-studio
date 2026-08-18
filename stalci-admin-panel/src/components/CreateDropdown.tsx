@@ -28,7 +28,7 @@ export function CreateDropdown() {
     <div className="relative" ref={dropdownRef}>
       <button 
         onClick={() => setOpen(!open)}
-        className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#7B2BF9] via-[#6835F1] to-[#5E3BEE] hover:from-[#6D24E3] hover:to-[#4E2ED6] px-3.5 text-[12.5px] font-semibold text-white shadow-sm hover:shadow transition-all border border-[#5E3BEE]/30 focus:outline-none cursor-pointer active:scale-[0.98]"
+        className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl bg-[#0052FF] hover:bg-[#0045D8] px-3.5 text-[12.5px] font-semibold text-white shadow-xs transition-all border border-[#0052FF] focus:outline-none cursor-pointer active:scale-[0.98]"
       >
         <Plus className="h-4 w-4 text-white" />
         Create
@@ -48,9 +48,9 @@ export function CreateDropdown() {
                   key={i}
                   href={action.href} 
                   onClick={() => setOpen(false)}
-                  className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[12.5px] font-medium text-ink-2 hover:bg-purple-50/70 hover:text-purple-950 transition-colors group"
+                  className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[12.5px] font-medium text-ink-2 hover:bg-surface-2 hover:text-ink transition-colors group"
                 >
-                  <Icon className="h-4 w-4 text-faint group-hover:text-purple-600 transition-colors" />
+                  <Icon className="h-4 w-4 text-faint group-hover:text-ink transition-colors" />
                   {action.label}
                 </Link>
               )

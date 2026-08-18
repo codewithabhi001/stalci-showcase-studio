@@ -196,7 +196,7 @@ export default function FeedbackAdmin() {
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b border-line pb-4">
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-500 to-copper text-slate-950 font-extrabold text-lg flex items-center justify-center shadow-sm">
+                <div className="h-12 w-12 rounded-2xl bg-zinc-950 text-white font-extrabold text-lg flex items-center justify-center shadow-xs">
                   {(viewingFeedback.name || "A").slice(0, 2).toUpperCase()}
                 </div>
                 <div>

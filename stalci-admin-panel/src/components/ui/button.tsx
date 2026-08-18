@@ -9,15 +9,15 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "text-white bg-gradient-to-r from-[#7B2BF9] via-[#6835F1] to-[#5E3BEE] hover:from-[#6D24E3] hover:to-[#4E2ED6] shadow-sm font-semibold border border-[#5E3BEE]/40 transition-all",
+    "text-white bg-[#0052FF] hover:bg-[#0045D8] font-semibold border border-[#0052FF] shadow-xs transition-all",
   secondary:
-    "text-zinc-900 bg-white border border-zinc-200/90 hover:bg-zinc-50 hover:border-zinc-300 shadow-2xs transition-all",
+    "text-zinc-900 bg-white border border-zinc-200/90 hover:bg-zinc-100 hover:border-zinc-300 shadow-2xs font-semibold transition-all",
   ghost:
-    "text-zinc-600 hover:bg-purple-50/60 hover:text-purple-950 transition-colors",
+    "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-950 font-medium transition-colors",
   danger:
-    "text-red-700 bg-red-50 border border-red-200/80 hover:bg-red-600 hover:text-white transition-colors",
+    "text-red-700 bg-red-50 border border-red-200 hover:bg-red-600 hover:text-white font-semibold transition-colors",
   "copper-outline":
-    "text-purple-700 bg-purple-50/80 border border-purple-200 hover:bg-purple-100 transition-all shadow-2xs",
+    "text-[#0052FF] bg-[#0052FF]/10 border border-[#0052FF]/20 hover:bg-[#0052FF]/15 font-semibold transition-all shadow-2xs",
 };
 
 const sizes: Record<Size, string> = {

@@ -169,19 +169,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Top Brand Header */}
       <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-zinc-200 bg-white">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="h-8.5 w-8.5 rounded-xl bg-zinc-950 text-white flex items-center justify-center p-1.5 shadow-sm border border-zinc-800 group-hover:scale-105 transition-transform">
+          <div className="h-8.5 w-8.5 rounded-xl bg-zinc-950 text-white flex items-center justify-center p-1.5 shadow-xs border border-zinc-800 group-hover:scale-105 transition-transform">
             <StalciLogoIcon size={24} />
           </div>
           <div>
             <span className="text-[13px] font-bold tracking-tight text-zinc-950 block leading-tight font-display">
               STALCI STUDIO
             </span>
-            <span className="text-[9px] text-zinc-500 tracking-wider uppercase font-mono font-bold">
+            <span className="text-[9.5px] text-[#0052FF] tracking-wider uppercase font-mono font-bold">
               Workspace OS
             </span>
           </div>
         </Link>
-        <span className="rounded-full bg-purple-50 px-2 py-0.5 text-[9.5px] font-bold text-purple-700 border border-purple-200 font-mono">
+        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[9.5px] font-bold text-zinc-700 border border-zinc-200 font-mono">
           PRO
         </span>
       </div>
@@ -190,13 +190,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="px-3 pt-3 pb-2 shrink-0 bg-white">
         <button
           onClick={() => setCommandOpen(true)}
-          className="flex w-full items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/70 px-3 py-1.5 text-[11.5px] text-zinc-500 transition-all hover:border-purple-300 hover:text-purple-950 hover:bg-purple-50/40 shadow-2xs cursor-pointer group"
+          className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[11.5px] text-zinc-600 transition-all hover:border-[#0052FF]/40 hover:text-zinc-950 hover:bg-zinc-100 shadow-2xs cursor-pointer group"
         >
           <span className="flex items-center gap-2">
-            <Search className="h-3.5 w-3.5 text-purple-500 group-hover:text-purple-700 transition-colors" />
+            <Search className="h-3.5 w-3.5 text-zinc-400 group-hover:text-[#0052FF] transition-colors" />
             Quick jump...
           </span>
-          <kbd className="rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 font-semibold">
+          <kbd className="rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[9px] font-mono text-zinc-500 font-semibold">
             ⌘K
           </kbd>
         </button>
@@ -212,8 +212,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           if (visibleLinks.length === 0) return null;
 
           return (
-            <div key={sec.title} className="space-y-1">
-              <p className="px-2.5 text-[9.5px] font-mono font-bold uppercase tracking-wider text-zinc-400/80 mb-1.5">
+            <div key={sec.title} className="space-y-0.5">
+              <p className="px-2.5 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
                 {sec.title}
               </p>
               <div className="space-y-0.5">
@@ -224,17 +224,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[12px] transition-all duration-150 ${
+                      className={`flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[12.5px] transition-colors ${
                         active
-                          ? "bg-purple-50/90 text-purple-950 font-bold border border-purple-200/80 shadow-2xs"
-                          : "text-zinc-600 hover:bg-purple-50/50 hover:text-purple-950 font-medium border border-transparent"
+                          ? "bg-[#0052FF]/10 text-[#0052FF] font-bold"
+                          : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-950 font-medium"
                       }`}
                     >
                       <div className="flex items-center gap-2.5 truncate">
-                        <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-purple-600" : (link.color || "text-zinc-400")}`} />
+                        <Icon className={`h-4 w-4 shrink-0 ${active ? "text-[#0052FF]" : "text-zinc-500"}`} />
                         <span className="truncate">{link.label}</span>
                       </div>
-                      {active && <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#7B2BF9] to-[#FA12E3]" />}
+                      {active && <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF]" />}
                     </Link>
                   );
                 })}
@@ -250,10 +250,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           href="http://localhost:8080"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-zinc-800 hover:bg-purple-50/60 hover:text-purple-950 transition-colors border border-zinc-200 shadow-2xs"
+          className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11.5px] font-semibold text-zinc-800 hover:bg-zinc-100 hover:text-zinc-950 transition-colors border border-zinc-200 shadow-2xs"
         >
           <span className="flex items-center gap-2">
-            <ExternalLink className="h-3.5 w-3.5 text-purple-600" />
+            <ExternalLink className="h-3.5 w-3.5 text-zinc-500" />
             Live Portfolio
           </span>
           <span className="text-[9.5px] font-mono font-bold text-zinc-700 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200">
@@ -263,7 +263,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer"
+          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-[11.5px] font-semibold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer"
         >
           <LogOut className="h-3.5 w-3.5" />
           Sign out

@@ -275,7 +275,7 @@ export default function EmployeesPage() {
                   <tr key={emp.id} className="hover:bg-surface-2/60 transition-colors">
                     <td className="px-5 py-4 font-bold text-ink">
                       <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-amber-500/20 to-copper/20 border border-copper/30 text-copper flex items-center justify-center font-bold text-xs shrink-0">
+                        <div className="h-9 w-9 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-xs shrink-0">
                           {emp.name.slice(0, 2).toUpperCase()}
                         </div>
                         <div>

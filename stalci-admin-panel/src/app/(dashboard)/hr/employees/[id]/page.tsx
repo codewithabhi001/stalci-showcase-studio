@@ -161,7 +161,7 @@ export default function EmployeeProfilePage({ params }: { params: Promise<{ id: 
       <div className="rounded-3xl border border-line bg-surface p-6 sm:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
-            <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-amber-500 to-copper text-[#080A0F] flex items-center justify-center font-extrabold text-2xl shadow-lg border border-white/20 shrink-0">
+            <div className="h-20 w-20 rounded-2xl bg-zinc-950 text-white flex items-center justify-center font-extrabold text-2xl shadow-xs border border-zinc-800 shrink-0">
               {emp.name.slice(0, 2).toUpperCase()}
             </div>
             <div>

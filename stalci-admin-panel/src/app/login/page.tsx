@@ -53,28 +53,24 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2 bg-[#F8F9FC] relative overflow-hidden selection:bg-blue-100 selection:text-blue-900">
-      {/* Ambient background glow */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-transparent blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-tl from-indigo-600/10 via-purple-600/10 to-transparent blur-3xl pointer-events-none" />
-
+    <div className="grid min-h-screen lg:grid-cols-2 bg-[#FAFAFB] relative overflow-hidden selection:bg-zinc-200 selection:text-zinc-900">
       {/* Brand Showcase Panel */}
-      <div className="relative hidden flex-col justify-between p-12 lg:flex bg-white/90 backdrop-blur-md border-r border-line z-10">
+      <div className="relative hidden flex-col justify-between p-12 lg:flex bg-white border-r border-line z-10">
         <div className="relative flex items-center gap-3">
           <div className="h-10 w-10 rounded-2xl bg-zinc-950 text-white flex items-center justify-center p-2 shadow-md border border-zinc-800">
             <StalciLogoIcon size={28} />
           </div>
           <div>
             <span className="text-[16px] font-extrabold tracking-tight text-ink font-display">STALCI STUDIO</span>
-            <span className="text-[10px] text-blue-600 block uppercase font-mono font-bold tracking-wider">
+            <span className="text-[10px] text-zinc-500 block uppercase font-mono font-bold tracking-wider">
               Enterprise Workspace OS
             </span>
           </div>
         </div>
 
         <div className="relative max-w-md space-y-5">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3.5 py-1 text-[11px] font-bold text-blue-700 border border-blue-200 font-mono shadow-2xs">
-            <Sparkles className="h-3.5 w-3.5 text-blue-600" /> Sovereign Platform Control
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3.5 py-1 text-[11px] font-bold text-zinc-900 border border-zinc-200 font-mono">
+            <Sparkles className="h-3.5 w-3.5 text-zinc-900" /> Sovereign Platform Control
           </span>
           <h2 className="text-[34px] font-bold leading-[1.16] tracking-tight text-ink font-display">
             The unified command center for your digital enterprise.
@@ -84,19 +80,19 @@ export default function LoginPage() {
           </p>
 
           <div className="grid grid-cols-2 gap-2.5 pt-2">
-            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2 p-2.5 border border-line text-xs font-medium text-ink-2">
               <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
               <span>Real-Time CMS Sync</span>
             </div>
-            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2 p-2.5 border border-line text-xs font-medium text-ink-2">
               <CheckCircle2 className="h-4 w-4 text-blue-600 shrink-0" />
               <span>HR & Talent Suite</span>
             </div>
-            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
-              <CheckCircle2 className="h-4 w-4 text-purple-600 shrink-0" />
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2 p-2.5 border border-line text-xs font-medium text-ink-2">
+              <CheckCircle2 className="h-4 w-4 text-zinc-900 shrink-0" />
               <span>Automated Billing</span>
             </div>
-            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2 p-2.5 border border-line text-xs font-medium text-ink-2">
               <CheckCircle2 className="h-4 w-4 text-amber-600 shrink-0" />
               <span>Role-Based Access</span>
             </div>
@@ -112,7 +108,7 @@ export default function LoginPage() {
       </div>
 
       {/* Form Panel */}
-      <div className="flex items-center justify-center bg-[#F8F9FC] px-5 py-14 relative z-10">
+      <div className="flex items-center justify-center bg-[#FAFAFB] px-5 py-14 relative z-10">
         <form
           onSubmit={handleLogin}
           className="w-full max-w-[420px] p-8 sm:p-9 border border-line bg-white shadow-pop rounded-3xl space-y-5 relative"
@@ -123,7 +119,7 @@ export default function LoginPage() {
             </div>
             <div>
               <span className="text-[16px] font-bold text-ink font-display">STALCI STUDIO</span>
-              <span className="text-[10px] text-blue-600 block uppercase font-mono font-bold tracking-wider">
+              <span className="text-[10px] text-[#0052FF] block uppercase font-mono font-bold tracking-wider">
                 Workspace OS
               </span>
             </div>
@@ -183,7 +179,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-10 rounded-xl bg-gradient-to-r from-[#7B2BF9] via-[#6835F1] to-[#5E3BEE] hover:from-[#6D24E3] hover:to-[#4E2ED6] text-white text-xs font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 border border-[#5E3BEE]/40 active:scale-[0.98]"
+            className="w-full h-10 rounded-xl bg-[#0052FF] hover:bg-[#0045D8] text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 border border-[#0052FF] active:scale-[0.98]"
           >
             {loading ? "Authenticating..." : "Sign In to Workspace OS"}
             <ArrowRight className="h-4 w-4" />
@@ -194,7 +190,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={handleFillDemo}
-              className="inline-flex items-center gap-1.5 text-[11px] font-mono text-muted hover:text-purple-700 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-[11px] font-mono text-muted hover:text-[#0052FF] transition-colors cursor-pointer"
             >
               <Zap className="h-3 w-3 text-amber-500" /> Autofill Default Admin Credentials
             </button>

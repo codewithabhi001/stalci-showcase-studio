@@ -35,8 +35,8 @@ export default function HrDashboardPage() {
       value: stats?.totalEmployees || 0,
       sub: `${stats?.activeEmployees || 0} active, ${stats?.onboardingCount || 0} onboarding`,
       icon: Users,
-      tone: "purple" as const,
-      iconBg: "bg-purple-50 text-purple-600 border-purple-200/90",
+      tone: "neutral" as const,
+      iconBg: "bg-zinc-100 text-zinc-900 border-zinc-200",
       href: "/hr/employees",
     },
     {
@@ -45,7 +45,7 @@ export default function HrDashboardPage() {
       sub: "In screening & interview pipeline",
       icon: UserPlus,
       tone: "info" as const,
-      iconBg: "bg-blue-50 text-blue-600 border-blue-200/90",
+      iconBg: "bg-blue-50 text-blue-700 border-blue-200",
       href: "/hr/recruitment",
     },
     {
@@ -54,7 +54,7 @@ export default function HrDashboardPage() {
       sub: "Awaiting manager approval",
       icon: Clock,
       tone: "warn" as const,
-      iconBg: "bg-amber-50 text-amber-600 border-amber-200/90",
+      iconBg: "bg-amber-50 text-amber-700 border-amber-200",
       href: "/hr/attendance-leave",
     },
     {
@@ -63,7 +63,7 @@ export default function HrDashboardPage() {
       sub: `Annual CTC: $${(stats?.totalCtc || 0).toLocaleString()}`,
       icon: DollarSign,
       tone: "success" as const,
-      iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200/90",
+      iconBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
       href: "/hr/payroll",
       hideForRecruiter: true,
     },
@@ -72,8 +72,8 @@ export default function HrDashboardPage() {
       value: stats?.internCount || 0,
       sub: "Mentored research programs",
       icon: GraduationCap,
-      tone: "danger" as const,
-      iconBg: "bg-rose-50 text-rose-600 border-rose-200/90",
+      tone: "neutral" as const,
+      iconBg: "bg-zinc-100 text-zinc-900 border-zinc-200",
       href: "/hr/internships",
     },
     {
@@ -81,8 +81,8 @@ export default function HrDashboardPage() {
       value: `${stats?.assignedAssets || 0} / ${stats?.totalAssets || 0}`,
       sub: "Hardware & Workstations",
       icon: Laptop,
-      tone: "cyan" as const,
-      iconBg: "bg-cyan-50 text-cyan-600 border-cyan-200/90",
+      tone: "neutral" as const,
+      iconBg: "bg-zinc-100 text-zinc-900 border-zinc-200",
       href: "/hr/assets",
     },
   ];
@@ -94,8 +94,8 @@ export default function HrDashboardPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-2.5 py-0.5 text-[11px] font-bold text-purple-700 border border-purple-200 font-mono shadow-2xs">
-                <Sparkles className="h-3 w-3 text-purple-600" /> People & HR Operations
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-bold text-zinc-900 border border-zinc-200 font-mono">
+                <Sparkles className="h-3 w-3 text-zinc-900" /> People & HR Operations
               </span>
               <Badge tone={roleInfo.badgeTone as any} dot className="text-[10px]">
                 {roleInfo.label}
@@ -128,7 +128,7 @@ export default function HrDashboardPage() {
             <Link
               key={idx}
               href={kpi.href}
-              className="group relative rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-200 hover:border-purple-300 hover:shadow-pop hover:-translate-y-0.5"
+              className="group relative rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-200 hover:border-zinc-400 hover:shadow-pop hover:-translate-y-0.5"
             >
               <div className="flex items-center justify-between">
                 <span className="text-[10.5px] font-bold text-muted uppercase tracking-wider font-mono">{kpi.title}</span>
@@ -141,7 +141,7 @@ export default function HrDashboardPage() {
               </div>
               <div className="mt-2 flex items-center justify-between text-xs text-muted">
                 <span className="text-[11.5px]">{kpi.sub}</span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-muted opacity-0 group-hover:opacity-100 group-hover:text-purple-600 transition-all" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-muted opacity-0 group-hover:opacity-100 group-hover:text-ink transition-all" />
               </div>
             </Link>
           );
@@ -154,10 +154,10 @@ export default function HrDashboardPage() {
         <div className="rounded-2xl border border-line bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between border-b border-line pb-4">
             <h3 className="text-base font-bold text-ink font-display flex items-center gap-2">
-              <Briefcase className="h-4 w-4 text-purple-600" />
+              <Briefcase className="h-4 w-4 text-zinc-900" />
               Department Headcount Distribution
             </h3>
-            <span className="text-xs text-purple-700 font-mono font-bold bg-purple-50 px-2.5 py-1 rounded-full border border-purple-200">
+            <span className="text-xs text-zinc-900 font-mono font-bold bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200">
               {stats?.departmentBreakdown?.length || 0} Departments
             </span>
           </div>
@@ -173,7 +173,7 @@ export default function HrDashboardPage() {
                   </div>
                   <div className="h-2 w-full rounded-full bg-surface-2 overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-[#7B2BF9] to-[#0091FF] transition-all duration-300"
+                      className="h-full rounded-full bg-zinc-950 transition-all duration-300"
                       style={{ width: `${Math.max(pct, 5)}%` }}
                     />
                   </div>
@@ -187,10 +187,10 @@ export default function HrDashboardPage() {
         <div className="rounded-2xl border border-line bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between border-b border-line pb-4">
             <h3 className="text-base font-bold text-ink font-display flex items-center gap-2">
-              <UserCheck className="h-4 w-4 text-emerald-600" />
+              <UserCheck className="h-4 w-4 text-zinc-900" />
               Recent High-Caliber Onboardings
             </h3>
-            <Link href="/hr/employees" className="text-xs text-purple-700 font-bold hover:underline">
+            <Link href="/hr/employees" className="text-xs text-zinc-900 font-bold hover:underline">
               View Directory ↗
             </Link>
           </div>
@@ -199,11 +199,11 @@ export default function HrDashboardPage() {
             {stats?.recentHires?.map((emp: any) => (
               <div key={emp.id} className="py-3 flex items-center justify-between gap-3 group first:pt-0 last:pb-0">
                 <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-[#7B2BF9] to-[#0091FF] text-white flex items-center justify-center font-mono font-bold text-xs shadow-2xs">
+                  <div className="h-9 w-9 rounded-xl bg-zinc-950 text-white flex items-center justify-center font-mono font-bold text-xs shadow-xs">
                     {emp.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-ink group-hover:text-purple-700 transition-colors">{emp.name}</h4>
+                    <h4 className="text-xs font-bold text-ink group-hover:text-black transition-colors">{emp.name}</h4>
                     <p className="text-[11px] text-muted">{emp.designation}</p>
                   </div>
                 </div>

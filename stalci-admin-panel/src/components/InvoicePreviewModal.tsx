@@ -19,6 +19,7 @@ import {
   Trash2,
   Eye,
 } from "lucide-react";
+import { StalciLogoIcon } from "@/components/BrandLogo";
 
 interface InvoicePreviewModalProps {
   invoice: any;
@@ -231,26 +232,14 @@ export function InvoicePreviewModal({
   // Official STALCI Sovereign Company Logo SVG
   const StalciBrandLogo = ({ isDark = false }: { isDark?: boolean }) => (
     <div className="flex items-center gap-3">
-      <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-900/40 border border-amber-500/50 flex items-center justify-center p-2 shadow-sm shrink-0">
-        <svg viewBox="0 0 120 120" className="h-full w-full">
-          <defs>
-            <linearGradient id="invSovereignLogo" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F5C082" />
-              <stop offset="50%" stopColor="#D89B5B" />
-              <stop offset="100%" stopColor="#9E6229" />
-            </linearGradient>
-          </defs>
-          <path d="M 60 22 L 88 38 L 74 46 L 46 30 Z" fill="url(#invSovereignLogo)" />
-          <path d="M 32 46 L 74 46 L 88 54 L 46 70 L 32 62 Z" fill="url(#invSovereignLogo)" opacity="0.95" />
-          <path d="M 46 70 L 74 86 L 60 98 L 32 82 Z" fill="url(#invSovereignLogo)" />
-          <polygon points="60,48 70,60 60,72 50,60" fill="#FFFFFF" />
-        </svg>
+      <div className="h-10 w-10 rounded-xl bg-zinc-950 text-white flex items-center justify-center p-1.5 shadow-xs border border-zinc-800 shrink-0">
+        <StalciLogoIcon size={26} />
       </div>
       <div>
         <h1 className={`text-2xl font-extrabold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
           STALCI
         </h1>
-        <p className="text-[9.5px] uppercase font-bold tracking-[0.24em] text-amber-700">
+        <p className="text-[9.5px] uppercase font-bold tracking-[0.24em] text-zinc-500 font-mono">
           Global Technology & Cloud Systems
         </p>
       </div>
