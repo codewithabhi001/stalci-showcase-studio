@@ -1,11 +1,13 @@
 import { Controller, Get, Post, Put, Patch, Delete, Body, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { FinanceService } from './finance.service';
+import { Public } from '../auth/auth.guard';
 
 @Controller('finance')
 export class FinanceController {
   constructor(private readonly financeService: FinanceService) {}
 
   // --- Stats ---
+  @Public()
   @Get('stats')
   getStats() {
     return this.financeService.getStats();

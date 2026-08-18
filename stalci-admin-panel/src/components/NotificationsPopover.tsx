@@ -54,26 +54,26 @@ export function NotificationsPopover() {
       <button 
         onClick={() => setOpen(!open)}
         aria-label="Notifications" 
-        className={`relative rounded-lg p-1.5 transition-colors cursor-pointer ${open ? 'bg-surface-2 text-ink' : 'text-muted hover:bg-surface-2 hover:text-ink'}`}
+        className={`relative rounded-xl p-2 transition-colors cursor-pointer border border-transparent ${open ? 'bg-purple-50 text-purple-950 border-purple-200/80' : 'text-muted hover:bg-surface-2 hover:text-ink'}`}
       >
-        <Bell className="h-[17px] w-[17px]" />
+        <Bell className="h-4 w-4" />
         {unreadCount > 0 && (
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-copper ring-2 ring-surface" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-gradient-to-r from-[#7B2BF9] to-[#FA12E3] ring-2 ring-white" />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl z-50 animate-fade-up origin-top-right">
-          <div className="flex items-center justify-between border-b border-line px-4 py-3 bg-surface-2/80">
+        <div className="absolute right-0 top-full mt-2 w-80 overflow-hidden rounded-2xl border border-line bg-surface shadow-pop z-50 animate-fade-up origin-top-right">
+          <div className="flex items-center justify-between border-b border-line px-4 py-3 bg-surface-2/60">
             <h3 className="text-[13px] font-bold text-ink font-display">Notifications</h3>
             {unreadCount > 0 && (
               <button 
                 onClick={() => markReadMut.mutate()}
-                className="flex items-center gap-1 text-[11px] font-bold text-copper-deep hover:text-copper transition-colors disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-1 text-[11px] font-bold text-purple-600 hover:text-purple-800 transition-colors disabled:opacity-50 cursor-pointer font-mono"
                 disabled={markReadMut.isPending}
               >
                 <Check className="h-3.5 w-3.5" />
-                Mark all as read
+                Mark all read
               </button>
             )}
           </div>
@@ -92,18 +92,18 @@ export function NotificationsPopover() {
                   const Icon = ICON_MAP[notif.type] || Info;
                   const color = COLOR_MAP[notif.type] || COLOR_MAP.INFO;
                   return (
-                    <div key={notif.id} className={`flex gap-3 px-4 py-3.5 transition-colors hover:bg-surface-2 ${!notif.isRead ? 'bg-copper/5' : ''}`}>
-                      <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${color}`}>
-                        <Icon className="h-4 w-4" />
+                    <div key={notif.id} className={`flex gap-3 px-4 py-3.5 transition-colors hover:bg-surface-2 ${!notif.isRead ? 'bg-zinc-50' : ''}`}>
+                      <div className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl ${color}`}>
+                        <Icon className="h-3.5 w-3.5" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start gap-4">
-                          <p className="text-[13px] font-semibold text-ink">{notif.title}</p>
-                          <span className="text-[10.5px] text-faint whitespace-nowrap font-mono">
+                          <p className="text-[12.5px] font-semibold text-ink">{notif.title}</p>
+                          <span className="text-[10px] text-faint whitespace-nowrap font-mono">
                             {new Date(notif.createdAt).toLocaleDateString()}
                           </span>
                         </div>
-                        <p className="mt-0.5 text-[12px] text-muted leading-snug">{notif.message}</p>
+                        <p className="mt-0.5 text-[11.5px] text-muted leading-snug">{notif.message}</p>
                       </div>
                     </div>
                   );

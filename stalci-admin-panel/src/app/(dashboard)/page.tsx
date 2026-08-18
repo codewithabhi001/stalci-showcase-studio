@@ -58,6 +58,7 @@ export default function Dashboard() {
       href: "/invoices?status=PAID",
       icon: DollarSign,
       tone: "success" as const,
+      iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200/90",
       sparkline: [40, 55, 75, 60, 90, 100],
     },
     {
@@ -67,6 +68,7 @@ export default function Dashboard() {
       href: "/invoices?status=PENDING",
       icon: Receipt,
       tone: "warn" as const,
+      iconBg: "bg-amber-50 text-amber-600 border-amber-200/90",
       sparkline: [30, 45, 40, 60, 50, 42],
     },
     {
@@ -75,7 +77,8 @@ export default function Dashboard() {
       change: `${projects.filter((p: any) => p.progress >= 75).length} near completion`,
       href: "/projects",
       icon: FolderKanban,
-      tone: "copper" as const,
+      tone: "purple" as const,
+      iconBg: "bg-purple-50 text-purple-600 border-purple-200/90",
       sparkline: [20, 35, 50, 65, 80, 85],
     },
     {
@@ -85,35 +88,36 @@ export default function Dashboard() {
       href: "/clients",
       icon: Users,
       tone: "info" as const,
+      iconBg: "bg-sky-50 text-sky-600 border-sky-200/90",
       sparkline: [10, 25, 40, 55, 70, 95],
     },
   ];
 
   const cmsWidgets = [
-    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes },
-    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2 },
-    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote },
-    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper },
+    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes, iconBg: "bg-purple-50 text-purple-600 border-purple-200/80" },
+    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2, iconBg: "bg-cyan-50 text-cyan-600 border-cyan-200/80" },
+    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote, iconBg: "bg-amber-50 text-amber-600 border-amber-200/80" },
+    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper, iconBg: "bg-blue-50 text-blue-600 border-blue-200/80" },
   ];
 
   return (
     <div className="space-y-6 animate-fade-up">
       {/* Top Banner */}
-      <div className="rounded-2xl border border-zinc-200/90 bg-white p-6 sm:p-8 shadow-2xs">
+      <div className="rounded-2xl border border-line bg-white p-6 sm:p-8 shadow-card">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-0.5 text-[11px] font-bold text-indigo-700 border border-indigo-200 font-mono">
-                <Sparkles className="h-3 w-3 text-indigo-600" /> STALCI OS v3.0
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-2.5 py-0.5 text-[11px] font-bold text-purple-700 border border-purple-200 font-mono">
+                <Sparkles className="h-3 w-3 text-purple-600" /> STALCI Workspace OS
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-emerald-700 border border-emerald-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" /> Live Telemetry
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Telemetry
               </span>
             </div>
-            <h1 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 font-display">
+            <h1 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-ink font-display">
               Executive Command Center
             </h1>
-            <p className="mt-1 max-w-2xl text-xs sm:text-sm text-zinc-600 leading-relaxed font-normal">
+            <p className="mt-1 max-w-2xl text-xs sm:text-sm text-muted leading-relaxed font-normal">
               Global telemetry orchestrating client accounts, active delivery sprints, automated billing performance, and live public portfolio CMS sync.
             </p>
           </div>
@@ -121,12 +125,12 @@ export default function Dashboard() {
           <div className="flex flex-wrap gap-2.5 shrink-0">
             <Link href="/invoices">
               <Button variant="secondary" className="gap-2 text-xs">
-                <Receipt className="h-4 w-4 text-zinc-500" /> Invoices
+                <Receipt className="h-4 w-4 text-muted" /> Invoices
               </Button>
             </Link>
             <Link href="/projects">
               <Button variant="secondary" className="gap-2 text-xs">
-                <FolderKanban className="h-4 w-4 text-zinc-500" /> Projects
+                <FolderKanban className="h-4 w-4 text-muted" /> Projects
               </Button>
             </Link>
             <Link href="/clients">
@@ -146,17 +150,17 @@ export default function Dashboard() {
             <Link
               key={c.label}
               href={c.href}
-              className="group relative rounded-2xl border border-zinc-200/90 bg-white p-5 shadow-2xs transition-all duration-200 hover:border-zinc-400 hover:shadow-md hover:-translate-y-0.5"
+              className="group relative rounded-2xl border border-line bg-white p-5 shadow-card transition-all duration-200 hover:border-purple-300 hover:shadow-pop hover:-translate-y-0.5"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 font-mono">
+                <span className="text-[10.5px] font-bold uppercase tracking-wider text-muted font-mono">
                   {c.label}
                 </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-50 text-zinc-700 border border-zinc-200/90 group-hover:bg-zinc-100 transition-colors">
+                <span className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all ${c.iconBg} group-hover:scale-105 shadow-2xs`}>
                   <Icon className="h-4 w-4" />
                 </span>
               </div>
-              <p className="mt-3 text-2xl sm:text-[26px] font-bold tracking-tight text-zinc-950 font-display">
+              <p className="mt-3 text-2xl sm:text-[26px] font-bold tracking-tight text-ink font-display">
                 {statsLoading ? "..." : c.value}
               </p>
               
@@ -169,7 +173,7 @@ export default function Dashboard() {
                   {c.sparkline.map((h, i) => (
                     <div
                       key={i}
-                      className="w-1 rounded-full bg-zinc-200 group-hover:bg-indigo-600 transition-all"
+                      className="w-1 rounded-full bg-surface-3 group-hover:bg-gradient-to-t group-hover:from-[#7B2BF9] group-hover:to-[#0091FF] transition-all"
                       style={{ height: `${h}%` }}
                     />
                   ))}
@@ -183,21 +187,21 @@ export default function Dashboard() {
       {/* Revenue Telemetry Chart & Active Delivery Bento */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Performance Chart */}
-        <div className="lg:col-span-2 rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-2xs flex flex-col justify-between">
+        <div className="lg:col-span-2 rounded-2xl border border-line bg-white p-6 shadow-card flex flex-col justify-between">
           <div>
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-zinc-100">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-line">
               <div>
-                <h2 className="text-base font-bold text-zinc-950 font-display flex items-center gap-2">
+                <h2 className="text-base font-bold text-ink font-display flex items-center gap-2">
                   Revenue & Billing Telemetry
-                  <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                 </h2>
-                <p className="text-xs text-zinc-500">Monthly closed billing performance</p>
+                <p className="text-xs text-muted">Monthly closed billing performance</p>
               </div>
               <div className="flex items-center gap-2">
                 <Badge tone="success" dot>
                   +24.8% YoY
                 </Badge>
-                <span className="text-[11px] font-mono text-zinc-500 bg-zinc-100 px-2 py-1 rounded-lg border border-zinc-200">
+                <span className="text-[11px] font-mono text-muted bg-surface-2 px-2 py-1 rounded-lg border border-line">
                   2026 Q3
                 </span>
               </div>
@@ -220,15 +224,15 @@ export default function Dashboard() {
                   return (
                     <div key={item.month} className="flex-1 flex flex-col items-center gap-2 group/bar cursor-pointer">
                       <div className="relative w-full flex items-end justify-center h-36">
-                        <span className="opacity-0 group-hover/bar:opacity-100 absolute -top-8 text-[10px] font-bold bg-zinc-900 text-white px-2 py-0.5 rounded-md shadow-md transition-all duration-200 whitespace-nowrap z-20 font-mono scale-95 group-hover/bar:scale-100">
+                        <span className="opacity-0 group-hover/bar:opacity-100 absolute -top-8 text-[10px] font-bold bg-ink text-white px-2 py-0.5 rounded-md shadow-md transition-all duration-200 whitespace-nowrap z-20 font-mono scale-95 group-hover/bar:scale-100">
                           ${(item.value / 1000).toFixed(0)}k
                         </span>
                         <div
-                          className="w-full max-w-[40px] rounded-t-lg bg-zinc-100 border border-zinc-200 group-hover/bar:bg-indigo-600 group-hover/bar:border-indigo-600 transition-all duration-200"
+                          className="w-full max-w-[40px] rounded-t-lg bg-surface-2 border border-line group-hover/bar:bg-gradient-to-t group-hover/bar:from-[#7B2BF9] group-hover/bar:to-[#0091FF] group-hover/bar:border-transparent transition-all duration-200"
                           style={{ height: `${heightPercent}%` }}
                         />
                       </div>
-                      <span className="text-[11px] font-semibold text-zinc-500 font-mono group-hover/bar:text-zinc-950 transition-colors">
+                      <span className="text-[11px] font-semibold text-muted font-mono group-hover/bar:text-purple-700 transition-colors">
                         {item.month}
                       </span>
                     </div>
@@ -238,43 +242,43 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500">
+          <div className="mt-6 pt-4 border-t border-line flex flex-wrap items-center justify-between gap-3 text-xs text-muted">
             <div className="flex items-center gap-4 font-medium">
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-md bg-indigo-600" /> Closed Revenue
+                <span className="h-2.5 w-2.5 rounded-md bg-gradient-to-r from-[#7B2BF9] to-[#0091FF]" /> Closed Revenue
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-md bg-zinc-200" /> Baseline Target
+                <span className="h-2.5 w-2.5 rounded-md bg-surface-3" /> Baseline Target
               </span>
             </div>
-            <Link href="/invoices" className="text-zinc-950 font-bold hover:text-indigo-600 hover:underline inline-flex items-center gap-1.5 transition-all">
+            <Link href="/invoices" className="text-purple-700 font-bold hover:text-purple-900 hover:underline inline-flex items-center gap-1.5 transition-all">
               Invoicing Center <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
 
         {/* Quick Active Delivery Bento */}
-        <div className="rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-2xs flex flex-col justify-between">
+        <div className="rounded-2xl border border-line bg-white p-6 shadow-card flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
-              <h2 className="text-base font-bold text-zinc-950 font-display">Active Sprints</h2>
-              <Link href="/projects" className="text-xs font-semibold text-zinc-950 hover:underline inline-flex items-center gap-1">
+            <div className="flex items-center justify-between pb-4 border-b border-line">
+              <h2 className="text-base font-bold text-ink font-display">Active Sprints</h2>
+              <Link href="/projects" className="text-xs font-semibold text-purple-700 hover:underline inline-flex items-center gap-1">
                 View All <ArrowUpRight className="h-3 w-3" />
               </Link>
             </div>
 
             <div className="mt-4 space-y-3">
               {activeProjects.length === 0 ? (
-                <p className="text-xs text-zinc-500 py-6 text-center">No active projects currently in flight.</p>
+                <p className="text-xs text-muted py-6 text-center">No active projects currently in flight.</p>
               ) : (
                 activeProjects.map((p: any) => (
-                  <div key={p.id} className="p-3 rounded-xl bg-zinc-50 border border-zinc-200/80 hover:border-zinc-300 transition-all">
+                  <div key={p.id} className="p-3 rounded-xl bg-surface-2/60 border border-line hover:border-purple-200 transition-all">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-zinc-950 truncate max-w-[150px]">{p.title}</span>
-                      <span className="font-mono text-[10px] text-zinc-500">{p.progress}%</span>
+                      <span className="font-bold text-ink truncate max-w-[150px]">{p.title}</span>
+                      <span className="font-mono text-[10px] text-muted">{p.progress}%</span>
                     </div>
-                    <div className="mt-2 h-1.5 w-full rounded-full bg-zinc-200 overflow-hidden">
-                      <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${p.progress}%` }} />
+                    <div className="mt-2 h-1.5 w-full rounded-full bg-surface-3 overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#7B2BF9] to-[#0091FF] rounded-full" style={{ width: `${p.progress}%` }} />
                     </div>
                   </div>
                 ))
@@ -282,9 +286,9 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs">
-            <span className="text-zinc-500 font-mono text-[11px]">4 Sprints Delivering</span>
-            <Link href="/projects" className="font-semibold text-zinc-950 hover:underline">
+          <div className="mt-6 pt-4 border-t border-line flex items-center justify-between text-xs">
+            <span className="text-muted font-mono text-[11px]">4 Sprints Delivering</span>
+            <Link href="/projects" className="font-semibold text-purple-700 hover:underline">
               Manage Pipeline →
             </Link>
           </div>
@@ -299,18 +303,18 @@ export default function Dashboard() {
             <Link
               key={w.label}
               href={w.href}
-              className="group rounded-2xl border border-zinc-200/90 bg-white p-4 shadow-2xs hover:border-zinc-400 hover:shadow-sm transition-all"
+              className="group rounded-2xl border border-line bg-white p-4 shadow-card hover:border-purple-300 hover:shadow-pop transition-all"
             >
               <div className="flex items-center justify-between">
-                <span className="h-8 w-8 rounded-lg bg-zinc-50 border border-zinc-200/90 flex items-center justify-center text-zinc-900 group-hover:bg-zinc-100 transition-colors">
+                <span className={`h-8 w-8 rounded-xl border flex items-center justify-center transition-all ${w.iconBg} group-hover:scale-105 shadow-2xs`}>
                   <Icon className="h-4 w-4" />
                 </span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-zinc-400 group-hover:text-zinc-950 transition-colors" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-muted group-hover:text-purple-600 transition-colors" />
               </div>
-              <h3 className="mt-3 text-xs sm:text-sm font-bold text-zinc-950 group-hover:text-black transition-colors truncate">
+              <h3 className="mt-3 text-xs sm:text-sm font-bold text-ink group-hover:text-purple-950 transition-colors truncate font-display">
                 {w.label}
               </h3>
-              <p className="mt-0.5 text-[11px] font-mono text-zinc-500 font-medium">
+              <p className="mt-0.5 text-[11px] font-mono text-muted font-medium">
                 {w.count}
               </p>
             </Link>
@@ -321,31 +325,31 @@ export default function Dashboard() {
       {/* Recent Client Inquiries & Invoices Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Inquiries */}
-        <div className="rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-2xs">
-          <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
+        <div className="rounded-2xl border border-line bg-white p-6 shadow-card">
+          <div className="flex items-center justify-between pb-4 border-b border-line">
             <div>
-              <h2 className="text-base font-bold text-zinc-950 font-display">Recent Client Inquiries</h2>
-              <p className="text-xs text-zinc-500">Live prospect submissions from public website</p>
+              <h2 className="text-base font-bold text-ink font-display">Recent Client Inquiries</h2>
+              <p className="text-xs text-muted">Live prospect submissions from public website</p>
             </div>
-            <Link href="/inquiries" className="text-xs font-semibold text-zinc-950 hover:underline inline-flex items-center gap-1">
+            <Link href="/inquiries" className="text-xs font-semibold text-purple-700 hover:underline inline-flex items-center gap-1">
               View All <ArrowUpRight className="h-3 w-3" />
             </Link>
           </div>
 
-          <div className="mt-4 divide-y divide-zinc-100">
+          <div className="mt-4 divide-y divide-line">
             {recentInquiries.length === 0 ? (
-              <p className="text-xs text-zinc-500 py-6 text-center">No client inquiries received yet.</p>
+              <p className="text-xs text-muted py-6 text-center">No client inquiries received yet.</p>
             ) : (
               recentInquiries.map((inq: any) => (
                 <div key={inq.id} className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-xs text-zinc-950 truncate">{inq.name}</span>
-                      <span className="text-[10px] font-mono text-zinc-400">({inq.company || "Direct"})</span>
+                      <span className="font-bold text-xs text-ink truncate">{inq.name}</span>
+                      <span className="text-[10px] font-mono text-muted">({inq.company || "Direct"})</span>
                     </div>
-                    <p className="text-xs text-zinc-500 truncate mt-0.5">{inq.message || inq.subject}</p>
+                    <p className="text-xs text-muted truncate mt-0.5">{inq.message || inq.subject}</p>
                   </div>
-                  <Badge tone={inq.status === "NEW" ? "copper" : "neutral"} className="shrink-0 text-[10px]">
+                  <Badge tone={inq.status === "NEW" ? "purple" : "neutral"} className="shrink-0 text-[10px]" dot={inq.status === "NEW"}>
                     {inq.status || "NEW"}
                   </Badge>
                 </div>
@@ -355,31 +359,31 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Billing Statements */}
-        <div className="rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-2xs">
-          <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
+        <div className="rounded-2xl border border-line bg-white p-6 shadow-card">
+          <div className="flex items-center justify-between pb-4 border-b border-line">
             <div>
-              <h2 className="text-base font-bold text-zinc-950 font-display">Recent Billing & Invoices</h2>
-              <p className="text-xs text-zinc-500">Live payment settlements</p>
+              <h2 className="text-base font-bold text-ink font-display">Recent Billing & Invoices</h2>
+              <p className="text-xs text-muted">Live payment settlements</p>
             </div>
-            <Link href="/invoices" className="text-xs font-semibold text-zinc-950 hover:underline inline-flex items-center gap-1">
+            <Link href="/invoices" className="text-xs font-semibold text-purple-700 hover:underline inline-flex items-center gap-1">
               Invoices <ArrowUpRight className="h-3 w-3" />
             </Link>
           </div>
 
-          <div className="mt-4 divide-y divide-zinc-100">
+          <div className="mt-4 divide-y divide-line">
             {recentInvoices.length === 0 ? (
-              <p className="text-xs text-zinc-500 py-6 text-center">No invoices recorded yet.</p>
+              <p className="text-xs text-muted py-6 text-center">No invoices recorded yet.</p>
             ) : (
               recentInvoices.map((inv: any) => (
                 <div key={inv.id} className="py-3 flex items-center justify-between gap-3 first:pt-0 last:pb-0">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-xs text-zinc-950">{inv.number || `INV-${inv.id}`}</span>
-                      <span className="text-xs text-zinc-500 truncate">{inv.client?.name || inv.clientName || "Enterprise"}</span>
+                      <span className="font-mono font-bold text-xs text-ink">{inv.number || `INV-${inv.id}`}</span>
+                      <span className="text-xs text-muted truncate">{inv.client?.name || inv.clientName || "Enterprise"}</span>
                     </div>
-                    <span className="text-[11px] font-mono text-zinc-400 mt-0.5 block">${Number(inv.total || 0).toLocaleString()}</span>
+                    <span className="text-[11px] font-mono text-muted mt-0.5 block">${Number(inv.total || 0).toLocaleString()}</span>
                   </div>
-                  <Badge tone={inv.status === "PAID" ? "success" : inv.status === "SENT" ? "warn" : "neutral"} className="shrink-0 text-[10px]">
+                  <Badge tone={inv.status === "PAID" ? "success" : inv.status === "SENT" ? "warn" : "neutral"} className="shrink-0 text-[10px]" dot={inv.status === "PAID" || inv.status === "SENT"}>
                     {inv.status}
                   </Badge>
                 </div>

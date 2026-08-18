@@ -65,17 +65,17 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
 
       <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-surface shadow-2xl border border-line animate-fade-up">
         <div className="flex items-center border-b border-line px-4 bg-surface-2/60">
-          <Search className="h-[18px] w-[18px] text-copper shrink-0" />
+          <Search className="h-[18px] w-[18px] text-purple-600 shrink-0" />
           <input
             ref={inputRef}
-            className="flex h-16 w-full bg-transparent px-4 text-[16px] border-none text-ink placeholder:text-muted font-sans"
+            className="flex h-14 w-full bg-transparent px-3 text-[15px] border-none text-ink placeholder:text-muted font-sans"
             style={{ outline: "none", boxShadow: "none" }}
-            placeholder="Search pages, clients, invoices, settings..."
+            placeholder="Search spaces, clients, invoices, settings..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
           />
-          <span className="hidden sm:inline-flex h-6 items-center rounded border border-line bg-surface-2 px-2 text-[10px] font-bold text-faint shadow-xs font-mono">
+          <span className="hidden sm:inline-flex h-6 items-center rounded-lg border border-line bg-white px-2 text-[10px] font-bold text-faint shadow-2xs font-mono">
             ESC
           </span>
         </div>
@@ -89,15 +89,15 @@ export function CommandPalette({ open, setOpen }: { open: boolean; setOpen: (v: 
                   <button
                     key={i}
                     onClick={() => handleNavigate(item.href)}
-                    className="flex w-full items-center gap-3.5 rounded-xl px-4 py-3 text-left transition-all hover:bg-surface-2 group focus:bg-surface-2 focus:outline-none cursor-pointer"
+                    className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all hover:bg-purple-50/70 group focus:bg-purple-50/70 focus:outline-none cursor-pointer"
                   >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-2 group-hover:bg-copper/15 transition-colors border border-line group-hover:border-copper/40">
-                      <Icon className="h-4 w-4 text-faint group-hover:text-copper transition-colors" />
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-2 group-hover:bg-gradient-to-tr group-hover:from-[#7B2BF9] group-hover:to-[#5E3BEE] group-hover:text-white transition-colors border border-line">
+                      <Icon className="h-4 w-4 text-purple-600 group-hover:text-white transition-colors" />
                     </div>
-                    <span className="flex-1 text-[14px] font-medium text-ink-2 group-hover:text-ink transition-colors">
+                    <span className="flex-1 text-[13.5px] font-medium text-ink-2 group-hover:text-purple-950 transition-colors">
                       {item.label}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-faint opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-copper" />
+                    <ArrowRight className="h-4 w-4 text-faint opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-purple-600" />
                   </button>
                 );
               })}

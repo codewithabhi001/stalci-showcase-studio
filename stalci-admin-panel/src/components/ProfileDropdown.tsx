@@ -36,31 +36,31 @@ export function ProfileDropdown() {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2.5 rounded-xl p-1.5 hover:bg-surface-2 transition-colors group cursor-pointer border border-transparent hover:border-line"
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-copper/15 border border-copper/30 text-[12px] font-bold text-copper-deep group-hover:border-copper transition-colors shadow-xs">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-[#7B2BF9] to-[#0091FF] text-[12px] font-bold text-white shadow-2xs font-display">
           {isLoading ? "?" : (profile?.name || "A").charAt(0).toUpperCase()}
         </span>
         <div className="hidden sm:flex flex-col items-start truncate max-w-[120px]">
-          <span className="text-[12.5px] font-semibold text-ink group-hover:text-copper transition-colors truncate w-full text-left">
+          <span className="text-[12.5px] font-semibold text-ink group-hover:text-purple-700 transition-colors truncate w-full text-left font-display">
             {isLoading ? "Loading..." : (profile?.name || "Admin")}
           </span>
-          <span className="text-[10px] text-muted truncate w-full text-left font-mono">
+          <span className="text-[9.5px] text-muted truncate w-full text-left font-mono font-semibold">
             {isLoading ? "..." : (profile?.role || "SUPER_ADMIN")}
           </span>
         </div>
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-2 w-56 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl z-50 animate-fade-up origin-top-right">
-          <div className="px-4 py-3 border-b border-line bg-surface-2/80">
+        <div className="absolute top-full right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-line bg-surface shadow-pop z-50 animate-fade-up origin-top-right">
+          <div className="px-4 py-3 border-b border-line bg-surface-2/60">
             <p className="text-[13px] font-bold text-ink truncate font-display">{profile?.name || "Admin User"}</p>
             <p className="text-[11px] text-muted truncate font-mono">{profile?.email || "admin@stalci.com"}</p>
           </div>
           
           <div className="p-1.5 space-y-0.5">
-            <Link href="/profile" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink">
+            <Link href="/profile" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-[12.5px] text-ink-2 transition-colors hover:bg-purple-50/70 hover:text-purple-950">
               <User className="h-4 w-4 text-faint" /> Profile
             </Link>
-            <Link href="/settings" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-[13px] text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink">
+            <Link href="/settings" onClick={() => setOpen(false)} className="flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-[12.5px] text-ink-2 transition-colors hover:bg-purple-50/70 hover:text-purple-950">
               <Settings className="h-4 w-4 text-faint" /> Settings
             </Link>
           </div>

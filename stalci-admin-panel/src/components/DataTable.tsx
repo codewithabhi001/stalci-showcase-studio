@@ -311,26 +311,26 @@ export default function DataTable({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse text-left">
               <thead>
-                <tr className="border-b border-zinc-200 bg-zinc-50/70">
+                <tr className="border-b border-line bg-surface-2/60">
                   {columns.map((c) => (
                     <th key={c.key} className="px-5 py-3">
                       <button
                         onClick={() => toggleSort(c.key)}
-                        className="eyebrow inline-flex items-center gap-1.5 hover:text-zinc-950 transition-colors cursor-pointer text-[10px]"
+                        className="eyebrow inline-flex items-center gap-1.5 hover:text-purple-700 transition-colors cursor-pointer text-[10px]"
                       >
                         {c.label}
-                        <ArrowUpDown className={`h-3 w-3 ${sortKey === c.key ? "text-indigo-600" : "opacity-30"}`} />
+                        <ArrowUpDown className={`h-3 w-3 ${sortKey === c.key ? "text-purple-600" : "opacity-30"}`} />
                       </button>
                     </th>
                   ))}
                   <th className="eyebrow px-5 py-3 text-right text-[10px]">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-100">
+              <tbody className="divide-y divide-line">
                 {paged.map((item: any) => (
-                  <tr key={item.id} className="group transition-colors hover:bg-zinc-50/70">
+                  <tr key={item.id} className="group transition-colors hover:bg-purple-50/30">
                     {columns.map((c) => (
-                      <td key={c.key} className="max-w-[320px] truncate px-5 py-3.5 text-xs text-zinc-800 font-medium font-sans">
+                      <td key={c.key} className="max-w-[320px] truncate px-5 py-3.5 text-xs text-ink-2 font-medium font-sans">
                         {c.render ? c.render(item[c.key], item) : String(item[c.key] ?? "—")}
                       </td>
                     ))}
@@ -354,8 +354,8 @@ export default function DataTable({
         )}
 
         {!isLoading && filtered.length > 0 && (
-          <div className="flex items-center justify-between border-t border-zinc-200/80 px-5 py-3 bg-zinc-50/40">
-            <p className="text-xs text-zinc-500 font-mono">
+          <div className="flex items-center justify-between border-t border-line px-5 py-3 bg-surface-2/40">
+            <p className="text-xs text-muted font-mono">
               Page {currentPage} of {totalPages}
             </p>
             <div className="flex items-center gap-2">

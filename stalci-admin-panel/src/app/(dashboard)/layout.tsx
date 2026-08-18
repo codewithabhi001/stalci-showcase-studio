@@ -40,57 +40,57 @@ import {
 
 const navSections = [
   {
-    title: "Overview",
-    links: [{ href: "/", label: "Studio Dashboard", icon: LayoutDashboard }],
+    title: "Spaces & Overview",
+    links: [{ href: "/", label: "Studio Dashboard", icon: LayoutDashboard, color: "text-[#7B2BF9]" }],
   },
   {
     title: "People & HR Operations",
     links: [
-      { href: "/hr/dashboard", label: "HR Command Center", icon: LayoutDashboard },
-      { href: "/hr/employees", label: "Workforce Directory", icon: Users },
-      { href: "/hr/recruitment", label: "Hiring & Candidates", icon: Briefcase },
-      { href: "/hr/offers", label: "Offer Letters", icon: FileText },
-      { href: "/hr/onboarding", label: "Onboarding Tracker", icon: Award },
-      { href: "/hr/attendance-leave", label: "Attendance & Leaves", icon: Clock },
-      { href: "/hr/payroll", label: "Payroll & Payslips", icon: Receipt },
-      { href: "/hr/internships", label: "Internships", icon: GraduationCap },
-      { href: "/hr/performance-training", label: "Performance & Training", icon: TrendingUp },
-      { href: "/hr/assets", label: "Assets Inventory", icon: Laptop },
-      { href: "/hr/letters", label: "HR Letter Templates", icon: FileCode },
-      { href: "/hr/exits", label: "Exits & F&F Settlement", icon: LogOut },
-      { href: "/hr/rbac", label: "Roles & Permissions", icon: ShieldCheck },
+      { href: "/hr/dashboard", label: "HR Command Center", icon: LayoutDashboard, color: "text-[#7B2BF9]" },
+      { href: "/hr/employees", label: "Workforce Directory", icon: Users, color: "text-[#0091FF]" },
+      { href: "/hr/recruitment", label: "Hiring & Candidates", icon: Briefcase, color: "text-[#6366F1]" },
+      { href: "/hr/offers", label: "Offer Letters", icon: FileText, color: "text-[#06B6D4]" },
+      { href: "/hr/onboarding", label: "Onboarding Tracker", icon: Award, color: "text-[#0D9488]" },
+      { href: "/hr/attendance-leave", label: "Attendance & Leaves", icon: Clock, color: "text-[#F59E0B]" },
+      { href: "/hr/payroll", label: "Payroll & Payslips", icon: Receipt, color: "text-[#10B981]" },
+      { href: "/hr/internships", label: "Internships", icon: GraduationCap, color: "text-[#F43F5E]" },
+      { href: "/hr/performance-training", label: "Performance & Training", icon: TrendingUp, color: "text-[#8B5CF6]" },
+      { href: "/hr/assets", label: "Assets Inventory", icon: Laptop, color: "text-[#0284C7]" },
+      { href: "/hr/letters", label: "HR Letter Templates", icon: FileCode, color: "text-[#64748B]" },
+      { href: "/hr/exits", label: "Exits & F&F Settlement", icon: LogOut, color: "text-[#EA580C]" },
+      { href: "/hr/rbac", label: "Roles & Permissions", icon: ShieldCheck, color: "text-[#EC4899]" },
     ],
   },
   {
     title: "Business & CRM",
     links: [
-      { href: "/clients", label: "Clients Directory", icon: Users },
-      { href: "/projects", label: "Projects Pipeline", icon: FolderKanban },
-      { href: "/inquiries", label: "Client Inquiries", icon: MessageSquare },
-      { href: "/jobs", label: "Job Postings", icon: Briefcase },
-      { href: "/feedback", label: "Client Feedback", icon: Star },
+      { href: "/clients", label: "Clients Directory", icon: Users, color: "text-[#2563EB]" },
+      { href: "/projects", label: "Projects Pipeline", icon: FolderKanban, color: "text-[#7C3AED]" },
+      { href: "/inquiries", label: "Client Inquiries", icon: MessageSquare, color: "text-[#059669]" },
+      { href: "/jobs", label: "Job Postings", icon: Briefcase, color: "text-[#4F46E5]" },
+      { href: "/feedback", label: "Client Feedback", icon: Star, color: "text-[#D97706]" },
     ],
   },
   {
     title: "Billing & Invoices",
     links: [
-      { href: "/invoices", label: "Invoices & Billing", icon: Receipt },
-      { href: "/invoice-templates", label: "Invoice Templates", icon: FileCode },
+      { href: "/invoices", label: "Invoices & Billing", icon: Receipt, color: "text-[#10B981]" },
+      { href: "/invoice-templates", label: "Invoice Templates", icon: FileCode, color: "text-[#7B2BF9]" },
     ],
   },
   {
     title: "Portfolio CMS",
     links: [
-      { href: "/services", label: "Services CMS", icon: Boxes },
-      { href: "/technologies", label: "Tech Stack & Skills", icon: Code2 },
-      { href: "/testimonials", label: "Testimonials", icon: Quote },
-      { href: "/blogs", label: "Blogs & Articles", icon: Newspaper },
-      { href: "/pages", label: "Site Pages", icon: FileText },
+      { href: "/services", label: "Services CMS", icon: Boxes, color: "text-[#9333EA]" },
+      { href: "/technologies", label: "Tech Stack & Skills", icon: Code2, color: "text-[#0891B2]" },
+      { href: "/testimonials", label: "Testimonials", icon: Quote, color: "text-[#D97706]" },
+      { href: "/blogs", label: "Blogs & Articles", icon: Newspaper, color: "text-[#3B82F6]" },
+      { href: "/pages", label: "Site Pages", icon: FileText, color: "text-[#0D9488]" },
     ],
   },
   {
     title: "System",
-    links: [{ href: "/settings", label: "Site Configuration", icon: Settings }],
+    links: [{ href: "/settings", label: "Site Configuration", icon: Settings, color: "text-[#64748B]" }],
   },
 ];
 
@@ -99,73 +99,88 @@ const allLinks = navSections.flatMap((s) => s.links);
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
+  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const pathname = usePathname();
+  const sidebarNavRef = useRef<HTMLElement>(null);
   const { canAccessRoute } = useRbac();
-  const sidebarNavRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      clearAuthSession();
-      window.location.href = "/login";
-    } else {
-      document.cookie = "stalci_admin=authenticated; path=/; max-age=604800; SameSite=Lax";
-      setAuthChecked(true);
-    }
-  }, [pathname]);
 
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
+  // Handle client-side instant auth check
   useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setCommandOpen((open) => !open);
+    if (typeof window !== "undefined") {
+      if (!isAuthenticated()) {
+        clearAuthSession();
+        window.location.replace("/login");
+      } else {
+        setAuthenticated(true);
       }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    }
   }, []);
 
-  const current = allLinks.find((l) => l.href === pathname);
+  // Keyboard shortcut for Command Palette (⌘K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setCommandOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
-  const handleSignOut = async () => {
-    await handleLogout();
-  };
+  // Native smooth wheel listener for sidebar scrolling
+  useEffect(() => {
+    const navEl = sidebarNavRef.current;
+    if (!navEl) return;
 
-  if (!authChecked) {
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+      navEl.scrollTop += e.deltaY;
+    };
+
+    navEl.addEventListener("wheel", handleWheel, { passive: true });
+    return () => navEl.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  if (authenticated === null) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAFAFC] font-sans">
+      <div className="flex h-screen w-screen items-center justify-center bg-[#FAFAFC]">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin" />
-          <span className="text-xs font-semibold text-zinc-500 font-mono tracking-wide">
-            Verifying security session...
-          </span>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-purple-600 border-t-transparent" />
+          <p className="text-xs font-medium text-zinc-500 font-mono tracking-wide">Validating session...</p>
         </div>
       </div>
     );
   }
 
+  const current = allLinks.find((l) => l.href === pathname);
+
+  const handleSignOut = () => {
+    handleLogout();
+  };
+
   const Sidebar = (
-    <div className="flex h-screen max-h-screen flex-col bg-white text-zinc-950 border-r border-zinc-200/90 select-none overflow-hidden">
+    <div className="flex h-screen max-h-screen flex-col bg-white text-zinc-950 border-r border-zinc-200 select-none overflow-hidden">
       {/* Top Brand Header */}
-      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-zinc-200/80 bg-white">
+      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-zinc-200 bg-white">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="h-8.5 w-8.5 rounded-xl bg-indigo-600 text-white flex items-center justify-center p-1.5 shadow-xs group-hover:bg-indigo-700 transition-colors">
-            <span className="font-display font-extrabold text-sm tracking-tight text-white">S</span>
+          <div className="h-8.5 w-8.5 rounded-xl bg-gradient-to-tr from-[#7B2BF9] via-[#5E3BEE] to-[#0091FF] text-white flex items-center justify-center p-1.5 shadow-sm ring-2 ring-purple-100 group-hover:scale-105 transition-transform">
+            <span className="font-display font-black text-sm tracking-tight text-white">S</span>
           </div>
           <div>
             <span className="text-[13px] font-bold tracking-tight text-zinc-950 block leading-tight font-display">
               STALCI STUDIO
             </span>
-            <span className="text-[9px] text-indigo-600 tracking-wider uppercase font-mono font-bold">
-              Admin OS v3.0
+            <span className="text-[9px] text-zinc-500 tracking-wider uppercase font-mono font-bold">
+              Workspace OS
             </span>
           </div>
         </Link>
-        <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[9.5px] font-bold text-indigo-700 border border-indigo-200 font-mono">
+        <span className="rounded-full bg-purple-50 px-2 py-0.5 text-[9.5px] font-bold text-purple-700 border border-purple-200 font-mono">
           PRO
         </span>
       </div>
@@ -174,10 +189,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="px-3 pt-3 pb-2 shrink-0 bg-white">
         <button
           onClick={() => setCommandOpen(true)}
-          className="flex w-full items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/70 px-3 py-1.5 text-[11.5px] text-zinc-500 transition-all hover:border-zinc-400 hover:text-zinc-950 hover:bg-white shadow-2xs cursor-pointer group"
+          className="flex w-full items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/70 px-3 py-1.5 text-[11.5px] text-zinc-500 transition-all hover:border-purple-300 hover:text-purple-950 hover:bg-purple-50/40 shadow-2xs cursor-pointer group"
         >
           <span className="flex items-center gap-2">
-            <Search className="h-3.5 w-3.5 text-zinc-400 group-hover:text-indigo-600 transition-colors" />
+            <Search className="h-3.5 w-3.5 text-purple-500 group-hover:text-purple-700 transition-colors" />
             Quick jump...
           </span>
           <kbd className="rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 font-semibold">
@@ -189,11 +204,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Navigation Links List */}
       <nav
         ref={sidebarNavRef as any}
-        onWheel={(e) => {
-          if (e.currentTarget) {
-            e.currentTarget.scrollTop += e.deltaY;
-          }
-        }}
         className="flex-1 min-h-0 h-[calc(100vh-140px)] overflow-y-scroll overflow-x-hidden scrollable-y px-2.5 py-2 space-y-4 overscroll-contain pb-16 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-zinc-200 [&::-webkit-scrollbar-thumb]:rounded-full"
       >
         {navSections.map((sec) => {
@@ -202,7 +212,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           return (
             <div key={sec.title} className="space-y-1">
-              <p className="px-2.5 text-[9.5px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <p className="px-2.5 text-[9.5px] font-mono font-bold uppercase tracking-wider text-zinc-400/80 mb-1.5">
                 {sec.title}
               </p>
               <div className="space-y-0.5">
@@ -215,15 +225,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       href={link.href}
                       className={`flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[12px] transition-all duration-150 ${
                         active
-                          ? "bg-zinc-100 text-zinc-950 font-bold border border-zinc-200/90 shadow-2xs"
-                          : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-950 font-medium border border-transparent"
+                          ? "bg-purple-50/90 text-purple-950 font-bold border border-purple-200/80 shadow-2xs"
+                          : "text-zinc-600 hover:bg-purple-50/50 hover:text-purple-950 font-medium border border-transparent"
                       }`}
                     >
                       <div className="flex items-center gap-2.5 truncate">
-                        <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-indigo-600" : "text-zinc-400"}`} />
+                        <Icon className={`h-3.5 w-3.5 shrink-0 ${active ? "text-purple-600" : (link.color || "text-zinc-400")}`} />
                         <span className="truncate">{link.label}</span>
                       </div>
-                      {active && <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />}
+                      {active && <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#7B2BF9] to-[#FA12E3]" />}
                     </Link>
                   );
                 })}
@@ -234,15 +244,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </nav>
 
       {/* Bottom Pinned Footer */}
-      <div className="p-3 shrink-0 border-t border-zinc-200/80 bg-white space-y-1.5">
+      <div className="p-3 shrink-0 border-t border-zinc-200 bg-white space-y-1.5">
         <a
           href="http://localhost:8080"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-zinc-800 hover:bg-zinc-50 hover:text-zinc-950 transition-colors border border-zinc-200 shadow-2xs"
+          className="flex items-center justify-between rounded-xl px-2.5 py-1.5 text-[11.5px] font-semibold text-zinc-800 hover:bg-purple-50/60 hover:text-purple-950 transition-colors border border-zinc-200 shadow-2xs"
         >
           <span className="flex items-center gap-2">
-            <ExternalLink className="h-3.5 w-3.5 text-zinc-500" />
+            <ExternalLink className="h-3.5 w-3.5 text-purple-600" />
             Live Portfolio
           </span>
           <span className="text-[9.5px] font-mono font-bold text-zinc-700 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200">
@@ -262,7 +272,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   );
 
   return (
-    <div className="min-h-screen bg-[#FAFAFC] text-zinc-950 relative selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-[#FAFAFC] text-zinc-950 relative selection:bg-zinc-200 selection:text-zinc-900">
       {/* Desktop sidebar */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:block lg:w-64">
         {Sidebar}

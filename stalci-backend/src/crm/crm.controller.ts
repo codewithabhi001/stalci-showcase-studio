@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { CrmService } from './crm.service';
+import { Public } from '../auth/auth.guard';
 
 @Controller('crm')
 export class CrmController {
@@ -32,6 +33,7 @@ export class CrmController {
   }
 
   // --- Jobs ---
+  @Public()
   @Get('jobs')
   getJobs() {
     return this.crmService.getJobs();
@@ -68,6 +70,7 @@ export class CrmController {
     return this.crmService.getAllApplications();
   }
 
+  @Public()
   @Post('applications')
   createApplication(@Body() data: any) {
     return this.crmService.createApplication(data);
@@ -89,6 +92,7 @@ export class CrmController {
     return this.crmService.getInquiries();
   }
 
+  @Public()
   @Post('inquiries')
   createInquiry(@Body() data: any) {
     return this.crmService.createInquiry(data);
@@ -110,6 +114,7 @@ export class CrmController {
     return this.crmService.getFeedbacks();
   }
 
+  @Public()
   @Post('feedback')
   createFeedback(@Body() data: any) {
     return this.crmService.createFeedback(data);

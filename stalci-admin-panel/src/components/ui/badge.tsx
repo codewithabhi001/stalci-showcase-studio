@@ -1,26 +1,30 @@
 "use client";
 import React from "react";
 
-type Tone = "neutral" | "success" | "warning" | "warn" | "danger" | "info" | "copper";
+type Tone = "neutral" | "success" | "warning" | "warn" | "danger" | "info" | "copper" | "purple" | "cyan";
 
 const tones: Record<Tone, string> = {
-  neutral: "bg-zinc-100 text-zinc-800 border-zinc-200 shadow-2xs",
-  success: "bg-emerald-50 text-emerald-700 border-emerald-200 shadow-2xs",
-  warning: "bg-amber-50 text-amber-800 border-amber-200 shadow-2xs",
-  warn: "bg-amber-50 text-amber-800 border-amber-200 shadow-2xs",
-  danger: "bg-red-50 text-red-700 border-red-200 shadow-2xs",
-  info: "bg-blue-50 text-blue-700 border-blue-200 shadow-2xs",
-  copper: "bg-indigo-50 text-indigo-700 border-indigo-200 shadow-2xs",
+  neutral: "bg-zinc-100 text-zinc-800 border-zinc-200/80 shadow-2xs",
+  success: "bg-emerald-50 text-emerald-700 border-emerald-200/90 shadow-2xs",
+  warning: "bg-amber-50 text-amber-800 border-amber-200/90 shadow-2xs",
+  warn: "bg-amber-50 text-amber-800 border-amber-200/90 shadow-2xs",
+  danger: "bg-rose-50 text-rose-700 border-rose-200/90 shadow-2xs",
+  info: "bg-sky-50 text-sky-700 border-sky-200/90 shadow-2xs",
+  copper: "bg-purple-50 text-purple-700 border-purple-200/90 shadow-2xs",
+  purple: "bg-purple-50 text-purple-700 border-purple-200/90 shadow-2xs",
+  cyan: "bg-cyan-50 text-cyan-700 border-cyan-200/90 shadow-2xs",
 };
 
 const dots: Record<Tone, string> = {
   neutral: "bg-zinc-400",
-  success: "bg-emerald-600 animate-pulse",
-  warning: "bg-amber-600",
-  warn: "bg-amber-600",
-  danger: "bg-red-600 animate-pulse",
-  info: "bg-blue-600",
-  copper: "bg-indigo-600 animate-pulse",
+  success: "bg-emerald-500 animate-pulse",
+  warning: "bg-amber-500",
+  warn: "bg-amber-500",
+  danger: "bg-rose-500 animate-pulse",
+  info: "bg-sky-500",
+  copper: "bg-purple-500 animate-pulse",
+  purple: "bg-purple-500 animate-pulse",
+  cyan: "bg-cyan-500 animate-pulse",
 };
 
 export function Badge({

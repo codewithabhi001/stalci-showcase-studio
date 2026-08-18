@@ -6,50 +6,54 @@
 */
 
 @theme inline {
-  /* Sovereign Indigo / Blue Brand Accent Palette */
-  --color-copper: #4F46E5;
-  --color-copper-soft: #6366F1;
-  --color-copper-deep: #4338CA;
-  --color-copper-wash: rgba(79, 70, 229, 0.08);
+  /* ClickUp Signature Palette */
+  --color-clickup-purple: #7B2BF9;
+  --color-clickup-indigo: #5E3BEE;
+  --color-clickup-cyan: #0091FF;
+  --color-clickup-magenta: #FA12E3;
+  --color-clickup-orange: #F76808;
 
-  /* Sovereign Pure Light Neutral Surfaces */
-  --color-canvas: #FAFAFC;
+  /* ClickUp Workspace Neutral Surfaces */
+  --color-canvas: #F8F9FC;
   --color-surface: #FFFFFF;
-  --color-surface-2: #F4F4F5;
-  --color-surface-3: #E4E4E7;
-  --color-line: rgba(0, 0, 0, 0.08);
-  --color-line-strong: rgba(0, 0, 0, 0.14);
+  --color-surface-2: #F1F3F9;
+  --color-surface-3: #E4E7F0;
+  --color-line: rgba(0, 0, 0, 0.07);
+  --color-line-strong: rgba(0, 0, 0, 0.12);
   
-  /* Text & Typographic Hierarchy (Pure Neutral Zinc) */
-  --color-ink: #09090B;
-  --color-ink-2: #27272A;
-  --color-muted: #52525B;
-  --color-faint: #A1A1AA;
+  /* Text & Typographic Hierarchy */
+  --color-ink: #181829;
+  --color-ink-2: #2E2E3F;
+  --color-muted: #64748B;
+  --color-faint: #94A3B8;
 
   /* Semantic Feedback Colors */
   --color-success: #10B981;
-  --color-success-wash: rgba(16, 185, 129, 0.10);
+  --color-success-wash: rgba(16, 185, 129, 0.12);
   --color-warn: #F59E0B;
-  --color-warn-wash: rgba(245, 158, 11, 0.10);
+  --color-warn-wash: rgba(245, 158, 11, 0.12);
   --color-danger: #EF4444;
-  --color-danger-wash: rgba(239, 68, 68, 0.10);
-  --color-info: #3B82F6;
-  --color-info-wash: rgba(59, 130, 246, 0.10);
+  --color-danger-wash: rgba(239, 68, 68, 0.12);
+  --color-info: #0091FF;
+  --color-info-wash: rgba(0, 145, 255, 0.12);
 
   /* Typography */
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Sora', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
   --radius: 0.875rem;
-  --gradient-copper: linear-gradient(135deg, #4338CA 0%, #4F46E5 50%, #6366F1 100%);
-  --gradient-ink: linear-gradient(180deg, #FFFFFF 0%, #FAFAFC 100%);
+  --gradient-clickup: linear-gradient(135deg, #7B2BF9 0%, #5E3BEE 50%, #0091FF 100%);
+  --gradient-clickup-cta: linear-gradient(135deg, #7B2BF9 0%, #6835F1 50%, #5E3BEE 100%);
+  --gradient-warm: linear-gradient(135deg, #FA12E3 0%, #F76808 100%);
+  --gradient-ai: linear-gradient(135deg, #FA12E3 0%, #7B2BF9 100%);
+  --gradient-surface: linear-gradient(180deg, #FFFFFF 0%, #F8F9FC 100%);
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.06);
-  --shadow-pop: 0 12px 32px -4px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  --shadow-modal: 0 24px 64px -12px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.10);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-pop: 0 14px 36px -4px rgba(24, 24, 41, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 24px 64px -12px rgba(24, 24, 41, 0.20), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -65,26 +69,36 @@ html {
 body {
   min-height: 100%;
   height: 100%;
-  background-color: #FAFAFC;
-  color: #09090B;
+  background-color: #F8F9FC;
+  color: #181829;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 /* Explicit Light Mode High-Contrast Utility Classes */
-.text-ink { color: #09090B !important; }
-.text-ink-2 { color: #27272A !important; }
-.text-muted { color: #52525B !important; }
-.text-faint { color: #A1A1AA !important; }
-.text-copper { color: #4F46E5 !important; }
-.text-copper-deep { color: #4338CA !important; }
-.text-copper-soft { color: #6366F1 !important; }
+.text-ink { color: #181829 !important; }
+.text-ink-2 { color: #2E2E3F !important; }
+.text-muted { color: #64748B !important; }
+.text-faint { color: #94A3B8 !important; }
 
-.bg-canvas { background-color: #FAFAFC !important; }
+.bg-canvas { background-color: #F8F9FC !important; }
 .bg-surface { background-color: #FFFFFF !important; }
-.bg-surface-2 { background-color: #F4F4F5 !important; }
-.bg-surface-3 { background-color: #E4E4E7 !important; }
+.bg-surface-2 { background-color: #F1F3F9 !important; }
+.bg-surface-3 { background-color: #E4E7F0 !important; }
+
+/* ClickUp Gradient Classes */
+.bg-gradient-clickup {
+  background: linear-gradient(135deg, #7B2BF9 0%, #5E3BEE 50%, #0091FF 100%) !important;
+}
+.text-gradient-clickup {
+  background: linear-gradient(135deg, #7B2BF9 0%, #5E3BEE 50%, #0091FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.bg-gradient-warm {
+  background: linear-gradient(135deg, #FA12E3 0%, #F76808 100%) !important;
+}
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -100,11 +114,11 @@ h1, h2, h3, h4 {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E4E4E7;
+  background: #E4E7F0;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A1A1AA;
+  background: #CBD5E1;
 }
 
 /* ─── Universal Interactive Form Input Primitives ─── */
@@ -118,17 +132,17 @@ h1, h2, h3, h4 {
     padding-left: 0.875rem;
     padding-right: 0.875rem;
     font-size: 0.8125rem;
-    color: #09090B;
+    color: #181829;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
     transition: all 0.15s ease-in-out;
     outline: none;
   }
   .field:hover {
-    border-color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(123, 43, 249, 0.3);
   }
   .field:focus {
-    border-color: #4F46E5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    border-color: #7B2BF9;
+    box-shadow: 0 0 0 3px rgba(123, 43, 249, 0.12);
     background-color: #FFFFFF;
   }
   .field::placeholder {

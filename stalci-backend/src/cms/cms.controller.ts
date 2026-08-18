@@ -1,16 +1,19 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { CmsService } from './cms.service';
+import { Public } from '../auth/auth.guard';
 
 @Controller('cms')
 export class CmsController {
   constructor(private readonly cmsService: CmsService) {}
 
   // --- Config ---
+  @Public()
   @Get('config')
   getSiteConfigs() {
     return this.cmsService.getSiteConfigs();
   }
 
+  @Public()
   @Get('config/map')
   getSiteConfigMap() {
     return this.cmsService.getSiteConfigMap();
@@ -22,6 +25,7 @@ export class CmsController {
   }
 
   // --- Technologies ---
+  @Public()
   @Get('technologies')
   getTechnologies(@Query('category') category?: string) {
     return this.cmsService.getTechnologies(category);
@@ -43,11 +47,13 @@ export class CmsController {
   }
 
   // --- Pages ---
+  @Public()
   @Get('pages')
   getPages() {
     return this.cmsService.getPages();
   }
 
+  @Public()
   @Get('pages/:slug')
   getPageBySlug(@Param('slug') slug: string) {
     return this.cmsService.getPageBySlug(slug);
@@ -69,11 +75,13 @@ export class CmsController {
   }
 
   // --- Blogs ---
+  @Public()
   @Get('blogs')
   getBlogs() {
     return this.cmsService.getBlogs();
   }
 
+  @Public()
   @Get('blogs/:slug')
   getBlogBySlug(@Param('slug') slug: string) {
     return this.cmsService.getBlogBySlug(slug);
@@ -95,11 +103,13 @@ export class CmsController {
   }
 
   // --- Industries ---
+  @Public()
   @Get('industries')
   getIndustries() {
     return this.cmsService.getIndustries();
   }
 
+  @Public()
   @Get('industries/:slug')
   getIndustryBySlug(@Param('slug') slug: string) {
     return this.cmsService.getIndustryBySlug(slug);
@@ -121,11 +131,13 @@ export class CmsController {
   }
 
   // --- Products ---
+  @Public()
   @Get('products')
   getProducts() {
     return this.cmsService.getProducts();
   }
 
+  @Public()
   @Get('products/:slug')
   getProductBySlug(@Param('slug') slug: string) {
     return this.cmsService.getProductBySlug(slug);
@@ -147,11 +159,13 @@ export class CmsController {
   }
 
   // --- Services ---
+  @Public()
   @Get('services')
   getServices() {
     return this.cmsService.getServices();
   }
 
+  @Public()
   @Get('services/:slug')
   getServiceBySlug(@Param('slug') slug: string) {
     return this.cmsService.getServiceBySlug(slug);
@@ -173,6 +187,7 @@ export class CmsController {
   }
 
   // --- Testimonials ---
+  @Public()
   @Get('testimonials')
   getTestimonials() {
     return this.cmsService.getTestimonials();

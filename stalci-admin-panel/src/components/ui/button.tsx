@@ -9,15 +9,15 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs font-semibold border border-indigo-700/50",
+    "text-white bg-gradient-to-r from-[#7B2BF9] via-[#6835F1] to-[#5E3BEE] hover:from-[#6D24E3] hover:to-[#4E2ED6] shadow-sm font-semibold border border-[#5E3BEE]/40 transition-all",
   secondary:
-    "text-zinc-950 bg-white border border-zinc-200/90 hover:bg-zinc-50 hover:border-zinc-400 shadow-2xs",
+    "text-zinc-900 bg-white border border-zinc-200/90 hover:bg-zinc-50 hover:border-zinc-300 shadow-2xs transition-all",
   ghost:
-    "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 transition-colors",
+    "text-zinc-600 hover:bg-purple-50/60 hover:text-purple-950 transition-colors",
   danger:
     "text-red-700 bg-red-50 border border-red-200/80 hover:bg-red-600 hover:text-white transition-colors",
   "copper-outline":
-    "text-indigo-600 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 transition-all shadow-2xs",
+    "text-purple-700 bg-purple-50/80 border border-purple-200 hover:bg-purple-100 transition-all shadow-2xs",
 };
 
 const sizes: Record<Size, string> = {
