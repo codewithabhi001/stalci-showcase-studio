@@ -173,7 +173,7 @@ export default function Dashboard() {
                   {c.sparkline.map((h, i) => (
                     <div
                       key={i}
-                      className="w-1 rounded-full bg-surface-3 group-hover:bg-zinc-950 transition-all"
+                      className="w-1.2 rounded-full bg-[#0052FF]/30 group-hover:bg-[#0052FF] transition-all"
                       style={{ height: `${h}%` }}
                     />
                   ))}
@@ -193,22 +193,22 @@ export default function Dashboard() {
               <div>
                 <h2 className="text-base font-bold text-ink font-display flex items-center gap-2">
                   Revenue & Billing Telemetry
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="h-2 w-2 rounded-full bg-[#0052FF] animate-pulse" />
                 </h2>
                 <p className="text-xs text-muted">Monthly closed billing performance</p>
               </div>
               <div className="flex items-center gap-2">
-                <Badge tone="success" dot>
+                <Badge tone="info" dot>
                   +24.8% YoY
                 </Badge>
-                <span className="text-[11px] font-mono text-muted bg-surface-2 px-2 py-1 rounded-lg border border-line">
+                <span className="text-[11px] font-mono text-muted bg-surface-2 px-2.5 py-1 rounded-lg border border-line font-bold">
                   2026 Q3
                 </span>
               </div>
             </div>
 
             <div className="mt-6">
-              <div className="flex items-end justify-between gap-2.5 h-48 pt-6 px-1">
+              <div className="flex items-end justify-between gap-2 sm:gap-3 h-52 pt-8 px-2 border-b border-line pb-2">
                 {(stats?.revenueTrend || [
                   { month: "Jan", value: 45000 },
                   { month: "Feb", value: 58000 },
@@ -220,19 +220,19 @@ export default function Dashboard() {
                   { month: "Aug", value: 57120 },
                 ]).map((item: any) => {
                   const maxValue = 150000;
-                  const heightPercent = Math.max(15, Math.round((item.value / maxValue) * 100));
+                  const heightPercent = Math.max(18, Math.round((item.value / maxValue) * 100));
                   return (
-                    <div key={item.month} className="flex-1 flex flex-col items-center gap-2 group/bar cursor-pointer">
-                      <div className="relative w-full flex items-end justify-center h-36">
-                        <span className="opacity-0 group-hover/bar:opacity-100 absolute -top-8 text-[10px] font-bold bg-ink text-white px-2 py-0.5 rounded-md shadow-md transition-all duration-200 whitespace-nowrap z-20 font-mono scale-95 group-hover/bar:scale-100">
+                    <div key={item.month} className="flex-1 flex flex-col items-center gap-2.5 group/bar cursor-pointer">
+                      <div className="relative w-full flex items-end justify-center h-40">
+                        <span className="opacity-0 group-hover/bar:opacity-100 absolute -top-8 text-[11px] font-bold bg-[#090A0F] text-white px-2.5 py-1 rounded-md shadow-md transition-all duration-150 whitespace-nowrap z-20 font-mono scale-95 group-hover/bar:scale-100 border border-zinc-700">
                           ${(item.value / 1000).toFixed(0)}k
                         </span>
                         <div
-                          className="w-full max-w-[40px] rounded-t-lg bg-surface-2 border border-line group-hover/bar:bg-zinc-950 group-hover/bar:border-transparent transition-all duration-200"
+                          className="w-full max-w-[44px] rounded-t-md bg-[#0052FF] group-hover/bar:bg-[#0045D8] shadow-xs transition-all duration-150"
                           style={{ height: `${heightPercent}%` }}
                         />
                       </div>
-                      <span className="text-[11px] font-semibold text-muted font-mono group-hover/bar:text-ink transition-colors">
+                      <span className="text-[11.5px] font-bold text-zinc-600 font-mono group-hover/bar:text-[#0052FF] transition-colors">
                         {item.month}
                       </span>
                     </div>
@@ -245,13 +245,13 @@ export default function Dashboard() {
           <div className="mt-6 pt-4 border-t border-line flex flex-wrap items-center justify-between gap-3 text-xs text-muted">
             <div className="flex items-center gap-4 font-medium">
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-md bg-zinc-950" /> Closed Revenue
+                <span className="h-2.5 w-2.5 rounded-md bg-[#0052FF]" /> Closed Revenue
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-md bg-surface-3" /> Baseline Target
+                <span className="h-2.5 w-2.5 rounded-md bg-zinc-300" /> Baseline Target
               </span>
             </div>
-            <Link href="/invoices" className="text-zinc-900 font-bold hover:underline inline-flex items-center gap-1.5 transition-all">
+            <Link href="/invoices" className="text-[#0052FF] font-bold hover:underline inline-flex items-center gap-1.5 transition-all">
               Invoicing Center <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
