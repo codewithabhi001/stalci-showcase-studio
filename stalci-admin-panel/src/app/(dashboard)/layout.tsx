@@ -37,6 +37,7 @@ import {
   Award,
   Sparkles,
 } from "lucide-react";
+import { StalciLogoIcon } from "@/components/BrandLogo";
 
 const navSections = [
   {
@@ -168,8 +169,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Top Brand Header */}
       <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-zinc-200 bg-white">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="h-8.5 w-8.5 rounded-xl bg-gradient-to-tr from-[#7B2BF9] via-[#5E3BEE] to-[#0091FF] text-white flex items-center justify-center p-1.5 shadow-sm ring-2 ring-purple-100 group-hover:scale-105 transition-transform">
-            <span className="font-display font-black text-sm tracking-tight text-white">S</span>
+          <div className="h-8.5 w-8.5 rounded-xl bg-zinc-950 text-white flex items-center justify-center p-1.5 shadow-sm border border-zinc-800 group-hover:scale-105 transition-transform">
+            <StalciLogoIcon size={24} />
           </div>
           <div>
             <span className="text-[13px] font-bold tracking-tight text-zinc-950 block leading-tight font-display">

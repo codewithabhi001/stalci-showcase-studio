@@ -1,19 +1,18 @@
 @import "tailwindcss";
 
-/* ─── STALCI Sovereign Clean Admin Design System ───
-   Pure Sovereign Light Canvas + Crisp Neutral Zinc Typography + Elegant Indigo Brand Accent.
-   Standardized 1:1 with STALCI Clean Portfolio Design Language.
+/* ─── STALCI Sovereign Enterprise Workspace Design System ───
+   High-Performance Workspace Canvas + Sovereign Monogram Typography + Vibrant Metric Gradients.
 */
 
 @theme inline {
-  /* ClickUp Signature Palette */
+  /* STALCI Signature Palette */
   --color-clickup-purple: #7B2BF9;
   --color-clickup-indigo: #5E3BEE;
   --color-clickup-cyan: #0091FF;
   --color-clickup-magenta: #FA12E3;
   --color-clickup-orange: #F76808;
 
-  /* ClickUp Workspace Neutral Surfaces */
+  /* STALCI Workspace Neutral Surfaces */
   --color-canvas: #F8F9FC;
   --color-surface: #FFFFFF;
   --color-surface-2: #F1F3F9;

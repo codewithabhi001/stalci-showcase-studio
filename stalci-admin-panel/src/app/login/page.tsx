@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Lock, Mail, ArrowRight, Eye, EyeOff, KeyRound, Sparkles, ShieldCheck } from "lucide-react";
+import { Lock, Mail, ArrowRight, Eye, EyeOff, Sparkles, ShieldCheck, CheckCircle2, Zap } from "lucide-react";
 import { loginApi } from "@/lib/api";
 import { isAuthenticated } from "@/lib/auth";
+import { StalciLogoIcon } from "@/components/BrandLogo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -46,42 +47,66 @@ export default function LoginPage() {
     }
   };
 
+  const handleFillDemo = () => {
+    setEmail("admin@stalci.com");
+    setPassword("password123");
+  };
+
   return (
-    <div className="grid min-h-screen lg:grid-cols-2 bg-[#F8F9FC] relative overflow-hidden selection:bg-purple-200 selection:text-purple-900">
-      {/* Background ambient gradient blurs */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-[#7B2BF9]/15 to-[#0091FF]/10 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-tl from-[#FA12E3]/15 to-[#F76808]/10 blur-3xl pointer-events-none" />
+    <div className="grid min-h-screen lg:grid-cols-2 bg-[#F8F9FC] relative overflow-hidden selection:bg-blue-100 selection:text-blue-900">
+      {/* Ambient background glow */}
+      <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-transparent blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-gradient-to-tl from-indigo-600/10 via-purple-600/10 to-transparent blur-3xl pointer-events-none" />
 
       {/* Brand Showcase Panel */}
-      <div className="relative hidden flex-col justify-between p-12 lg:flex bg-white/80 backdrop-blur-md border-r border-line z-10">
+      <div className="relative hidden flex-col justify-between p-12 lg:flex bg-white/90 backdrop-blur-md border-r border-line z-10">
         <div className="relative flex items-center gap-3">
-          <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-[#7B2BF9] via-[#5E3BEE] to-[#0091FF] text-white flex items-center justify-center p-2 shadow-sm ring-2 ring-purple-100">
-            <span className="font-display font-black text-base tracking-tight text-white">S</span>
+          <div className="h-10 w-10 rounded-2xl bg-zinc-950 text-white flex items-center justify-center p-2 shadow-md border border-zinc-800">
+            <StalciLogoIcon size={28} />
           </div>
           <div>
-            <span className="text-[15px] font-bold tracking-tight text-ink font-display">STALCI STUDIO</span>
-            <span className="text-[9.5px] text-muted block uppercase font-mono font-bold tracking-wider">
-              Workspace OS
+            <span className="text-[16px] font-extrabold tracking-tight text-ink font-display">STALCI STUDIO</span>
+            <span className="text-[10px] text-blue-600 block uppercase font-mono font-bold tracking-wider">
+              Enterprise Workspace OS
             </span>
           </div>
         </div>
 
-        <div className="relative max-w-md space-y-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1 text-[11px] font-bold text-purple-700 border border-purple-200 font-mono shadow-2xs">
-            <Sparkles className="h-3 w-3 text-purple-600" /> ClickUp-Inspired Command Center
+        <div className="relative max-w-md space-y-5">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3.5 py-1 text-[11px] font-bold text-blue-700 border border-blue-200 font-mono shadow-2xs">
+            <Sparkles className="h-3.5 w-3.5 text-blue-600" /> Sovereign Platform Control
           </span>
-          <h2 className="text-[32px] font-bold leading-[1.18] tracking-tight text-ink font-display">
-            The sovereign control room for your entire digital enterprise.
+          <h2 className="text-[34px] font-bold leading-[1.16] tracking-tight text-ink font-display">
+            The unified command center for your digital enterprise.
           </h2>
           <p className="text-sm leading-relaxed text-muted font-normal">
-            Publish portfolio showcases, monitor real-time client inquiries, orchestrate workforce operations, and issue automated billing statements in one unified workspace.
+            Publish live portfolio showcases, orchestrate global workforce operations, track pipeline inquiries, and issue automated billing statements in one high-performance workspace.
           </p>
+
+          <div className="grid grid-cols-2 gap-2.5 pt-2">
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+              <span>Real-Time CMS Sync</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+              <CheckCircle2 className="h-4 w-4 text-blue-600 shrink-0" />
+              <span>HR & Talent Suite</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+              <CheckCircle2 className="h-4 w-4 text-purple-600 shrink-0" />
+              <span>Automated Billing</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-surface-2/70 p-2.5 border border-line text-xs font-medium text-ink-2">
+              <CheckCircle2 className="h-4 w-4 text-amber-600 shrink-0" />
+              <span>Role-Based Access</span>
+            </div>
+          </div>
         </div>
 
         <div className="relative flex items-center justify-between text-xs text-muted font-mono pt-4 border-t border-line">
-          <span>© {new Date().getFullYear()} STALCI Global Technologies</span>
+          <span>© {new Date().getFullYear()} STALCI Technologies</span>
           <span className="flex items-center gap-1.5 text-emerald-700 font-bold">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> 256-Bit Encrypted
+            <ShieldCheck className="h-4 w-4 text-emerald-600" /> 256-Bit SSL Encrypted
           </span>
         </div>
       </div>
@@ -93,19 +118,19 @@ export default function LoginPage() {
           className="w-full max-w-[420px] p-8 sm:p-9 border border-line bg-white shadow-pop rounded-3xl space-y-5 relative"
         >
           <div className="lg:hidden mb-4 flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-[#7B2BF9] via-[#5E3BEE] to-[#0091FF] text-white flex items-center justify-center p-2 shadow-sm ring-2 ring-purple-100">
-              <span className="font-display font-black text-base tracking-tight text-white">S</span>
+            <div className="h-10 w-10 rounded-2xl bg-zinc-950 text-white flex items-center justify-center p-2 shadow-md border border-zinc-800">
+              <StalciLogoIcon size={28} />
             </div>
             <div>
-              <span className="text-[15px] font-bold text-ink font-display">STALCI STUDIO</span>
-              <span className="text-[9px] text-muted block uppercase font-mono font-bold tracking-wider">
+              <span className="text-[16px] font-bold text-ink font-display">STALCI STUDIO</span>
+              <span className="text-[10px] text-blue-600 block uppercase font-mono font-bold tracking-wider">
                 Workspace OS
               </span>
             </div>
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-ink font-display">Sign in</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-ink font-display">Sign In</h1>
             <p className="mt-1 text-xs text-muted">Enter administrative credentials to access command telemetry.</p>
           </div>
 
@@ -164,6 +189,16 @@ export default function LoginPage() {
             <ArrowRight className="h-4 w-4" />
           </button>
 
+          {/* Quick Demo Credentials Autofill Helper */}
+          <div className="pt-2 border-t border-line text-center">
+            <button
+              type="button"
+              onClick={handleFillDemo}
+              className="inline-flex items-center gap-1.5 text-[11px] font-mono text-muted hover:text-purple-700 transition-colors cursor-pointer"
+            >
+              <Zap className="h-3 w-3 text-amber-500" /> Autofill Default Admin Credentials
+            </button>
+          </div>
         </form>
       </div>
     </div>
