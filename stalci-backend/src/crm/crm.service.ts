@@ -144,6 +144,23 @@ export class CrmService {
       include: { job: true },
     });
 
+    // Also automatically create candidate in HR Recruitment Pipeline
+    try {
+      await this.prisma.candidate.create({
+        data: {
+          jobId: Number(data.jobId),
+          name: data.applicantName,
+          email: data.applicantEmail,
+          resumeUrl: data.resumeUrl || null,
+          notes: `Applied for ${app.job?.title || 'Open Role'} via Website Portfolio`,
+          stage: 'APPLIED',
+          rating: 5,
+        },
+      });
+    } catch (err) {
+      console.warn('Could not auto-create HR candidate from application:', err);
+    }
+
     // Create real-time admin notification
     await this.prisma.notification.create({
       data: {

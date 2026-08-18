@@ -231,6 +231,36 @@ export class HrService {
   // 4. RECRUITMENT PIPELINE & 1-CLICK CONVERSION
   // ====================================================
   async getCandidates(stage?: string) {
+    // Auto-sync any existing JobApplication entries that do not have candidate records yet
+    try {
+      const applications = await this.prisma.jobApplication.findMany({
+        include: { job: true },
+      });
+      for (const app of applications) {
+        const existing = await this.prisma.candidate.findFirst({
+          where: {
+            email: app.applicantEmail,
+            jobId: app.jobId,
+          },
+        });
+        if (!existing) {
+          await this.prisma.candidate.create({
+            data: {
+              jobId: app.jobId,
+              name: app.applicantName,
+              email: app.applicantEmail,
+              resumeUrl: app.resumeUrl || null,
+              notes: `Applied for ${app.job?.title || 'Open Role'} via Website Portfolio`,
+              stage: 'APPLIED',
+              rating: 5,
+            },
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Auto-sync of job applications to candidates failed:', e);
+    }
+
     const where: any = {};
     if (stage && stage !== 'ALL') where.stage = stage;
 

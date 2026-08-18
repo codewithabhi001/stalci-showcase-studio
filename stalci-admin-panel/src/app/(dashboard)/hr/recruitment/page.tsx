@@ -137,7 +137,7 @@ export default function RecruitmentPipelinePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line pb-4">
         <div>
-          <span className="eyebrow text-copper">Talent Acquisition</span>
+          <span className="eyebrow text-[#0052FF]">Talent Acquisition</span>
           <h1 className="text-2xl font-bold text-ink tracking-tight mt-0.5">
             Recruitment & Hiring Pipeline
           </h1>
@@ -146,7 +146,7 @@ export default function RecruitmentPipelinePage() {
           </p>
         </div>
 
-        <Button onClick={() => setIsCreateOpen(true)} className="bg-copper text-[#080A0F] font-bold text-xs gap-1.5 shadow-sm">
+        <Button onClick={() => setIsCreateOpen(true)} className="bg-[#0052FF] hover:bg-[#0045D8] text-white font-bold text-xs gap-1.5 shadow-sm">
           <Plus className="h-4 w-4" /> Add Candidate
         </Button>
       </div>
@@ -166,7 +166,7 @@ export default function RecruitmentPipelinePage() {
             onClick={() => setStageFilter(s.id)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               stageFilter === s.id
-                ? "bg-copper text-[#080A0F] shadow-sm"
+                ? "bg-[#0052FF] text-white shadow-sm"
                 : "bg-surface border border-line text-muted hover:text-ink"
             }`}
           >
@@ -185,20 +185,22 @@ export default function RecruitmentPipelinePage() {
           candidates.map((cand: any) => (
             <div
               key={cand.id}
-              className="rounded-2xl border border-line bg-surface p-5 space-y-4 hover:border-copper/60 hover:shadow-md transition-all flex flex-col justify-between"
+              className="rounded-2xl border border-line bg-surface p-5 space-y-4 hover:border-[#0052FF]/60 hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <h3 className="text-sm font-bold text-ink">{cand.name}</h3>
-                    <p className="text-[11px] text-muted">{cand.currentCompany || "Independent Specialist"}</p>
+                    <p className="text-[11px] font-semibold text-zinc-600">
+                      {cand.appliedPosition || cand.job?.title || "Specialist"} • <span className="font-mono text-zinc-400">{cand.source || "Website"}</span>
+                    </p>
                   </div>
                   <Badge
                     tone={
                       cand.stage === "HIRED"
                         ? "success"
                         : cand.stage === "OFFER_EXTENDED"
-                        ? "copper"
+                        ? "warn"
                         : cand.stage === "INTERVIEW_SCHEDULED"
                         ? "info"
                         : "neutral"
@@ -210,13 +212,25 @@ export default function RecruitmentPipelinePage() {
 
                 <div className="space-y-1.5 text-xs text-muted">
                   <div className="flex items-center gap-2">
-                    <Mail className="h-3.5 w-3.5 text-copper shrink-0" />
+                    <Mail className="h-3.5 w-3.5 text-[#0052FF] shrink-0" />
                     <span className="font-mono text-[11px] truncate">{cand.email}</span>
                   </div>
                   {cand.phone && (
                     <div className="flex items-center gap-2">
-                      <Phone className="h-3.5 w-3.5 text-copper shrink-0" />
+                      <Phone className="h-3.5 w-3.5 text-[#0052FF] shrink-0" />
                       <span className="font-mono text-[11px]">{cand.phone}</span>
+                    </div>
+                  )}
+                  {cand.resumeUrl && (
+                    <div className="pt-1">
+                      <a
+                        href={cand.resumeUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#0052FF] hover:underline"
+                      >
+                        <ExternalLink className="h-3 w-3" /> View Resume / Portfolio ↗
+                      </a>
                     </div>
                   )}
                   {cand.interviewDate && (
@@ -261,7 +275,7 @@ export default function RecruitmentPipelinePage() {
                     </button>
                     <Link
                       href={`/hr/offers?candidateId=${cand.id}&name=${encodeURIComponent(cand.name)}`}
-                      className="h-8 px-3 rounded-lg border border-copper/50 bg-surface text-xs font-bold text-copper hover:bg-copper/10 transition-colors inline-flex items-center gap-1 cursor-pointer"
+                      className="h-8 px-3 rounded-lg border border-[#0052FF]/30 bg-surface text-xs font-bold text-[#0052FF] hover:bg-[#0052FF]/10 transition-colors inline-flex items-center gap-1 cursor-pointer"
                     >
                       <FileText className="h-3.5 w-3.5" /> Draft Offer
                     </Link>
@@ -275,7 +289,7 @@ export default function RecruitmentPipelinePage() {
                 ) : (
                   <Link
                     href={`/hr/employees/${cand.convertedEmpId}`}
-                    className="h-8 px-3 rounded-lg border border-line bg-canvas text-xs font-bold text-copper hover:bg-copper/10 transition-colors inline-flex items-center gap-1"
+                    className="h-8 px-3 rounded-lg border border-line bg-canvas text-xs font-bold text-[#0052FF] hover:bg-[#0052FF]/10 transition-colors inline-flex items-center gap-1"
                   >
                     <span>View Employee Profile</span> <ArrowRight className="h-3 w-3" />
                   </Link>
