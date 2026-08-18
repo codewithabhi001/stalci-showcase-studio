@@ -4,27 +4,27 @@ import React from "react";
 type Tone = "neutral" | "success" | "warning" | "warn" | "danger" | "info" | "copper" | "purple" | "cyan";
 
 const tones: Record<Tone, string> = {
-  neutral: "bg-zinc-900 text-zinc-200 border-zinc-700/80 shadow-2xs",
-  success: "bg-emerald-950/80 text-emerald-300 border-emerald-800/80 shadow-2xs",
-  warning: "bg-amber-950/80 text-amber-300 border-amber-800/80 shadow-2xs",
-  warn: "bg-amber-950/80 text-amber-300 border-amber-800/80 shadow-2xs",
-  danger: "bg-rose-950/80 text-rose-300 border-rose-800/80 shadow-2xs",
-  info: "bg-blue-950/80 text-blue-300 border-blue-800/80 shadow-2xs",
-  copper: "bg-zinc-900 text-zinc-200 border-zinc-700/80 shadow-2xs",
-  purple: "bg-indigo-950/80 text-indigo-300 border-indigo-800/80 shadow-2xs",
-  cyan: "bg-cyan-950/80 text-cyan-300 border-cyan-800/80 shadow-2xs",
+  neutral: "bg-zinc-100 text-zinc-800 border-zinc-200/90 shadow-2xs",
+  success: "bg-emerald-50 text-emerald-800 border-emerald-200/90 shadow-2xs",
+  warning: "bg-amber-50 text-amber-900 border-amber-200/90 shadow-2xs",
+  warn: "bg-amber-50 text-amber-900 border-amber-200/90 shadow-2xs",
+  danger: "bg-rose-50 text-rose-800 border-rose-200/90 shadow-2xs",
+  info: "bg-blue-50 text-[#0052FF] border-blue-200/90 shadow-2xs",
+  copper: "bg-zinc-100 text-zinc-800 border-zinc-200/90 shadow-2xs",
+  purple: "bg-blue-50 text-[#0052FF] border-blue-200/90 shadow-2xs",
+  cyan: "bg-cyan-50 text-cyan-800 border-cyan-200/90 shadow-2xs",
 };
 
 const dots: Record<Tone, string> = {
   neutral: "bg-zinc-400",
-  success: "bg-emerald-400 animate-pulse",
-  warning: "bg-amber-400",
-  warn: "bg-amber-400",
-  danger: "bg-rose-400 animate-pulse",
-  info: "bg-blue-400 animate-pulse",
-  copper: "bg-zinc-400 animate-pulse",
-  purple: "bg-indigo-400 animate-pulse",
-  cyan: "bg-cyan-400 animate-pulse",
+  success: "bg-emerald-600 animate-pulse",
+  warning: "bg-amber-600",
+  warn: "bg-amber-600",
+  danger: "bg-rose-600 animate-pulse",
+  info: "bg-[#0052FF]",
+  copper: "bg-zinc-500 animate-pulse",
+  purple: "bg-[#0052FF] animate-pulse",
+  cyan: "bg-cyan-600 animate-pulse",
 };
 
 export function Badge({

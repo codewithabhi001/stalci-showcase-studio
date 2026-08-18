@@ -58,7 +58,7 @@ export default function Dashboard() {
       href: "/invoices?status=PAID",
       icon: DollarSign,
       tone: "success" as const,
-      iconBg: "bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 shadow-xs",
+      iconBg: "bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs",
       sparkline: [40, 55, 75, 60, 90, 100],
     },
     {
@@ -68,7 +68,7 @@ export default function Dashboard() {
       href: "/invoices?status=PENDING",
       icon: Receipt,
       tone: "warn" as const,
-      iconBg: "bg-amber-950/80 text-amber-400 border border-amber-800/80 shadow-xs",
+      iconBg: "bg-amber-50 text-amber-700 border border-amber-200 shadow-2xs",
       sparkline: [30, 45, 40, 60, 50, 42],
     },
     {
@@ -78,7 +78,7 @@ export default function Dashboard() {
       href: "/projects",
       icon: FolderKanban,
       tone: "neutral" as const,
-      iconBg: "bg-zinc-900 text-zinc-100 border border-zinc-700/80 shadow-xs",
+      iconBg: "bg-zinc-100 text-zinc-900 border border-zinc-200 shadow-2xs",
       sparkline: [20, 35, 50, 65, 80, 85],
     },
     {
@@ -88,16 +88,16 @@ export default function Dashboard() {
       href: "/clients",
       icon: Users,
       tone: "info" as const,
-      iconBg: "bg-blue-950/80 text-blue-400 border border-blue-800/80 shadow-xs",
+      iconBg: "bg-blue-50 text-[#0052FF] border border-blue-200 shadow-2xs",
       sparkline: [10, 25, 40, 55, 70, 95],
     },
   ];
 
   const cmsWidgets = [
-    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
-    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
-    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
-    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper, iconBg: "bg-zinc-900 text-zinc-200 border border-zinc-700/80" },
+    { label: "Services CMS", count: `${services.length} Active`, href: "/services", icon: Boxes, iconBg: "bg-zinc-100 text-zinc-800 border border-zinc-200 shadow-2xs" },
+    { label: "Tech Stack & Skills", count: `${technologies.length} Technologies`, href: "/technologies", icon: Code2, iconBg: "bg-zinc-100 text-zinc-800 border border-zinc-200 shadow-2xs" },
+    { label: "Testimonials", count: `${testimonials.length} Verified Reviews`, href: "/testimonials", icon: Quote, iconBg: "bg-zinc-100 text-zinc-800 border border-zinc-200 shadow-2xs" },
+    { label: "Blogs & Insights", count: `${blogs.length} Published`, href: "/blogs", icon: Newspaper, iconBg: "bg-zinc-100 text-zinc-800 border border-zinc-200 shadow-2xs" },
   ];
 
   return (
@@ -107,11 +107,11 @@ export default function Dashboard() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-900 px-3 py-1 text-[11px] font-bold text-zinc-200 border border-zinc-700/80 font-mono shadow-xs">
-                <Sparkles className="h-3 w-3 text-zinc-200" /> STALCI Workspace OS
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1 text-[11px] font-bold text-zinc-800 border border-zinc-200 font-mono shadow-2xs">
+                <Sparkles className="h-3 w-3 text-zinc-900" /> STALCI Workspace OS
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/80 px-3 py-1 text-[11px] font-mono font-semibold text-emerald-300 border border-emerald-800/80 shadow-xs">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live Telemetry
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-mono font-semibold text-emerald-700 border border-emerald-200 shadow-2xs">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Telemetry
               </span>
             </div>
             <h1 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight text-ink font-display">

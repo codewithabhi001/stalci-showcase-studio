@@ -151,38 +151,38 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const Sidebar = (
-    <div className="flex h-screen max-h-screen flex-col bg-[#090A0F] text-white border-r border-[#1E2028] overflow-hidden">
+    <div className="flex h-screen max-h-screen flex-col bg-white text-zinc-950 border-r border-zinc-200 overflow-hidden">
       {/* Top Brand Header */}
-      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-[#1E2028] bg-[#090A0F]">
+      <div className="flex h-14 shrink-0 items-center justify-between px-4 border-b border-zinc-200 bg-white">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="h-8.5 w-8.5 rounded-xl bg-zinc-900 text-white flex items-center justify-center p-1.5 shadow-xs border border-zinc-700/80 group-hover:scale-105 transition-transform">
+          <div className="h-8.5 w-8.5 rounded-xl bg-zinc-950 text-white flex items-center justify-center p-1.5 shadow-xs border border-zinc-800 group-hover:scale-105 transition-transform">
             <StalciLogoIcon size={24} />
           </div>
           <div>
-            <span className="text-[13px] font-bold tracking-tight text-white block leading-tight font-display">
+            <span className="text-[13px] font-bold tracking-tight text-zinc-950 block leading-tight font-display">
               STALCI STUDIO
             </span>
-            <span className="text-[9.5px] text-[#3B82F6] tracking-wider uppercase font-mono font-bold">
+            <span className="text-[9.5px] text-[#0052FF] tracking-wider uppercase font-mono font-bold">
               Workspace OS
             </span>
           </div>
         </Link>
-        <span className="rounded-full bg-[#181B26] px-2 py-0.5 text-[9.5px] font-bold text-zinc-300 border border-zinc-700/80 font-mono">
+        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[9.5px] font-bold text-zinc-700 border border-zinc-200 font-mono">
           PRO
         </span>
       </div>
 
       {/* Quick Search Button */}
-      <div className="px-3 pt-3 pb-2 shrink-0 bg-[#090A0F]">
+      <div className="px-3 pt-3 pb-2 shrink-0 bg-white">
         <button
           onClick={() => setCommandOpen(true)}
-          className="flex w-full items-center justify-between rounded-lg border border-[#1E2028] bg-[#12141C] px-3 py-1.5 text-[11.5px] text-zinc-400 transition-all hover:border-zinc-700 hover:text-white hover:bg-[#181B26] shadow-2xs cursor-pointer group"
+          className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-[11.5px] text-zinc-600 transition-all hover:border-[#0052FF]/40 hover:text-zinc-950 hover:bg-zinc-100 shadow-2xs cursor-pointer group"
         >
           <span className="flex items-center gap-2">
-            <Search className="h-3.5 w-3.5 text-zinc-500 group-hover:text-[#3B82F6] transition-colors" />
+            <Search className="h-3.5 w-3.5 text-zinc-400 group-hover:text-[#0052FF] transition-colors" />
             Quick jump...
           </span>
-          <kbd className="rounded border border-zinc-700 bg-[#181B26] px-1.5 py-0.5 text-[9px] font-mono text-zinc-400 font-semibold">
+          <kbd className="rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[9px] font-mono text-zinc-500 font-semibold">
             ⌘K
           </kbd>
         </button>
@@ -193,7 +193,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         onWheel={(e) => {
           e.currentTarget.scrollTop += e.deltaY;
         }}
-        className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-4 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-800 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-700 [&::-webkit-scrollbar-thumb]:rounded-full"
+        className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-4 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-200 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-300 [&::-webkit-scrollbar-thumb]:rounded-full"
         style={{ scrollBehavior: "smooth" }}
       >
         {navSections.map((sec) => {
@@ -202,7 +202,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           return (
             <div key={sec.title} className="space-y-0.5">
-              <p className="px-2.5 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-300/90 mb-1.5">
+              <p className="px-2.5 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
                 {sec.title}
               </p>
               <div className="space-y-0.5">
@@ -215,15 +215,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       href={link.href}
                       className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-[12.5px] transition-colors ${
                         active
-                          ? "bg-[#0052FF] text-white font-bold shadow-xs"
-                          : "text-zinc-300 hover:bg-[#181B26] hover:text-white font-medium"
+                          ? "bg-[#0052FF]/10 text-[#0052FF] font-bold"
+                          : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-950 font-medium"
                       }`}
                     >
                       <div className="flex items-center gap-2.5 truncate">
-                        <Icon className={`h-4 w-4 shrink-0 ${active ? "text-white" : "text-zinc-300 group-hover:text-white"}`} />
+                        <Icon className={`h-4 w-4 shrink-0 ${active ? "text-[#0052FF]" : "text-zinc-500 group-hover:text-zinc-950"}`} />
                         <span className="truncate">{link.label}</span>
                       </div>
-                      {active && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                      {active && <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF]" />}
                     </Link>
                   );
                 })}
@@ -234,25 +234,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </nav>
 
       {/* Bottom Pinned Footer */}
-      <div className="p-3 shrink-0 border-t border-[#1E2028] bg-[#090A0F] space-y-1.5">
+      <div className="p-3 shrink-0 border-t border-zinc-200 bg-white space-y-1.5">
         <a
           href="http://localhost:8080"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11.5px] font-semibold text-zinc-300 hover:bg-[#181B26] hover:text-white transition-colors border border-[#1E2028] shadow-2xs"
+          className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[11.5px] font-semibold text-zinc-800 hover:bg-zinc-100 hover:text-zinc-950 transition-colors border border-zinc-200 shadow-2xs"
         >
           <span className="flex items-center gap-2">
-            <ExternalLink className="h-3.5 w-3.5 text-zinc-400" />
+            <ExternalLink className="h-3.5 w-3.5 text-zinc-500" />
             Live Portfolio
           </span>
-          <span className="text-[9.5px] font-mono font-bold text-zinc-300 bg-[#181B26] px-1.5 py-0.5 rounded border border-zinc-700">
+          <span className="text-[9.5px] font-mono font-bold text-zinc-700 bg-zinc-100 px-1.5 py-0.5 rounded border border-zinc-200">
             :8080 ↗
           </span>
         </a>
 
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-[11.5px] font-semibold text-rose-400 hover:bg-rose-950/40 hover:text-rose-300 transition-colors cursor-pointer"
+          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-[11.5px] font-semibold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer"
         >
           <LogOut className="h-3.5 w-3.5" />
           Sign out
