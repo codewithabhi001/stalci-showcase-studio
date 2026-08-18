@@ -188,8 +188,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </button>
       </div>
 
-      {/* Navigation Links List (Native Smooth Scrollable) */}
-      <nav className="flex-1 min-h-0 overflow-y-auto px-2.5 py-3 space-y-4 overscroll-contain pb-16 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-zinc-800 [&::-webkit-scrollbar-thumb]:rounded-full">
+      {/* Navigation Links List (Flawless Native + Wheel Scrolling) */}
+      <nav 
+        onWheel={(e) => {
+          e.currentTarget.scrollTop += e.deltaY;
+        }}
+        className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-4 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-800 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-700 [&::-webkit-scrollbar-thumb]:rounded-full"
+        style={{ scrollBehavior: "smooth" }}
+      >
         {navSections.map((sec) => {
           const visibleLinks = sec.links.filter((l) => canAccessRoute(l.href));
           if (visibleLinks.length === 0) return null;

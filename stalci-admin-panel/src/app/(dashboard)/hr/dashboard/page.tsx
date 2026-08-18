@@ -36,7 +36,7 @@ export default function HrDashboardPage() {
       sub: `${stats?.activeEmployees || 0} active, ${stats?.onboardingCount || 0} onboarding`,
       icon: Users,
       tone: "neutral" as const,
-      iconBg: "bg-zinc-100 text-zinc-900 border-zinc-200",
+      iconBg: "bg-[#090A0F] text-white border-zinc-800 shadow-xs",
       href: "/hr/employees",
     },
     {
@@ -45,7 +45,7 @@ export default function HrDashboardPage() {
       sub: "In screening & interview pipeline",
       icon: UserPlus,
       tone: "info" as const,
-      iconBg: "bg-blue-50 text-blue-700 border-blue-200",
+      iconBg: "bg-[#090A0F] text-[#3B82F6] border-zinc-800 shadow-xs",
       href: "/hr/recruitment",
     },
     {
@@ -54,7 +54,7 @@ export default function HrDashboardPage() {
       sub: "Awaiting manager approval",
       icon: Clock,
       tone: "warn" as const,
-      iconBg: "bg-amber-50 text-amber-700 border-amber-200",
+      iconBg: "bg-[#090A0F] text-amber-400 border-zinc-800 shadow-xs",
       href: "/hr/attendance-leave",
     },
     {
@@ -63,7 +63,7 @@ export default function HrDashboardPage() {
       sub: `Annual CTC: $${(stats?.totalCtc || 0).toLocaleString()}`,
       icon: DollarSign,
       tone: "success" as const,
-      iconBg: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      iconBg: "bg-[#090A0F] text-emerald-400 border-zinc-800 shadow-xs",
       href: "/hr/payroll",
       hideForRecruiter: true,
     },
@@ -73,7 +73,7 @@ export default function HrDashboardPage() {
       sub: "Mentored research programs",
       icon: GraduationCap,
       tone: "neutral" as const,
-      iconBg: "bg-zinc-100 text-zinc-900 border-zinc-200",
+      iconBg: "bg-[#090A0F] text-white border-zinc-800 shadow-xs",
       href: "/hr/internships",
     },
     {
@@ -82,7 +82,7 @@ export default function HrDashboardPage() {
       sub: "Hardware & Workstations",
       icon: Laptop,
       tone: "neutral" as const,
-      iconBg: "bg-zinc-100 text-zinc-900 border-zinc-200",
+      iconBg: "bg-[#090A0F] text-white border-zinc-800 shadow-xs",
       href: "/hr/assets",
     },
   ];
@@ -94,8 +94,8 @@ export default function HrDashboardPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-bold text-zinc-900 border border-zinc-200 font-mono">
-                <Sparkles className="h-3 w-3 text-zinc-900" /> People & HR Operations
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#090A0F] px-3 py-1 text-[11px] font-bold text-white border border-zinc-800 font-mono shadow-xs">
+                <Sparkles className="h-3 w-3 text-white" /> People & HR Operations
               </span>
               <Badge tone={roleInfo.badgeTone as any} dot className="text-[10px]">
                 {roleInfo.label}
