@@ -1,5 +1,7 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTechnologies } from "@/lib/api";
 import { BadgePill } from "./Brand";
 import { TechIcon } from "./TechIcon";
 import { 
@@ -15,7 +17,7 @@ import {
 
 interface TechItem {
   name: string;
-  category: "AI & Neural" | "Cloud & DevOps" | "Full-Stack Web" | "Native Mobile";
+  category: string;
   iconSlug: string;
   tag: string;
   desc: string;
@@ -40,7 +42,7 @@ const techDirectory: TechItem[] = [
   // Cloud & DevOps
   { name: "AWS", category: "Cloud & DevOps", iconSlug: "aws", tag: "Cloud Fabric", spec: "Multi-AZ", desc: "Multi-AZ EKS, RDS Aurora, Serverless & S3 infrastructure" },
   { name: "Google Cloud", category: "Cloud & DevOps", iconSlug: "googlecloud", tag: "AI Cloud", spec: "TPU Pods", desc: "BigQuery analytics, Kubernetes engine & TPU pods" },
-  { name: "Kubernetes", category: "Cloud & DevOps", iconSlug: "kubernetes", tag: "Orchestration", spec: "Auto Canary", desc: "Automated blue/green zero-downtime cluster rollouts" },
+  { name: "Kubernetes", category: "Cloud & DevOps", iconSlug: "kubernetes", tag: "Auto Canary", spec: "Auto Canary", desc: "Automated blue/green zero-downtime cluster rollouts" },
   { name: "Docker", category: "Cloud & DevOps", iconSlug: "docker", tag: "Containers", spec: "Multi-Arch", desc: "Lightweight reproducible multi-stage image builds" },
   { name: "Terraform", category: "Cloud & DevOps", iconSlug: "terraform", tag: "IaC", spec: "Immutable", desc: "Declarative multi-cloud provisioning & immutable infra" },
   { name: "Redis", category: "Cloud & DevOps", iconSlug: "redis", tag: "Cache & Mesh", spec: "<1ms Cache", desc: "Sub-millisecond in-memory caching & distributed locks" },
@@ -58,9 +60,25 @@ export function TechStack() {
   const [activeCategory, setActiveCategory] = useState<string>("All Systems");
   const [selectedTech, setSelectedTech] = useState<TechItem>(techDirectory[0]);
 
+  const { data: remoteTechnologies } = useQuery({
+    queryKey: ["technologies"],
+    queryFn: () => fetchTechnologies(),
+  });
+
+  const displayList: TechItem[] = remoteTechnologies && remoteTechnologies.length > 0
+    ? remoteTechnologies.map((t: any) => ({
+        name: t.name,
+        category: t.category,
+        iconSlug: t.icon || t.name.toLowerCase().replace(/[^a-z0-9]/g, ""),
+        tag: t.category,
+        spec: `${t.proficiency || 90}% Proficiency`,
+        desc: t.description || `${t.name} framework integrated in production architectures.`,
+      }))
+    : techDirectory;
+
   const filteredTech = activeCategory === "All Systems"
-    ? techDirectory
-    : techDirectory.filter(t => t.category === activeCategory);
+    ? displayList
+    : displayList.filter(t => t.category === activeCategory);
 
   return (
     <section id="tech-stack" className="relative bg-[#FFFFFF] py-16 sm:py-24 text-zinc-950 isolate overflow-hidden border-t border-zinc-200/90">

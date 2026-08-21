@@ -1,5 +1,6 @@
 import { Controller, Post, Body, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Public } from '../auth/auth.guard';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -13,6 +14,7 @@ export class UploadController {
     }
   }
 
+  @Public()
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   uploadSingle(@UploadedFile() file: any, @Body() body: any) {
@@ -57,6 +59,7 @@ export class UploadController {
     throw new BadRequestException('No file or base64 payload provided');
   }
 
+  @Public()
   @Post('mock')
   mockUpload(@Body() body: { filename?: string; category?: string }) {
     const filename = body?.filename || 'document.pdf';

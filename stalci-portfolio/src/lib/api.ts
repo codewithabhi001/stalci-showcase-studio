@@ -1,240 +1,128 @@
-const API_BASE =
-  typeof window !== "undefined"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+const API_BASE = 
+  import.meta.env.VITE_API_URL || 
+  (typeof window !== "undefined"
     ? `${window.location.protocol}//${window.location.hostname}:4001`
-    : "http://127.0.0.1:4001";
+    : "http://localhost:4001");
 
-// --- PROJECTS ---
-export async function fetchProjects(category?: string, featured?: boolean) {
+async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  const url = `${API_BASE}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
   try {
-    const params = new URLSearchParams();
-    if (category && category !== "All") params.append("category", category);
-    if (featured !== undefined) params.append("featured", String(featured));
-    const url = `${API_BASE}/projects${params.toString() ? `?${params.toString()}` : ""}`;
-    const res = await fetch(url);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch projects from API, falling back to static data", e);
-    return [];
+    const res = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        ...options?.headers,
+      },
+      ...options,
+    });
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`API Error ${res.status}: ${errorText || res.statusText}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn(`[API Call Failed]: ${url}`, err);
+    throw err;
   }
 }
 
-export async function fetchFeaturedProjects() {
+// --- CMS MODULE ---
+
+export async function fetchSiteConfigMap(): Promise<Record<string, string>> {
   try {
-    const res = await fetch(`${API_BASE}/projects/featured`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch featured projects from API", e);
-    return [];
-  }
-}
-
-export async function fetchProjectBySlug(slug: string) {
-  const res = await fetch(`${API_BASE}/projects/slug/${slug}`);
-  if (!res.ok) throw new Error("Failed to fetch project");
-  return res.json();
-}
-
-// --- TECHNOLOGIES & SKILLS ---
-export async function fetchTechnologies(category?: string) {
-  try {
-    const params = category && category !== "All" ? `?category=${encodeURIComponent(category)}` : "";
-    const res = await fetch(`${API_BASE}/cms/technologies${params}`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch technologies from API", e);
-    return [];
-  }
-}
-
-// --- SERVICES ---
-export async function fetchServices() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/services`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch services from API", e);
-    return [];
-  }
-}
-
-export async function fetchServiceBySlug(slug: string) {
-  const res = await fetch(`${API_BASE}/cms/services/${slug}`);
-  if (!res.ok) throw new Error("Failed to fetch service");
-  return res.json();
-}
-
-// --- PRODUCTS ---
-export async function fetchProducts() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/products`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch products from API", e);
-    return [];
-  }
-}
-
-export async function fetchProductBySlug(slug: string) {
-  const res = await fetch(`${API_BASE}/cms/products/${slug}`);
-  if (!res.ok) throw new Error("Failed to fetch product");
-  return res.json();
-}
-
-// --- INDUSTRIES ---
-export async function fetchIndustries() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/industries`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch industries from API", e);
-    return [];
-  }
-}
-
-export async function fetchIndustryBySlug(slug: string) {
-  const res = await fetch(`${API_BASE}/cms/industries/${slug}`);
-  if (!res.ok) throw new Error("Failed to fetch industry");
-  return res.json();
-}
-
-// --- TESTIMONIALS ---
-export async function fetchTestimonials() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/testimonials`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch testimonials from API", e);
-    return [];
-  }
-}
-
-// --- BLOGS ---
-export async function fetchBlogs() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/blogs`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch blogs from API", e);
-    return [];
-  }
-}
-
-export async function fetchBlogBySlug(slug: string) {
-  const res = await fetch(`${API_BASE}/cms/blogs/${slug}`);
-  if (!res.ok) throw new Error("Failed to fetch blog");
-  return res.json();
-}
-
-// --- PAGES (CMS) ---
-export async function fetchPages() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/pages`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch pages from API", e);
-    return [];
-  }
-}
-
-export async function fetchPageBySlug(slug: string) {
-  try {
-    const res = await fetch(`${API_BASE}/cms/pages/${slug}`);
-    if (!res.ok) return null;
-    return res.json();
-  } catch (e) {
-    console.warn(`Failed to fetch page ${slug} from API`, e);
-    return null;
-  }
-}
-
-// --- CAREERS & JOBS ---
-export async function fetchJobs() {
-  try {
-    const res = await fetch(`${API_BASE}/crm/jobs`);
-    if (!res.ok) return [];
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch jobs from API", e);
-    return [];
-  }
-}
-
-export async function submitJobApplication(data: {
-  jobId: number;
-  applicantName: string;
-  applicantEmail: string;
-  resumeUrl?: string;
-}) {
-  const res = await fetch(`${API_BASE}/crm/applications`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error("Failed to submit job application");
-  return res.json();
-}
-
-// --- SITE CONFIG & STATS ---
-export async function fetchSiteConfigMap() {
-  try {
-    const res = await fetch(`${API_BASE}/cms/config/map`);
-    if (!res.ok) return {};
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch site configs", e);
+    return await request<Record<string, string>>("/cms/config/map");
+  } catch {
     return {};
   }
 }
 
-export async function fetchStats() {
-  try {
-    const res = await fetch(`${API_BASE}/finance/stats`);
-    if (!res.ok) return null;
-    return res.json();
-  } catch (e) {
-    console.warn("Failed to fetch stats", e);
-    return null;
-  }
+export async function fetchSiteConfigs() {
+  return request<any[]>("/cms/config");
 }
 
-// --- CRM INQUIRIES & FEEDBACK ---
-export async function submitInquiry(data: {
-  name: string;
-  email: string;
-  company?: string;
-  service?: string;
-  budget?: string;
-  message: string;
-}) {
-  const res = await fetch(`${API_BASE}/crm/inquiries`, {
+export async function fetchServices() {
+  return request<any[]>("/cms/services");
+}
+
+export async function fetchServiceBySlug(slug: string) {
+  return request<any>(`/cms/services/${slug}`);
+}
+
+export async function fetchTechnologies(category?: string) {
+  const query = category ? `?category=${encodeURIComponent(category)}` : "";
+  return request<any[]>(`/cms/technologies${query}`);
+}
+
+export async function fetchIndustries() {
+  return request<any[]>("/cms/industries");
+}
+
+export async function fetchIndustryBySlug(slug: string) {
+  return request<any>(`/cms/industries/${slug}`);
+}
+
+export async function fetchProducts() {
+  return request<any[]>("/cms/products");
+}
+
+export async function fetchProductBySlug(slug: string) {
+  return request<any>(`/cms/products/${slug}`);
+}
+
+export async function fetchTestimonials() {
+  return request<any[]>("/cms/testimonials");
+}
+
+export async function fetchBlogs() {
+  return request<any[]>("/cms/blogs");
+}
+
+export async function fetchBlogBySlug(slug: string) {
+  return request<any>(`/cms/blogs/${slug}`);
+}
+
+export async function fetchPageBySlug(slug: string) {
+  return request<any>(`/cms/pages/${slug}`);
+}
+
+// --- PROJECTS MODULE ---
+
+export async function fetchProjects(category?: string, featured?: boolean) {
+  const params = new URLSearchParams();
+  if (category) params.append("category", category);
+  if (featured !== undefined) params.append("featured", String(featured));
+  const query = params.toString() ? `?${params.toString()}` : "";
+  return request<any[]>(`/projects${query}`);
+}
+
+export async function fetchProjectBySlug(slug: string) {
+  return request<any>(`/projects/slug/${slug}`);
+}
+
+// --- CRM & CAREERS ---
+
+export async function fetchJobs() {
+  return request<any[]>("/crm/jobs");
+}
+
+export async function submitJobApplication(data: any) {
+  return request<any>("/crm/applications", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Failed to submit inquiry");
-  return res.json();
 }
 
-export async function submitFeedback(data: {
-  name?: string;
-  rating: number;
-  comments: string;
-}) {
-  const res = await fetch(`${API_BASE}/crm/feedback`, {
+export async function submitInquiry(data: any) {
+  return request<any>("/crm/inquiries", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error("Failed to submit feedback");
-  return res.json();
 }
 
+export async function submitFeedback(data: any) {
+  return request<any>("/crm/feedback", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}

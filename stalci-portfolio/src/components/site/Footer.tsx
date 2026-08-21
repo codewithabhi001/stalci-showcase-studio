@@ -1,8 +1,8 @@
-import { Linkedin, Twitter, Github, Globe, Instagram, Youtube, MessageCircle, ArrowUpRight, ShieldCheck, Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
+import { Linkedin, Twitter, Github, Instagram, Youtube, MessageCircle, Mail, MapPin } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSiteConfigMap } from "@/lib/api";
-import { StalciLogoIcon, Wordmark } from "./Brand";
-import { Link } from '@tanstack/react-router';
+import { Wordmark } from "./Brand";
+import { Link } from "@tanstack/react-router";
 
 export function Footer() {
   const { data: config = {} } = useQuery({
@@ -20,7 +20,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#000000] text-white relative isolate overflow-hidden border-t border-white/10 pt-20 sm:pt-24 pb-12">
+    <footer className="bg-[#000000] text-white relative isolate overflow-hidden border-t border-white/10 pt-20 sm:pt-24 pb-12 font-sans">
       
       {/* Top Subtle Ambient Lighting */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60rem] h-[18rem] bg-white/[0.02] blur-[140px] pointer-events-none -z-10" />
@@ -43,7 +43,7 @@ export function Footer() {
             {/* Live System Status Pill */}
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[10.5px] font-mono text-zinc-300 font-medium">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 All Systems Operational &bull; 99.99% Uptime
               </span>
             </div>
@@ -91,26 +91,26 @@ export function Footer() {
                 Practices
               </h4>
               <ul className="space-y-2.5 text-xs text-zinc-400">
-                <li><a href="/services/ai-solutions" className="hover:text-white transition-colors">Sovereign AI &amp; ML</a></li>
-                <li><a href="/services/custom-software-development" className="hover:text-white transition-colors">Custom Software</a></li>
-                <li><a href="/services/web-development" className="hover:text-white transition-colors">Web Development</a></li>
-                <li><a href="/services/mobile-app-development" className="hover:text-white transition-colors">Mobile Platforms</a></li>
-                <li><a href="/services/cloud-devops" className="hover:text-white transition-colors">Cloud &amp; DevOps</a></li>
-                <li><a href="/services/cybersecurity" className="hover:text-white transition-colors">Zero-Trust Security</a></li>
+                <li><Link to="/services/$slug" params={{ slug: "ai-services" }} className="hover:text-white transition-colors">Sovereign AI &amp; ML</Link></li>
+                <li><Link to="/services/$slug" params={{ slug: "software-engineering" }} className="hover:text-white transition-colors">Enterprise Software</Link></li>
+                <li><Link to="/services/$slug" params={{ slug: "web-development" }} className="hover:text-white transition-colors">Web &amp; WebGL</Link></li>
+                <li><Link to="/services/$slug" params={{ slug: "mobility" }} className="hover:text-white transition-colors">Mobile Platforms</Link></li>
+                <li><Link to="/services/$slug" params={{ slug: "cloud-devops" }} className="hover:text-white transition-colors">Cloud &amp; DevOps</Link></li>
+                <li><Link to="/services/$slug" params={{ slug: "cybersecurity" }} className="hover:text-white transition-colors">Zero-Trust Security</Link></li>
               </ul>
             </div>
 
             {/* Col 2: Solutions */}
             <div className="space-y-3.5">
               <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-300 font-mono">
-                Solutions
+                Solutions &amp; Work
               </h4>
               <ul className="space-y-2.5 text-xs text-zinc-400">
-                <li><a href="/products/ai-automation-engine" className="hover:text-white transition-colors">AI Automation Engine</a></li>
-                <li><a href="/products/enterprise-design-studio" className="hover:text-white transition-colors">Design Studio</a></li>
-                <li><a href="/products/cloud-management-platform" className="hover:text-white transition-colors">Cloud Fabric</a></li>
-                <li><a href="/products/security-compliance-suite" className="hover:text-white transition-colors">Stalci Shield</a></li>
-                <li><a href="/#projects" className="hover:text-white transition-colors">Case Studies</a></li>
+                <li><Link to="/products/$slug" params={{ slug: "stalci-ai-studio" }} className="hover:text-white transition-colors">Stalci AI Studio</Link></li>
+                <li><Link to="/products/$slug" params={{ slug: "stalciops" }} className="hover:text-white transition-colors">StalciOps Cloud Fabric</Link></li>
+                <li><Link to="/products/$slug" params={{ slug: "enterprise-design-studio" }} className="hover:text-white transition-colors">Design Studio</Link></li>
+                <li><Link to="/products/$slug" params={{ slug: "security-compliance-suite" }} className="hover:text-white transition-colors">Stalci Shield</Link></li>
+                <li><Link to="/projects" className="hover:text-white transition-colors">Case Studies</Link></li>
               </ul>
             </div>
 
@@ -120,11 +120,11 @@ export function Footer() {
                 Industries
               </h4>
               <ul className="space-y-2.5 text-xs text-zinc-400">
-                <li><a href="/industries/fintech" className="hover:text-white transition-colors">FinTech &amp; Banking</a></li>
-                <li><a href="/industries/healthcare" className="hover:text-white transition-colors">HealthTech &amp; Life Sciences</a></li>
-                <li><a href="/industries/ecommerce" className="hover:text-white transition-colors">E-Commerce &amp; Retail</a></li>
-                <li><a href="/industries/logistics" className="hover:text-white transition-colors">Logistics &amp; Fleet</a></li>
-                <li><a href="/industries/energy-sustainability" className="hover:text-white transition-colors">Energy &amp; CleanTech</a></li>
+                <li><Link to="/industries/$slug" params={{ slug: "fintech" }} className="hover:text-white transition-colors">FinTech &amp; Banking</Link></li>
+                <li><Link to="/industries/$slug" params={{ slug: "healthcare" }} className="hover:text-white transition-colors">HealthTech &amp; Life Sciences</Link></li>
+                <li><Link to="/industries/$slug" params={{ slug: "ecommerce" }} className="hover:text-white transition-colors">E-Commerce &amp; Retail</Link></li>
+                <li><Link to="/industries/$slug" params={{ slug: "logistics" }} className="hover:text-white transition-colors">Logistics &amp; Fleet</Link></li>
+                <li><Link to="/industries/$slug" params={{ slug: "energy-sustainability" }} className="hover:text-white transition-colors">Energy &amp; CleanTech</Link></li>
               </ul>
             </div>
 
@@ -134,12 +134,15 @@ export function Footer() {
                 Company &amp; Legal
               </h4>
               <ul className="space-y-2.5 text-xs text-zinc-400">
-                <li><a href="/#about" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="/#testimonials" className="hover:text-white transition-colors">Client Testimonials</a></li>
-                <li><a href="/careers" className="hover:text-white transition-colors">Careers <span className="text-[9px] font-mono text-zinc-300 font-bold bg-white/[0.08] px-1.5 py-0.5 rounded border border-white/10">HIRING</span></a></li>
-                <li><a href="/blog" className="hover:text-white transition-colors">Blog &amp; Insights</a></li>
-                <li><a href="/contact" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                <li><Link to="/testimonials" className="hover:text-white transition-colors">Client Testimonials</Link></li>
+                <li><Link to="/careers" className="hover:text-white transition-colors">Careers <span className="text-[9px] font-mono text-zinc-300 font-bold bg-white/[0.08] px-1.5 py-0.5 rounded border border-white/10">HIRING</span></Link></li>
+                <li><Link to="/blog" className="hover:text-white transition-colors">Blog &amp; Insights</Link></li>
+                <li><Link to="/brand" className="hover:text-white transition-colors">Brand Identity</Link></li>
+                <li><Link to="/faq" className="hover:text-white transition-colors">FAQs</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
 
@@ -159,7 +162,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* ─── Giant Stylized Watermark Typography with Subtle Outlined Border ─── */}
+        {/* ─── Giant Stylized Watermark Typography ─── */}
         <div className="pt-12 pb-2 overflow-hidden select-none pointer-events-none text-center">
           <span 
             className="font-display font-black text-[13vw] leading-none tracking-tight block text-transparent"

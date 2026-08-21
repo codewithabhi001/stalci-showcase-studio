@@ -1,6 +1,6 @@
-﻿@import "tailwindcss" source(none);
-@source "../src";
+@import "tailwindcss";
 @import "tw-animate-css";
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -121,7 +121,7 @@ body {
   perspective: 1000px;
 }
 
-/* Pure CSS Smooth Marquee (Zero JavaScript CPU Overhead) */
+/* Pure CSS Smooth Marquee */
 @keyframes smoothMarquee {
   0% {
     transform: translate3d(0, 0, 0);

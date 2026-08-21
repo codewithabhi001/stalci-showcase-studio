@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchIndustries } from "@/lib/api";
 import { BadgePill } from "./Brand";
 import { motion, AnimatePresence } from "framer-motion";
 

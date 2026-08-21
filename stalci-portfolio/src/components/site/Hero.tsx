@@ -1,4 +1,4 @@
-﻿import { 
+import { 
   ArrowRight, 
   Sparkles,
   Smartphone,
@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSiteConfigMap } from "@/lib/api";
 import { BadgePill, StalciLogoIcon } from "./Brand";
+import { Link } from "@tanstack/react-router";
 
 const clientLogos = [
   { name: "ARROW", slug: "arrow" },
@@ -29,12 +30,14 @@ export function Hero() {
     queryFn: fetchSiteConfigMap,
   });
 
+  const heroTitle = config.heroTitle || "Engineering Sovereign AI & Next-Gen Digital Platforms";
   const heroSubtitle =
     config.heroSubtitle ||
     "STALCI engineers custom software, high-performance web & mobile platforms, and sovereign AI solutions for startups, enterprises, and large-scale organizations worldwide.";
+  const heroBadge = config.heroBadge || "Sovereign AI • Cloud Infrastructure • Platform Engineering";
 
   return (
-    <div className="flex flex-col bg-[#000000] text-white overflow-hidden w-full contain-paint">
+    <div className="flex flex-col bg-[#000000] text-white overflow-hidden w-full contain-paint font-sans">
       
       {/* ─── Screen 1: Flagship Sovereign Studio Hero ─── */}
       <section
@@ -56,14 +59,13 @@ export function Hero() {
           <div className="flex justify-center mb-0.5">
             <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-900/40 bg-[#060913]/90 px-3.5 py-1 text-[10.5px] sm:text-xs font-mono text-zinc-300 shadow-sm backdrop-blur-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-[#0052FF] shadow-[0_0_6px_#0052FF] shrink-0" />
-              <span className="sm:hidden">⚡ Sovereign AI &bull; Cloud Studio</span>
-              <span className="hidden sm:inline">Sovereign AI &bull; Cloud Infrastructure &bull; Platform Engineering</span>
+              <span>{heroBadge}</span>
             </div>
           </div>
 
           {/* Expansive, Sleek, Wide Headline */}
           <h1 className="text-balance text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-bold leading-[1.18] tracking-tight text-white max-w-5xl mx-auto font-display px-2">
-            Engineering Sovereign AI &amp; Next-Gen Digital Platforms
+            {heroTitle}
           </h1>
 
           {/* Subtitle */}
@@ -73,24 +75,24 @@ export function Hero() {
 
           {/* Dual Action Buttons */}
           <div className="pt-1.5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3.5 w-full max-w-[280px] sm:max-w-none mx-auto">
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-2.5 sm:px-7 sm:py-2.5 text-xs sm:text-[13px] font-bold text-black hover:bg-neutral-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-[1.02] active:scale-98 cursor-pointer"
             >
               <span>Initiate Architecture</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
 
-            <a
-              href="/#projects"
+            <Link
+              to="/projects"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 py-2.5 sm:px-7 sm:py-2.5 text-xs sm:text-[13px] font-semibold text-white hover:bg-white/[0.1] hover:border-white/40 backdrop-blur-md transition-all cursor-pointer"
             >
               <span>Explore Realized Systems</span>
               <ArrowRight className="h-3.5 w-3.5 text-zinc-300" />
-            </a>
+            </Link>
           </div>
 
-          {/* ─── Grand Hexagonal Winged Circuit Hub (Zero-Lag GPU Acceleration) ─── */}
+          {/* Grand Hexagonal Winged Circuit Hub */}
           <div className="pt-6 sm:pt-8 relative w-full max-w-4xl lg:max-w-5xl mx-auto px-1 gpu-layer">
             <div className="relative flex items-center justify-center h-[200px] sm:h-[240px]">
               
@@ -265,7 +267,7 @@ export function Hero() {
         </div>
       </section>
 
-      {/* ─── Screen 2: Pure Obsidian Black Marquee Floor (GPU CSS Marquee) ─── */}
+      {/* ─── Screen 2: Pure Obsidian Black Marquee Floor ─── */}
       <section className="flex-none w-full bg-[#000000] pt-8 sm:pt-14 pb-12 sm:pb-18 relative z-10 overflow-hidden">
         
         {/* Subtle Perspective Grid Lines Floor */}

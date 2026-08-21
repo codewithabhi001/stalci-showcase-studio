@@ -1,11 +1,16 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSiteConfigMap } from "@/lib/api";
 import { Plus, X } from "lucide-react";
 import { BadgePill } from "./Brand";
 
-const faqs = [
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+const defaultFaqs: FaqItem[] = [
   {
     q: "Is your AI-enabled process just a gimmick?",
     a: "Nope. The thinking and architecture come from our engineers, that's the part you're paying for. AI co-pilots take care of the boring stuff like boilerplate, naming, and repetitive scaffolding, so the team can spend more time on the parts that actually shape your product.",
@@ -30,6 +35,15 @@ const faqs = [
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const { data: config = {} } = useQuery({
+    queryKey: ["site-config-map"],
+    queryFn: fetchSiteConfigMap,
+  });
+
+  const dynamicFaqs: FaqItem[] = config.faqsJson
+    ? JSON.parse(config.faqsJson)
+    : defaultFaqs;
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -66,7 +80,7 @@ export function FAQ() {
 
           {/* ─── Right Column: Minimalist Accordion (Screenshot 5 Match) ─── */}
           <div className="lg:col-span-7 divide-y divide-zinc-200/80">
-            {faqs.map((faq, index) => {
+            {dynamicFaqs.map((faq, index) => {
               const isOpen = openIndex === index;
 
               return (

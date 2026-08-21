@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { 
   Menu, 
   X, 
@@ -6,19 +6,19 @@ import {
   Sparkles, 
   ArrowRight, 
   Cpu, 
-  Layers, 
-  Code2,
-  Boxes,
-  Database,
-  CloudLightning,
-  Workflow,
-  Globe,
+  Code2, 
+  Boxes, 
+  Database, 
+  CloudLightning, 
+  Workflow, 
   Smartphone,
-  ShieldCheck,
-  Building2
+  Building2,
+  FolderGit2,
+  Info
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Wordmark } from "./Brand";
+import { Link } from "@tanstack/react-router";
 
 const navLinks = [
   {
@@ -48,11 +48,13 @@ const navLinks = [
   },
   {
     label: "Our Work",
-    href: "/#projects",
+    href: "/projects",
+    icon: FolderGit2,
   },
   {
     label: "Services",
-    href: "/services/software-engineering",
+    href: "/services",
+    icon: Code2,
     dropdown: [
       {
         name: "Enterprise Software Engineering",
@@ -75,8 +77,9 @@ const navLinks = [
     ],
   },
   {
-    label: "Solutions",
-    href: "/#products",
+    label: "Products",
+    href: "/products",
+    icon: Boxes,
     dropdown: [
       {
         name: "Stalci AI Studio Accelerator",
@@ -93,16 +96,32 @@ const navLinks = [
     ],
   },
   {
-    label: "Industry",
-    href: "/#industries",
+    label: "Industries",
+    href: "/industries",
+    icon: Building2,
+    dropdown: [
+      {
+        name: "FinTech & Banking",
+        desc: "PCI-DSS engines & ledger architectures",
+        href: "/industries/fintech",
+        icon: Building2,
+      },
+      {
+        name: "HealthTech & Life Sciences",
+        desc: "HIPAA-compliant telemetry & FHIR pipelines",
+        href: "/industries/healthcare",
+        icon: Sparkles,
+      },
+    ],
   },
   {
     label: "Careers",
     href: "/careers",
   },
   {
-    label: "Company",
-    href: "/#about",
+    label: "About Us",
+    href: "/about",
+    icon: Info,
   },
 ];
 
@@ -122,7 +141,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
   return (
     <header 
       className={`sticky top-0 z-50 w-full transition-all duration-200 ${
-        scrolled 
+        scrolled || solid
           ? "bg-white/95 backdrop-blur-md border-b border-zinc-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)]" 
           : "bg-white border-b border-zinc-200/80"
       }`}
@@ -132,20 +151,20 @@ export function Nav({ solid = false }: { solid?: boolean }) {
           
           {/* Left: STALCI Brand Logo + Clean "We're hiring" Tag */}
           <div className="flex items-center gap-3">
-            <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+            <Link to="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
               <Wordmark tone="light" markSize={36} />
-            </a>
+            </Link>
             
-            <a 
-              href="/careers" 
+            <Link 
+              to="/careers" 
               className="hidden md:inline-flex items-center gap-1 rounded-full bg-zinc-100 border border-zinc-200/80 px-2.5 py-0.5 text-[10px] font-medium text-zinc-600 hover:text-black hover:bg-zinc-200 transition-colors"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               <span>We're hiring</span>
-            </a>
+            </Link>
           </div>
 
-          {/* Center: Ultra-Clean Minimalist Navigation Links (No Cluttered Blue Bubble Badges) */}
+          {/* Center: Clean Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navLinks.map((item) => (
               <div 
@@ -154,8 +173,8 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                 onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href as any}
                   className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs sm:text-[13.5px] font-medium transition-colors duration-150 cursor-pointer ${
                     activeDropdown === item.label
                       ? "text-zinc-950 bg-zinc-100/80"
@@ -169,7 +188,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                       activeDropdown === item.label ? "rotate-180 text-zinc-950" : "text-zinc-400"
                     }`} />
                   )}
-                </a>
+                </Link>
 
                 {/* Clean Flyout Board */}
                 {item.dropdown && (
@@ -185,9 +204,9 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                         <div className="rounded-2xl border border-zinc-200/90 bg-white p-2.5 shadow-xl text-black">
                           <div className="space-y-1">
                             {item.dropdown.map((sub) => (
-                              <a
+                              <Link
                                 key={sub.name}
-                                href={sub.href}
+                                to={sub.href as any}
                                 className="group flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-zinc-50 cursor-pointer"
                               >
                                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 border border-zinc-200/80 text-zinc-800 group-hover:bg-zinc-950 group-hover:text-white transition-colors">
@@ -201,7 +220,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
                                     {sub.desc}
                                   </span>
                                 </div>
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </div>
@@ -215,13 +234,13 @@ export function Nav({ solid = false }: { solid?: boolean }) {
 
           {/* Right: Solid Black CTA Pill Button */}
           <div className="hidden sm:flex items-center gap-3">
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-xs sm:text-[13px] font-semibold text-white hover:bg-black transition-all shadow-xs hover:shadow-sm cursor-pointer"
             >
               <span>Consult an Architect</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -251,25 +270,25 @@ export function Nav({ solid = false }: { solid?: boolean }) {
             <div className="space-y-3">
               {navLinks.map((item) => (
                 <div key={item.label} className="border-b border-zinc-100 pb-2">
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href as any}
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between text-sm font-semibold text-zinc-900 py-1"
                   >
                     <span>{item.label}</span>
                     {item.dropdown && <ChevronDown className="h-4 w-4 text-zinc-400" />}
-                  </a>
+                  </Link>
                   {item.dropdown && (
                     <div className="mt-2 pl-3 space-y-2">
                       {item.dropdown.map((sub) => (
-                        <a
+                        <Link
                           key={sub.name}
-                          href={sub.href}
+                          to={sub.href as any}
                           onClick={() => setOpen(false)}
                           className="block text-xs text-zinc-600 hover:text-black py-0.5"
                         >
                           {sub.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -277,14 +296,14 @@ export function Nav({ solid = false }: { solid?: boolean }) {
               ))}
 
               <div className="pt-3">
-                <a
-                  href="/contact"
+                <Link
+                  to="/contact"
                   onClick={() => setOpen(false)}
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-zinc-950 px-6 py-3 text-xs font-bold text-white shadow-sm"
                 >
                   <span>Consult an Architect</span>
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>
